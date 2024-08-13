@@ -9,7 +9,7 @@ class CreateDisabilityTypesTable extends Migration
     public function up()
     {
         Schema::create('disability_types', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
             $table->timestamps();
             $table->string('title')->nullable();
             $table->string('type')->nullable();

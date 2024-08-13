@@ -10,7 +10,7 @@ class AddCountryIdToCitiesTable extends Migration
     {
         Schema::table('cities', function (Blueprint $table) {
 
-            $table->unsignedBigInteger('country_id')->nullable()->after('id');
+            $table->unsignedInteger('country_id')->nullable()->after('id');
             $table->foreign('country_id')->references('id')->on('countries')->onDelete('set null');
         });
     }
