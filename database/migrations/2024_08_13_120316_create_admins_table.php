@@ -9,7 +9,7 @@ class CreateAdminsTable extends Migration
     public function up()
     {
         Schema::create('admins', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id();
             $table->string('name', 191)->nullable();
             $table->string('phone', 191)->nullable();
             $table->string('email', 191)->nullable();

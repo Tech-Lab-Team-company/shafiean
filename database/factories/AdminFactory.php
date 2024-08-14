@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Models\Admin;
+use App\Models\Admin\Admin;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
@@ -16,7 +16,7 @@ class AdminFactory extends Factory
             'name' => $this->faker->name,
             'phone' => $this->faker->phoneNumber,
             'email' => $this->faker->unique()->safeEmail,
-            'password' => $this->faker->password, // Ensure this matches your validation
+            'password' => bcrypt('password'),
             'api_key' => Str::random(32),
             'job_title' => $this->faker->jobTitle,
         ];

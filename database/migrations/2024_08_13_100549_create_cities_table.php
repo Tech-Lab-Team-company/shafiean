@@ -9,14 +9,19 @@ class CreateCitiesTable extends Migration
     public function up()
     {
         Schema::create('cities', function (Blueprint $table) {
-            $table->increments('id');
-            $table->timestamps();
-            $table->string('title')->nullable();
+            $table->id();
+            $table->string('title');
+            $table->unsignedBigInteger('country_id')->nullable();
 
+            $table->timestamps();
+
+            $table->foreign('country_id')
+                ->references('id')->on('countries')
+                ->onDelete('set null');
         });
     }
 
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('cities');
     }

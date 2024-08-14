@@ -9,7 +9,7 @@ class CreateTeachersTable extends Migration {
     public function up()
     {
         Schema::create('teachers', function(Blueprint $table) {
-            $table->increments('id');
+            $table->id();
             $table->timestamps();
             $table->string('name')->nullable();
             $table->string('phone')->nullable();
@@ -19,7 +19,7 @@ class CreateTeachersTable extends Migration {
             $table->string('api_key')->nullable();
             $table->string('age')->nullable();
             $table->string('image')->nullable();
-            $table->integer('organazation_id')->unsigned()->nullable();
+            $table->unsignedBigInteger('organization_id')->nullable();
         });
     }
 

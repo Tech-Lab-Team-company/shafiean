@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Teacher extends Model
 {
     use HasFactory;
+    protected $table = "teacher";
 
     protected $fillable = [
         'name',
@@ -21,9 +23,9 @@ class Teacher extends Model
         'organization_id',
     ];
 
-    // Define the relationship with Organization model
-    public function organization()
+
+    public function organization() : BelongsTo
     {
-        return $this->belongsTo(Organization::class);
+        return $this->belongsTo(Organization::class , 'organization_id');
     }
 }

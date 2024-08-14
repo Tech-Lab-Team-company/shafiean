@@ -2,8 +2,8 @@
 
 namespace Database\Factories;
 
-use App\Models\AdminHistory;
-use App\Models\Admin;
+use App\Models\Admin\Admin;
+use App\Models\Admin\AdminHistory;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class AdminHistoryFactory extends Factory

@@ -9,7 +9,7 @@ class CreateCurriculumsTable extends Migration
     public function up()
     {
         Schema::create('curriculums', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id();
             $table->timestamps();
             $table->string('title', 191);
             $table->integer('type');
@@ -17,7 +17,7 @@ class CreateCurriculumsTable extends Migration
             $table->date('from');
             $table->date('to');
             $table->string('order');
-            $table->unsignedInteger('curriculum_id');
+            $table->unsignedBigInteger('curriculum_id')->nullable();
         });
     }
 
