@@ -2,17 +2,28 @@
 
 namespace Database\Seeders;
 
-use App\Models\City;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use App\Models\City;
 
 class CitySeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run()
     {
-        City::factory()->count(10)->create();
+        // You may choose to truncate the table if needed
+       //  DB::table('cities')->truncate();
+        DB::table('cities')->insert([
+            ['title' => 'Vinnie ', 'country_id' => 1],
+            ['title' => 'Vinnie Ha', 'country_id' => 2],
+            ['title' => 'Vinnie Har', 'country_id' => 3],
+            ['title' => 'Vinnie Harb', 'country_id' => 4],
+            ['title' => 'Vinnie Harber', 'country_id' => 11],
+            // Add more cities as needed
+        ]);
+
+        //City::factory()->count(10)->create();
     }
 }
+

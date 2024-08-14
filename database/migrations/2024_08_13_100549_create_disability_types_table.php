@@ -12,9 +12,8 @@ class CreateDisabilityTypesTable extends Migration
             $table->id();
             $table->timestamps();
             $table->string('title')->nullable();
-            $table->string('type')->nullable();
             $table->integer('order')->nullable();
-            $table->string('string')->nullable();
+
         });
     }
 

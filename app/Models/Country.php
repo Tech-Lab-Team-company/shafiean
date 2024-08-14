@@ -11,7 +11,7 @@ class Country extends Model
     use HasFactory;
 
     protected $fillable = ['title'];
-    protected $table = "country";
+    protected $table = 'countries';
 
     public function cities() :HasMany
     {
