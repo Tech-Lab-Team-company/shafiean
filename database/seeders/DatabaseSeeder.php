@@ -9,14 +9,17 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call([
-//            CitySeeder::class,
-//            DisabilityTypeSeeder::class,
-//            CountrySeeder::class,
-//            UserSeeder::class,
-//            AdminSeeder::class,
-//            AdminHistorySeeder::class,
-           // TeachersTableSeeder::class,
-            OrganizationsTableSeeder::class
+            UserSeeder::class,
+            CitySeeder::class,
+            DisabilityTypeSeeder::class,
+            CountrySeeder::class,
+
+            AdminSeeder::class,
+            AdminHistorySeeder::class,
+            TeachersTableSeeder::class,
+            OrganizationsTableSeeder::class,
+            CurriculumSeeder::class,
+
         ]);
     }
 }

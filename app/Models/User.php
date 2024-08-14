@@ -19,7 +19,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name', 'email', 'phone', 'password', 'gender',
         'city_id', 'disability_type_id', 'country_id',
-        'api_key', 'image',
+        'api_key', 'image'
     ];
 
     /**
@@ -56,8 +56,10 @@ class User extends Authenticatable
         return $this->belongsTo(Country::class);
     }
 
-    public function disabilityType()
+    public function disability_Type()
     {
         return $this->belongsTo(DisabilityType::class);
     }
+
+
 }

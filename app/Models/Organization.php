@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Organization extends Model
 {
     use HasFactory;
+    protected $table = "organizations";
 
     protected $fillable = [
         'name',
@@ -22,10 +24,9 @@ class Organization extends Model
         'manager_email',
     ];
 
-    // Define the relationship with Teacher model
-    public function teachers()
+    public function teachers() :HasMany
     {
-        return $this->hasMany(Teacher::class);
+        return $this->hasMany(Teacher::class , 'organization_id');
     }
 }
 

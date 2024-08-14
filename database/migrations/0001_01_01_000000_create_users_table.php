@@ -19,7 +19,6 @@ return new class extends Migration
             $table->string('password');
             $table->string('phone')->nullable();
             $table->string('gender')->nullable();
-
             $table->string('api_key')->nullable();
             $table->string('image')->nullable();
             $table->rememberToken();

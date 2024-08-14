@@ -9,8 +9,8 @@ class AddForeignKeyToTeachersTable extends Migration {
     public function up()
     {
         Schema::table('teachers', function(Blueprint $table) {
-            $table->foreign('organazation_id')
-                ->references('id')
+            $table->foreign('organization_id')
+            ->references('id')
                 ->on('organizations')
                 ->onDelete('set null');
         });
@@ -19,7 +19,7 @@ class AddForeignKeyToTeachersTable extends Migration {
     public function down()
     {
         Schema::table('teachers', function(Blueprint $table) {
-            $table->dropForeign(['organazation_id']);
+            $table->dropForeign(['organization_id']);
         });
     }
 }
