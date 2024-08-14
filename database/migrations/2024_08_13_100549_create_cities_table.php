@@ -12,7 +12,6 @@ class CreateCitiesTable extends Migration
             $table->id();
             $table->string('title');
             $table->unsignedBigInteger('country_id')->nullable();
-
             $table->timestamps();
 
             $table->foreign('country_id')
@@ -21,7 +20,7 @@ class CreateCitiesTable extends Migration
         });
     }
 
-    public function down(): void
+    public function down()
     {
         Schema::dropIfExists('cities');
     }

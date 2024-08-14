@@ -1,9 +1,10 @@
 <?php
 
+
 namespace Database\Seeders;
 
-use App\Models\Admin\AdminHistory;
 use Illuminate\Database\Seeder;
+use App\Models\Admin\AdminHistory;
 
 class AdminHistorySeeder extends Seeder
 {
@@ -12,4 +13,3 @@ class AdminHistorySeeder extends Seeder
         AdminHistory::factory()->count(10)->create();
     }
 }
-

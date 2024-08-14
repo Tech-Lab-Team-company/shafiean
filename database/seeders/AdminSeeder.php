@@ -2,14 +2,15 @@
 
 namespace Database\Seeders;
 
-use App\Models\Admin\Admin;
 use Illuminate\Database\Seeder;
+use App\Models\Admin\Admin;
 
 class AdminSeeder extends Seeder
 {
     public function run()
     {
-        Admin::factory()->count(10)->create(); // Adjust count as needed
+        Admin::factory()->count(10)->create();
     }
 }
+
 

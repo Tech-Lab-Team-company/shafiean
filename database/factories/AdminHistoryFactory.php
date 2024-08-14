@@ -2,8 +2,8 @@
 
 namespace Database\Factories;
 
-use App\Models\Admin\Admin;
 use App\Models\Admin\AdminHistory;
+use App\Models\Admin\Admin;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class AdminHistoryFactory extends Factory
@@ -13,7 +13,7 @@ class AdminHistoryFactory extends Factory
     public function definition()
     {
         return [
-            'admin_id' => Admin::inRandomOrder()->first()->id,
+            'admin_id' => Admin::factory(), // Link to a newly created Admin
             'creatable_type' => $this->faker->word,
             'editable_type' => $this->faker->word,
             'model_id' => $this->faker->randomNumber(),
@@ -22,4 +22,3 @@ class AdminHistoryFactory extends Factory
         ];
     }
 }
-

@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\DisabilityType;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 class DisabilityTypeFactory extends Factory
 {
@@ -12,7 +13,8 @@ class DisabilityTypeFactory extends Factory
     public function definition()
     {
         return [
-            'type' => $this->faker->word,
+            'title' => $this->faker->word,
+            'order' => $this->faker->numberBetween(1, 10),
 
         ];
     }
