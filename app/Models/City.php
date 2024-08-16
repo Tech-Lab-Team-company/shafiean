@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class City extends Model
 {
     use HasFactory;
-    protected $table = "city";
+    protected $table = 'cities';
     protected $fillable = ['title', 'country_id'];
 
     public function country() : BelongsTo

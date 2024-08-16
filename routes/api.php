@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CountryController;
+use App\Http\Controllers\CityController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -18,8 +19,6 @@ Route::prefix('users')->group(function () {
     Route::delete('/{id}', [UserController::class, 'destroy'])->name('users.destroy');
 });
 
-
-Route::apiResource('countries', CountryController::class);
 // Country Routes
 Route::prefix('countries')->group(function () {
     Route::get('/', [CountryController::class, 'index'])->name('countries.index');
@@ -27,4 +26,13 @@ Route::prefix('countries')->group(function () {
     Route::get('/{id}', [CountryController::class, 'show'])->name('countries.show');
     Route::put('/{id}', [CountryController::class, 'update'])->name('countries.update');
     Route::delete('/{id}', [CountryController::class, 'destroy'])->name('countries.destroy');
+});
+
+// City Routes
+Route::prefix('cities')->group(function () {
+    Route::get('/', [CityController::class, 'index'])->name('cities.index');
+    Route::post('/', [CityController::class, 'store'])->name('cities.store');
+    Route::get('/{id}', [CityController::class, 'show'])->name('cities.show');
+    Route::put('/{id}', [CityController::class, 'update'])->name('cities.update');
+    Route::delete('/{id}', [CityController::class, 'destroy'])->name('cities.destroy');
 });
