@@ -9,6 +9,11 @@ class UserService
 {
     public function createUser(array $data)
     {
+        if (isset($data['image'])) {
+            $imagePath = upload_image('public/users', $data['image']);
+        } else {
+            $imagePath = 'uploads/default.jpg';
+        }
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
@@ -16,9 +21,10 @@ class UserService
             'phone' => $data['phone'],
             'gender' => $data['gender'],
             'api_key' => $data['api_key'],
-            'image' => $data['image'],
+            'image' => $imagePath,
         ]);
     }
+
 
     public function updateUser(User $user, array $data)
     {
