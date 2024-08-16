@@ -12,15 +12,13 @@ class CitySeeder extends Seeder
 {
     public function run()
     {
-        // You may choose to truncate the table if needed
-       //  DB::table('cities')->truncate();
         DB::table('cities')->insert([
             ['title' => 'Vinnie ', 'country_id' => 1],
             ['title' => 'Vinnie Ha', 'country_id' => 2],
             ['title' => 'Vinnie Har', 'country_id' => 3],
             ['title' => 'Vinnie Harb', 'country_id' => 4],
             ['title' => 'Vinnie Harber', 'country_id' => 11],
-            // Add more cities as needed
+
         ]);
 
         //City::factory()->count(10)->create();
