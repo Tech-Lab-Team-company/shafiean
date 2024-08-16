@@ -16,6 +16,11 @@ class DatabaseSeeder extends Seeder
             DisabilityTypeSeeder::class,
             AdminSeeder::class,
             AdminHistorySeeder::class,
+            OrganizationSeeder::class,
+            TeacherSeeder::class,
+            CurriculumSeeder::class,
+            StageSeeder::class,
+            TermSeeder::class,
         ]);
     }
 }

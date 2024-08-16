@@ -22,4 +22,9 @@ class City extends Model
     {
         return $this->hasMany(User::class , 'user_id');
     }
+
+    public function organizations() : HasMany
+    {
+        return $this->hasMany(Organization::class, 'city_id');
+    }
 }
