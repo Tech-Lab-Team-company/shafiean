@@ -21,15 +21,20 @@ class DisabilityTypeService
         return DisabilityType::create($data);
     }
 
-    public function update(DisabilityType $disabilityType, array $data)
+    public function update($id , array $data)
     {
+
+        $disabilityType = DisabilityType::findOrFail($id);
         $disabilityType->update($data);
         return $disabilityType;
+
+
     }
 
-    public function delete(DisabilityType $disabilityType)
+    public function delete($id)
     {
-        return $disabilityType->delete();
+        $disabilityType = DisabilityType::findOrFail($id);
+        $disabilityType->delete();
     }
 }
 

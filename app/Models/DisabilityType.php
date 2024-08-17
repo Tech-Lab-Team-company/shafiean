@@ -13,9 +13,7 @@ class DisabilityType extends Model
 
     protected $fillable = [
         'title',
-        'type',
-        'order',
-        'string'
+        'order'
     ];
 
     public function users() :HasMany

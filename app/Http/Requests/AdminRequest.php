@@ -24,7 +24,7 @@ class AdminRequest extends FormRequest
                 'max:191',
                 Rule::unique('admins')->ignore($this->admin),
             ],
-            'password' => 'required|string|min:8',
+            'password' => 'nullable|string|min:8',
             'api_key' => 'nullable|string',
             'job_title' => 'nullable|string|max:191',
         ];

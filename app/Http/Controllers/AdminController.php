@@ -43,6 +43,6 @@ class AdminController extends Controller
     public function destroy(Admin $admin)
     {
         $this->adminService->delete($admin);
-        return response()->json(null, Response::HTTP_NO_CONTENT);
+        return new AdminResource($admin);
     }
 }

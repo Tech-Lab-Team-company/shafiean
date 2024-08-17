@@ -28,15 +28,16 @@ class UserService
 
     public function updateUser(User $user, array $data)
     {
-        $user->update([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => isset($data['password']) ? Hash::make($data['password']) : $user->password,
-            'phone' => $data['phone'],
-            'gender' => $data['gender'],
-            'api_key' => $data['api_key'],
-            'image' => $data['image'],
-        ]);
+        $user->update($data);
+//        $user->update([
+//            'name' => $data['name'],
+//            'email' => $data['email'],
+//            'password' => isset($data['password']) ? Hash::make($data['password']) : $user->password,
+//            'phone' => $data['phone'],
+//            'gender' => $data['gender'],
+//            'api_key' => $data['api_key'],
+//            'image' => $data['image'],
+//        ]);
 
         return $user;
     }
