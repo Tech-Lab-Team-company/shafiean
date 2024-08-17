@@ -5,10 +5,21 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CountryController;
 use App\Http\Controllers\CityController;
+use App\Http\Controllers\DisabilityTypeController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AdminHistoryController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
+
+
+
+
+
+Route::apiResource('admins', AdminController::class);
+Route::apiResource('admin_histories', AdminHistoryController::class);
+Route::apiResource('disability_types', DisabilityTypeController::class);
 
 // User Routes
 Route::prefix('users')->group(function () {
