@@ -11,12 +11,12 @@ class CreateCurriculumsTable extends Migration
         Schema::create('curriculums', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->string('title', 191);
-            $table->integer('type');
-            $table->string('time', 191);
-            $table->date('from');
-            $table->date('to');
-            $table->string('order');
+            $table->string('title', 191)->nullable();
+            $table->integer('type')->nullable();
+            $table->string('time', 191)->nullable();
+            $table->date('from')->nullable();
+            $table->date('to')->nullable();
+            $table->string('order')->nullable();
             $table->unsignedBigInteger('curriculum_id')->nullable();
         });
     }

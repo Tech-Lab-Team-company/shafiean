@@ -34,16 +34,16 @@ class DisabilityTypeController extends Controller
         return new DisabilityTypeResource($disabilityType);
     }
 
-    public function update(DisabilityTypeRequest $request, DisabilityType $disabilityType)
+    public function update(DisabilityTypeRequest $request, $id)
     {
-        $updatedDisabilityType = $this->disabilityTypeService->update($disabilityType, $request->validated());
+        $updatedDisabilityType = $this->disabilityTypeService->update($id, $request->validated());
         return new DisabilityTypeResource($updatedDisabilityType);
     }
 
-    public function destroy(DisabilityType $disabilityType)
+    public function destroy($id )
     {
-        $this->disabilityTypeService->delete($disabilityType);
-        return response()->json(null, Response::HTTP_NO_CONTENT);
+        $this->disabilityTypeService->delete($id);
+        return response()->json(['message' => 'disability deleted successfully.'], 200);
     }
 }
 
