@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CityRequest;
 use App\Http\Resources\CityResource;
 use App\Services\CityService;
-use Illuminate\Http\Request;
 
 class CityController extends Controller
 {
@@ -18,14 +17,13 @@ class CityController extends Controller
 
     public function index()
     {
-        $cities = $this->cityService->getAllCities();
-        return CityResource::collection($cities);
+        return $this->cityService->getAllCities()->response();
+       // return CityResource::collection($cities);
     }
 
     public function store(CityRequest $request)
     {
-        $city = $this->cityService->createCity($request->validated());
-        return new CityResource($city);
+        return $this->cityService->createCity($request->validated())->response();
     }
 
     public function show($id)
@@ -36,14 +34,13 @@ class CityController extends Controller
 
     public function update(CityRequest $request, $id)
     {
-        $city = $this->cityService->updateCity($id, $request->validated());
-        return new CityResource($city);
+        return $this->cityService->updateCity($id, $request->validated())->response();
     }
 
     public function destroy($id)
     {
-        $this->cityService->deleteCity($id);
-        return response()->json(['message' => 'City deleted successfully']);
+        return $this->cityService->deleteCity($id)->response();
     }
 }
+
 

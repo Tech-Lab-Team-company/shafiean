@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Helpers\Response\DataStatus;
 use App\Http\Requests\UserRequest;
 use App\Http\Resources\UserResource;
 use App\Services\UserService;
-
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -22,14 +20,11 @@ class UserController extends Controller
     {
         $users = $this->userService->getAllUsers();
         return UserResource::collection($users);
-
     }
 
     public function store(UserRequest $request)
     {
-        $user = $this->userService->createUser($request->validated());
-//        return new UserResource($user);
-
+        return $this->userService->createUser($request->validated())->response();
     }
 
     public function show($id)
@@ -40,16 +35,14 @@ class UserController extends Controller
 
     public function update(UserRequest $request, $id)
     {
-        $user = $this->userService->getUserById($id);
-        $user = $this->userService->updateUser($user, $request->validated());
-        return new UserResource($user);
+        return $this->userService->updateUser($id, $request->validated())->response();
     }
 
     public function destroy($id)
     {
-        $user = $this->userService->getUserById($id);
-        $this->userService->deleteUser($user);
-        return response()->json(['message' => 'User deleted successfully.'], 200);
+        return $this->userService->deleteUser($id)->response();
+
     }
 }
+
 

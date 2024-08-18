@@ -14,11 +14,11 @@ class TermRequest extends FormRequest
     public function rules()
     {
         return [
-            'timestamp' => 'required|date',
-            'type' => 'required|string|max:255',
-            'order' => 'required|integer',
-            'curriculum_id' => 'required|exists:curriculums,id',
-            'disability_type_id' => 'required|exists:disability_types,id',
+            'timestamp' => 'nullable|date',
+            'type' => 'nullable|string|max:255',
+            'order' => 'nullable|integer',
+            'curriculum_id' => 'nullable|exists:curriculums,id',
+            'disability_type_id' => 'nullable|exists:disability_types,id',
         ];
     }
 }

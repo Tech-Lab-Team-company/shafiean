@@ -4,9 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\AdminRequest;
 use App\Http\Resources\AdminResource;
-use App\Models\Admin\Admin;
 use App\Services\AdminService;
-use Illuminate\Http\Response;
 
 class AdminController extends Controller
 {
@@ -19,13 +17,14 @@ class AdminController extends Controller
 
     public function index()
     {
-        return AdminResource::collection($this->adminService->getAll());
+        $admins = $this->adminService->getAll();
+        return AdminResource::collection($admins);
     }
 
     public function store(AdminRequest $request)
     {
-        $admin = $this->adminService->create($request->validated());
-        return new AdminResource($admin);
+        return $this->adminService->create($request->validated())->response();
+
     }
 
     public function show($id)
@@ -34,15 +33,16 @@ class AdminController extends Controller
         return new AdminResource($admin);
     }
 
-    public function update(AdminRequest $request,$id)
+    public function update(AdminRequest $request, $id)
     {
-        $updatedAdmin = $this->adminService->update($id, $request->validated());
-        return new AdminResource($updatedAdmin);
+       return $this->adminService->update($id, $request->validated())->response();
+
     }
 
-    public function destroy(Admin $admin)
+    public function destroy($id)
     {
-        $this->adminService->delete($admin);
-        return new AdminResource($admin);
+        return $this->adminService->delete($id)->response();
+
     }
 }
+

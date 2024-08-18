@@ -2,6 +2,8 @@
 
 namespace App\Services;
 
+use App\Helpers\Response\DataStatus;
+use App\Helpers\Response\DataSuccess;
 use App\Models\Admin\AdminHistory;
 
 class AdminHistoryService
@@ -16,20 +18,35 @@ class AdminHistoryService
         return AdminHistory::findOrFail($id);
     }
 
-    public function create(array $data)
+    public function create(array $data): DataStatus
     {
-        return AdminHistory::create($data);
+        $adminHistory = AdminHistory::create($data);
+        return new DataSuccess(
+            data: $adminHistory,
+            statusCode: 201,
+            message: 'Admin history created successfully'
+        );
     }
 
-    public function update(AdminHistory $adminHistory, array $data)
+    public function update($id, array $data): DataStatus
     {
+        $adminHistory = AdminHistory::findOrFail($id);
         $adminHistory->update($data);
-        return $adminHistory;
+        return new DataSuccess(
+            data: $adminHistory,
+            statusCode: 200,
+            message: 'Admin history updated successfully'
+        );
     }
 
-    public function delete(AdminHistory $adminHistory)
+    public function delete(AdminHistory $adminHistory): DataStatus
     {
-        return $adminHistory->delete();
+        $adminHistory->delete();
+        return new DataSuccess(
+            statusCode: 200,
+            message: 'Admin history deleted successfully'
+        );
     }
 }
+
 
