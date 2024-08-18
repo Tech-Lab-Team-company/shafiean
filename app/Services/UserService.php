@@ -2,19 +2,20 @@
 
 namespace App\Services;
 
+use App\Helpers\Response\DataStatus;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
 class UserService
 {
-    public function createUser(array $data)
+    public function createUser(array $data) : DataStatus
     {
         if (isset($data['image'])) {
             $imagePath = upload_image('public/users', $data['image']);
         } else {
             $imagePath = 'uploads/default.jpg';
         }
-        return User::create([
+         $data = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
@@ -23,6 +24,12 @@ class UserService
             'api_key' => $data['api_key'],
             'image' => $imagePath,
         ]);
+
+        return new DataStatus(
+//            statusCode : 200,
+            data: $data ,
+            message : 'User created successfully',
+        );
     }
 
 
