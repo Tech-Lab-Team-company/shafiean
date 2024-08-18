@@ -18,32 +18,32 @@ class OrganizationController extends Controller
 
     public function index()
     {
-        $organizations = $this->organizationService->getAllOrganizations();
-        return OrganizationResource::collection($organizations);
+        return $this->organizationService->getAllOrganizations()->response();
+
     }
 
     public function store(OrganizationRequest $request)
     {
-        $organization = $this->organizationService->createOrganization($request->validated());
-        return new OrganizationResource($organization);
+        return $this->organizationService->createOrganization($request->validated())->response();
+
     }
 
     public function show($id)
     {
-        $organization = $this->organizationService->getOrganizationById($id);
-        return new OrganizationResource($organization);
+        return $this->organizationService->getOrganizationById($id)->response();
+
     }
 
     public function update(OrganizationRequest $request, $id)
     {
-        $organization = $this->organizationService->updateOrganization($id, $request->validated());
-        return new OrganizationResource($organization);
+        return $this->organizationService->updateOrganization($id, $request->validated())->response();
+
     }
 
     public function destroy($id)
     {
-        $this->organizationService->deleteOrganization($id);
-        return response()->json(['message' => 'organization deleted successfully.'], 200);
+       return $this->organizationService->deleteOrganization($id)->response();
+
     }
 }
 

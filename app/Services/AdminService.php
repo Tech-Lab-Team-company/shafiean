@@ -2,7 +2,8 @@
 
 namespace App\Services;
 
-
+use App\Helpers\Response\DataStatus;
+use App\Helpers\Response\DataSuccess;
 use App\Models\Admin\Admin;
 
 class AdminService
@@ -17,21 +18,38 @@ class AdminService
         return Admin::findOrFail($id);
     }
 
-    public function create(array $data)
+    public function create(array $data): DataStatus
     {
-        return Admin::create($data);
+        $admin = Admin::create($data);
+        return new DataSuccess(
+            data: $admin,
+            statusCode: 200,
+            message: 'Admin created successfully'
+        );
     }
 
-    public function update($id, array $data)
+    public function update($id, array $data): DataStatus
     {
-        $admin = Admin::find($id);
+        $admin = Admin::findOrFail($id);
         $admin->update($data);
-        return $admin;
+
+        return new DataSuccess(
+            data: $admin,
+            statusCode: 200,
+            message: 'Admin updated successfully'
+        );
     }
 
-    public function delete(Admin $admin)
+    public function delete($id): DataStatus
     {
-        return $admin->delete();
+        $admin = Admin::findOrFail($id);
+        $admin->delete();
+
+        return new DataSuccess(
+            statusCode: 200,
+            message: 'Admin deleted successfully'
+        );
     }
 }
+
 

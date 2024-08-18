@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CountryRequest;
 use App\Http\Resources\CountryResource;
 use App\Services\CountryService;
-use Illuminate\Http\Request;
 
 class CountryController extends Controller
 {
@@ -18,34 +17,26 @@ class CountryController extends Controller
 
     public function index()
     {
-
-        $countries = $this->countryService->getAllCountries();
-        return CountryResource::collection($countries);
+        return $this->countryService->getAllCountries()->response();
     }
 
     public function store(CountryRequest $request)
     {
-        $country = $this->countryService->createCountry($request->validated());
-        return new CountryResource($country);
+        return $this->countryService->createCountry($request->validated())->response();
     }
 
     public function show($id)
     {
-        $country = $this->countryService->getCountryById($id);
-        return new CountryResource($country);
+        return $this->countryService->getCountryById($id)->response();
     }
 
     public function update(CountryRequest $request, $id)
     {
-
-        $country = $this->countryService->updateCountry($id, $request->validated());
-        return new CountryResource($country);
+        return $this->countryService->updateCountry($id, $request->validated())->response();
     }
 
     public function destroy($id)
     {
-        $this->countryService->deleteCountry($id);
-        return response()->json(['message' => 'Country deleted successfully']);
+        return $this->countryService->deleteCountry($id)->response();
     }
 }
-

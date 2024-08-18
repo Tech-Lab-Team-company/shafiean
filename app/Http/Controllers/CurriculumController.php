@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CurriculumRequest;
 use App\Http\Resources\CurriculumResource;
 use App\Services\CurriculumService;
-use Illuminate\Http\Response;
+use Illuminate\Http\Request;
 
 class CurriculumController extends Controller
 {
@@ -18,14 +18,13 @@ class CurriculumController extends Controller
 
     public function index()
     {
-        $curriculums = $this->curriculumService->getAllCurriculums();
-        return CurriculumResource::collection($curriculums);
+       return $this->curriculumService->getAllCurriculums()->response();
+
     }
 
     public function store(CurriculumRequest $request)
     {
-        $curriculum = $this->curriculumService->createCurriculum($request->validated());
-        return new CurriculumResource($curriculum);
+        return $this->curriculumService->createCurriculum($request->validated())->response();
     }
 
     public function show($id)
@@ -36,14 +35,11 @@ class CurriculumController extends Controller
 
     public function update(CurriculumRequest $request, $id)
     {
-        $curriculum = $this->curriculumService->updateCurriculum($id, $request->validated());
-        return new CurriculumResource($curriculum);
+        return $this->curriculumService->updateCurriculum($id, $request->validated())->response();
     }
 
     public function destroy($id)
     {
-        $this->curriculumService->deleteCurriculum($id);
-        return response()->json(['message' => 'curriculum deleted successfully.'], 200);
+        return $this->curriculumService->deleteCurriculum($id)->response();
     }
 }
-

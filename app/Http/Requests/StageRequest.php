@@ -14,9 +14,9 @@ class StageRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|string|max:255',
-            'type' => 'required|string|max:255',
-            'order' => 'required|integer',
+            'title' => 'nullable|string|max:255',
+            'type' => 'nullable|string|max:255',
+            'order' => 'nullable|integer',
             'disability_type_id' => 'nullable|exists:disability_types,id',
         ];
     }

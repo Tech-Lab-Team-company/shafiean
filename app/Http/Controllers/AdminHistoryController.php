@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\AdminHistoryRequest;
 use App\Http\Resources\AdminHistoryResource;
-use App\Models\Admin\AdminHistory;
 use App\Services\AdminHistoryService;
 use Illuminate\Http\Response;
 
@@ -19,13 +18,14 @@ class AdminHistoryController extends Controller
 
     public function index()
     {
-        return AdminHistoryResource::collection($this->adminHistoryService->getAll());
+        $adminHistories = $this->adminHistoryService->getAll();
+        return AdminHistoryResource::collection($adminHistories);
     }
 
     public function store(AdminHistoryRequest $request)
     {
-        $adminHistory = $this->adminHistoryService->create($request->validated());
-        return new AdminHistoryResource($adminHistory);
+        return $this->adminHistoryService->create($request->validated())->response();
+
     }
 
     public function show($id)
@@ -34,16 +34,17 @@ class AdminHistoryController extends Controller
         return new AdminHistoryResource($adminHistory);
     }
 
-    public function update(AdminHistoryRequest $request, AdminHistory $adminHistory)
+    public function update(AdminHistoryRequest $request, $id)
     {
-        $updatedAdminHistory = $this->adminHistoryService->update($adminHistory, $request->validated());
-        return new AdminHistoryResource($updatedAdminHistory);
+        return $this->adminHistoryService->update($id, $request->validated())->response();
+
     }
 
-    public function destroy(AdminHistory $adminHistory)
+    public function destroy($id)
     {
-        $this->adminHistoryService->delete($adminHistory);
-        return new AdminHistoryResource($adminHistory);
+        return $this->adminHistoryService->delete($id)->response();
+
     }
 }
+
 

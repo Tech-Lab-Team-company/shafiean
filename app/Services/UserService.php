@@ -2,56 +2,95 @@
 
 namespace App\Services;
 
+use App\Helpers\Response\DataFailed;
 use App\Helpers\Response\DataStatus;
+use App\Helpers\Response\DataSuccess;
+use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
+use Exception;
 
 class UserService
 {
-    public function createUser(array $data) : DataStatus
+    public function createUser(array $data): DataStatus
     {
-        if (isset($data['image'])) {
-            $imagePath = upload_image('public/users', $data['image']);
-        } else {
-            $imagePath = 'uploads/default.jpg';
+        try {
+            if (isset($data['image'])) {
+                $imagePath = upload_image('public/users', $data['image']);
+            } else {
+                $imagePath = 'uploads/default.jpg';
+            }
+
+            $user = User::create([
+                'name' => $data['name'],
+                'email' => $data['email'],
+                'password' => Hash::make($data['password']),
+                'phone' => $data['phone'],
+                'gender' => $data['gender'],
+                'api_key' => $data['api_key'],
+                'image' => $imagePath,
+            ]);
+
+            return new DataSuccess(
+                data: new UserResource($user),
+                statusCode: 200,
+                message: 'User created successfully'
+            );
+        } catch (Exception $e) {
+            return new DataFailed(
+                statusCode: 500,
+                message: 'User creation failed: ' . $e->getMessage()
+            );
         }
-         $data = User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-            'phone' => $data['phone'],
-            'gender' => $data['gender'],
-            'api_key' => $data['api_key'],
-            'image' => $imagePath,
-        ]);
-
-        return new DataStatus(
-//            statusCode : 200,
-            data: $data ,
-            message : 'User created successfully',
-        );
     }
 
-
-    public function updateUser(User $user, array $data)
+    public function updateUser($id, array $data): DataStatus
     {
-        $user->update($data);
-//        $user->update([
-//            'name' => $data['name'],
-//            'email' => $data['email'],
-//            'password' => isset($data['password']) ? Hash::make($data['password']) : $user->password,
-//            'phone' => $data['phone'],
-//            'gender' => $data['gender'],
-//            'api_key' => $data['api_key'],
-//            'image' => $data['image'],
-//        ]);
+        try {
+            $user = User::findOrFail($id);
 
-        return $user;
+            if (isset($data['image'])) {
+                if ($user->image !== 'uploads/default.jpg') {
+                    Storage::delete($user->image);
+                }
+                $data['image'] = upload_image('public/users', $data['image']);
+            }
+
+            $user->update($data);
+
+            return new DataSuccess(
+                data: new UserResource($user),
+                statusCode: 200,
+                message: 'User updated successfully'
+            );
+        } catch (Exception $e) {
+            return new DataFailed(
+                statusCode: 500,
+                message: 'User update failed: ' . $e->getMessage()
+            );
+        }
     }
 
-    public function deleteUser(User $user)
+    public function deleteUser($id): DataStatus
     {
-        $user->delete();
+        try {
+            $user = User::findOrFail($id);
+            if ($user->image !== 'uploads/default.jpg') {
+                Storage::delete($user->image);
+            }
+            $user->delete();
+
+            return new DataSuccess(
+                statusCode: 200,
+                message: 'User deleted successfully'
+            );
+        } catch (Exception $e) {
+            return new DataFailed(
+                statusCode: 500,
+                message: 'User deletion failed: ' . $e->getMessage()
+            );
+        }
     }
 
     public function getAllUsers()
@@ -64,3 +103,4 @@ class UserService
         return User::findOrFail($id);
     }
 }
+

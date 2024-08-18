@@ -11,10 +11,7 @@ class CountrySeeder extends Seeder
     public function run()
     {
         Country::factory(10)->create();
-        DB::table('countries')->insert([
-            ['id' => 11, 'title' => 'Some Country Name'],
 
-        ]);
     }
 }
 
