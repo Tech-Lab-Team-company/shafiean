@@ -22,8 +22,9 @@ class AdminService
         return Admin::create($data);
     }
 
-    public function update(Admin $admin, array $data)
+    public function update($id, array $data)
     {
+        $admin = Admin::find($id);
         $admin->update($data);
         return $admin;
     }

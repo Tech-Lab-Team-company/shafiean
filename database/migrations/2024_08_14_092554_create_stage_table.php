@@ -15,9 +15,9 @@ class CreateStageTable extends Migration
     {
         Schema::create('stage', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('title');
-            $table->string('type');
-            $table->integer('order');
+            $table->string('title')->nullable();
+            $table->string('type')->nullable();
+            $table->integer('order')->nullable();
             $table->unsignedBigInteger('disability_type_id')->nullable();
             $table->foreign('disability_type_id')
                 ->references('id')

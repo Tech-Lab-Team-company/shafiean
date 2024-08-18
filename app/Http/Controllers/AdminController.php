@@ -34,9 +34,9 @@ class AdminController extends Controller
         return new AdminResource($admin);
     }
 
-    public function update(AdminRequest $request, Admin $admin)
+    public function update(AdminRequest $request,$id)
     {
-        $updatedAdmin = $this->adminService->update($admin, $request->validated());
+        $updatedAdmin = $this->adminService->update($id, $request->validated());
         return new AdminResource($updatedAdmin);
     }
 

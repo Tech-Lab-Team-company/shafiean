@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Response\DataStatus;
 use App\Http\Requests\UserRequest;
 use App\Http\Resources\UserResource;
 use App\Services\UserService;
+
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -26,7 +28,8 @@ class UserController extends Controller
     public function store(UserRequest $request)
     {
         $user = $this->userService->createUser($request->validated());
-        return new UserResource($user);
+//        return new UserResource($user);
+
     }
 
     public function show($id)
