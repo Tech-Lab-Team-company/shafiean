@@ -18,32 +18,32 @@ class StageController extends Controller
 
     public function index()
     {
-        $stages = $this->stageService->getAllStages();
-        return StageResource::collection($stages);
+        return $this->stageService->getAllStages()->response();
+
     }
 
     public function store(StageRequest $request)
     {
-        $stage = $this->stageService->createStage($request->validated());
-        return new StageResource($stage);
+       return $this->stageService->createStage($request->validated())->response();
+
     }
 
     public function show($id)
     {
-        $stage = $this->stageService->getStageById($id);
-        return new StageResource($stage);
+        return $this->stageService->getStageById($id)->response();
+
     }
 
     public function update(StageRequest $request, $id)
     {
-        $stage = $this->stageService->updateStage($id, $request->validated());
-        return new StageResource($stage);
+       return $this->stageService->updateStage($id, $request->validated())->response();
+
     }
 
     public function destroy($id)
     {
-        $this->stageService->deleteStage($id);
-        return response()->json(['message' => 'Stage deleted successfully.'], 200);
+        return $this->stageService->deleteStage($id)->response();
+
     }
 }
 

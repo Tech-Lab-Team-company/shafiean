@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Term;
-use App\Services\TermService;
 use App\Http\Requests\TermRequest;
 use App\Http\Resources\TermResource;
-use Illuminate\Http\Request;
+use App\Services\TermService;
+use Illuminate\Http\Response;
 
 class TermController extends Controller
 {
@@ -19,32 +18,26 @@ class TermController extends Controller
 
     public function index()
     {
-        $terms = $this->termService->getAllTerms();
-        return TermResource::collection($terms);
+       return $this->termService->getAllTerms()->response();
     }
 
     public function store(TermRequest $request)
     {
-        $term = $this->termService->createTerm($request->validated());
-        return new TermResource($term);
+        return $this->termService->createTerm($request->validated())->response();
     }
 
     public function show($id)
     {
-        $term = $this->termService->getTermById($id);
-        return new TermResource($term);
+        return $this->termService->getTermById($id)->response();
     }
 
     public function update(TermRequest $request, $id)
     {
-        $term = $this->termService->updateTerm($id, $request->validated());
-        return new TermResource($term);
+       return $this->termService->updateTerm($id, $request->validated())->response();
     }
 
     public function destroy($id)
     {
-        $this->termService->deleteTerm($id);
-        return response()->json(['message' => 'Term deleted successfully.'], 200);
+        return $this->termService->deleteTerm($id)->response();
     }
 }
-

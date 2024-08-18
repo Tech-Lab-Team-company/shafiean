@@ -18,31 +18,30 @@ class TeacherController extends Controller
 
     public function index()
     {
-        $teachers = $this->teacherService->getAllTeachers();
-        return TeacherResource::collection($teachers);
+       return $this->teacherService->getAllTeachers()->response();
+
     }
 
     public function store(TeacherRequest $request)
     {
-        $teacher = $this->teacherService->createTeacher($request->validated());
-        return new TeacherResource($teacher);
+        return $this->teacherService->createTeacher($request->validated())->response();
+
     }
 
     public function show($id)
     {
-        $teacher = $this->teacherService->getTeacherById($id);
-        return new TeacherResource($teacher);
+       return $this->teacherService->getTeacherById($id)->response();
+
     }
 
     public function update(TeacherRequest $request, $id)
     {
-        $teacher = $this->teacherService->updateTeacher($id, $request->validated());
-        return new TeacherResource($teacher);
+        return $this->teacherService->updateTeacher($id, $request->validated())->response();
+
     }
 
     public function destroy($id)
     {
-        $this->teacherService->deleteTeacher($id);
-        return response()->json(['message' => 'teacher deleted successfully.'], 200);
+        return $this->teacherService->deleteTeacher($id)->response();
     }
 }
