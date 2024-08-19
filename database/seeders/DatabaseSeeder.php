@@ -21,6 +21,10 @@ class DatabaseSeeder extends Seeder
             CurriculumSeeder::class,
             StageSeeder::class,
             TermSeeder::class,
+            OrganizationDisabilityTypeSeeder::class ,
+            CurriculumDisabilityTypeSeeder::class ,
+            QuraanSeeder::class,
+            AyatSeeder::class
         ]);
     }
 }

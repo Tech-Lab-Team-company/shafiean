@@ -26,7 +26,7 @@ class Organization extends Model
         'manager_email',
     ];
 
-    public function teachers() :HasMany
+    public function teacher() :HasMany
     {
         return $this->hasMany(Teacher::class , 'organization_id');
     }
@@ -39,6 +39,16 @@ class Organization extends Model
     public function city() : BelongsTo
     {
         return $this->belongsTo(City::class, 'city_id');
+    }
+
+    public function organizationDisabilityTypes()
+    {
+        return $this->hasMany('App\Models\OrganizationDisabilityType', 'organization_id');
+    }
+
+    public function disabilityTypes()
+    {
+        return $this->belongsToMany('App\Models\DisabilityType', 'organization_disability_types', 'organization_id', 'disability_type_id');
     }
 }
 

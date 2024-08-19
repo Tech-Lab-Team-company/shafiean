@@ -13,11 +13,14 @@ use App\Http\Controllers\CityController;
 use App\Http\Controllers\DisabilityTypeController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminHistoryController;
+use App\Http\Controllers\QuraanController;
+use App\Http\Controllers\AyatController;
 
+Route::resource('ayat', AyatController::class);
+Route::resource('quraan', QuraanController::class);
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
-
 
 // User Routes
 Route::prefix('users')->group(function () {

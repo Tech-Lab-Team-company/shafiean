@@ -35,7 +35,7 @@ class CityService
 
             return new DataSuccess(
                 data: new CityResource($city),
-                statusCode: 201,
+                statusCode: 200,
                 message: 'City created successfully'
             );
         } catch (Exception $e) {
@@ -58,7 +58,7 @@ class CityService
             );
         } catch (Exception $e) {
             return new DataStatus(
-                statusCode: 404,
+                statusCode: 500,
                 message: 'City not found: ' . $e->getMessage()
             );
         }

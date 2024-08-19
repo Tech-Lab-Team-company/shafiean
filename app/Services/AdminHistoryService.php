@@ -23,7 +23,7 @@ class AdminHistoryService
         $adminHistory = AdminHistory::create($data);
         return new DataSuccess(
             data: $adminHistory,
-            statusCode: 201,
+            statusCode: 200,
             message: 'Admin history created successfully'
         );
     }
