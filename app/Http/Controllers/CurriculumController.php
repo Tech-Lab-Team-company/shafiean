@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CurriculumRequest;
+use App\Http\Requests\Curriculum\CurriculumRequest;
 use App\Http\Resources\CurriculumResource;
 use App\Services\CurriculumService;
-use Illuminate\Http\Request;
 
 class CurriculumController extends Controller
 {

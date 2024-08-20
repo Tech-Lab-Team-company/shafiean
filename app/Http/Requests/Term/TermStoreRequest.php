@@ -1,10 +1,9 @@
 <?php
-
-namespace App\Http\Requests;
+namespace App\Http\Requests\Term;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class TermRequest extends FormRequest
+class TermStoreRequest extends FormRequest
 {
     public function authorize()
     {
@@ -14,7 +13,7 @@ class TermRequest extends FormRequest
     public function rules()
     {
         return [
-            'timestamp' => 'nullable|date',
+            'timestamp' => 'required|date',
             'type' => 'nullable|string|max:255',
             'order' => 'nullable|integer',
             'curriculum_id' => 'nullable|exists:curriculums,id',
@@ -22,4 +21,3 @@ class TermRequest extends FormRequest
         ];
     }
 }
-

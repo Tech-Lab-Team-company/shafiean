@@ -1,10 +1,9 @@
 <?php
-
-namespace App\Http\Requests;
+namespace App\Http\Requests\Stage;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class QuraanRequest extends FormRequest
+class StageStoreRequest extends FormRequest
 {
     public function authorize()
     {
@@ -14,10 +13,10 @@ class QuraanRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'nullable|string|max:255',
-            'order' => 'nullable|string|max:255',
+            'title' => 'required|string|max:255',
             'type' => 'nullable|string|max:255',
+            'order' => 'nullable|integer',
+            'disability_type_id' => 'nullable|exists:disability_types,id',
         ];
     }
 }
-

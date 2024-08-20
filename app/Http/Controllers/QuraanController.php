@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\QuraanRequest;
+use App\Http\Requests\Quraan\QuraanRequest;
 use App\Http\Resources\QuraanResource;
 use App\Services\QuraanService;
-use Illuminate\Http\Request;
 
 class QuraanController extends Controller
 {

@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\AyatRequest;
+use App\Http\Requests\Ayat\AyatRequest;
 use App\Http\Resources\AyatResource;
 use App\Services\AyatService;
-use Illuminate\Http\Request;
 
 class AyatController extends Controller
 {

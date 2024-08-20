@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\AdminRequest;
+use App\Http\Requests\Admin\AdminRequest;
+use App\Http\Requests\Admin\AdminStoreRequest;
+use App\Http\Requests\Admin\AdminUpdateRequest;
 use App\Http\Resources\AdminResource;
 use App\Services\AdminService;
 
@@ -21,7 +23,7 @@ class AdminController extends Controller
         return AdminResource::collection($admins);
     }
 
-    public function store(AdminRequest $request)
+    public function store(AdminStoreRequest $request)
     {
         return $this->adminService->create($request->validated())->response();
 
@@ -33,7 +35,7 @@ class AdminController extends Controller
         return new AdminResource($admin);
     }
 
-    public function update(AdminRequest $request, $id)
+    public function update(AdminUpdateRequest $request, $id)
     {
        return $this->adminService->update($id, $request->validated())->response();
 

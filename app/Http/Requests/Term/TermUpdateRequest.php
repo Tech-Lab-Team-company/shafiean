@@ -1,10 +1,9 @@
 <?php
-
-namespace App\Http\Requests;
+namespace App\Http\Requests\Term;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StageRequest extends FormRequest
+class TermUpdateRequest extends FormRequest
 {
     public function authorize()
     {
@@ -13,12 +12,14 @@ class StageRequest extends FormRequest
 
     public function rules()
     {
+        $termId = $this->route('id');
+
         return [
-            'title' => 'nullable|string|max:255',
+            'timestamp' => 'nullable|date',
             'type' => 'nullable|string|max:255',
             'order' => 'nullable|integer',
+            'curriculum_id' => 'nullable|exists:curriculums,id',
             'disability_type_id' => 'nullable|exists:disability_types,id',
         ];
     }
 }
-

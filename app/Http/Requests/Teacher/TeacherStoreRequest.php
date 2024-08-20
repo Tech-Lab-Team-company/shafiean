@@ -1,10 +1,9 @@
 <?php
-
-namespace App\Http\Requests;
+namespace App\Http\Requests\Teacher;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class TeacherRequest extends FormRequest
+class TeacherStoreRequest extends FormRequest
 {
     public function authorize()
     {
@@ -14,10 +13,10 @@ class TeacherRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'nullable|string|max:255',
+            'name' => 'required|string|max:255',
             'phone' => 'nullable|string|max:20',
-            'email' => 'nullable|string|email|max:255|unique:teachers,email,' . $this->teacher,
-            'password' => 'nullable|string|max:255',
+            'email' => 'required|string|email|max:255|unique:teachers',
+            'password' => 'required|string|min:8|max:255',
             'gender' => 'nullable|string|max:20',
             'api_key' => 'nullable|string|max:255',
             'age' => 'nullable|integer|min:18',
@@ -26,4 +25,3 @@ class TeacherRequest extends FormRequest
         ];
     }
 }
-

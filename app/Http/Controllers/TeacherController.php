@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\TeacherRequest;
-use App\Http\Resources\TeacherResource;
+use App\Http\Requests\Teacher\TeacherRequest;
 use App\Services\TeacherService;
-use Illuminate\Http\Response;
 
 class TeacherController extends Controller
 {

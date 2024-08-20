@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class AdminRequest extends FormRequest
+class AdminStoreRequest extends FormRequest
 {
     public function authorize()
     {
@@ -22,7 +22,7 @@ class AdminRequest extends FormRequest
                 'string',
                 'email',
                 'max:191',
-                Rule::unique('admins')->ignore($this->admin),
+                'unique:admins',
             ],
             'password' => 'nullable|string|min:8',
             'api_key' => 'nullable|string',
@@ -30,5 +30,3 @@ class AdminRequest extends FormRequest
         ];
     }
 }
-
-
