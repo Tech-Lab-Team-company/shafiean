@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\TermRequest;
-use App\Http\Resources\TermResource;
+use App\Http\Requests\Term\TermRequest;
 use App\Services\TermService;
-use Illuminate\Http\Response;
 
 class TermController extends Controller
 {

@@ -1,10 +1,9 @@
 <?php
-
-namespace App\Http\Requests;
+namespace App\Http\Requests\DisabilityType;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class AyatRequest extends FormRequest
+class DisabilityTypeStoreRequest extends FormRequest
 {
     public function authorize()
     {
@@ -14,9 +13,8 @@ class AyatRequest extends FormRequest
     public function rules()
     {
         return [
-            'quraan_id' => 'nullable|exists:quraan,id',
-            'number' => 'nullable|integer',
+            'title' => 'required|string|max:255',
+            'order' => 'nullable|integer',
         ];
     }
 }
-

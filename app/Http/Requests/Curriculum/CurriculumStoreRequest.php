@@ -1,10 +1,9 @@
 <?php
-
-namespace App\Http\Requests;
+namespace App\Http\Requests\Curriculum;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CurriculumRequest extends FormRequest
+class CurriculumStoreRequest extends FormRequest
 {
     public function authorize()
     {
@@ -24,4 +23,3 @@ class CurriculumRequest extends FormRequest
         ];
     }
 }
-

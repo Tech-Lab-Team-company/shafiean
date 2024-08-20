@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\AdminHistoryRequest;
+use App\Http\Requests\Admin\AdminHistoryRequest;
 use App\Http\Resources\AdminHistoryResource;
 use App\Services\AdminHistoryService;
-use Illuminate\Http\Response;
 
 class AdminHistoryController extends Controller
 {

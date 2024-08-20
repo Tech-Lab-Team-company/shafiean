@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\DisabilityTypeRequest;
-use App\Http\Resources\DisabilityTypeResource;
+use App\Http\Requests\DisabilityType\DisabilityTypeRequest;
 use App\Services\DisabilityTypeService;
-use Illuminate\Http\Response;
 
 class DisabilityTypeController extends Controller
 {

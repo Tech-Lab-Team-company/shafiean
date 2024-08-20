@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\City;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CountryRequest extends FormRequest
+class CityRequest extends FormRequest
 {
     public function authorize()
     {
@@ -15,6 +15,8 @@ class CountryRequest extends FormRequest
     {
         return [
             'title' => 'required|string|max:255',
+            'country_id' => 'nullable|exists:countries,id',
+            'city_id' => 'nullable|exists:cities,id',
         ];
     }
 }

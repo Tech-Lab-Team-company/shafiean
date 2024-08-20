@@ -5,11 +5,12 @@ namespace App\Services;
 use App\Helpers\Response\DataFailed;
 use App\Helpers\Response\DataStatus;
 use App\Helpers\Response\DataSuccess;
+use App\Http\Requests\User\UserRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
+use Exception;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
-use Exception;
 
 class UserService
 {
@@ -103,7 +104,7 @@ class UserService
         );
     }
 
-    public function getUserById($id)
+    public function getUserById(UserRequest $id)
     {
         $user_by_id = User::find($id);
         return new DataSuccess(

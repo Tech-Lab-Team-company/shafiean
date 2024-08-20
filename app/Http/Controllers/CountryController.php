@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CountryRequest;
-use App\Http\Resources\CountryResource;
+use App\Http\Requests\County\CountryRequest;
 use App\Services\CountryService;
 
 class CountryController extends Controller

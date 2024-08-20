@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StageRequest;
-use App\Http\Resources\StageResource;
+use App\Http\Requests\Stage\StageRequest;
 use App\Services\StageService;
-use Illuminate\Http\Response;
 
 class StageController extends Controller
 {
