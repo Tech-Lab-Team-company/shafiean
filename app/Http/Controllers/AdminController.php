@@ -19,8 +19,8 @@ class AdminController extends Controller
 
     public function index()
     {
-        $admins = $this->adminService->getAll();
-        return AdminResource::collection($admins);
+       return $this->adminService->getAll()->response();
+
     }
 
     public function store(AdminStoreRequest $request)
@@ -31,8 +31,7 @@ class AdminController extends Controller
 
     public function show($id)
     {
-        $admin = $this->adminService->getById($id);
-        return new AdminResource($admin);
+        return $this->adminService->getById($id)->response();
     }
 
     public function update(AdminUpdateRequest $request, $id)
@@ -44,7 +43,6 @@ class AdminController extends Controller
     public function destroy($id)
     {
         return $this->adminService->delete($id)->response();
-
     }
 }
 
