@@ -14,8 +14,8 @@ class CreateOrganizationDisabilityTypesTable extends Migration {
             $table->unsignedBigInteger('organization_id')->nullable();
             $table->unsignedBigInteger('disability_type_id')->nullable();
 
-            $table->foreign('organization_id')->references('id')->on('organizations')->onDelete('set null');
-            $table->foreign('disability_type_id')->references('id')->on('disability_types')->onDelete('set null');
+            $table->foreign('organization_id')->references('id')->on('organizations')->onDelete('set null')->onUpdate('cascade');
+            $table->foreign('disability_type_id')->references('id')->on('disability_types')->onDelete('set null')->onUpdate('cascade');
         });
     }
 

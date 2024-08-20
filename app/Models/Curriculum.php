@@ -20,11 +20,5 @@ class Curriculum extends Model
         'order'
     ];
 
-    public function disability_Type() : HasMany
-    {
-        return $this->hasMany(CurriculumDisabilityType::class, 'curriculum_id');
-    }
-
-
 }
 

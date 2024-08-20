@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class OrganizationDisabilityType extends Model
 {
@@ -16,13 +17,8 @@ class OrganizationDisabilityType extends Model
     ];
     public $timestamps = true;
 
-    public function organization() :BelongsTo
+    public function organization() :HasMany
     {
-        return $this->belongsTo('App\Models\Organization', 'organization_id');
-    }
-
-    public function disabilityType() :BelongsTo
-    {
-        return $this->belongsTo('App\Models\DisabilityType', 'disability_type_id');
+        return $this->hasMany('DisabilityType', 'organization_id');
     }
 }
