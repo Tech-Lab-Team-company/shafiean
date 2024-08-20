@@ -23,11 +23,6 @@ class DisabilityType extends Model
         return $this->hasMany(User::class , 'disability_type_id');
     }
 
-    public function stage() : HasMany
-    {
-        return $this->hasMany(Stage::class, 'disability_type_id');
-    }
-
     public function organizationDisabilityTypes() :HasMany
     {
         return $this->hasMany('App\Models\OrganizationDisabilityType', 'disability_type_id');

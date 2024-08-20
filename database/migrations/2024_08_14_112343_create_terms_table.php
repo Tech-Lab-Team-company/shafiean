@@ -13,12 +13,11 @@ class CreateTermsTable extends Migration
             $table->timestamp('timestamp');
             $table->string('type')->nullable();
             $table->integer('order')->nullable();
-            $table->unsignedBigInteger('curriculum_id')->nullable();
-            $table->unsignedBigInteger('disability_type_id')->nullable();
-            $table->foreign('curriculum_id')->references('id')->on('curriculums')->onDelete('cascade');
-            $table->foreign('disability_type_id')->references('id')->on('disability_types')->onDelete('cascade');
+            $table->foreignId('stage_id')->nullable()->constrained()->onDelete('cascade');
+            $table->foreignId('organization_id')->nullable()->constrained()->onDelete('cascade');
             $table->timestamps();
         });
+
     }
 
     public function down()

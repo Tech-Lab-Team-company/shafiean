@@ -23,7 +23,6 @@ class Teacher extends Model
         'organization_id',
     ];
 
-
     public function organization() : BelongsTo
     {
         return $this->belongsTo(Organization::class , 'organization_id');

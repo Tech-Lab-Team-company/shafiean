@@ -20,6 +20,12 @@ class CreateTeachersTable extends Migration {
             $table->string('age')->nullable();
             $table->string('image')->nullable();
             $table->unsignedBigInteger('organization_id')->nullable();
+
+            $table->foreign('organization_id')
+                ->references('id')
+                ->on('organizations')
+                ->onDelete('set null')
+                ->onUpdate('cascade');
         });
     }
 

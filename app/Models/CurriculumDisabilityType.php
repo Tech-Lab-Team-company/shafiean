@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class CurriculumDisabilityType extends Model
 {
@@ -16,13 +17,14 @@ class CurriculumDisabilityType extends Model
         'curriculum_id'
     ];
 
-    public function curriculum() : BelongsTo
+    public function curriculum() :HasMany
     {
-        return $this->belongsTo(Curriculum::class, 'curriculum_id');
+        return $this->hasMany('Curriculum', 'curriculum_id');
     }
-    public function disability_Type() : BelongsTo
+
+    public function disability_type() :HasMany
     {
-        return $this->belongsTo(DisabilityType::class, 'disability_type_id');
+        return $this->hasMany('DisabilityType', 'disability_type_id');
     }
 
 

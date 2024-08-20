@@ -26,29 +26,10 @@ class Organization extends Model
         'manager_email',
     ];
 
-    public function teacher() :HasMany
+    public function organization_types() :HasMany
     {
-        return $this->hasMany(Teacher::class , 'organization_id');
+        return $this->hasMany('organization_disability_types', 'organization_id');
     }
 
-    public function country() : BelongsTo
-    {
-        return $this->belongsTo(Country::class, 'country_id');
-    }
-
-    public function city() : BelongsTo
-    {
-        return $this->belongsTo(City::class, 'city_id');
-    }
-
-    public function organizationDisabilityTypes()
-    {
-        return $this->hasMany('App\Models\OrganizationDisabilityType', 'organization_id');
-    }
-
-    public function disabilityTypes()
-    {
-        return $this->belongsToMany('App\Models\DisabilityType', 'organization_disability_types', 'organization_id', 'disability_type_id');
-    }
 }
 
