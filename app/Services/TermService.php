@@ -31,7 +31,7 @@ class TermService
     public function getTermById($id): DataStatus
     {
         try {
-            $term = Term::findOrFail($id);
+            $term = Term::find($id);
             return new DataSuccess(
                 data: new TermResource($term),
                 statusCode: 200,
@@ -65,7 +65,7 @@ class TermService
     public function updateTerm($id, array $data): DataStatus
     {
         try {
-            $term = Term::findOrFail($id);
+            $term = Term::find($id);
             $term->update($data);
             return new DataSuccess(
                 data: new TermResource($term),
@@ -83,7 +83,7 @@ class TermService
     public function deleteTerm($id): DataStatus
     {
         try {
-            $term = Term::findOrFail($id);
+            $term = Term::find($id);
             $term->delete();
             return new DataSuccess(
                 statusCode: 200,

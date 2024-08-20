@@ -9,14 +9,14 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Stage extends Model
 {
     use HasFactory;
-    protected $table = "stage";
+    protected $table = "stages";
 
     protected $fillable = [
         'title',
         'type',
         'order',
         'organization_id',
-        'disability_type_id'
+
     ];
 
     public function curriculum() :HasMany

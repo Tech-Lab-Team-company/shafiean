@@ -32,7 +32,7 @@ class QuraanService
     public function updateQuraan($id, array $data): DataStatus
     {
         try {
-            $quraan = Quraan::findOrFail($id);
+            $quraan = Quraan::find($id);
             $quraan->update($data);
 
             return new DataSuccess(
@@ -51,7 +51,7 @@ class QuraanService
     public function deleteQuraan($id): DataStatus
     {
         try {
-            $quraan = Quraan::findOrFail($id);
+            $quraan = Quraan::find($id);
             $quraan->delete();
 
             return new DataSuccess(
@@ -68,12 +68,22 @@ class QuraanService
 
     public function getAllQuraans()
     {
-        return Quraan::all();
+        $quraan = Quraan::all();
+        return new DataSuccess(
+            data: new QuraanResource($quraan),
+            statusCode: 200,
+            message: 'Quraan entry retrieved successfully'
+        );
     }
 
     public function getQuraanById($id)
     {
-        return Quraan::findOrFail($id);
+        $quraan_by_id = Quraan::find($id);
+        return new DataSuccess(
+            data: new QuraanResource($quraan_by_id),
+            statusCode: 200,
+            message: 'Quraan entry retrieved successfully'
+        );
     }
 }
 

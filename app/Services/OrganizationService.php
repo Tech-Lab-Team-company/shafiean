@@ -31,7 +31,7 @@ class OrganizationService
     public function getOrganizationById($id): DataStatus
     {
         try {
-            $organization = Organization::findOrFail($id);
+            $organization = Organization::find($id);
             return new DataSuccess(
                 data: new OrganizationResource($organization),
                 statusCode: 200,
@@ -51,7 +51,7 @@ class OrganizationService
             $organization = Organization::create($data);
             return new DataSuccess(
                 data: new OrganizationResource($organization),
-                statusCode: 201,
+                statusCode: 200,
                 message: 'Organization created successfully'
             );
         } catch (Exception $e) {
@@ -65,7 +65,7 @@ class OrganizationService
     public function updateOrganization($id, array $data): DataStatus
     {
         try {
-            $organization = Organization::findOrFail($id);
+            $organization = Organization::find($id);
             $organization->update($data);
             return new DataSuccess(
                 data: new OrganizationResource($organization),
@@ -83,7 +83,7 @@ class OrganizationService
     public function deleteOrganization($id): DataStatus
     {
         try {
-            $organization = Organization::findOrFail($id);
+            $organization = Organization::find($id);
             $organization->delete();
             return new DataSuccess(
                 statusCode: 200,

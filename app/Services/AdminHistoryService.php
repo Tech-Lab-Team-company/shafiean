@@ -10,12 +10,23 @@ class AdminHistoryService
 {
     public function getAll()
     {
-        return AdminHistory::all();
+        $admin_history_all = AdminHistory::all();
+        return new DataSuccess(
+            data: $admin_history_all,
+            statusCode: 200,
+            message: 'Admin retrieved successfully'
+        );
+
     }
 
     public function getById($id)
     {
-        return AdminHistory::findOrFail($id);
+        $admin_history_by_id = AdminHistory::find($id);
+        return new DataSuccess(
+            data: $admin_history_by_id,
+            statusCode: 200,
+            message: 'Admin_History retrieved successfully'
+        );
     }
 
     public function create(array $data): DataStatus

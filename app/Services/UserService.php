@@ -95,12 +95,22 @@ class UserService
 
     public function getAllUsers()
     {
-        return User::all();
+        $user = User::all();
+        return new DataSuccess(
+            data: new UserResource($user),
+            statusCode: 200,
+            message: 'User updated successfully'
+        );
     }
 
     public function getUserById($id)
     {
-        return User::findOrFail($id);
+        $user_by_id = User::find($id);
+        return new DataSuccess(
+            data: new UserResource($user_by_id),
+            statusCode: 200,
+            message: 'User updated successfully'
+        );
     }
 }
 

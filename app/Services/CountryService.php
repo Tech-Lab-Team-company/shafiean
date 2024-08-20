@@ -22,7 +22,7 @@ class CountryService
                 message: 'Countries retrieved successfully'
             );
         } catch (Exception $e) {
-            return new DataStatus(
+            return new DataFailed(
                 statusCode: 500,
                 message: 'Failed to retrieve countries: ' . $e->getMessage()
             );
@@ -40,7 +40,7 @@ class CountryService
                 message: 'Country created successfully'
             );
         } catch (Exception $e) {
-            return new DataStatus(
+            return new DataFailed(
                 statusCode: 500,
                 message: 'Country creation failed: ' . $e->getMessage()
             );
@@ -58,7 +58,7 @@ class CountryService
                 message: 'Country retrieved successfully'
             );
         } catch (Exception $e) {
-            return new DataStatus(
+            return new DataFailed(
                 statusCode: 404,
                 message: 'Country not found: ' . $e->getMessage()
             );
@@ -77,7 +77,7 @@ class CountryService
                 message: 'Country updated successfully'
             );
         } catch (Exception $e) {
-            return new DataStatus(
+            return new DataFailed(
                 statusCode: 500,
                 message: 'Country update failed: ' . $e->getMessage()
             );

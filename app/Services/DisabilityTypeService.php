@@ -31,7 +31,7 @@ class DisabilityTypeService
     public function getById($id): DataStatus
     {
         try {
-            $disabilityType = DisabilityType::findOrFail($id);
+            $disabilityType = DisabilityType::find($id);
             return new DataSuccess(
                 data: new DisabilityTypeResource($disabilityType),
                 statusCode: 200,
@@ -51,7 +51,7 @@ class DisabilityTypeService
             $disabilityType = DisabilityType::create($data);
             return new DataSuccess(
                 data: new DisabilityTypeResource($disabilityType),
-                statusCode: 201,
+                statusCode: 200,
                 message: 'Disability type created successfully'
             );
         } catch (Exception $e) {
@@ -65,7 +65,7 @@ class DisabilityTypeService
     public function update($id, array $data): DataStatus
     {
         try {
-            $disabilityType = DisabilityType::findOrFail($id);
+            $disabilityType = DisabilityType::find($id);
             $disabilityType->update($data);
             return new DataSuccess(
                 data: new DisabilityTypeResource($disabilityType),
@@ -83,7 +83,7 @@ class DisabilityTypeService
     public function delete($id): DataStatus
     {
         try {
-            $disabilityType = DisabilityType::findOrFail($id);
+            $disabilityType = DisabilityType::find($id);
             $disabilityType->delete();
             return new DataSuccess(
                 statusCode: 200,

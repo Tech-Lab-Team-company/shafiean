@@ -15,7 +15,7 @@ class StageFactory extends Factory
             'title' => $this->faker->word,
             'type' => $this->faker->word,
             'order' => $this->faker->randomNumber(),
-            'disability_type_id' => \App\Models\DisabilityType::factory(),
+            'organization_id' => null,
         ];
     }
 }
