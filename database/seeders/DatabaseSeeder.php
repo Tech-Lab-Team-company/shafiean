@@ -15,7 +15,7 @@ class DatabaseSeeder extends Seeder
             // CitySeeder::class,
             // DisabilityTypeSeeder::class,
             AdminSeeder::class,
-            AdminHistorySeeder::class,
+            // AdminHistorySeeder::class,
             // OrganizationSeeder::class,
             // TeacherSeeder::class,
             // CurriculumSeeder::class,
