@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Helpers\Response\DataFailed;
 use App\Helpers\Response\DataStatus;
 use App\Helpers\Response\DataSuccess;
 use App\Http\Resources\CityResource;
@@ -49,7 +50,7 @@ class CityService
     public function getCityById($id): DataStatus
     {
         try {
-            $city = City::findOrFail($id);
+            $city = City::find($id);
 
             return new DataSuccess(
                 data: new CityResource($city),
@@ -57,7 +58,7 @@ class CityService
                 message: 'City retrieved successfully'
             );
         } catch (Exception $e) {
-            return new DataStatus(
+            return new DataFailed(
                 statusCode: 500,
                 message: 'City not found: ' . $e->getMessage()
             );
@@ -67,7 +68,7 @@ class CityService
     public function updateCity($id, array $data): DataStatus
     {
         try {
-            $city = City::findOrFail($id);
+            $city = City::find($id);
             $city->update($data);
 
             return new DataSuccess(
@@ -76,7 +77,7 @@ class CityService
                 message: 'City updated successfully'
             );
         } catch (Exception $e) {
-            return new DataStatus(
+            return new DataFailed(
                 statusCode: 500,
                 message: 'City update failed: ' . $e->getMessage()
             );
@@ -86,7 +87,7 @@ class CityService
     public function deleteCity($id): DataStatus
     {
         try {
-            $city = City::findOrFail($id);
+            $city = City::find($id);
             $city->delete();
 
             return new DataSuccess(
@@ -94,7 +95,7 @@ class CityService
                 message: 'City deleted successfully'
             );
         } catch (Exception $e) {
-            return new DataStatus(
+            return new DataFailed(
                 statusCode: 500,
                 message: 'City deletion failed: ' . $e->getMessage()
             );

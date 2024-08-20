@@ -68,12 +68,22 @@ class AyatService
 
     public function getAllAyats()
     {
-        return Ayat::all();
+        $ayat = Ayat::all();
+        return new DataSuccess(
+            data: new AyatResource($ayat),
+            statusCode: 200,
+            message: 'Ayat retrieved successfully'
+        );
     }
 
     public function getAyatById($id)
     {
-        return Ayat::findOrFail($id);
+        $ayat_by_id = Ayat::findOrFail($id);
+        return new DataSuccess(
+            data: new AyatResource($ayat_by_id),
+            statusCode: 200,
+            message: 'Ayat retrieved successfully'
+        );
     }
 }
 

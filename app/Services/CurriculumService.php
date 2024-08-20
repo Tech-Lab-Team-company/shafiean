@@ -31,7 +31,7 @@ class CurriculumService
     public function getCurriculumById($id): DataStatus
     {
         try {
-            $curriculum = Curriculum::findOrFail($id);
+            $curriculum = Curriculum::find($id);
 
             return new DataSuccess(
                 data: new CurriculumResource($curriculum),
@@ -67,7 +67,7 @@ class CurriculumService
     public function updateCurriculum($id, array $data): DataStatus
     {
         try {
-            $curriculum = Curriculum::findOrFail($id);
+            $curriculum = Curriculum::find($id);
             $curriculum->update($data);
 
             return new DataSuccess(
@@ -86,7 +86,7 @@ class CurriculumService
     public function deleteCurriculum($id): DataStatus
     {
         try {
-            $curriculum = Curriculum::findOrFail($id);
+            $curriculum = Curriculum::find($id);
             $curriculum->delete();
 
             return new DataSuccess(

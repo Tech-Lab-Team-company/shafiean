@@ -17,8 +17,6 @@ class TermFactory extends Factory
             'timestamp' => $this->faker->dateTime,
             'type' => $this->faker->word,
             'order' => $this->faker->randomNumber(),
-            'curriculum_id' => \App\Models\Curriculum::factory(),
-            'disability_type_id' => \App\Models\DisabilityType::factory(),
         ];
     }
 }

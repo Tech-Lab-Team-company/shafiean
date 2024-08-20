@@ -32,7 +32,7 @@ class TeacherService
     public function getTeacherById($id): DataStatus
     {
         try {
-            $teacher = Teacher::findOrFail($id);
+            $teacher = Teacher::find($id);
             return new DataSuccess(
                 data: new TeacherResource($teacher),
                 statusCode: 200,
@@ -60,7 +60,7 @@ class TeacherService
 
             return new DataSuccess(
                 data: new TeacherResource($teacher),
-                statusCode: 201,
+                statusCode: 200,
                 message: 'Teacher created successfully'
             );
         } catch (Exception $e) {
@@ -74,7 +74,7 @@ class TeacherService
     public function updateTeacher($id, array $data): DataStatus
     {
         try {
-            $teacher = Teacher::findOrFail($id);
+            $teacher = Teacher::find($id);
 
             if (isset($data['image'])) {
                 if ($teacher->image !== 'uploads/default.jpg') {

@@ -31,7 +31,7 @@ class StageService
     public function getStageById($id): DataStatus
     {
         try {
-            $stage = Stage::findOrFail($id);
+            $stage = Stage::find($id);
             return new DataSuccess(
                 data: new StageResource($stage),
                 statusCode: 200,
@@ -51,7 +51,7 @@ class StageService
             $stage = Stage::create($data);
             return new DataSuccess(
                 data: new StageResource($stage),
-                statusCode: 201,
+                statusCode: 200,
                 message: 'Stage created successfully'
             );
         } catch (Exception $e) {
@@ -65,7 +65,7 @@ class StageService
     public function updateStage($id, array $data): DataStatus
     {
         try {
-            $stage = Stage::findOrFail($id);
+            $stage = Stage::find($id);
             $stage->update($data);
             return new DataSuccess(
                 data: new StageResource($stage),
@@ -83,7 +83,7 @@ class StageService
     public function deleteStage($id): DataStatus
     {
         try {
-            $stage = Stage::findOrFail($id);
+            $stage = Stage::find($id);
             $stage->delete();
             return new DataSuccess(
                 statusCode: 200,

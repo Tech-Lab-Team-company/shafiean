@@ -10,12 +10,23 @@ class AdminService
 {
     public function getAll()
     {
-        return Admin::all();
+        $admin_all = Admin::all();
+        return new DataSuccess(
+            data: $admin_all,
+            statusCode: 200,
+            message: 'Admin retrieved successfully'
+        );
+
     }
 
     public function getById($id)
     {
-        return Admin::findOrFail($id);
+        $admin_by_id = Admin::find($id);
+        return new DataSuccess(
+            data: $admin_by_id,
+            statusCode: 200,
+            message: 'Admin retrieved successfully'
+        );
     }
 
     public function create(array $data): DataStatus
