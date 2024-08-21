@@ -20,6 +20,8 @@ use App\Http\Controllers\AyatController;
 
 Route::middleware('auth:sanctum')->get('users', function() {
 
+
+
 });
 Route::post('login', [AuthController::class, 'login']);
 Route::post('logout', [AuthController::class, 'logout']);
