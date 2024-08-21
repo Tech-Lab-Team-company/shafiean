@@ -18,19 +18,17 @@ use App\Http\Controllers\QuraanController;
 use App\Http\Controllers\AyatController;
 
 
-Route::middleware('auth:sanctum')->get('users', function() {
-
-//heloo
-
-});
+//Route::middleware('auth:user')->get('', function() {
+//    Route::post('logout', [AuthController::class, 'logout']);
+//});
 Route::post('login', [AuthController::class, 'login']);
-Route::post('logout', [AuthController::class, 'logout']);
+Route::middleware('auth:sanctum')->post('logout', [AuthController::class, 'logout']);
 
 Route::resource('ayat', AyatController::class);
 Route::resource('quraan', QuraanController::class);
 
 // User Routes
-Route::prefix('users')->middleware('auth:sanctum')->group(function () {
+Route::prefix('users')->group(function () {
     Route::get('/', [UserController::class, 'index'])->name('users.index');
     Route::post('/', [UserController::class, 'store'])->name('users.store');
     Route::get('/{id}', [UserController::class, 'show'])->name('users.show');
