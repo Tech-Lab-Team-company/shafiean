@@ -98,7 +98,7 @@ class UserService
     {
         $user = User::all();
         return new DataSuccess(
-            data: new UserResource($user),
+            data:  UserResource::collection($user),
             statusCode: 200,
             message: 'User updated successfully'
         );

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CurriculumController;
 use App\Http\Controllers\OrganizationController;
 use App\Http\Controllers\StageController;
@@ -16,14 +17,17 @@ use App\Http\Controllers\AdminHistoryController;
 use App\Http\Controllers\QuraanController;
 use App\Http\Controllers\AyatController;
 
+
+Route::middleware('auth:sanctum')->get('users', function() {
+    Route::post('logout', [AuthController::class, 'logout']);
+});
+Route::post('login', [AuthController::class, 'login']);
+
 Route::resource('ayat', AyatController::class);
 Route::resource('quraan', QuraanController::class);
-Route::get('/user', function (Request $request) {
-    return $request->user();
-})->middleware('auth:sanctum');
 
 // User Routes
-Route::prefix('users')->group(function () {
+Route::prefix('users')->middleware('auth:sanctum')->group(function () {
     Route::get('/', [UserController::class, 'index'])->name('users.index');
     Route::post('/', [UserController::class, 'store'])->name('users.store');
     Route::get('/{id}', [UserController::class, 'show'])->name('users.show');
