@@ -94,17 +94,17 @@ class UserService
         }
     }
 
-    public function getAllUsers()
+    public function getAllUsers():DataStatus
     {
-        $user = User::all();
+        $users = User::all();
         return new DataSuccess(
-            data:  UserResource::collection($user),
+            data:  UserResource::collection($users),
             statusCode: 200,
             message: 'User updated successfully'
         );
     }
 
-    public function getUserById(UserRequest $id)
+    public function getUserById($id)
     {
         $user_by_id = User::find($id);
         return new DataSuccess(
