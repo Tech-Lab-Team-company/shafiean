@@ -1,13 +1,15 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Notifications\Notifiable;
 use App\Http\Requests\User\UserRequest;
 use App\Http\Resources\UserResource;
 use App\Services\UserService;
 
 class UserController extends Controller
 {
+    use HasApiTokens, Notifiable;
     protected $userService;
 
     public function __construct(UserService $userService)
@@ -17,8 +19,8 @@ class UserController extends Controller
 
     public function index()
     {
-        return $users = $this->userService->getAllUsers()->response();
-        // return UserResource::collection($users);
+        return $this->userService->getAllUsers()->response();
+
     }
 
     public function store(UserRequest $request)
