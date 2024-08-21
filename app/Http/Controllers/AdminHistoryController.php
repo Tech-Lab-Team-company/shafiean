@@ -17,8 +17,8 @@ class AdminHistoryController extends Controller
 
     public function index()
     {
-        $adminHistories = $this->adminHistoryService->getAll();
-        return AdminHistoryResource::collection($adminHistories);
+        return $this->adminHistoryService->getAll()->response();
+
     }
 
     public function store(AdminHistoryRequest $request)
