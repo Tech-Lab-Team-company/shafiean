@@ -17,8 +17,8 @@ class AyatController extends Controller
 
     public function index()
     {
-        $ayats = $this->ayatService->getAllAyats();
-        return AyatResource::collection($ayats);
+       return $this->ayatService->getAllAyats()->response();
+
     }
 
     public function store(AyatRequest $request)

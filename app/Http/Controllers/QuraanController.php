@@ -17,8 +17,8 @@ class QuraanController extends Controller
 
     public function index()
     {
-        $quraans = $this->quraanService->getAllQuraans();
-        return QuraanResource::collection($quraans);
+        return $this->quraanService->getAllQuraans()->response();
+
     }
 
     public function store(QuraanRequest $request)
