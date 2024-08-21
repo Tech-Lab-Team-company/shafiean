@@ -19,9 +19,10 @@ use App\Http\Controllers\AyatController;
 
 
 Route::middleware('auth:sanctum')->get('users', function() {
-    Route::post('logout', [AuthController::class, 'logout']);
+
 });
 Route::post('login', [AuthController::class, 'login']);
+Route::post('logout', [AuthController::class, 'logout']);
 
 Route::resource('ayat', AyatController::class);
 Route::resource('quraan', QuraanController::class);
