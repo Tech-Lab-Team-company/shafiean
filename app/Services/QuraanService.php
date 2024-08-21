@@ -70,7 +70,7 @@ class QuraanService
     {
         $quraan = Quraan::all();
         return new DataSuccess(
-            data: new QuraanResource($quraan),
+            data:  QuraanResource::collection($quraan),
             statusCode: 200,
             message: 'Quraan entry retrieved successfully'
         );
