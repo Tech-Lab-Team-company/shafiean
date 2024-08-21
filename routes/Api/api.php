@@ -37,7 +37,7 @@ Route::prefix('users')->middleware('auth:sanctum')->group(function () {
     Route::put('/{id}', [UserController::class, 'update'])->name('users.update');
     Route::delete('/{id}', [UserController::class, 'destroy'])->name('users.destroy');
 });
-
+//
 // Country Routes
 Route::prefix('countries')->group(function () {
     Route::get('/', [CountryController::class, 'index'])->name('countries.index');
