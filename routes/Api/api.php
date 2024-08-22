@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminAuthController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CurriculumController;
 use App\Http\Controllers\OrganizationController;
@@ -18,11 +19,22 @@ use App\Http\Controllers\QuraanController;
 use App\Http\Controllers\AyatController;
 
 
-//Route::middleware('auth:user')->get('', function() {
-//    Route::post('logout', [AuthController::class, 'logout']);
+//Route::middleware('auth:user')->group(function () {
+//    Route::post('user/logout', [AuthController::class, 'logout']);
 //});
-Route::post('login', [AuthController::class, 'login']);
-Route::middleware('auth:sanctum')->post('logout', [AuthController::class, 'logout']);
+//
+//Route::middleware('auth:admin')->group(function () {
+////    Route::post('admin/logout', [AdminAuthController::class, 'logout']);
+//    Route::get('admin/logout' , [AdminAuthController::class, 'logout']);
+//});
+
+Route::post('user/login', [AuthController::class, 'login']);
+Route::post('admin/login', [AdminAuthController::class, 'login']);
+
+Route::middleware('auth:sanctum')->group(function (){
+    Route::post('user/logout', [AuthController::class, 'logout']);
+    Route::post('admin/logout' , [AdminAuthController::class, 'logout']);
+});
 
 Route::resource('ayat', AyatController::class);
 Route::resource('quraan', QuraanController::class);

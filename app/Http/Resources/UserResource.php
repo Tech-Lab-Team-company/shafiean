@@ -6,11 +6,14 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class UserResource extends JsonResource
 {
+
+    public function __construct($resource, $token = null)
+    {
+        parent::__construct($resource);
+        $this->token = $token;
+    }
     public function toArray($request)
     {
-        $tokenName = $this->resource->first_name . ' ' . $this->resource->last_name ?: 'default_token_name';
-
-        $token = $this->resource->createToken($tokenName)->plainTextToken;
 
         return [
             'id' => $this->id,
@@ -22,7 +25,7 @@ class UserResource extends JsonResource
             'image' => $this->image,
             'created_at' => $this->created_at->toDateTimeString(),
             'updated_at' => $this->updated_at->toDateTimeString(),
-            'token' => $token
+            'token' => $this->token
         ];
     }
 }
