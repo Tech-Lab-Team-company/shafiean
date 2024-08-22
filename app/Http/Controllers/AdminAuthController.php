@@ -25,11 +25,11 @@ class AdminAuthController extends Controller
                 'message' => 'Invalid credentials',
             ], 401);
         }
-
+        $admin->update(['api_token' => str_random(60)]);
         Auth::guard('admin')->login($admin);
-        $token = $admin->createToken('admin_token')->plainTextToken;
+       // $token = $admin->createToken('admin_token')->plainTextToken;
 
-        $data = new AdminResource($admin,$token);
+        $data = new AdminResource($admin);
         $msg = 'login success';
         return response()->json([
             'message' => 'Login successful',
@@ -40,9 +40,9 @@ class AdminAuthController extends Controller
 
     public function logout(Request $request)
     {
-
-        Auth::guard('admin')->logout();
-
+        $admin = Auth::guard('admin')->user();
+        $admin->update(['api_token' =>null]);
+        //        Auth::guard('admin')->logout();
         return response()->json([
             'message' => 'Logout successful',
         ], 200);

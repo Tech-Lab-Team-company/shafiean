@@ -18,7 +18,7 @@ class Admin extends Authenticatable
     protected $guard = 'admin';
     protected $fillable = [
         'name', 'email', 'phone', 'password',
-        'api_key', 'job_title',
+        'api_key', 'job_title','api_token'
     ];
 
     protected $hidden = [
@@ -30,12 +30,9 @@ class Admin extends Authenticatable
         return AdminFactory::new();
     }
 
-    protected function casts(): array
+    protected function setPasswordAttribute($password)
     {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-        ];
+        return $this->attributes['password'] = Hash::make($password);
     }
     public function adminHistories(): HasMany
     {

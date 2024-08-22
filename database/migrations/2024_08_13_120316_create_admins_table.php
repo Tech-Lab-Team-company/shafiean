@@ -15,6 +15,7 @@ class CreateAdminsTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->text('password');
             $table->string('phone', 191)->nullable();
+            $table->string('api_token')->nullable();
             $table->text('api_key')->nullable();
             $table->string('job_title')->nullable();
             $table->rememberToken();
