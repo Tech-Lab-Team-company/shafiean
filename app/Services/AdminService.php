@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Helpers\Response\DataStatus;
 use App\Helpers\Response\DataSuccess;
+use App\Http\Resources\AdminResource;
 use App\Models\Admin\Admin;
 
 class AdminService
@@ -12,7 +13,7 @@ class AdminService
     {
         $admin_all = Admin::all();
         return new DataSuccess(
-            data: $admin_all,
+            data: AdminResource::collection($admin_all),
             statusCode: 200,
             message: 'Admin retrieved successfully'
         );
@@ -33,7 +34,7 @@ class AdminService
     {
         $admin = Admin::create($data);
         return new DataSuccess(
-            data: $admin,
+            data: AdminResource::collection($admin),
             statusCode: 200,
             message: 'Admin created successfully'
         );

@@ -6,6 +6,14 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class AdminResource extends JsonResource
 {
+    protected $token;
+
+    public function __construct($resource, $token = null)
+    {
+        parent::__construct($resource);
+        $this->token = $token;
+    }
+
     public function toArray($request)
     {
         return [
@@ -15,8 +23,9 @@ class AdminResource extends JsonResource
             'email' => $this->email,
             'job_title' => $this->job_title,
             'api_key' => $this->api_key,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
+            'created_at' => $this->created_at->toDateTimeString(),
+            'updated_at' => $this->updated_at->toDateTimeString(),
+            'token' => $this->token,
         ];
     }
 }
