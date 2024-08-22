@@ -19,6 +19,7 @@ class AdminController extends Controller
 
     public function index()
     {
+
        return $this->adminService->getAll()->response();
 
     }

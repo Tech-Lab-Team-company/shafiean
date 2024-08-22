@@ -25,7 +25,7 @@ class AdminResource extends JsonResource
             'api_key' => $this->api_key,
             'created_at' => $this->created_at->toDateTimeString(),
             'updated_at' => $this->updated_at->toDateTimeString(),
-            'token' => $this->token,
+            'api_token' => $this->api_token,
         ];
     }
 }
