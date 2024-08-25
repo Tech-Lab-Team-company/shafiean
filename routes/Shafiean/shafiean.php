@@ -8,9 +8,11 @@ use App\Http\Controllers\OrganizationController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 
-Route::middleware('auth:admin')->group(function () {
-    Route::post('admin/logout' , [AdminAuthController::class, 'logout']);
 
+Route::post('admin/login', [AdminAuthController::class, 'adminLogin']);
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::post('admin/logout' , [AdminAuthController::class, 'adminLogout']);
     // Admin Routes
     Route::prefix('admins')->group(function () {
         Route::get('/', [AdminController::class, 'index'])->name('admins.index');
@@ -19,7 +21,6 @@ Route::middleware('auth:admin')->group(function () {
         Route::put('/{id}', [AdminController::class, 'update'])->name('admins.update');
         Route::delete('/{id}', [AdminController::class, 'destroy'])->name('admins.destroy');
     });
-
 });
 
 // Admin History Routes

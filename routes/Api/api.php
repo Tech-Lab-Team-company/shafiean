@@ -11,13 +11,10 @@ use App\Http\Controllers\AyatController;
 
 
 Route::post('user/login', [AuthController::class, 'login']);
-Route::post('admin/login', [AdminAuthController::class, 'login']);
 
-Route::middleware('auth:admin')->group(function () {
-
-});
 Route::middleware('auth:sanctum')->group(function (){
     Route::post('user/logout', [AuthController::class, 'logout']);
+
 });
 
 Route::resource('ayat', AyatController::class);

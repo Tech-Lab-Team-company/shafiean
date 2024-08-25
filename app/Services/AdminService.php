@@ -33,9 +33,8 @@ class AdminService
     public function create(array $data): DataStatus
     {
         $admin = Admin::create($data);
-        $admin->update(['api_token' => str_random(60)]);
         return new DataSuccess(
-            data:  new AdminResource($admin),
+            data:  new AdminResource( $admin ),
             statusCode: 200,
             message: 'Admin created successfully'
         );
@@ -43,9 +42,8 @@ class AdminService
 
     public function update($id, array $data): DataStatus
     {
-        $admin = Admin::findOrFail($id);
+        $admin = Admin::find($id);
         $admin->update($data);
-
         return new DataSuccess(
             data: $admin,
             statusCode: 200,
@@ -55,9 +53,8 @@ class AdminService
 
     public function delete($id): DataStatus
     {
-        $admin = Admin::findOrFail($id);
+        $admin = Admin::find($id);
         $admin->delete();
-
         return new DataSuccess(
             statusCode: 200,
             message: 'Admin deleted successfully'

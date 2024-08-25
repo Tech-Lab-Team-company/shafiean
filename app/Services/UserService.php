@@ -22,7 +22,6 @@ class UserService
             } else {
                 $imagePath = 'uploads/default.jpg';
             }
-
             $user = User::create([
                 'name' => $data['name'],
                 'email' => $data['email'],
@@ -32,7 +31,6 @@ class UserService
                 'api_key' => $data['api_key'],
                 'image' => $imagePath,
             ]);
-
             return new DataSuccess(
                 data: new UserResource($user),
                 statusCode: 200,
