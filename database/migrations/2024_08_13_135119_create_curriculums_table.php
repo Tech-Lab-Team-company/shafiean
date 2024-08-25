@@ -18,6 +18,7 @@ class CreateCurriculumsTable extends Migration
             $table->date('to')->nullable();
             $table->string('order')->nullable();
             $table->unsignedBigInteger('curriculum_id')->nullable();
+            $table->foreign('curriculum_id')->references('id')->on('curriculums');
         });
     }
 

@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Hash;
 
 class AdminAuthController extends Controller
 {
-    public function adminLogin (Request $request)
+    public function login (Request $request)
     {
         $credentials = $request->validate([
             'email' => 'required|email',
@@ -34,7 +34,7 @@ class AdminAuthController extends Controller
         ], 200);
     }
 
-    public function adminLogout (Request $request)
+    public function logout (Request $request)
     {
         $admin = Auth::guard('admin')->user();
         $admin->tokens()->delete();
