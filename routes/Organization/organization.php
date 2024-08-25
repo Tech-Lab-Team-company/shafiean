@@ -5,7 +5,6 @@ use App\Http\Controllers\StageController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\TermController;
 
-
 // Teacher Routes
 Route::prefix('teachers')->group(function () {
     Route::get('/', [TeacherController::class, 'index'])->name('teachers.index');

@@ -17,8 +17,6 @@ Route::middleware('auth:sanctum')->group(function (){
 
 });
 
-Route::resource('ayat', AyatController::class);
-Route::resource('quraan', QuraanController::class);
 
 // User Routes
 Route::prefix('users')->group(function () {
