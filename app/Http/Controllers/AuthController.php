@@ -21,9 +21,9 @@ class AuthController extends Controller
         ]);
         $user = User::where('email', $request->email)->first();
 
-        if(!$user || !Hash::check($fields['password'], $user->password)) {
+        if(!$user || Hash::check($fields['password'], $user->password)) {
             return response([
-                'message' => 'Bad '
+                'message' => 'password is wrong '
             ], 404);
         }
         Auth::login($user);
@@ -41,7 +41,7 @@ class AuthController extends Controller
     public function logout(Request $request)
     {
         auth()->user()->tokens()->delete();
-
+        dd($request);
         return response()->json([
             'message' => 'Logout successful',
         ], 200);

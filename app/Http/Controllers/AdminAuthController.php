@@ -21,7 +21,7 @@ class AdminAuthController extends Controller
 //        dd($admin);
         if (!$admin || Hash::check($credentials['password'], $admin->password)) {
             return response()->json([
-                'message' => 'Invalid credentials',
+                'message' => 'password is wrong',
             ], 401);
         }
         Auth::login($admin);
