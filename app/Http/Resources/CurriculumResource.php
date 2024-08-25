@@ -14,6 +14,17 @@ class CurriculumResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->id,
+            'title' => $this->title,
+            'type' => $this->type,
+            'time'=> $this->time,
+            'from'=> $this->from,
+            'to'=>$this->to,
+            'order' => $this->order,
+            'curriculum_id'=>$this->curriculum_id,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+        ];
     }
 }

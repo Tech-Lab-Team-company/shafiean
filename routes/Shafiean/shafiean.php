@@ -9,10 +9,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 
 
-Route::post('admin/login', [AdminAuthController::class, 'adminLogin']);
+Route::post('admin/login', [AdminAuthController::class, 'login']);
 
 Route::middleware('auth:sanctum')->group(function () {
-    Route::post('admin/logout' , [AdminAuthController::class, 'adminLogout']);
+    Route::post('admin/logout' , [AdminAuthController::class, 'logout']);
     // Admin Routes
     Route::prefix('admins')->group(function () {
         Route::get('/', [AdminController::class, 'index'])->name('admins.index');
