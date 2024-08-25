@@ -13,7 +13,6 @@ use Laravel\Sanctum\HasApiTokens;
 class Admin extends Authenticatable
 {
     use HasFactory, Notifiable , HasApiTokens ;
-
     protected $table = 'admins';
     protected $guard = 'admin';
     protected $fillable = [
@@ -24,12 +23,10 @@ class Admin extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
-
     protected static function newFactory()
     {
         return AdminFactory::new();
     }
-
     protected function setPasswordAttribute($password)
     {
         return $this->attributes['password'] = Hash::make($password);

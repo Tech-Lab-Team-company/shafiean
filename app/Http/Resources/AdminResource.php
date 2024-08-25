@@ -8,12 +8,11 @@ class AdminResource extends JsonResource
 {
     protected $token;
 
-    public function __construct($resource, $token = null)
+    public function __construct($resource, $token )
     {
         parent::__construct($resource);
         $this->token = $token;
     }
-
     public function toArray($request)
     {
         return [
@@ -22,10 +21,9 @@ class AdminResource extends JsonResource
             'phone' => $this->phone,
             'email' => $this->email,
             'job_title' => $this->job_title,
-            'api_key' => $this->api_key,
             'created_at' => $this->created_at->toDateTimeString(),
             'updated_at' => $this->updated_at->toDateTimeString(),
-            'api_token' => $this->api_token,
+            'token' => $this->token,
         ];
     }
 }

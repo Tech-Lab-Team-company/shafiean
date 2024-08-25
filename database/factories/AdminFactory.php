@@ -19,7 +19,6 @@ class AdminFactory extends Factory
             'password' =>'password',
             'api_key' => Str::random(32),
             'job_title' => $this->faker->jobTitle,
-            'api_token'=> Str::random(32),
         ];
     }
 }

@@ -29,7 +29,6 @@ class AuthController extends Controller
         Auth::login($user);
         $token = $user->createToken('user_token')->plainTextToken;
 
-
         $data = new UserResource($user,$token);
         $msg = 'login success';
         return response()->json([
