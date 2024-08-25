@@ -46,8 +46,6 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
-
-
     public function city()
     {
         return $this->belongsTo(City::class);
@@ -57,8 +55,7 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Country::class);
     }
-
-    public function disability_Type()
+    public function disability_type()
     {
         return $this->belongsTo(DisabilityType::class);
     }
