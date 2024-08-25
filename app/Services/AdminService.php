@@ -33,8 +33,9 @@ class AdminService
     public function create(array $data): DataStatus
     {
         $admin = Admin::create($data);
+        $token = $admin->createToken('admin_token')->plainTextToken;
         return new DataSuccess(
-            data:  new AdminResource( $admin ),
+            data:  new AdminResource( $admin ,$token),
             statusCode: 200,
             message: 'Admin created successfully'
         );
