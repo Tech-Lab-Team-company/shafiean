@@ -8,7 +8,7 @@ use App\Models\Admin\AdminHistory;
 
 class AdminHistoryService
 {
-    public function getAll()
+public function getAll()
     {
         $admin_history_all = AdminHistory::all();
         return new DataSuccess(
