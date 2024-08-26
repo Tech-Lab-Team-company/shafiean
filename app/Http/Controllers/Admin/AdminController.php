@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\Admin\AdminRequest;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\AdminStoreRequest;
 use App\Http\Requests\Admin\AdminUpdateRequest;
-use App\Http\Resources\AdminResource;
 use App\Services\AdminService;
 
 class AdminController extends Controller

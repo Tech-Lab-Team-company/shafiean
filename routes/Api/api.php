@@ -1,13 +1,10 @@
 <?php
 
-use App\Http\Controllers\AdminAuthController;
-use App\Http\Controllers\AuthController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\AuthController;
+use App\Http\Controllers\Global\CityController;
+use App\Http\Controllers\Global\CountryController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\CountryController;
-use App\Http\Controllers\CityController;
-use App\Http\Controllers\QuraanController;
-use App\Http\Controllers\AyatController;
+use Illuminate\Support\Facades\Route;
 
 
 Route::post('user/login', [AuthController::class, 'login']);

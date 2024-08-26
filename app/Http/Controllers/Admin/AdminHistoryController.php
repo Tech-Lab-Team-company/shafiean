@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\AdminHistoryRequest;
 use App\Http\Resources\AdminHistoryResource;
 use App\Services\AdminHistoryService;

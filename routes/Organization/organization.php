@@ -1,9 +1,9 @@
 <?php
 
+use App\Http\Controllers\Global\StageController;
+use App\Http\Controllers\Organization\TeacherController;
+use App\Http\Controllers\Organization\TermController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\StageController;
-use App\Http\Controllers\TeacherController;
-use App\Http\Controllers\TermController;
 
 // Teacher Routes
 Route::prefix('teachers')->group(function () {
