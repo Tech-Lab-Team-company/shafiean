@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 class AyatFactory extends Factory
 {
     protected $model = Ayat::class;
-
     public function definition()
     {
         return [

@@ -19,8 +19,8 @@ class CreateTeachersTable extends Migration {
             $table->string('api_key')->nullable();
             $table->string('age')->nullable();
             $table->string('image')->nullable();
+            $table->string('is_employed')->nullable()->default(0)->comment('0 => for teachers , 1=> for employees'); //
             $table->unsignedBigInteger('organization_id')->nullable();
-
             $table->foreign('organization_id')
                 ->references('id')
                 ->on('organizations')

@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 class QuraanFactory extends Factory
 {
     protected $model = Quraan::class;
-
     public function definition()
     {
         return [

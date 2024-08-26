@@ -6,7 +6,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class UserResource extends JsonResource
 {
-
+    protected $token;
     public function __construct($resource, $token = null)
     {
         parent::__construct($resource);

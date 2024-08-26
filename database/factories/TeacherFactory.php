@@ -22,6 +22,7 @@ class TeacherFactory extends Factory
             'age' => $this->faker->numberBetween(25, 60),
             'image' => $this->faker->imageUrl(640, 480, 'people', true),
             'organization_id' => \App\Models\Organization::factory(),
+            'is_employed' => $this->faker->boolean(),
         ];
     }
 }
