@@ -22,15 +22,7 @@ class UserService
             } else {
                 $imagePath = 'uploads/default.jpg';
             }
-            $user = User::create([
-                'name' => $data['name'],
-                'email' => $data['email'],
-                'password' => Hash::make($data['password']),
-                'phone' => $data['phone'],
-                'gender' => $data['gender'],
-                'api_key' => $data['api_key'],
-                'image' => $imagePath,
-            ]);
+       $user = User::create($data);
             return new DataSuccess(
                 data: new UserResource($user),
                 statusCode: 200,
