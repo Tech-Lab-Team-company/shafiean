@@ -50,7 +50,7 @@ class TeacherService
     {
         try {
             if (isset($data['image'])) {
-                $imagePath = upload_image('public/teachers', $data['image']);
+                $imagePath = upload_image('teachers', $data['image']);
                 $data['image'] = $imagePath;
             } else {
                 $data['image'] = 'uploads/default.jpg';

@@ -8,7 +8,7 @@ if (!function_exists('upload_image')) {
     function upload_image($folder ,$image )
     {
         if (isset($image)) {
-            $path = Storage::putFile($folder, $image);
+            $path = Storage::putFile('public/'.$folder, $image);
             $urlImage = Storage::url($path);
             return $urlImage;
         }
