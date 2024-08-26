@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 class AdminHistoryFactory extends Factory
 {
     protected $model = AdminHistory::class;
-
     public function definition()
     {
         return [

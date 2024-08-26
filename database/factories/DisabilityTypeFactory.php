@@ -9,7 +9,6 @@ use Illuminate\Support\Str;
 class DisabilityTypeFactory extends Factory
 {
     protected $model = DisabilityType::class;
-
     public function definition()
     {
         return [

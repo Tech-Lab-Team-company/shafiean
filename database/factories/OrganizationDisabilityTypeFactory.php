@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 class OrganizationDisabilityTypeFactory extends Factory
 {
     protected $model = OrganizationDisabilityType::class;
-
     public function definition()
     {
         return [

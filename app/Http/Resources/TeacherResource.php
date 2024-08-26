@@ -6,6 +6,12 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class TeacherResource extends JsonResource
 {
+    protected $token;
+    public function __construct($resource, $token )
+    {
+        parent::__construct($resource);
+        $this->token = $token;
+    }
     public function toArray($request)
     {
         return [
@@ -16,7 +22,9 @@ class TeacherResource extends JsonResource
             'gender' => $this->gender,
             'age' => $this->age,
             'image' => $this->image,
+            'is_employed'=>$this->is_employed,
             'organization_id' => $this->organization_id,
+            'token' => $this->token,
             'created_at' => $this->created_at->format('Y-m-d H:i:s'),
             'updated_at' => $this->updated_at->format('Y-m-d H:i:s'),
         ];

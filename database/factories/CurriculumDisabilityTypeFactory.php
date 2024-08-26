@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 class CurriculumDisabilityTypeFactory extends Factory
 {
     protected $model = CurriculumDisabilityType::class;
-
     public function definition()
     {
         return [

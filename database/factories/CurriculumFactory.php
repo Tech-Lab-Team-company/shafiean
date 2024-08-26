@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 class CurriculumFactory extends Factory
 {
     protected $model = Curriculum::class;
-
     public function definition()
     {
         return [
