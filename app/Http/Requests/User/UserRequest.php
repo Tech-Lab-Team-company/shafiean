@@ -20,7 +20,7 @@ class UserRequest extends FormRequest
             'password' => 'nullable|string|min:8|confirmed',
             'phone' => 'nullable|string|max:20',
             'gender' => 'nullable|string|max:10',
-            'api_key' => 'nullable|string|max:255',
+//            'api_key' => 'nullable|string|max:255',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ];
     }

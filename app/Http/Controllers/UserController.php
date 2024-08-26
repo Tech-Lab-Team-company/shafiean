@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Http\Requests\User\UserStoreRequest;
+use App\Http\Requests\User\UserUpdateRequest;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use App\Http\Requests\User\UserRequest;
@@ -23,7 +25,7 @@ class UserController extends Controller
 
     }
 
-    public function store(UserRequest $request)
+    public function store(UserStoreRequest $request)
     {
         return $this->userService->createUser($request->validated())->response();
     }
@@ -34,7 +36,7 @@ class UserController extends Controller
         return new UserResource($user);
     }
 
-    public function update(UserRequest $request, $id)
+    public function update(UserUpdateRequest $request, $id)
     {
         return $this->userService->updateUser($id, $request->validated())->response();
     }
