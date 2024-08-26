@@ -7,7 +7,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 class TeacherResource extends JsonResource
 {
     protected $token;
-    public function __construct($resource, $token )
+    public function __construct($resource, $token = null  )
     {
         parent::__construct($resource);
         $this->token = $token;
@@ -21,7 +21,7 @@ class TeacherResource extends JsonResource
             'email' => $this->email,
             'gender' => $this->gender,
             'age' => $this->age,
-            'image' => $this->image,
+            'image' => url($this->image),
             'is_employed'=>$this->is_employed,
             'organization_id' => $this->organization_id,
             'token' => $this->token,

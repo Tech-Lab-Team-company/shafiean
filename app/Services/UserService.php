@@ -18,11 +18,14 @@ class UserService
     {
         try {
             if (isset($data['image'])) {
-                $imagePath = upload_image('public/users', $data['image']);
+                $data['image'] = upload_image('users', $data['image']);
             } else {
                 $imagePath = 'uploads/default.jpg';
             }
-       $user = User::create($data);
+
+
+            $user = User::create($data);
+
             return new DataSuccess(
                 data: new UserResource($user),
                 statusCode: 200,
@@ -45,7 +48,7 @@ class UserService
                 if ($user->image !== 'uploads/default.jpg') {
                     Storage::delete($user->image);
                 }
-                $data['image'] = upload_image('public/users', $data['image']);
+                $data['image'] = upload_image('users', $data['image']);
             }
 
             $user->update($data);

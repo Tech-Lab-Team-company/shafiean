@@ -24,7 +24,6 @@ class AdminAuthService
             }
             Auth::login($admin);
             $token = $admin->createToken('admin_token')->plainTextToken;
-
             return new DataSuccess(
                 data: new AdminResource($admin, $token),
                 statusCode: 200,

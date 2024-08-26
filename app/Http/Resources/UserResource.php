@@ -21,11 +21,14 @@ class UserResource extends JsonResource
             'phone' => $this->phone,
             'gender' => $this->gender,
             'api_key' => $this->api_key,
-            'image' => $this->image,
+            'image' => url($this->image),
             'created_at' => $this->created_at->toDateTimeString(),
             'updated_at' => $this->updated_at->toDateTimeString(),
             'token' => $this->token
         ];
     }
+
+
+
 }
 
