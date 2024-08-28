@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('gender')->nullable();
             $table->string('api_key')->nullable();
             $table->string('image')->nullable();
+
             $table->rememberToken();
             $table->timestamps();
         });
