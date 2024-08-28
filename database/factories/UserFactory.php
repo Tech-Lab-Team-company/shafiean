@@ -21,6 +21,9 @@ class UserFactory extends Factory
             'api_key' => Str::random(32),
             'image' => $this->faker->imageUrl(),
             'remember_token' => Str::random(10),
+            'city_id' => \App\Models\City::factory(),
+            'country_id' => \App\Models\Country::factory(),
+            'disability_type_id' => \App\Models\DisabilityType::factory(),
         ];
     }
 }

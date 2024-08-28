@@ -12,10 +12,12 @@ class CreateCitiesTable extends Migration
             $table->id();
             $table->string('title');
             $table->unsignedBigInteger('country_id')->nullable();
-            $table->timestamps();
+
             $table->foreign('country_id')
                 ->references('id')->on('countries')
                 ->onDelete('set null');
+
+            $table->timestamps();
         });
     }
 

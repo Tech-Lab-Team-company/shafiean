@@ -16,6 +16,8 @@ class TermFactory extends Factory
             'timestamp' => $this->faker->dateTime,
             'type' => $this->faker->word,
             'order' => $this->faker->randomNumber(),
+            'stage_id'=>\App\Models\Stage::factory(),
+            'organization_id'=>\App\Models\Organization::factory(),
         ];
     }
 }

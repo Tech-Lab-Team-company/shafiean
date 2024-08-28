@@ -17,15 +17,12 @@ class UserService
     public function createUser(array $data): DataStatus
     {
         try {
-            if (isset($data['image'])) {
+            if (isset($data['image'])){
                 $data['image'] = upload_image('users', $data['image']);
             } else {
                 $imagePath = 'uploads/default.jpg';
             }
-
-
             $user = User::create($data);
-
             return new DataSuccess(
                 data: new UserResource($user),
                 statusCode: 200,
@@ -42,8 +39,7 @@ class UserService
     public function updateUser($id, array $data): DataStatus
     {
         try {
-            $user = User::findOrFail($id);
-
+            $user = User::find($id);
             if (isset($data['image'])) {
                 if ($user->image !== 'uploads/default.jpg') {
                     Storage::delete($user->image);

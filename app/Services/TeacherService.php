@@ -55,9 +55,7 @@ class TeacherService
             } else {
                 $data['image'] = 'uploads/default.jpg';
             }
-
             $teacher = Teacher::create($data);
-
             return new DataSuccess(
                 data: new TeacherResource($teacher),
                 statusCode: 200,
