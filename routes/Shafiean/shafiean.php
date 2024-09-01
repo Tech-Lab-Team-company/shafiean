@@ -14,14 +14,15 @@ use Illuminate\Support\Facades\Route;
 Route::post('admin/login', [AdminAuthController::class, 'login']);
 
 Route::middleware('auth:sanctum')->group(function () {
-    Route::post('admin/logout' , [AdminAuthController::class, 'logout']);
+    Route::post('admin/logout', [AdminAuthController::class, 'logout']);
+    Route::post('admin/change-password', [AdminAuthController::class, 'changePassword']);
     // Admin Routes
     Route::prefix('admins')->group(function () {
         Route::get('/', [AdminController::class, 'index'])->name('admins.index');
         Route::post('/', [AdminController::class, 'store'])->name('admins.store');
-        Route::get('/{id}', [AdminController::class, 'show'])->name('admins.show');
-        Route::put('/{id}', [AdminController::class, 'update'])->name('admins.update');
-        Route::delete('/{id}', [AdminController::class, 'destroy'])->name('admins.destroy');
+        Route::post('/show', [AdminController::class, 'show'])->name('admins.show');
+        Route::post('/update', [AdminController::class, 'update'])->name('admins.update');
+        Route::post('/destroy', [AdminController::class, 'destroy'])->name('admins.destroy');
     });
 
     // Admin History Routes
@@ -33,7 +34,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::delete('/{id}', [AdminHistoryController::class, 'destroy'])->name('admin_histories.destroy');
     });
 
-// Disability_types Routes
+    // Disability_types Routes
     Route::prefix('disability_types')->group(function () {
         Route::get('/', [DisabilityTypeController::class, 'index'])->name('disability_types.index');
         Route::post('/', [DisabilityTypeController::class, 'store'])->name('disability_types.store');
@@ -42,7 +43,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::delete('/{id}', [DisabilityTypeController::class, 'destroy'])->name('disability_types.destroy');
     });
 
-// Organization Routes
+    // Organization Routes
     Route::prefix('organizations')->group(function () {
         Route::get('/', [OrganizationController::class, 'index'])->name('organizations.index');
         Route::post('/', [OrganizationController::class, 'store'])->name('organizations.store');
@@ -51,7 +52,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::delete('/{id}', [OrganizationController::class, 'destroy'])->name('organizations.destroy');
     });
 
-// Curriculum Routes
+    // Curriculum Routes
     Route::prefix('curriculums')->group(function () {
         Route::get('/', [CurriculumController::class, 'index'])->name('curriculums.index');
         Route::post('/', [CurriculumController::class, 'store'])->name('curriculums.store');
@@ -63,4 +64,3 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::resource('ayat', AyatController::class);
     Route::resource('quraan', QuraanController::class);
 });
-

@@ -13,12 +13,12 @@ class CheckOrganization
     {
         $webKey = $request->header('web_key');
         if (!$webKey) {
-            return response()->json(['error' => 'web_key is required'], 400);
+            return response()->json(['error' => 'web_key is required'], 401);
         }
         $organization = Organization::where('web_key', $webKey)->first();
 
         if (!$organization) {
-            return response()->json(['error' => 'Invalid web_key'], 401);
+            return response()->json(['error' => 'Invalid web_key'], 404);
         }
         $request->attributes->set('organization', $organization);
 

@@ -14,9 +14,10 @@ class AdminUpdateRequest extends FormRequest
 
     public function rules()
     {
-        $adminId = $this->route('id');
+
 
         return [
+            'id' => 'required|exists:admins,id',
             'name' => 'nullable|string|max:191',
             'phone' => 'nullable|string|max:191',
             'email' => [
@@ -24,7 +25,7 @@ class AdminUpdateRequest extends FormRequest
                 'string',
                 'email',
                 'max:191',
-                Rule::unique('admins')->ignore($adminId),
+                Rule::unique('admins')->ignore($this->id),
             ],
             'password' => 'nullable|string|min:8',
             'api_key' => 'nullable|string',
