@@ -11,27 +11,31 @@ use Exception;
 
 class DisabilityTypeService
 {
-    public function getAll(): DataStatus
+    public function getAll($request): DataStatus
     {
         try {
-            $disabilityTypes = DisabilityType::all();
+            if (isset($request->word)) {
+                $disabilityTypes = DisabilityType::where('title', 'like', '%' . $request->word . '%')->orderBy('id', 'desc')->paginate(10)->withQueryString();
+            } else {
+                $disabilityTypes = DisabilityType::orderBy('id', 'desc')->paginate(10)->withQueryString();
+            }
             return new DataSuccess(
-                data: DisabilityTypeResource::collection($disabilityTypes),
-                statusCode: 200,
+                data: DisabilityTypeResource::collection($disabilityTypes)->response()->getData(true),
+                status: true,
                 message: 'Disability types retrieved successfully'
             );
         } catch (Exception $e) {
             return new DataFailed(
-                statusCode: 500,
+                status: false,
                 message: 'Failed to retrieve disability types: ' . $e->getMessage()
             );
         }
     }
 
-    public function getById($id): DataStatus
+    public function getById($request): DataStatus
     {
         try {
-            $disabilityType = DisabilityType::find($id);
+            $disabilityType = DisabilityType::find($request->id);
             return new DataSuccess(
                 data: new DisabilityTypeResource($disabilityType),
                 statusCode: 200,
@@ -45,13 +49,26 @@ class DisabilityTypeService
         }
     }
 
-    public function create(array $data): DataStatus
+    public function create($request): DataStatus
     {
         try {
+            if ($request->hasFile('image')) {
+                $image = upload_image($request->file('image'), 'disability_types');
+                $data['image'] = $image;
+            }
+            $disabilityTypes = DisabilityType::where('order', '>=', $request->order)->get();
+            foreach ($disabilityTypes as $disabilityType) {
+                $disabilityType->update([
+                    'order' => $disabilityType->order + 1
+                ]);
+            }
+            $data['title'] = $request->title;
+            $data['description'] = $request->description;
+            $data['order'] = $request->order;
             $disabilityType = DisabilityType::create($data);
             return new DataSuccess(
                 data: new DisabilityTypeResource($disabilityType),
-                statusCode: 200,
+                status: true,
                 message: 'Disability type created successfully'
             );
         } catch (Exception $e) {
@@ -62,39 +79,58 @@ class DisabilityTypeService
         }
     }
 
-    public function update($id, array $data): DataStatus
+    public function update($request): DataStatus
     {
         try {
-            $disabilityType = DisabilityType::find($id);
-            $disabilityType->update($data);
+            $disability = DisabilityType::find($request->id);
+            // dd($disabilityType);
+            if ($request->hasFile('image')) {
+                if ($disability->image !== null) {
+                    delete_image($disability->image);
+                }
+                $image = upload_image($request->file('image'), 'disability_types');
+                $data['image'] = $image;
+            }
+            if (isset($request->order)) {
+                $disabilityTypes = DisabilityType::where('order', '>=', $request->order)->get();
+                foreach ($disabilityTypes as $disabilityType) {
+                    $disabilityType->update([
+                        'order' => $disabilityType->order + 1
+                    ]);
+                }
+                $data['order'] = $request->order;
+            }
+            $data['title'] = $request->title;
+            $data['description'] = $request->description;
+            $disability->update($data);
             return new DataSuccess(
-                data: new DisabilityTypeResource($disabilityType),
-                statusCode: 200,
+                data: new DisabilityTypeResource($disability),
+                status: true,
                 message: 'Disability type updated successfully'
             );
         } catch (Exception $e) {
             return new DataFailed(
-                statusCode: 500,
+                status: false,
                 message: 'Disability type update failed: ' . $e->getMessage()
             );
         }
     }
 
-    public function delete($id): DataStatus
+    public function delete($request): DataStatus
     {
         try {
-            $disabilityType = DisabilityType::find($id);
+            $disabilityType = DisabilityType::find($request->id);
+            
             $disabilityType->delete();
             return new DataSuccess(
-                statusCode: 200,
+                status: true,
                 message: 'Disability type deleted successfully'
             );
         } catch (Exception $e) {
             return new DataFailed(
-                statusCode: 500,
+                status: true,
                 message: 'Disability type deletion failed: ' . $e->getMessage()
             );
         }
     }
 }
-

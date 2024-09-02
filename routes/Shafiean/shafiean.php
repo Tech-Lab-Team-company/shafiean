@@ -20,7 +20,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::prefix('admin')->group(function () {
         Route::post('/logout', [AdminAuthController::class, 'logout']);
         Route::post('/change-password', [AdminAuthController::class, 'changePassword']);
-
     });
     // Admin Routes
     Route::prefix('admins')->group(function () {
@@ -43,11 +42,11 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // Disability_types Routes
     Route::prefix('disability_types')->group(function () {
-        Route::get('/', [DisabilityTypeController::class, 'index'])->name('disability_types.index');
-        Route::post('/', [DisabilityTypeController::class, 'store'])->name('disability_types.store');
-        Route::get('/{id}', [DisabilityTypeController::class, 'show'])->name('disability_types.show');
-        Route::put('/{id}', [DisabilityTypeController::class, 'update'])->name('disability_types.update');
-        Route::delete('/{id}', [DisabilityTypeController::class, 'destroy'])->name('disability_types.destroy');
+        Route::post('/', [DisabilityTypeController::class, 'index'])->name('disability_types.index');
+        Route::post('/store', [DisabilityTypeController::class, 'store'])->name('disability_types.store');
+        Route::post('/show', [DisabilityTypeController::class, 'show'])->name('disability_types.show');
+        Route::post('/update', [DisabilityTypeController::class, 'update'])->name('disability_types.update');
+        Route::post('/destroy', [DisabilityTypeController::class, 'destroy'])->name('disability_types.destroy');
     });
 
     // Organization Routes

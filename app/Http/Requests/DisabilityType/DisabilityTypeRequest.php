@@ -14,9 +14,11 @@ class DisabilityTypeRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'nullable|string|max:255',
+            'id' => 'nullable|exists:disability_types,id',
+            'title' => 'required|string|max:255',
+            'description' => 'nullable|string|max:255',
+            'image' => 'nullable|image|max:255',
             'order' => 'nullable|integer',
         ];
     }
 }
-
