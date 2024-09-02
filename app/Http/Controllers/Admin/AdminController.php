@@ -36,7 +36,7 @@ class AdminController extends Controller
 
     public function update(AdminUpdateRequest $request)
     {
-        return $this->adminService->update($request->validated())->response();
+        return $this->adminService->update($request)->response();
     }
 
     public function destroy(Request $request)

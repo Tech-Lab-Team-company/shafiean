@@ -51,11 +51,11 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // Organization Routes
     Route::prefix('organizations')->group(function () {
-        Route::get('/', [OrganizationController::class, 'index'])->name('organizations.index');
-        Route::post('/', [OrganizationController::class, 'store'])->name('organizations.store');
-        Route::get('/{id}', [OrganizationController::class, 'show'])->name('organizations.show');
-        Route::put('/{id}', [OrganizationController::class, 'update'])->name('organizations.update');
-        Route::delete('/{id}', [OrganizationController::class, 'destroy'])->name('organizations.destroy');
+        Route::post('/', [OrganizationController::class, 'index'])->name('organizations.index');
+        Route::post('/store', [OrganizationController::class, 'store'])->name('organizations.store');
+        Route::post('/show', [OrganizationController::class, 'show'])->name('organizations.show');
+        Route::post('/update', [OrganizationController::class, 'update'])->name('organizations.update');
+        Route::post('/destroy', [OrganizationController::class, 'destroy'])->name('organizations.destroy');
     });
 
     // Curriculum Routes

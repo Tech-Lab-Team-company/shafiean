@@ -52,22 +52,22 @@ class AdminService
         );
     }
 
-    public function update(array $data): DataStatus
+    public function update($request): DataStatus
     {
-        // dd($data);
-        $admin = Admin::find($data['id']);
+        // dd($request->all());
+        $admin = Admin::find($request->id);
         // dd($admin);
-        if (isset($data['image'])) {
-            delete_image($admin->image);
-            $adminData['image'] = upload_image('admins', $data['image']);
+        if ($request->hasFile('image')) {
+            delete_image($request->image);
+            $adminData['image'] = upload_image($request->file('image'), 'admin');
         }
 
-        $adminData['name'] = $data['name'] ?? $admin->name;
-        $adminData['email'] = $data['email'] ?? $admin->email;
+        $adminData['name'] = $request->name ?? $admin->name;
+        $adminData['email'] = $request->email ?? $admin->email;
         // $adminData['password'] = Hash::make($data['password']) ;
-        $adminData['phone'] = $data['phone'] ?? $admin->phone;
-
-        $admin->update($data);
+        $adminData['phone'] = $request->phone ?? $admin->phone;
+        // dd($adminData);
+        $admin->update($adminData);
         return new DataSuccess(
             data: new AdminResource($admin),
             status: true,
