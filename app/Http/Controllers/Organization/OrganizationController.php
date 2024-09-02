@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Organization;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Organization\OrganizationRequest;
 use App\Services\OrganizationService;
+use Illuminate\Http\Request;
 
 class OrganizationController extends Controller
 {
@@ -15,9 +16,9 @@ class OrganizationController extends Controller
         $this->organizationService = $organizationService;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        return $this->organizationService->getAllOrganizations()->response();
+        return $this->organizationService->getAllOrganizations($request)->response();
 
     }
 
