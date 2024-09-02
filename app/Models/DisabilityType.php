@@ -13,22 +13,26 @@ class DisabilityType extends Model
     use HasFactory;
     protected $table = "disability_types";
 
-    protected $fillable = [
-        'title',
-        'order'
-    ];
+    protected $guarded = [];
 
-    public function users() :HasMany
+    protected $appends  = ["image_link"];
+
+    public function getImageLinkAttribute()
     {
-        return $this->hasMany(User::class , 'disability_type_id');
+        return $this->image ? url('storage/' . $this->image) : '';
     }
 
-    public function organizationDisabilityTypes() :HasMany
+    public function users(): HasMany
+    {
+        return $this->hasMany(User::class, 'disability_type_id');
+    }
+
+    public function organizationDisabilityTypes(): HasMany
     {
         return $this->hasMany('App\Models\OrganizationDisabilityType', 'disability_type_id');
     }
 
-    public function organizations() :BelongsToMany
+    public function organizations(): BelongsToMany
     {
         return $this->belongsToMany('App\Models\Organization', 'organization_disability_types', 'disability_type_id', 'organization_id');
     }

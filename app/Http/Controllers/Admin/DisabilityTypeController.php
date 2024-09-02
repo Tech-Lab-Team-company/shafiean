@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\DisabilityType\DestroyRequest;
 use App\Http\Requests\DisabilityType\DisabilityTypeRequest;
+use App\Http\Requests\DisabilityType\ShowRequest;
 use App\Services\DisabilityTypeService;
+use Illuminate\Http\Request;
 
 class DisabilityTypeController extends Controller
 {
@@ -15,31 +18,31 @@ class DisabilityTypeController extends Controller
         $this->disabilityTypeService = $disabilityTypeService;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        return $this->disabilityTypeService->getAll()->response();
+        return $this->disabilityTypeService->getAll($request)->response();
 
     }
 
     public function store(DisabilityTypeRequest $request)
     {
-        return $this->disabilityTypeService->create($request->validated())->response();
+        return $this->disabilityTypeService->create($request)->response();
     }
 
-    public function show($id)
+    public function show(ShowRequest $request)
     {
-        return $this->disabilityTypeService->getById($id)->response();
-
-    }
-
-    public function update(DisabilityTypeRequest $request, $id)
-    {
-        return $this->disabilityTypeService->update($id, $request->validated())->response();
+        return $this->disabilityTypeService->getById($request)->response();
 
     }
 
-    public function destroy($id)
+    public function update(DisabilityTypeRequest $request)
     {
-       return $this->disabilityTypeService->delete($id)->response();
+        return $this->disabilityTypeService->update($request)->response();
+
+    }
+
+    public function destroy(DestroyRequest $request)
+    {
+       return $this->disabilityTypeService->delete($request)->response();
     }
 }
