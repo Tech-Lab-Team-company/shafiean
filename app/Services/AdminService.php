@@ -30,17 +30,19 @@ class AdminService
         );
     }
 
-    public function create($data): DataStatus
+    public function create($request): DataStatus
     {
-        $adminData['name'] = $data->name;
-        $adminData['email'] = $data->email;
+        $data['name'] = $request->name;
+        $data['email'] = $request->email;
         // dd($data);
-        $adminData['password'] = $data->password;
-        $adminData['phone'] = $data->phone;
-        if (isset($data->image)) {
-            $adminData['image'] = upload_image('admins', $data->image);
+        $data['password'] = $request->password;
+        $data['phone'] = $request->phone;
+        if ($request->hasFile('image')) {
+            $image = upload_image($request->file('image'), 'admin');
+            $data['image'] = $image;
         }
-        $admin = Admin::create($adminData);
+        // dd($data);
+        $admin = Admin::create($data);
         // $token = $admin->createToken('admin_token')->plainTextToken;
         return new DataSuccess(
             data: new AdminResource($admin),

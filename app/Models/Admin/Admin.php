@@ -12,17 +12,21 @@ use Laravel\Sanctum\HasApiTokens;
 
 class Admin extends Authenticatable
 {
-    use HasFactory, Notifiable , HasApiTokens ;
+    use HasFactory, Notifiable, HasApiTokens;
     protected $table = 'admins';
     protected $guard = 'admin';
-    protected $fillable = [
-        'name', 'email', 'phone', 'password',
-        'api_key', 'job_title','api_token'
-    ];
+    protected $guarded = [];
 
     protected $hidden = [
-        'password', 'remember_token',
+        'password',
+        'remember_token',
     ];
+    protected $appends  = ["image_link"];
+
+    public function getImageLinkAttribute()
+    {
+        return $this->image ? url('storage/' . $this->image) : '';
+    }
     protected static function newFactory()
     {
         return AdminFactory::new();
@@ -36,6 +40,3 @@ class Admin extends Authenticatable
         return $this->hasMany(AdminHistory::class, 'admin_id');
     }
 }
-
-
-

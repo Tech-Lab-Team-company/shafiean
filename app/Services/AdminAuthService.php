@@ -7,6 +7,8 @@ use App\Helpers\Response\DataStatus;
 use App\Helpers\Response\DataSuccess;
 use App\Http\Resources\AdminResource;
 use App\Models\Admin\Admin;
+use App\Services\Global\CodeService;
+use App\Services\Global\EmailService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
@@ -100,6 +102,45 @@ class AdminAuthService
             return new DataFailed(
                 status: false,
                 message: 'Admin password change failed: ' . $e->getMessage()
+            );
+        }
+    }
+
+    public function checkEmail($request): DataStatus
+    {
+        try {
+            $admin = Admin::where('email', $request->email)->first();
+            // dd($admin);
+            $email_service = new EmailService();
+            $response = $email_service->checkEmail($admin)->response()->getData();
+            // dd($response->message);
+            return new DataSuccess(
+                status: true,
+                message: $response->message
+            );
+        } catch (\Exception $e) {
+            return new DataFailed(
+                status: false,
+                message: 'Code sending failed: ' . $e->getMessage()
+            );
+        }
+    }
+
+    public function checkCode($request): DataStatus
+    {
+        // dd($request->all());
+        try {
+            $admin = Admin::where('email', $request->email)->first();
+            $code_service = new CodeService();
+            $response = $code_service->checkCode($request, $admin)->response()->getData();
+            return new DataSuccess(
+                status: true,
+                message: $response->message
+            );
+        } catch (\Exception $e) {
+            return new DataFailed(
+                status: false,
+                message: 'Code sending failed: ' . $e->getMessage()
             );
         }
     }
