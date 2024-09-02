@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Helpers\Response\DataFailed;
 use App\Helpers\Response\DataStatus;
 use App\Helpers\Response\DataSuccess;
 use App\Http\Resources\AdminResource;
@@ -12,7 +13,7 @@ class AdminService
 {
     public function getAll()
     {
-        $admin_all = Admin::all();
+        $admin_all = Admin::orderBy('id', 'desc')->get();
         return new DataSuccess(
             data: AdminResource::collection($admin_all),
             status: true,
@@ -30,17 +31,19 @@ class AdminService
         );
     }
 
-    public function create($data): DataStatus
+    public function create($request): DataStatus
     {
-        $adminData['name'] = $data->name;
-        $adminData['email'] = $data->email;
+        $data['name'] = $request->name;
+        $data['email'] = $request->email;
         // dd($data);
-        $adminData['password'] = $data->password;
-        $adminData['phone'] = $data->phone;
-        if (isset($data->image)) {
-            $adminData['image'] = upload_image('admins', $data->image);
+        $data['password'] = $request->password;
+        $data['phone'] = $request->phone;
+        if ($request->hasFile('image')) {
+            $image = upload_image($request->file('image'), 'admin');
+            $data['image'] = $image;
         }
-        $admin = Admin::create($adminData);
+        // dd($data);
+        $admin = Admin::create($data);
         // $token = $admin->createToken('admin_token')->plainTextToken;
         return new DataSuccess(
             data: new AdminResource($admin),
@@ -75,10 +78,41 @@ class AdminService
     public function delete($request): DataStatus
     {
         $admin = Admin::find($request->id);
+        if ($admin->is_master == 1) {
+            return new DataFailed(
+                status: false,
+                message: 'Master admin can not be deleted'
+            );
+        }
         $admin->delete();
         return new DataSuccess(
             status: true,
             message: 'Admin deleted successfully'
         );
+    }
+
+    public function editPassword($request): DataStatus
+    {
+        try {
+            $admin = Admin::find($request->id);
+
+            if ($admin->is_master == 1) {
+                return new DataFailed(
+                    status: false,
+                    message: 'Master admin can not change password'
+                );
+            }
+            $admin->password = Hash::make($request->password);
+            $admin->save();
+            return new DataSuccess(
+                status: true,
+                message: 'Password updated successfully'
+            );
+        } catch (\Exception $e) {
+            return new DataFailed(
+                status: false,
+                message: 'Password update failed: ' . $e->getMessage()
+            );
+        }
     }
 }

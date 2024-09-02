@@ -10,12 +10,18 @@ use App\Http\Controllers\Admin\QuraanController;
 use App\Http\Controllers\Organization\OrganizationController;
 use Illuminate\Support\Facades\Route;
 
-
-Route::post('admin/login', [AdminAuthController::class, 'login']);
-
+Route::prefix('admin')->group(function () {
+    Route::post('login', [AdminAuthController::class, 'login']);
+    Route::post('check-email', [AdminAuthController::class, 'checkEmail']);
+    Route::post('check-code', [AdminAuthController::class, 'checkCode']);
+    Route::post('reset-password', [AdminAuthController::class, 'resetPassword']);
+});
 Route::middleware('auth:sanctum')->group(function () {
-    Route::post('admin/logout', [AdminAuthController::class, 'logout']);
-    Route::post('admin/change-password', [AdminAuthController::class, 'changePassword']);
+    Route::prefix('admin')->group(function () {
+        Route::post('/logout', [AdminAuthController::class, 'logout']);
+        Route::post('/change-password', [AdminAuthController::class, 'changePassword']);
+
+    });
     // Admin Routes
     Route::prefix('admins')->group(function () {
         Route::get('/', [AdminController::class, 'index'])->name('admins.index');
@@ -23,6 +29,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/show', [AdminController::class, 'show'])->name('admins.show');
         Route::post('/update', [AdminController::class, 'update'])->name('admins.update');
         Route::post('/destroy', [AdminController::class, 'destroy'])->name('admins.destroy');
+        Route::post('/edit-password', [AdminController::class, 'EditPassword']);
     });
 
     // Admin History Routes
