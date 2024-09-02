@@ -14,6 +14,7 @@ Route::prefix('admin')->group(function () {
     Route::post('login', [AdminAuthController::class, 'login']);
     Route::post('check-email', [AdminAuthController::class, 'checkEmail']);
     Route::post('check-code', [AdminAuthController::class, 'checkCode']);
+    Route::post('reset-password', [AdminAuthController::class, 'resetPassword']);
 });
 Route::middleware('auth:sanctum')->group(function () {
     Route::prefix('admin')->group(function () {
@@ -28,6 +29,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/show', [AdminController::class, 'show'])->name('admins.show');
         Route::post('/update', [AdminController::class, 'update'])->name('admins.update');
         Route::post('/destroy', [AdminController::class, 'destroy'])->name('admins.destroy');
+        Route::post('/edit-password', [AdminController::class, 'EditPassword']);
     });
 
     // Admin History Routes

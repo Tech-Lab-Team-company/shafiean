@@ -30,6 +30,7 @@ class CodeService
         if (!$otp2->status) {
             // If the code validation fails, return a DataFailed status with the appropriate message
             return new DataFailed(
+                status: false,
                 message: $otp2->message,
             );
         } else {

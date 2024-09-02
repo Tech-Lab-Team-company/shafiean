@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests\Admin;
+namespace App\Http\Requests\Global;
 
 use App\Helpers\Response\ApiRequest;
 use Illuminate\Foundation\Http\FormRequest;
 
-class ChangePasswordRequest extends ApiRequest
+class CheckCodeRequest extends ApiRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,8 +23,8 @@ class ChangePasswordRequest extends ApiRequest
     public function rules(): array
     {
         return [
-            'old_password' => 'required|string|min:8',
-            'new_password' => 'required|string|min:8',
+            'code' => 'required|string',
+            'email' => 'required|email',
         ];
     }
 }

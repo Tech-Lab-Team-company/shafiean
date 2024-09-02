@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Helpers\Response\DataFailed;
 use App\Helpers\Response\DataStatus;
 use App\Helpers\Response\DataSuccess;
 use App\Http\Resources\AdminResource;
@@ -12,7 +13,7 @@ class AdminService
 {
     public function getAll()
     {
-        $admin_all = Admin::all();
+        $admin_all = Admin::orderBy('id', 'desc')->get();
         return new DataSuccess(
             data: AdminResource::collection($admin_all),
             status: true,
@@ -77,10 +78,41 @@ class AdminService
     public function delete($request): DataStatus
     {
         $admin = Admin::find($request->id);
+        if ($admin->is_master == 1) {
+            return new DataFailed(
+                status: false,
+                message: 'Master admin can not be deleted'
+            );
+        }
         $admin->delete();
         return new DataSuccess(
             status: true,
             message: 'Admin deleted successfully'
         );
+    }
+
+    public function editPassword($request): DataStatus
+    {
+        try {
+            $admin = Admin::find($request->id);
+
+            if ($admin->is_master == 1) {
+                return new DataFailed(
+                    status: false,
+                    message: 'Master admin can not change password'
+                );
+            }
+            $admin->password = Hash::make($request->password);
+            $admin->save();
+            return new DataSuccess(
+                status: true,
+                message: 'Password updated successfully'
+            );
+        } catch (\Exception $e) {
+            return new DataFailed(
+                status: false,
+                message: 'Password update failed: ' . $e->getMessage()
+            );
+        }
     }
 }
