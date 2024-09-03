@@ -11,94 +11,100 @@ use Exception;
 
 class CurriculumService
 {
-    public function getAllCurriculums(): DataStatus
+    public function getAllCurriculums($request): DataStatus
     {
         try {
-            $curriculums = Curriculum::all();
+            if (isset($request->word)) {
+                $curriculums = Curriculum::where('title', 'like', '%' . $request->word . '%')->orderBy('id', 'desc')->paginate(10);
+            }
+            $curriculums = Curriculum::orderBy('id', 'desc')->paginate(10);
             return new DataSuccess(
-                data: CurriculumResource::collection($curriculums),
-                statusCode: 200,
+                data: CurriculumResource::collection($curriculums)->response()->getData(true),
+                status: true,
                 message: 'Curriculums retrieved successfully'
             );
         } catch (Exception $e) {
             return new DataFailed(
-                statusCode: 500,
+                status: false,
                 message: 'Failed to retrieve curriculums: ' . $e->getMessage()
             );
         }
     }
 
-    public function getCurriculumById($id): DataStatus
+    public function getCurriculumById($request): DataStatus
     {
         try {
-            $curriculum = Curriculum::find($id);
+            $curriculum = Curriculum::find($request->id);
 
             return new DataSuccess(
                 data: new CurriculumResource($curriculum),
-                statusCode: 200,
+                status: true,
                 message: 'Curriculum retrieved successfully'
             );
         } catch (Exception $e) {
             return new DataFailed(
-                statusCode: 404,
+                status: false,
                 message: 'Curriculum not found: ' . $e->getMessage()
             );
         }
     }
 
-    public function createCurriculum(array $data): DataStatus
+    public function createCurriculum($request): DataStatus
     {
         try {
+            $data['title'] = $request->title;
+            $data['type'] = $request->type;
             $curriculum = Curriculum::create($data);
 
             return new DataSuccess(
                 data: new CurriculumResource($curriculum),
-                statusCode: 201,
+                status: true,
                 message: 'Curriculum created successfully'
             );
         } catch (Exception $e) {
             return new DataFailed(
-                statusCode: 500,
+                status: true,
                 message: 'Curriculum creation failed: ' . $e->getMessage()
             );
         }
     }
 
-    public function updateCurriculum($id, array $data): DataStatus
+    public function updateCurriculum($request): DataStatus
     {
         try {
-            $curriculum = Curriculum::find($id);
+            $curriculum = Curriculum::find($request->id);
+            $data['title'] = $request->title;
+            $data['type'] = $request->type;
             $curriculum->update($data);
 
             return new DataSuccess(
                 data: new CurriculumResource($curriculum),
-                statusCode: 200,
+                status: true,
                 message: 'Curriculum updated successfully'
             );
         } catch (Exception $e) {
             return new DataFailed(
-                statusCode: 500,
+                status: false,
                 message: 'Curriculum update failed: ' . $e->getMessage()
             );
         }
     }
 
-    public function deleteCurriculum($id): DataStatus
+    public function deleteCurriculum($request): DataStatus
     {
         try {
-            $curriculum = Curriculum::find($id);
+            $curriculum = Curriculum::find($request->id);
             $curriculum->delete();
 
             return new DataSuccess(
-                statusCode: 200,
+                status: true,
                 message: 'Curriculum deleted successfully'
             );
         } catch (Exception $e) {
             return new DataFailed(
-                statusCode: 500,
+                status: false,
                 message: 'Curriculum deletion failed: ' . $e->getMessage()
             );
         }
     }
 }
-
