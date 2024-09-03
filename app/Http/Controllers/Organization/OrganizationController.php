@@ -24,7 +24,8 @@ class OrganizationController extends Controller
 
     public function store(OrganizationRequest $request)
     {
-        return $this->organizationService->createOrganization($request->validated())->response();
+        // dd($request->all());
+        return $this->organizationService->createOrganization($request)->response();
 
     }
 

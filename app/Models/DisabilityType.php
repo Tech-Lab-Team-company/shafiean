@@ -15,25 +15,20 @@ class DisabilityType extends Model
 
     protected $guarded = [];
 
-    protected $appends  = ["image_link"];
 
-    public function getImageLinkAttribute()
-    {
-        return $this->image ? url('storage/' . $this->image) : '';
-    }
 
-    public function users(): HasMany
-    {
-        return $this->hasMany(User::class, 'disability_type_id');
-    }
+    // public function users(): HasMany
+    // {
+    //     return $this->hasMany(User::class, 'disability_type_id');
+    // }
 
-    public function organizationDisabilityTypes(): HasMany
-    {
-        return $this->hasMany('App\Models\OrganizationDisabilityType', 'disability_type_id');
-    }
+    // public function organizationDisabilityTypes(): HasMany
+    // {
+    //     return $this->hasMany('App\Models\OrganizationDisabilityType', 'disability_type_id');
+    // }
 
-    public function organizations(): BelongsToMany
+    public function organizations()
     {
-        return $this->belongsToMany('App\Models\Organization', 'organization_disability_types', 'disability_type_id', 'organization_id');
+        return $this->belongsToMany(Organization::class, 'organization_disability_types', 'disability_type_id', 'organization_id')->withTimestamps();
     }
 }

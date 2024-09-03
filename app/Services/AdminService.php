@@ -77,18 +77,26 @@ class AdminService
 
     public function delete($request): DataStatus
     {
-        $admin = Admin::find($request->id);
-        if ($admin->is_master == 1) {
+        try {
+            $admin = Admin::find($request->id);
+
+            if ($admin?->is_master == 1) {
+                return new DataFailed(
+                    status: false,
+                    message: 'Master admin can not be deleted'
+                );
+            }
+            $admin->delete();
+            return new DataSuccess(
+                status: true,
+                message: 'Admin deleted successfully'
+            );
+        } catch (\Exception $e) {
             return new DataFailed(
                 status: false,
-                message: 'Master admin can not be deleted'
+                message: 'Admin deletion failed: ' . $e->getMessage()
             );
         }
-        $admin->delete();
-        return new DataSuccess(
-            status: true,
-            message: 'Admin deleted successfully'
-        );
     }
 
     public function editPassword($request): DataStatus

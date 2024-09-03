@@ -98,10 +98,28 @@ class OrganizationService
         }
     }
 
-    public function createOrganization(array $data): DataStatus
+    public function createOrganization($request): DataStatus
     {
         try {
+            if ($request->hasFile('image')) {
+                $image = upload_image($request->file('image'), 'organizations');
+                $data['image'] = $image;
+            }
+            $data['name'] = $request->name;
+            $data['phone'] = $request->phone;
+            $data['email'] = $request->email;
+            $data['address'] = $request->address;
+            $data['country_id'] = $request->country_id;
+            $data['city_id'] = $request->city_id;
+            $data['licence_number'] = $request->licence_number;
+            $data['website_link'] = $request->website_link;
+            $data['manager_name'] = $request->manager_name;
+            $data['manager_phone'] = $request->manager_phone;
+            $data['manager_email'] = $request->manager_email;
+            $data['for_all_disabilities'] = $request->for_all_disabilities;
+            // dd($data);
             $organization = Organization::create($data);
+            $organization->disability_types()->attach($request->disability_ids);
             return new DataSuccess(
                 data: new OrganizationResource($organization),
                 statusCode: 200,

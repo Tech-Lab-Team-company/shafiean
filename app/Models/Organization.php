@@ -13,23 +13,17 @@ class Organization extends Model
     use HasFactory;
     protected $table = "organizations";
 
-    protected $fillable = [
-        'name',
-        'licence_number',
-        'phone',
-        'email',
-        'address',
-        'country_id',
-        'city_id',
-        'manager_name',
-        'manager_phone',
-        'manager_email',
-    ];
+    protected $guarded = [];
 
-    public function organization_types() :HasMany
+    protected $appends  = ["image_link"];
+
+    public function getImageLinkAttribute()
     {
-        return $this->hasMany('organization_disability_types', 'organization_id');
+        return $this->image ? url('storage/' . $this->image) : '';
     }
 
+    public function disability_types()
+    {
+        return $this->belongsToMany(DisabilityType::class, 'organization_disability_types', 'organization_id', 'disability_type_id')->withTimestamps();
+    }
 }
-

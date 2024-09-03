@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\AdminStoreRequest;
 use App\Http\Requests\Admin\AdminUpdateRequest;
+use App\Http\Requests\Admin\DeleteRequest;
 use App\Http\Requests\Admin\EditPasswordRequest;
 use App\Services\AdminService;
 use Illuminate\Http\Request;
@@ -39,7 +40,7 @@ class AdminController extends Controller
         return $this->adminService->update($request)->response();
     }
 
-    public function destroy(Request $request)
+    public function destroy(DeleteRequest $request)
     {
         return $this->adminService->delete($request)->response();
     }

@@ -41,22 +41,22 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 
     // Disability_types Routes
-    Route::prefix('disability_types')->group(function () {
-        Route::post('/', [DisabilityTypeController::class, 'index'])->name('disability_types.index');
-        Route::post('/store', [DisabilityTypeController::class, 'store'])->name('disability_types.store');
-        Route::post('/show', [DisabilityTypeController::class, 'show'])->name('disability_types.show');
-        Route::post('/update', [DisabilityTypeController::class, 'update'])->name('disability_types.update');
-        Route::post('/destroy', [DisabilityTypeController::class, 'destroy'])->name('disability_types.destroy');
-    });
+
+        Route::post('fetch_disabilities', [DisabilityTypeController::class, 'index'])->name('disability_types.index');
+        Route::post('add_disability', [DisabilityTypeController::class, 'store'])->name('disability_types.store');
+        Route::post('fetch_disability_details', [DisabilityTypeController::class, 'show'])->name('disability_types.show');
+        Route::post('edit_disability', [DisabilityTypeController::class, 'update'])->name('disability_types.update');
+        Route::post('delete_disability', [DisabilityTypeController::class, 'destroy'])->name('disability_types.destroy');
+
 
     // Organization Routes
-    Route::prefix('organizations')->group(function () {
-        Route::post('/', [OrganizationController::class, 'index'])->name('organizations.index');
-        Route::post('/store', [OrganizationController::class, 'store'])->name('organizations.store');
+
+        Route::post('fetch_organizations', [OrganizationController::class, 'index'])->name('organizations.index');
+        Route::post('add_organization', [OrganizationController::class, 'store'])->name('organizations.store');
         Route::post('/show', [OrganizationController::class, 'show'])->name('organizations.show');
         Route::post('/update', [OrganizationController::class, 'update'])->name('organizations.update');
         Route::post('/destroy', [OrganizationController::class, 'destroy'])->name('organizations.destroy');
-    });
+
 
     // Curriculum Routes
     Route::prefix('curriculums')->group(function () {
