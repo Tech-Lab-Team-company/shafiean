@@ -19,7 +19,6 @@ class CurriculumResource extends JsonResource
             'title' => $this->title,
             'type' => $this->type,
             'status' => $this->status,
-            'order' => $this->order,
         ];
     }
 }
