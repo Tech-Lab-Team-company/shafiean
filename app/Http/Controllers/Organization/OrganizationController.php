@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Organization;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Organization\DeleteOrganizationRequest;
+use App\Http\Requests\Organization\FetchOrganizationDetailRequest;
 use App\Http\Requests\Organization\OrganizationRequest;
+use App\Http\Requests\Organization\OrganizationUpdateRequest;
 use App\Services\OrganizationService;
 use Illuminate\Http\Request;
 
@@ -24,25 +27,27 @@ class OrganizationController extends Controller
 
     public function store(OrganizationRequest $request)
     {
-        return $this->organizationService->createOrganization($request->validated())->response();
+        // dd($request->all());
+        return $this->organizationService->createOrganization($request)->response();
 
     }
 
-    public function show($id)
+    public function show(FetchOrganizationDetailRequest $request)
     {
-        return $this->organizationService->getOrganizationById($id)->response();
+        return $this->organizationService->getOrganizationById($request)->response();
 
     }
 
-    public function update(OrganizationRequest $request, $id)
+    public function update(OrganizationUpdateRequest $request)
     {
-        return $this->organizationService->updateOrganization($id, $request->validated())->response();
+        // dd($request->all());
+        return $this->organizationService->updateOrganization($request)->response();
 
     }
 
-    public function destroy($id)
+    public function destroy(DeleteOrganizationRequest $request)
     {
-       return $this->organizationService->deleteOrganization($id)->response();
+       return $this->organizationService->deleteOrganization($request)->response();
 
     }
 }

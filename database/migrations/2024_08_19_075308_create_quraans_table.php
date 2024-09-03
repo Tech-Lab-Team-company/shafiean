@@ -10,10 +10,10 @@ class CreateQuraansTable extends Migration
     {
         Schema::create('quraan', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
             $table->string('title')->nullable();
             $table->string('order')->nullable();
             $table->string('type')->nullable();
+            $table->timestamps();
         });
     }
 

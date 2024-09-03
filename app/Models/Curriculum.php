@@ -11,14 +11,7 @@ class Curriculum extends Model
     use HasFactory;
     protected $table = "curriculums";
 
-    protected $fillable = [
-        'title',
-        'type',
-        'time',
-        'from',
-        'to',
-        'order'
-    ];
+    protected $guarded = [];
 
 }
 

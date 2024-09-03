@@ -10,7 +10,6 @@ class CreateTeachersTable extends Migration {
     {
         Schema::create('teachers', function(Blueprint $table) {
             $table->id();
-            $table->timestamps();
             $table->string('name')->nullable();
             $table->string('phone')->nullable();
             $table->string('email')->nullable();
@@ -22,10 +21,11 @@ class CreateTeachersTable extends Migration {
             $table->string('is_employed')->nullable()->default(0)->comment('0 => for teachers , 1=> for employees'); //
             $table->unsignedBigInteger('organization_id')->nullable();
             $table->foreign('organization_id')
-                ->references('id')
-                ->on('organizations')
-                ->onDelete('set null')
-                ->onUpdate('cascade');
+            ->references('id')
+            ->on('organizations')
+            ->onDelete('set null')
+            ->onUpdate('cascade');
+            $table->timestamps();
         });
     }
 

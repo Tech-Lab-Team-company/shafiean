@@ -10,9 +10,9 @@ class CreateAyatsTable extends Migration
     {
         Schema::create('ayat', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
             $table->unsignedBigInteger('quraan_id')->nullable();
             $table->unsignedInteger('number')->nullable();
+            $table->timestamps();
 
             $table->foreign('quraan_id')->references('id')->on('quraan')->onDelete('set null');
         });

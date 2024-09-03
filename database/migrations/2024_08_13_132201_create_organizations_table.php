@@ -10,7 +10,6 @@ class CreateOrganizationsTable  extends Migration
     {
         Schema::create('organizations', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
             $table->string('name', 191)->nullable();
             $table->string('licence_number')->nullable();
             $table->string('phone')->nullable();
@@ -25,6 +24,7 @@ class CreateOrganizationsTable  extends Migration
             $table->foreign('country_id')->references('id')->on('countries');
             $table->unsignedBigInteger('city_id')->nullable();
             $table->foreign('city_id')->references('id')->on('cities');
+            $table->timestamps();
         });
     }
 

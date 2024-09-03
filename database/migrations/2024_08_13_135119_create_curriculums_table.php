@@ -10,15 +10,11 @@ class CreateCurriculumsTable extends Migration
     {
         Schema::create('curriculums', function (Blueprint $table) {
             $table->id();
+            $table->string('title')->nullable();
+            $table->tinyInteger('type')->nullable();
+            $table->integer('order')->nullable();
+            $table->tinyInteger('status')->nullable()->default(1);
             $table->timestamps();
-            $table->string('title', 191)->nullable();
-            $table->integer('type')->nullable();
-            $table->string('time', 191)->nullable();
-            $table->date('from')->nullable();
-            $table->date('to')->nullable();
-            $table->string('order')->nullable();
-            $table->unsignedBigInteger('curriculum_id')->nullable();
-            $table->foreign('curriculum_id')->references('id')->on('curriculums');
         });
     }
 
@@ -27,4 +23,3 @@ class CreateCurriculumsTable extends Migration
         Schema::dropIfExists('curriculums');
     }
 }
-
