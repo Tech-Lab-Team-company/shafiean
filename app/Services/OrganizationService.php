@@ -81,18 +81,18 @@ class OrganizationService
 
 
 
-    public function getOrganizationById($id): DataStatus
+    public function getOrganizationById($request): DataStatus
     {
         try {
-            $organization = Organization::find($id);
+            $organization = Organization::find($request->id);
             return new DataSuccess(
                 data: new OrganizationResource($organization),
-                statusCode: 200,
+                status: true,
                 message: 'Organization retrieved successfully'
             );
         } catch (Exception $e) {
             return new DataFailed(
-                statusCode: 404,
+                status: false,
                 message: 'Organization not found: ' . $e->getMessage()
             );
         }
@@ -122,47 +122,69 @@ class OrganizationService
             $organization->disability_types()->attach($request->disability_ids);
             return new DataSuccess(
                 data: new OrganizationResource($organization),
-                statusCode: 200,
+                status: true,
                 message: 'Organization created successfully'
             );
         } catch (Exception $e) {
             return new DataFailed(
-                statusCode: 500,
+                status: false,
                 message: 'Organization creation failed: ' . $e->getMessage()
             );
         }
     }
 
-    public function updateOrganization($id, array $data): DataStatus
+    public function updateOrganization($request): DataStatus
     {
         try {
-            $organization = Organization::find($id);
+            $organization = Organization::find($request->id);
+
+            if ($request->hasFile('image')) {
+                if ($organization->image && file_exists($organization->image)) {
+                    delete_image($organization->image);
+                }
+                $image = upload_image($request->file('image'), 'organizations');
+                $data['image'] = $image;
+            }
+            $data['name'] = $request->name;
+            $data['phone'] = $request->phone;
+            $data['email'] = $request->email;
+            $data['address'] = $request->address;
+            $data['country_id'] = $request->country_id;
+            $data['city_id'] = $request->city_id;
+            $data['licence_number'] = $request->licence_number;
+            $data['website_link'] = $request->website_link;
+            $data['manager_name'] = $request->manager_name;
+            $data['manager_phone'] = $request->manager_phone;
+            $data['manager_email'] = $request->manager_email;
+            $data['for_all_disabilities'] = $request->for_all_disabilities;
+            // dd($data);
             $organization->update($data);
+            $organization->disability_types()->sync($request->disability_ids);
             return new DataSuccess(
                 data: new OrganizationResource($organization),
-                statusCode: 200,
+                status: true,
                 message: 'Organization updated successfully'
             );
         } catch (Exception $e) {
             return new DataFailed(
-                statusCode: 500,
+                status: false,
                 message: 'Organization update failed: ' . $e->getMessage()
             );
         }
     }
 
-    public function deleteOrganization($id): DataStatus
+    public function deleteOrganization($request): DataStatus
     {
         try {
-            $organization = Organization::find($id);
+            $organization = Organization::find($request->id);
             $organization->delete();
             return new DataSuccess(
-                statusCode: 200,
+                status: true,
                 message: 'Organization deleted successfully'
             );
         } catch (Exception $e) {
             return new DataFailed(
-                statusCode: 500,
+                status: false,
                 message: 'Organization deletion failed: ' . $e->getMessage()
             );
         }

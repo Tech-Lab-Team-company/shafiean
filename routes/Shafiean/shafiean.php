@@ -53,9 +53,9 @@ Route::middleware('auth:sanctum')->group(function () {
 
         Route::post('fetch_organizations', [OrganizationController::class, 'index'])->name('organizations.index');
         Route::post('add_organization', [OrganizationController::class, 'store'])->name('organizations.store');
-        Route::post('/show', [OrganizationController::class, 'show'])->name('organizations.show');
-        Route::post('/update', [OrganizationController::class, 'update'])->name('organizations.update');
-        Route::post('/destroy', [OrganizationController::class, 'destroy'])->name('organizations.destroy');
+        Route::post('fetch_organization_details', [OrganizationController::class, 'show'])->name('organizations.show');
+        Route::post('edit_organization', [OrganizationController::class, 'update'])->name('organizations.update');
+        Route::post('delete_organization', [OrganizationController::class, 'destroy'])->name('organizations.destroy');
 
 
     // Curriculum Routes
