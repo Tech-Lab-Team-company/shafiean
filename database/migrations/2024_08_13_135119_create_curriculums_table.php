@@ -10,10 +10,11 @@ class CreateCurriculumsTable extends Migration
     {
         Schema::create('curriculums', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
-            $table->string('title', 191)->nullable();
+            $table->string('title')->nullable();
             $table->tinyInteger('type')->nullable();
-            $table->string('order')->nullable();
+            $table->integer('order')->nullable();
+            $table->tinyInteger('status')->nullable()->default(1);
+            $table->timestamps();
         });
     }
 

@@ -65,6 +65,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('add_curriculum', [CurriculumController::class, 'store'])->name('curriculums.store');
     Route::post('edit_curriculum', [CurriculumController::class, 'update'])->name('curriculums.update');
     Route::post('delete_curriculm', [CurriculumController::class, 'destroy'])->name('curriculums.destroy');
+    Route::post('change_cirruclum_active_status', [CurriculumController::class, 'changeActiveStatus'])->name('curriculums.change_active_status');
 
 
     Route::resource('ayat', AyatController::class);

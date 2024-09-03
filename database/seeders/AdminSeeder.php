@@ -13,7 +13,8 @@ class AdminSeeder extends Seeder
             [
                 'name' => 'admin',
                 'email' => 'admin@gmail.com',
-                
+                'password' => '123123123',
+                'is_master' => 1
             ]
         );
         Admin::factory()->count(10)->create();

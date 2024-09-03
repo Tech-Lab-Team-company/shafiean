@@ -107,4 +107,27 @@ class CurriculumService
             );
         }
     }
+
+    public function changeActiveStatus($request): DataStatus
+    {
+        try {
+            $curriculum = Curriculum::find($request->id);
+            if ($curriculum->status == 1) {
+                $curriculum->status = 0;
+            } else {
+                $curriculum->status = 1;
+            }
+            $curriculum->save();
+            return new DataSuccess(
+                status: true,
+                data: new CurriculumResource($curriculum),
+                message: 'Curriculum status updated successfully'
+            );
+        } catch (Exception $e) {
+            return new DataFailed(
+                status: false,
+                message: 'Curriculum status update failed: ' . $e->getMessage()
+            );
+        }
+    }
 }

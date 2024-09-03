@@ -18,13 +18,8 @@ class CurriculumResource extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'type' => $this->type,
-            'time'=> $this->time,
-            'from'=> $this->from,
-            'to'=>$this->to,
+            'status' => $this->status,
             'order' => $this->order,
-            'curriculum_id'=>$this->curriculum_id,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
         ];
     }
 }

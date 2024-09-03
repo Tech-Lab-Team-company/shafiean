@@ -13,11 +13,7 @@ class CurriculumFactory extends Factory
         return [
             'title' => $this->faker->sentence,
             'type' => $this->faker->numberBetween(1, 5),
-            'time' => $this->faker->time,
-            'from' => $this->faker->date,
-            'to' => $this->faker->date,
-            'order' => $this->faker->randomNumber(3),
-            'curriculum_id' => null,
+           
         ];
     }
 }
