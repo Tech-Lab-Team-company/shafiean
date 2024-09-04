@@ -11,96 +11,121 @@ use Exception;
 
 class CityService
 {
-    public function getAllCities()
+    public function getAllCities($request)
     {
         try {
-            $cities = City::all();
+            $query = City::query();
+            if ($request) {
+                // dd($request);
+                $this->filterCities($request, $query);
+            }
+            $cities = $query->orderBy('id', 'desc')->paginate(10);
 
             return new DataSuccess(
-                data: CityResource::collection($cities),
-                statusCode: 200,
+                data: CityResource::collection($cities)->response()->getData(true),
+                status: true,
                 message: 'Cities retrieved successfully'
             );
         } catch (Exception $e) {
             return new DataStatus(
-                statusCode: 500,
+                status: false,
                 message: 'Failed to retrieve cities: ' . $e->getMessage()
             );
         }
     }
 
-    public function createCity(array $data): DataStatus
+    public function createCity($request): DataStatus
     {
         try {
+            $data['title'] = $request->title;
+            $data['country_id'] = $request->country_id;
             $city = City::create($data);
 
             return new DataSuccess(
                 data: new CityResource($city),
-                statusCode: 200,
+                status: true,
                 message: 'City created successfully'
             );
         } catch (Exception $e) {
             return new DataStatus(
-                statusCode: 500,
+                status: false,
                 message: 'City creation failed: ' . $e->getMessage()
             );
         }
     }
 
-    public function getCityById($id): DataStatus
+    public function getCityById($request): DataStatus
     {
         try {
-            $city = City::find($id);
+            $city = City::find($request->id);
 
             return new DataSuccess(
                 data: new CityResource($city),
-                statusCode: 200,
+                status: true,
                 message: 'City retrieved successfully'
             );
         } catch (Exception $e) {
             return new DataFailed(
-                statusCode: 500,
+                status: false,
                 message: 'City not found: ' . $e->getMessage()
             );
         }
     }
 
-    public function updateCity($id, array $data): DataStatus
+    public function updateCity($request): DataStatus
     {
         try {
-            $city = City::find($id);
+            $city = City::find($request->id);
+            $data['title'] = $request->title;
+            $data['country_id'] = $request->country_id;
             $city->update($data);
 
             return new DataSuccess(
                 data: new CityResource($city),
-                statusCode: 200,
+                status: true,
                 message: 'City updated successfully'
             );
         } catch (Exception $e) {
             return new DataFailed(
-                statusCode: 500,
+                status: false,
                 message: 'City update failed: ' . $e->getMessage()
             );
         }
     }
 
-    public function deleteCity($id): DataStatus
+    public function deleteCity($request): DataStatus
     {
         try {
-            $city = City::find($id);
+
+            $city = City::find($request->id);
+            // dd($city);
             $city->delete();
 
             return new DataSuccess(
-                statusCode: 200,
+                status: true,
                 message: 'City deleted successfully'
             );
         } catch (Exception $e) {
             return new DataFailed(
-                statusCode: 500,
+                status: false,
                 message: 'City deletion failed: ' . $e->getMessage()
             );
         }
     }
+
+
+    public function filterCities($request, $query)
+    {
+
+        $query->when($request->has('word') && !$request->has('country_id'), function ($q) use ($request) {
+            $q->where('title', 'like', '%' . $request->word . '%');
+        })
+            ->when($request->has('country_id') && !$request->has('word'), function ($q) use ($request) {
+                $q->where('country_id', $request->country_id);
+            })
+            ->when($request->has('word') && $request->has('country_id'), function ($q) use ($request) {
+                $q->where('title', 'like', '%' . $request->word . '%')
+                    ->where('country_id', $request->country_id);
+            });
+    }
 }
-
-

@@ -15,7 +15,12 @@ class DisabilityType extends Model
 
     protected $guarded = [];
 
+    protected $appends  = ["image_link"];
 
+    public function getImageLinkAttribute()
+    {
+        return $this->image ? url('storage/' . $this->image) : '';
+    }
 
     // public function users(): HasMany
     // {

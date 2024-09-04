@@ -3,7 +3,12 @@
 namespace App\Http\Controllers\Global;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\City\AddCityRequest;
 use App\Http\Requests\City\CityRequest;
+use App\Http\Requests\City\DeleteCityRequest;
+use App\Http\Requests\City\EditCityRequest;
+use App\Http\Requests\City\FetchCitiesRequest;
+use App\Http\Requests\City\FetchCityDetailsRequest;
 use App\Http\Resources\CityResource;
 use App\Services\CityService;
 
@@ -16,32 +21,28 @@ class CityController extends Controller
         $this->cityService = $cityService;
     }
 
-    public function index()
+    public function index(FetchCitiesRequest $request)
     {
-        return $this->cityService->getAllCities()->response();
-       // return CityResource::collection($cities);
+        return $this->cityService->getAllCities($request)->response();
     }
 
-    public function store(CityRequest $request)
+    public function store(AddCityRequest $request)
     {
-        return $this->cityService->createCity($request->validated())->response();
+        return $this->cityService->createCity($request)->response();
     }
 
-    public function show($id)
+    public function show(FetchCityDetailsRequest $request)
     {
-        $city = $this->cityService->getCityById($id);
-        return new CityResource($city);
+        return $this->cityService->getCityById($request)->response();
     }
 
-    public function update(CityRequest $request, $id)
+    public function update(EditCityRequest $request)
     {
-        return $this->cityService->updateCity($id, $request->validated())->response();
+        return $this->cityService->updateCity( $request)->response();
     }
 
-    public function destroy($id)
+    public function destroy(DeleteCityRequest $request)
     {
-        return $this->cityService->deleteCity($id)->response();
+        return $this->cityService->deleteCity($request)->response();
     }
 }
-
-

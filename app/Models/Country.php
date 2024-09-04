@@ -10,20 +10,20 @@ class Country extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title'];
+    protected $guarded = [];
     protected $table = 'countries';
 
-    public function cities() :HasMany
+    public function cities(): HasMany
     {
-        return $this->hasMany(City::class , 'country_id');
+        return $this->hasMany(City::class, 'country_id');
     }
 
-    public function users() :HasMany
+    public function users(): HasMany
     {
-        return $this->hasMany(User::class , 'country_id');
+        return $this->hasMany(User::class, 'country_id');
     }
 
-    public function organizations() : HasMany
+    public function organizations(): HasMany
     {
         return $this->hasMany(Organization::class, 'country_id');
     }
