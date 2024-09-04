@@ -15,5 +15,10 @@ class Quraan extends Model
         'order',
         'type',
     ];
+
+    public function stages(){
+
+        return $this->belongsToMany(Stage::class, 'stage_quraan', 'quraan_id', 'stage_id');
+    }
 }
 

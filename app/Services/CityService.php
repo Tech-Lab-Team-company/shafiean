@@ -7,6 +7,7 @@ use App\Helpers\Response\DataStatus;
 use App\Helpers\Response\DataSuccess;
 use App\Http\Resources\CityResource;
 use App\Models\City;
+use App\Services\Global\FilterService;
 use Exception;
 
 class CityService
@@ -15,9 +16,10 @@ class CityService
     {
         try {
             $query = City::query();
+            $filter_service = new FilterService();
             if ($request) {
                 // dd($request);
-                $this->filterCities($request, $query);
+                $filter_service->filterCities($request, $query);
             }
             $cities = $query->orderBy('id', 'desc')->paginate(10);
 
@@ -114,18 +116,5 @@ class CityService
     }
 
 
-    public function filterCities($request, $query)
-    {
-
-        $query->when($request->has('word') && !$request->has('country_id'), function ($q) use ($request) {
-            $q->where('title', 'like', '%' . $request->word . '%');
-        })
-            ->when($request->has('country_id') && !$request->has('word'), function ($q) use ($request) {
-                $q->where('country_id', $request->country_id);
-            })
-            ->when($request->has('word') && $request->has('country_id'), function ($q) use ($request) {
-                $q->where('title', 'like', '%' . $request->word . '%')
-                    ->where('country_id', $request->country_id);
-            });
-    }
+ 
 }

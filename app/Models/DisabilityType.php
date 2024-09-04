@@ -36,4 +36,10 @@ class DisabilityType extends Model
     {
         return $this->belongsToMany(Organization::class, 'organization_disability_types', 'disability_type_id', 'organization_id')->withTimestamps();
     }
+
+    public function stages()
+    {
+
+        return $this->belongsToMany(Stage::class, 'stage_disability_types', 'disability_type_id', 'stage_id')->withTimestamps();
+    }
 }

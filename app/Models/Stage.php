@@ -11,19 +11,28 @@ class Stage extends Model
     use HasFactory;
     protected $table = "stages";
 
-    protected $fillable = [
-        'title',
-        'type',
-        'order',
-        'organization_id',
+    protected $guarded = [];
 
-    ];
-
-    public function curriculum() :HasMany
+    public function curriculum()
     {
-        return $this->hasMany('Curriculum', 'curriculum_id');
+        return $this->belongsTo(Curriculum::class, 'curriculum_id');
     }
 
+    public function organization()
+    {
+
+        return $this->belongsTo(Organization::class, 'organization_id');
+    }
+
+    public function disabilityTypes()
+    {
+
+        return $this->belongsToMany(DisabilityType::class, 'stage_disability_types', 'stage_id', 'disability_type_id')->withTimestamps();
+    }
+
+    public function quraan()
+    {
+
+        return $this->belongsToMany(Quraan::class, 'stage_quraan', 'stage_id', 'quraan_id')->withTimestamps();
+    }
 }
-
-

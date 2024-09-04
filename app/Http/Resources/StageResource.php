@@ -11,12 +11,9 @@ class StageResource extends JsonResource
         return [
             'id' => $this->id,
             'title' => $this->title,
-            'type' => $this->type,
-            'order' => $this->order,
-            'disability_type_id' => $this->disability_type_id,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
+            'curriculum_id' => $this->curriculum_id,
+            'status' => $this->status,
+            // 'type' => $this->type,
         ];
     }
 }
-

@@ -7,6 +7,7 @@ use App\Helpers\Response\DataStatus;
 use App\Helpers\Response\DataSuccess;
 use App\Http\Resources\OrganizationResource;
 use App\Models\Organization;
+use App\Services\Global\FilterService;
 use Exception;
 
 class OrganizationService
@@ -15,9 +16,9 @@ class OrganizationService
     {
         try {
             $query = Organization::query();
-
+            $filter_service = new FilterService();
             if ($request) {
-                $this->applyFilters($query, $request);
+                $filter_service->filterOrganizations($query, $request);
             }
 
             $organizations = $query->orderBy('id', 'desc')->paginate(10)->withQueryString();
@@ -35,49 +36,7 @@ class OrganizationService
         }
     }
 
-    private function applyFilters($query, $request): void
-    {
-        if ($request->filled('word') && !$request->filled('city_ids') && !$request->filled('country_ids')) {
-            $query->where('name', 'like', '%' . $request->word . '%');
-        }
 
-        if ($request->filled('city_ids') && !$request->filled('word') && !$request->filled('country_ids')) {
-            $query->orWhereIn('city_id', $request->city_ids);
-        }
-
-        if ($request->filled('country_ids') && !$request->filled('word') && !$request->filled('city_ids')) {
-            $query->orWhereIn('country_id', $request->country_ids);
-        }
-
-        if ($request->filled(['city_ids', 'word']) && !$request->filled('country_ids')) {
-            $query->orWhere(function ($q) use ($request) {
-                $q->whereIn('city_id', $request->city_ids)
-                    ->where('name', 'like', '%' . $request->word . '%');
-            });
-        }
-
-        if ($request->filled(['country_ids', 'word']) && !$request->filled('city_ids')) {
-            $query->orWhere(function ($q) use ($request) {
-                $q->whereIn('country_id', $request->country_ids)
-                    ->where('name', 'like', '%' . $request->word . '%');
-            });
-        }
-
-        if ($request->filled(['country_ids', 'city_ids']) && !$request->filled('word')) {
-            $query->orWhere(function ($q) use ($request) {
-                $q->whereIn('country_id', $request->country_ids)
-                    ->whereIn('city_id', $request->city_ids);
-            });
-        }
-
-        if ($request->filled(['country_ids', 'city_ids', 'word'])) {
-            $query->orWhere(function ($q) use ($request) {
-                $q->whereIn('country_id', $request->country_ids)
-                    ->whereIn('city_id', $request->city_ids)
-                    ->where('name', 'like', '%' . $request->word . '%');
-            });
-        }
-    }
 
 
 
