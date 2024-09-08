@@ -56,11 +56,13 @@ class DisabilityTypeService
                 $image = upload_image($request->file('image'), 'disability_types');
                 $data['image'] = $image;
             }
-            $disabilityTypes = DisabilityType::where('order', '>=', $request->order)->get();
-            foreach ($disabilityTypes as $disabilityType) {
-                $disabilityType->update([
-                    'order' => $disabilityType->order + 1
-                ]);
+            if (isset($request->order)) {
+                $disabilityTypes = DisabilityType::where('order', '>=', $request->order)->get();
+                foreach ($disabilityTypes as $disabilityType) {
+                    $disabilityType->update([
+                        'order' => $disabilityType->order + 1
+                    ]);
+                }
             }
             $data['title'] = $request->title;
             $data['description'] = $request->description;
@@ -98,10 +100,10 @@ class DisabilityTypeService
                         'order' => $disabilityType->order + 1
                     ]);
                 }
-                $data['order'] = $request->order;
+                $data['order'] = $request->order ?? $disability->order;
             }
-            $data['title'] = $request->title;
-            $data['description'] = $request->description;
+            $data['title'] = $request->title ?? $disability->title;
+            $data['description'] = $request->description ?? $disability->description;
             $disability->update($data);
             return new DataSuccess(
                 data: new DisabilityTypeResource($disability),
@@ -120,7 +122,7 @@ class DisabilityTypeService
     {
         try {
             $disabilityType = DisabilityType::find($request->id);
-            
+
             $disabilityType->delete();
             return new DataSuccess(
                 status: true,

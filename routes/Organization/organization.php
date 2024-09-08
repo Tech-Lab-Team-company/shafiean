@@ -20,14 +20,7 @@ Route::prefix('teachers')->group(function () {
     Route::delete('/{id}', [TeacherController::class, 'destroy'])->name('teachers.destroy');
 });
 
-// Stage Routes
-Route::prefix('stages')->group(function () {
-    Route::get('/', [StageController::class, 'index'])->name('stages.index');
-    Route::post('/', [StageController::class, 'store'])->name('stages.store');
-    Route::get('/{id}', [StageController::class, 'show'])->name('stages.show');
-    Route::put('/{id}', [StageController::class, 'update'])->name('stages.update');
-    Route::delete('/{id}', [StageController::class, 'destroy'])->name('stages.destroy');
-});
+
 
 // Term Routes
 Route::prefix('terms')->group(function () {

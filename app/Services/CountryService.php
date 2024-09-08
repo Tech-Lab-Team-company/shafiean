@@ -11,14 +11,19 @@ use Exception;
 
 class CountryService
 {
-    public function getAllCountries(): DataStatus
+    public function getAllCountries($request): DataStatus
     {
         try {
-            $countries = Country::all();
+            if (isset($request->word)) {
+                $countries = Country::where('title', 'like', '%' . $request->word . '%')->orderBy('id', 'desc')->paginate(10);
+            } else {
+
+                $countries = Country::orderBy('id', 'desc')->paginate(10);
+            }
 
             return new DataSuccess(
-                data: CountryResource::collection($countries),
-                statusCode: 200,
+                data: CountryResource::collection($countries)->response()->getData(true),
+                status: true,
                 message: 'Countries retrieved successfully'
             );
         } catch (Exception $e) {
@@ -29,65 +34,71 @@ class CountryService
         }
     }
 
-    public function createCountry(array $data): DataStatus
+    public function createCountry($request): DataStatus
     {
         try {
+            $data['title'] = $request->title;
+            $data['code'] = $request->code;
+            $data['phone_code'] = $request->phone_code;
             $country = Country::create($data);
 
             return new DataSuccess(
                 data: new CountryResource($country),
-                statusCode: 201,
+                status: true,
                 message: 'Country created successfully'
             );
         } catch (Exception $e) {
             return new DataFailed(
-                statusCode: 500,
+                status: true,
                 message: 'Country creation failed: ' . $e->getMessage()
             );
         }
     }
 
-    public function getCountryById($id): DataStatus
+    public function getCountryById($request): DataStatus
     {
         try {
-            $country = Country::findOrFail($id);
+            $country = Country::findOrFail($request->id);
 
             return new DataSuccess(
                 data: new CountryResource($country),
-                statusCode: 200,
+                status: true,
                 message: 'Country retrieved successfully'
             );
         } catch (Exception $e) {
             return new DataFailed(
-                statusCode: 404,
+                status: true,
                 message: 'Country not found: ' . $e->getMessage()
             );
         }
     }
 
-    public function updateCountry($id, array $data): DataStatus
+    public function updateCountry($request): DataStatus
     {
         try {
-            $country = Country::findOrFail($id);
+            $country = Country::find($request->id);
+            $data['title'] = $request->title ?? $country->title;
+            $data['code'] = $request->code ?? $country->code;
+            $data['phone_code'] = $request->phone_code ?? $country->phone_code;
             $country->update($data);
 
             return new DataSuccess(
                 data: new CountryResource($country),
-                statusCode: 200,
+                status: true,
                 message: 'Country updated successfully'
             );
         } catch (Exception $e) {
             return new DataFailed(
-                statusCode: 500,
+                status: false,
                 message: 'Country update failed: ' . $e->getMessage()
             );
         }
     }
 
-    public function deleteCountry($id): DataStatus
+    public function deleteCountry($request): DataStatus
     {
         try {
-            $country = Country::findOrFail($id);
+            $country = Country::find($request->id);
             $country->delete();
 
             return new DataSuccess(

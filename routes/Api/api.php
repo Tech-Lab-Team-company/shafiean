@@ -9,9 +9,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('user/login', [AuthController::class, 'login']);
 
-Route::middleware('auth:sanctum')->group(function (){
+Route::middleware('auth:sanctum')->group(function () {
     Route::post('user/logout', [AuthController::class, 'logout']);
-
 });
 
 
@@ -25,21 +24,18 @@ Route::prefix('users')->group(function () {
 });
 //
 // Country Routes
-Route::prefix('countries')->group(function () {
-    Route::get('/', [CountryController::class, 'index'])->name('countries.index');
-    Route::post('/', [CountryController::class, 'store'])->name('countries.store');
-    Route::get('/{id}', [CountryController::class, 'show'])->name('countries.show');
-    Route::put('/{id}', [CountryController::class, 'update'])->name('countries.update');
-    Route::delete('/{id}', [CountryController::class, 'destroy'])->name('countries.destroy');
-});
+
+Route::post('fetch_countries', [CountryController::class, 'index'])->name('countries.index');
+Route::post('add_country', [CountryController::class, 'store'])->name('countries.store');
+Route::post('fetch_country_details', [CountryController::class, 'show'])->name('countries.show');
+Route::post('edit_country', [CountryController::class, 'update'])->name('countries.update');
+Route::post('delete_country', [CountryController::class, 'destroy'])->name('countries.destroy');
+
 
 // City Routes
-Route::prefix('cities')->group(function () {
-    Route::get('/', [CityController::class, 'index'])->name('cities.index');
-    Route::post('/', [CityController::class, 'store'])->name('cities.store');
-    Route::get('/{id}', [CityController::class, 'show'])->name('cities.show');
-    Route::put('/{id}', [CityController::class, 'update'])->name('cities.update');
-    Route::delete('/{id}', [CityController::class, 'destroy'])->name('cities.destroy');
-});
 
-
+Route::post('fetch_cities', [CityController::class, 'index'])->name('cities.index');
+Route::post('add_city', [CityController::class, 'store'])->name('cities.store');
+Route::post('fetch_city_details', [CityController::class, 'show'])->name('cities.show');
+Route::post('edit_city', [CityController::class, 'update'])->name('cities.update');
+Route::post('delete_city', [CityController::class, 'destroy'])->name('cities.destroy');

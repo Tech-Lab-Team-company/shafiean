@@ -10,7 +10,7 @@ class CreateCitiesTable extends Migration
     {
         Schema::create('cities', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
+            $table->string('title')->nullable();
             $table->unsignedBigInteger('country_id')->nullable();
 
             $table->foreign('country_id')

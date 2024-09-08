@@ -3,8 +3,15 @@
 namespace App\Http\Controllers\Global;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Stage\AddStageRequest;
+use App\Http\Requests\Stage\ChangeStageActiveStatusRequest;
+use App\Http\Requests\Stage\DeleteStageRequest;
+use App\Http\Requests\Stage\EditStageRequest;
+use App\Http\Requests\Stage\FetchStageDetailsRequest;
+use App\Http\Requests\Stage\FetchStagesRequest;
 use App\Http\Requests\Stage\StageRequest;
 use App\Services\StageService;
+use Illuminate\Http\Request;
 
 class StageController extends Controller
 {
@@ -15,34 +22,39 @@ class StageController extends Controller
         $this->stageService = $stageService;
     }
 
-    public function index()
+    public function index(FetchStagesRequest $request)
     {
-        return $this->stageService->getAllStages()->response();
+        return $this->stageService->getAllStages($request)->response();
 
     }
 
-    public function store(StageRequest $request)
+    public function store(AddStageRequest $request)
     {
-       return $this->stageService->createStage($request->validated())->response();
+       return $this->stageService->createStage($request)->response();
 
     }
 
-    public function show($id)
+    public function show(FetchStageDetailsRequest $request)
     {
-        return $this->stageService->getStageById($id)->response();
+        return $this->stageService->getStageById($request)->response();
 
     }
 
-    public function update(StageRequest $request, $id)
+    public function update(EditStageRequest $request)
     {
-       return $this->stageService->updateStage($id, $request->validated())->response();
+       return $this->stageService->updateStage( $request)->response();
 
     }
 
-    public function destroy($id)
+    public function destroy(DeleteStageRequest $request)
     {
-        return $this->stageService->deleteStage($id)->response();
+        return $this->stageService->deleteStage($request)->response();
 
+    }
+
+    public function changeActiveStatus(ChangeStageActiveStatusRequest $request)
+    {
+        return $this->stageService->changeStageActiveStatus($request)->response();
     }
 }
 

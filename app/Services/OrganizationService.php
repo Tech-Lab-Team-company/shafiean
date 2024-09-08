@@ -7,6 +7,7 @@ use App\Helpers\Response\DataStatus;
 use App\Helpers\Response\DataSuccess;
 use App\Http\Resources\OrganizationResource;
 use App\Models\Organization;
+use App\Services\Global\FilterService;
 use Exception;
 
 class OrganizationService
@@ -15,15 +16,15 @@ class OrganizationService
     {
         try {
             $query = Organization::query();
-
+            $filter_service = new FilterService();
             if ($request) {
-                $this->applyFilters($query, $request);
+                $filter_service->filterOrganizations($query, $request);
             }
 
             $organizations = $query->orderBy('id', 'desc')->paginate(10)->withQueryString();
 
             return new DataSuccess(
-                data: OrganizationResource::collection($organizations),
+                data: OrganizationResource::collection($organizations)->response()->getData(true),
                 status: true,
                 message: 'Organizations retrieved successfully'
             );
@@ -35,49 +36,7 @@ class OrganizationService
         }
     }
 
-    private function applyFilters($query, $request): void
-    {
-        if ($request->filled('word') && !$request->filled('city_ids') && !$request->filled('country_ids')) {
-            $query->where('name', 'like', '%' . $request->word . '%');
-        }
 
-        if ($request->filled('city_ids') && !$request->filled('word') && !$request->filled('country_ids')) {
-            $query->orWhereIn('city_id', $request->city_ids);
-        }
-
-        if ($request->filled('country_ids') && !$request->filled('word') && !$request->filled('city_ids')) {
-            $query->orWhereIn('country_id', $request->country_ids);
-        }
-
-        if ($request->filled(['city_ids', 'word']) && !$request->filled('country_ids')) {
-            $query->orWhere(function ($q) use ($request) {
-                $q->whereIn('city_id', $request->city_ids)
-                    ->where('name', 'like', '%' . $request->word . '%');
-            });
-        }
-
-        if ($request->filled(['country_ids', 'word']) && !$request->filled('city_ids')) {
-            $query->orWhere(function ($q) use ($request) {
-                $q->whereIn('country_id', $request->country_ids)
-                    ->where('name', 'like', '%' . $request->word . '%');
-            });
-        }
-
-        if ($request->filled(['country_ids', 'city_ids']) && !$request->filled('word')) {
-            $query->orWhere(function ($q) use ($request) {
-                $q->whereIn('country_id', $request->country_ids)
-                    ->whereIn('city_id', $request->city_ids);
-            });
-        }
-
-        if ($request->filled(['country_ids', 'city_ids', 'word'])) {
-            $query->orWhere(function ($q) use ($request) {
-                $q->whereIn('country_id', $request->country_ids)
-                    ->whereIn('city_id', $request->city_ids)
-                    ->where('name', 'like', '%' . $request->word . '%');
-            });
-        }
-    }
 
 
 
@@ -145,18 +104,18 @@ class OrganizationService
                 $image = upload_image($request->file('image'), 'organizations');
                 $data['image'] = $image;
             }
-            $data['name'] = $request->name;
-            $data['phone'] = $request->phone;
-            $data['email'] = $request->email;
-            $data['address'] = $request->address;
-            $data['country_id'] = $request->country_id;
-            $data['city_id'] = $request->city_id;
-            $data['licence_number'] = $request->licence_number;
-            $data['website_link'] = $request->website_link;
-            $data['manager_name'] = $request->manager_name;
-            $data['manager_phone'] = $request->manager_phone;
-            $data['manager_email'] = $request->manager_email;
-            $data['for_all_disabilities'] = $request->for_all_disabilities;
+            $data['name'] = $request->name ?? $organization->name;
+            $data['phone'] = $request->phone ?? $organization->phone;
+            $data['email'] = $request->email ?? $organization->email;
+            $data['address'] = $request->address ?? $organization->address;
+            $data['country_id'] = $request->country_id  ?? $organization->country_id;
+            $data['city_id'] = $request->city_id ?? $organization->city_id;
+            $data['licence_number'] = $request->licence_number ?? $organization->licence_number;
+            $data['website_link'] = $request->website_link ?? $organization->website_link;
+            $data['manager_name'] = $request->manager_name ?? $organization->manager_name;
+            $data['manager_phone'] = $request->manager_phone ?? $organization->manager_phone;
+            $data['manager_email'] = $request->manager_email ?? $organization->manager_email;
+            $data['for_all_disabilities'] = $request->for_all_disabilities ?? $organization->for_all_disabilities;
             // dd($data);
             $organization->update($data);
             $organization->disability_types()->sync($request->disability_ids);

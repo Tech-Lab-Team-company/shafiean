@@ -15,7 +15,12 @@ class DisabilityType extends Model
 
     protected $guarded = [];
 
+    protected $appends  = ["image_link"];
 
+    public function getImageLinkAttribute()
+    {
+        return $this->image ? url('storage/' . $this->image) : '';
+    }
 
     // public function users(): HasMany
     // {
@@ -30,5 +35,11 @@ class DisabilityType extends Model
     public function organizations()
     {
         return $this->belongsToMany(Organization::class, 'organization_disability_types', 'disability_type_id', 'organization_id')->withTimestamps();
+    }
+
+    public function stages()
+    {
+
+        return $this->belongsToMany(Stage::class, 'stage_disability_types', 'disability_type_id', 'stage_id')->withTimestamps();
     }
 }
