@@ -98,4 +98,12 @@ class FilterService
                     ->where('stage_id', $request->stage_id);
             });
     }
+
+    public function filterSessionType($request, $query)
+    {
+
+        $query->when($request->has('word'), function ($q) use ($request) {
+            $q->where('title', 'like', '%' . $request->word . '%');
+        });
+    }
 }
