@@ -77,9 +77,9 @@ class StageService
     {
         try {
             $stage = Stage::find($request->id);
-            $data['title'] = $request->title;
-            $data['description'] = $request->description;
-            $data['curriculum_id'] = $request->curriculum_id;
+            $data['title'] = $request->title ?? $stage->title;
+            $data['description'] = $request->description ?? $stage->description;
+            $data['curriculum_id'] = $request->curriculum_id ?? $stage->curriculum_id;
             $stage->update($data);
             $stage->disabilityTypes()->sync($request->disability_ids);
             $stage->quraan()->sync($request->quraan_ids);

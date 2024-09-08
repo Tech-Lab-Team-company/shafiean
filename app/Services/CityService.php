@@ -78,8 +78,8 @@ class CityService
     {
         try {
             $city = City::find($request->id);
-            $data['title'] = $request->title;
-            $data['country_id'] = $request->country_id;
+            $data['title'] = $request->title ?? $city->title;
+            $data['country_id'] = $request->country_id ?? $city->country_id;
             $city->update($data);
 
             return new DataSuccess(
@@ -116,5 +116,5 @@ class CityService
     }
 
 
- 
+
 }

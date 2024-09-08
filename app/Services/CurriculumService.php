@@ -73,8 +73,8 @@ class CurriculumService
     {
         try {
             $curriculum = Curriculum::find($request->id);
-            $data['title'] = $request->title;
-            $data['type'] = $request->type;
+            $data['title'] = $request->title ?? $curriculum->title;
+            $data['type'] = $request->type ?? $curriculum->type;
             $curriculum->update($data);
 
             return new DataSuccess(

@@ -24,7 +24,7 @@ class OrganizationService
             $organizations = $query->orderBy('id', 'desc')->paginate(10)->withQueryString();
 
             return new DataSuccess(
-                data: OrganizationResource::collection($organizations),
+                data: OrganizationResource::collection($organizations)->response()->getData(true),
                 status: true,
                 message: 'Organizations retrieved successfully'
             );
@@ -104,18 +104,18 @@ class OrganizationService
                 $image = upload_image($request->file('image'), 'organizations');
                 $data['image'] = $image;
             }
-            $data['name'] = $request->name;
-            $data['phone'] = $request->phone;
-            $data['email'] = $request->email;
-            $data['address'] = $request->address;
-            $data['country_id'] = $request->country_id;
-            $data['city_id'] = $request->city_id;
-            $data['licence_number'] = $request->licence_number;
-            $data['website_link'] = $request->website_link;
-            $data['manager_name'] = $request->manager_name;
-            $data['manager_phone'] = $request->manager_phone;
-            $data['manager_email'] = $request->manager_email;
-            $data['for_all_disabilities'] = $request->for_all_disabilities;
+            $data['name'] = $request->name ?? $organization->name;
+            $data['phone'] = $request->phone ?? $organization->phone;
+            $data['email'] = $request->email ?? $organization->email;
+            $data['address'] = $request->address ?? $organization->address;
+            $data['country_id'] = $request->country_id  ?? $organization->country_id;
+            $data['city_id'] = $request->city_id ?? $organization->city_id;
+            $data['licence_number'] = $request->licence_number ?? $organization->licence_number;
+            $data['website_link'] = $request->website_link ?? $organization->website_link;
+            $data['manager_name'] = $request->manager_name ?? $organization->manager_name;
+            $data['manager_phone'] = $request->manager_phone ?? $organization->manager_phone;
+            $data['manager_email'] = $request->manager_email ?? $organization->manager_email;
+            $data['for_all_disabilities'] = $request->for_all_disabilities ?? $organization->for_all_disabilities;
             // dd($data);
             $organization->update($data);
             $organization->disability_types()->sync($request->disability_ids);

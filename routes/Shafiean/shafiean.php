@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\AdminHistoryController;
 use App\Http\Controllers\Admin\AyatController;
 use App\Http\Controllers\Admin\CurriculumController;
 use App\Http\Controllers\Admin\DisabilityTypeController;
+use App\Http\Controllers\Admin\MainSessionController;
 use App\Http\Controllers\Admin\QuraanController;
 use App\Http\Controllers\Global\StageController;
 use App\Http\Controllers\Organization\OrganizationController;
@@ -68,13 +69,24 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('delete_curriculm', [CurriculumController::class, 'destroy']);
     Route::post('change_cirruclum_active_status', [CurriculumController::class, 'changeActiveStatus']);
 
-
+    // Stages Routes
     Route::post('fetch_stages', [StageController::class, 'index']);
     Route::post('add_stage', [StageController::class, 'store']);
     Route::post('fetch_stage_details', [StageController::class, 'show']);
     Route::post('edit_stage', [StageController::class, 'update']);
     Route::post('delete_stage', [StageController::class, 'destroy']);
     Route::post('change_stage_active_status', [StageController::class, 'changeActiveStatus']);
+
+    // main sessions Routes
+    Route::controller(MainSessionController::class)->group(function () {
+        Route::post('fetch_sessions', 'index');
+        Route::post('add_session', 'store');
+        Route::post('fetch_session_details', 'show');
+        Route::post('edit_session', 'update');
+        Route::post('delete_session', 'destroy');
+        Route::post('change_session_active_status', 'changeActiveStatus');
+    });
+
 
     Route::resource('ayat', AyatController::class);
     Route::resource('quraan', QuraanController::class);

@@ -77,9 +77,9 @@ class CountryService
     {
         try {
             $country = Country::find($request->id);
-            $data['title'] = $request->title;
-            $data['code'] = $request->code;
-            $data['phone_code'] = $request->phone_code;
+            $data['title'] = $request->title ?? $country->title;
+            $data['code'] = $request->code ?? $country->code;
+            $data['phone_code'] = $request->phone_code ?? $country->phone_code;
             $country->update($data);
 
             return new DataSuccess(

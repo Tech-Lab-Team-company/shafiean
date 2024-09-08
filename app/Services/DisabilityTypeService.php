@@ -100,10 +100,10 @@ class DisabilityTypeService
                         'order' => $disabilityType->order + 1
                     ]);
                 }
-                $data['order'] = $request->order;
+                $data['order'] = $request->order ?? $disability->order;
             }
-            $data['title'] = $request->title;
-            $data['description'] = $request->description;
+            $data['title'] = $request->title ?? $disability->title;
+            $data['description'] = $request->description ?? $disability->description;
             $disability->update($data);
             return new DataSuccess(
                 data: new DisabilityTypeResource($disability),

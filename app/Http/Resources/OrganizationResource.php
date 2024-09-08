@@ -15,6 +15,7 @@ class OrganizationResource extends JsonResource
             'phone' => $this->phone,
             'email' => $this->email,
             'address' => $this->address,
+            "image" => $this->image_link,
             'country_id' => $this->country_id,
             'city_id' => $this->city_id,
             'manager_name' => $this->manager_name,

@@ -13,9 +13,9 @@ class AdminService
 {
     public function getAll()
     {
-        $admin_all = Admin::orderBy('id', 'desc')->get();
+        $admin_all = Admin::orderBy('id', 'desc')->paginate(10);
         return new DataSuccess(
-            data: AdminResource::collection($admin_all),
+            data: AdminResource::collection($admin_all)->response()->getData(true),
             status: true,
             message: 'Admin retrieved successfully'
         );
@@ -58,7 +58,10 @@ class AdminService
         $admin = Admin::find($request->id);
         // dd($admin);
         if ($request->hasFile('image')) {
-            delete_image($request->image);
+
+            if ($admin->image && file_exists($admin->image)) {
+                delete_image($admin->image);
+            }
             $adminData['image'] = upload_image($request->file('image'), 'admin');
         }
 

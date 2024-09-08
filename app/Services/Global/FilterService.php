@@ -71,7 +71,7 @@ class FilterService
 
     public function filterStages($request, $query)
     {
-        
+
         $query->when($request->has('word') && !$request->has('curriculum_id'), function ($q) use ($request) {
             $q->where('title', 'like', '%' . $request->word . '%');
         })
@@ -81,6 +81,21 @@ class FilterService
             ->when($request->has('word') && $request->has('curriculum_id'), function ($q) use ($request) {
                 $q->where('title', 'like', '%' . $request->word . '%')
                     ->where('curriculum_id', $request->curriculum_id);
+            });
+    }
+
+    public function filterMainSession($request, $query)
+    {
+
+        $query->when($request->has('word') && !$request->has('curriculum_id'), function ($q) use ($request) {
+            $q->where('title', 'like', '%' . $request->word . '%');
+        })
+            ->when($request->has('stage_id') && !$request->has('word'), function ($q) use ($request) {
+                $q->where('stage_id', $request->stage_id);
+            })
+            ->when($request->has('word') && $request->has('stage_id'), function ($q) use ($request) {
+                $q->where('title', 'like', '%' . $request->word . '%')
+                    ->where('stage_id', $request->stage_id);
             });
     }
 }
