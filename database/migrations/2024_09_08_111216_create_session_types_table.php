@@ -13,7 +13,10 @@ return new class extends Migration
     {
         Schema::create('session_types', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('organization_id')->nullable();
             $table->string('title')->nullable();
+            $table->tinyInteger('status')->nullable()->default(1);
+            $table->foreign('organization_id')->references('id')->on('organizations')->onDelete('set null');;
             $table->timestamps();
         });
     }

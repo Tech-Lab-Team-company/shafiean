@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\CurriculumController;
 use App\Http\Controllers\Admin\DisabilityTypeController;
 use App\Http\Controllers\Admin\MainSessionController;
 use App\Http\Controllers\Admin\QuraanController;
+use App\Http\Controllers\Admin\SessionTypeController;
 use App\Http\Controllers\Global\StageController;
 use App\Http\Controllers\Organization\OrganizationController;
 use Illuminate\Support\Facades\Route;
@@ -85,6 +86,15 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('edit_session', 'update');
         Route::post('delete_session', 'destroy');
         Route::post('change_session_active_status', 'changeActiveStatus');
+    });
+
+    Route::controller(SessionTypeController::class)->group(function () {
+       Route::post('fetch_session_types', 'index');
+       Route::post('add_session_type', 'store');
+       Route::post('fetch_session_type_details', 'show');
+       Route::post('edit_session_type', 'update');
+       Route::post('delete_session_type', 'destroy');
+       Route::post('change_session_type_active_status', 'changeActiveStatus');
     });
 
 
