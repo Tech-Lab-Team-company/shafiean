@@ -106,4 +106,35 @@ class FilterService
             $q->where('title', 'like', '%' . $request->word . '%');
         });
     }
+
+    public function filterYear($request, $query)
+    {
+
+        $query->when($request->has('word') && !$request->has('country_id'), function ($q) use ($request) {
+            $q->where('title', 'like', '%' . $request->word . '%');
+        })
+            ->when($request->has('country_id') && !$request->has('word'), function ($q) use ($request) {
+                $q->where('country_id', $request->country_id);
+            })
+            ->when($request->has('word') && $request->has('country_id'), function ($q) use ($request) {
+                $q->where('title', 'like', '%' . $request->word . '%')
+                    ->where('country_id', $request->country_id);
+            });
+    }
+
+    public function filterSeason($request, $query)
+    {
+
+        $query->when($request->has('word') && !$request->has('country_id'), function ($q) use ($request) {
+            $q->where('title', 'like', '%' . $request->word . '%');
+        })
+            ->when($request->has('country_id') && !$request->has('word'), function ($q) use ($request) {
+                $q->where('country_id', $request->country_id);
+            })
+
+            ->when($request->has('word') && $request->has('country_id'), function ($q) use ($request) {
+                $q->where('title', 'like', '%' . $request->word . '%')
+                    ->where('country_id', $request->country_id);
+            });
+    }
 }

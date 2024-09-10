@@ -15,9 +15,11 @@ class OrganizationUpdateRequest extends FormRequest
     public function rules()
     {
         $id = $this->id;
+        // dd($id);
 
         return [
-            'name' => 'required|string|max:191',
+            'id' => 'required|exists:organizations,id',
+            'name' => 'nullable|string|max:191',
             'licence_number' => 'nullable|string|max:191',
             'phone' => 'nullable|string|max:191',
             'email' => [
@@ -25,14 +27,14 @@ class OrganizationUpdateRequest extends FormRequest
                 'string',
                 'email',
                 'max:191',
-                Rule::unique('organizations')->ignore($id),
+                Rule::unique('organizations', 'email')->ignore($id),
             ],
             'address' => 'nullable|string|max:191',
             'country_id' => 'nullable|exists:countries,id',
             'city_id' => 'nullable|exists:cities,id',
             'manager_name' => 'nullable|string|max:191',
             'manager_phone' => 'nullable|string|max:191',
-            'manager_email' => 'nullable|string|email|max:191|unique:organizations,manager_email,except,id',
+            'manager_email' => 'nullable|string|email|max:191|unique:organizations,manager_email,' . $id,
         ];
     }
 }
