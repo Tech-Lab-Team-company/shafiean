@@ -9,6 +9,7 @@ use App\Http\Resources\AdminResource;
 use App\Models\Admin\Admin;
 use App\Services\Global\CodeService;
 use App\Services\Global\EmailService;
+use App\Services\Global\PasswordService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
@@ -81,23 +82,14 @@ class AdminAuthService
     {
         try {
             $admin = Auth::guard('admin')->user();
-            // dd($admin);
-            // dd(!Hash::check($request->old_password, $admin->password));
-            if (!Hash::check($request->old_password, $admin->password)) {
+            $password_service = new PasswordService();
+            $response = $password_service->changePassword($request, $admin)->response()->getData();
+            if ($response->status == false) {
                 return new DataFailed(
                     status: false,
-                    message: 'Current password is incorrect'
+                    message: $response->message
                 );
             }
-            $admin->update([
-                'new_password' => Hash::make($request->password)
-            ]);
-
-
-            return new DataSuccess(
-                status: true,
-                message: 'Admin password changed successfully'
-            );
         } catch (\Exception $e) {
             return new DataFailed(
                 status: false,
@@ -165,29 +157,11 @@ class AdminAuthService
     {
         try {
             $admin = Admin::where('email', $request->email)->first();
-            if (!$admin) {
-                return new DataSuccess(
-                    status: false,
-                    data: false,
-                    message: 'Email not found'
-                );
-            }
-            $verefied = $admin->email_verified_at;
-            // dd($verefied);
-            if ($verefied == null) {
-                // dd($verefied);
-                return new DataSuccess(
-                    status: false,
-                    data: false,
-                    message: 'Email not verified'
-                );
-            }
-            $admin->update([
-                'password' => Hash::make($request->password)
-            ]);
+            $password_service = new PasswordService();
+            $response = $password_service->resetPassword($request, $admin)->response()->getData();
             return new DataSuccess(
                 status: true,
-                message: 'Admin password changed successfully'
+                message: $response->message
             );
         } catch (\Exception $e) {
             return new DataFailed(

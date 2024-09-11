@@ -7,31 +7,31 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Hash;
 use Laravel\Sanctum\HasApiTokens;
 
 class Teacher extends Authenticatable
 {
-    use HasFactory, Notifiable , HasApiTokens ;
+    use HasFactory, Notifiable, HasApiTokens;
     protected $table = 'teachers';
-    protected $guard = 'teacher';
-    protected $fillable = [
-        'name',
-        'phone',
-        'email',
-        'password',
-        'gender',
-        'api_key',
-        'age',
-        'image',
-        'organization_id',
-    ];
+    // protected $guard = 'organization';
+    protected $guarded = [];
     protected $hidden = [
         'password',
         'remember_token',
     ];
+    protected $appends  = ["image_link"];
 
-    public function organization() : BelongsTo
+    public function getImageLinkAttribute()
     {
-        return $this->belongsTo(Organization::class , 'organization_id');
+        return $this->image ? url('storage/' . $this->image) : '';
+    }
+    public function organization(): BelongsTo
+    {
+        return $this->belongsTo(Organization::class, 'organization_id');
+    }
+    protected function setPasswordAttribute($password)
+    {
+        return $this->attributes['password'] = Hash::make($password);
     }
 }

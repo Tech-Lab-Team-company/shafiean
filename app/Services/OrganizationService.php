@@ -7,8 +7,10 @@ use App\Helpers\Response\DataStatus;
 use App\Helpers\Response\DataSuccess;
 use App\Http\Resources\OrganizationResource;
 use App\Models\Organization;
+use App\Models\Teacher;
 use App\Services\Global\FilterService;
 use Exception;
+use Illuminate\Support\Facades\Hash;
 
 class OrganizationService
 {
@@ -79,6 +81,22 @@ class OrganizationService
             // dd($data);
             $organization = Organization::create($data);
             $organization->disability_types()->attach($request->disability_ids);
+            // dd($organization);
+            if ($organization->image != null) {
+                // dd($organization->image);
+                $employeeImage = upload_image($request->file('image'), 'Teachers/manager');
+            }
+            $employeeData = [
+                'organization_id' => $organization->id,
+                'name' => $request->manager_name,
+                'phone' => $request->manager_phone,
+                'email' => $request->manager_email,
+                'password' => '123123123',
+                'image' => $employeeImage,
+                'is_master' => 1
+            ];
+            // dd($employeeData);
+            $employee = Teacher::create($employeeData);
             return new DataSuccess(
                 data: new OrganizationResource($organization),
                 status: true,
