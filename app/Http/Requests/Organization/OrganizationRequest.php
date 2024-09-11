@@ -17,7 +17,7 @@ class OrganizationRequest extends FormRequest
             'name' => 'required|string|max:191',
             'licence_number' => 'nullable|string|max:191',
             'website_link' => 'nullable|string|max:191',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif',
             'phone' => 'required|string|max:191',
             'email' => 'nullable|string|email|max:191',
             'address' => 'nullable|string|max:191',

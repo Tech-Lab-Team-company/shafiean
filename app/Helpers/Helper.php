@@ -22,4 +22,10 @@ if (!function_exists('upload_image')) {
         // Delete the old image from the specified disk
         Storage::disk($disk)->delete($old_image_path);
     }
+
+    function get_organization_id($user = null)
+    {
+
+        return $user->organization_id;
+    }
 }

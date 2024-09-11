@@ -21,7 +21,7 @@ class TeacherController extends Controller
 
     }
 
-    public function store(TeacherRequest $request)
+    public function add_employee(TeacherRequest $request)
     {
         return $this->teacherService->createTeacher($request->validated())->response();
 

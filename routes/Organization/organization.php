@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Global\StageController;
 use App\Http\Controllers\Organization\AuthController;
+use App\Http\Controllers\Organization\EmployeeController;
 use App\Http\Controllers\Organization\TeacherAuthController;
 use App\Http\Controllers\Organization\TeacherController;
 use App\Http\Controllers\Organization\TermController;
@@ -14,10 +15,11 @@ Route::post('organization-reset-password', [AuthController::class, 'resetPasswor
 Route::middleware('auth:organization')->group(function () {
     Route::post('organization-logout', [AuthController::class, 'logout']);
     Route::post('organization-change-password', [AuthController::class, 'changePassword']);
+    Route::post('add_employee', [EmployeeController::class, 'add_employee']);
 });
 // Teacher Routes
 Route::prefix('teachers')->group(function () {
-    Route::get('/', [TeacherController::class, 'index'])->name('teachers.index');
+
     Route::post('/', [TeacherController::class, 'store'])->name('teachers.store');
     Route::get('/{id}', [TeacherController::class, 'show'])->name('teachers.show');
     Route::put('/{id}', [TeacherController::class, 'update'])->name('teachers.update');
