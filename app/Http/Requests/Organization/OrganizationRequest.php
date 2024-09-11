@@ -25,7 +25,7 @@ class OrganizationRequest extends FormRequest
             'city_id' => 'required|exists:cities,id',
             'manager_name' => 'required|string|max:191',
             'manager_phone' => 'required|string|max:191',
-            'manager_email' => 'nullable|string|email|max:191',
+            'manager_email' => 'nullable|string|email|max:191|unique:organizations,manager_email',
             'disability_ids' => 'nullable|array',
             'for_all_disabilities' => 'nullable|integer',
         ];

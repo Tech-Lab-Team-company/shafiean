@@ -21,7 +21,7 @@ Route::prefix('admin')->group(function () {
     Route::post('check-code', [AdminAuthController::class, 'checkCode']);
     Route::post('reset-password', [AdminAuthController::class, 'resetPassword']);
 });
-Route::middleware('auth:sanctum')->group(function () {
+Route::middleware('auth:admin')->group(function () {
     Route::prefix('admin')->group(function () {
         Route::post('/logout', [AdminAuthController::class, 'logout']);
         Route::post('/change-password', [AdminAuthController::class, 'changePassword']);

@@ -21,7 +21,7 @@ class TeacherAuthController extends Controller
 
     public function login(AuthRequest $request)
     {
-        return $this->teacherAuthService->login($request->validated())->response();
+        return $this->teacherAuthService->login($request)->response();
     }
 
     public function logout(Request $request)

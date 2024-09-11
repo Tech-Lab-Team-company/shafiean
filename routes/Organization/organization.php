@@ -1,15 +1,19 @@
 <?php
 
 use App\Http\Controllers\Global\StageController;
+use App\Http\Controllers\Organization\AuthController;
 use App\Http\Controllers\Organization\TeacherAuthController;
 use App\Http\Controllers\Organization\TeacherController;
 use App\Http\Controllers\Organization\TermController;
 use Illuminate\Support\Facades\Route;
 
-Route::post('teacher/login', [TeacherAuthController::class, 'login']);
-
-Route::middleware('auth:sanctum')->group(function (){
-    Route::post('teacher/logout', [TeacherAuthController::class, 'logout']);
+Route::post('organization-login', [AuthController::class, 'login']);
+Route::post('organization-check-email', [AuthController::class, 'checkEmail']);
+Route::post('organization-check-code', [AuthController::class, 'checkCode']);
+Route::post('organization-reset-password', [AuthController::class, 'resetPassword']);
+Route::middleware('auth:organization')->group(function () {
+    Route::post('organization-logout', [AuthController::class, 'logout']);
+    Route::post('organization-change-password', [AuthController::class, 'changePassword']);
 });
 // Teacher Routes
 Route::prefix('teachers')->group(function () {
