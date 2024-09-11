@@ -11,8 +11,10 @@ class StageResource extends JsonResource
         return [
             'id' => $this->id,
             'title' => $this->title,
-            'curriculum_id' => $this->curriculum_id,
+            'description' => $this->description,
+            'curriculum' => new CurriculumResource($this->curriculum),
             'status' => $this->status,
+            'disability' => DisabilityTypeResource::collection($this->disabilityTypes),
             // 'type' => $this->type,
         ];
     }

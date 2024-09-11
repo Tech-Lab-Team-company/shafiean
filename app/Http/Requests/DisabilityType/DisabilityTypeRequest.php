@@ -17,7 +17,7 @@ class DisabilityTypeRequest extends FormRequest
             'id' => 'nullable|exists:disability_types,id',
             'title' => 'required|string|max:255',
             'description' => 'nullable|string|max:255',
-            'image' => 'nullable|image|max:255',
+            'image' => 'nullable|image',
             'order' => 'nullable|integer',
         ];
     }
