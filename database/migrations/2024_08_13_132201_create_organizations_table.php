@@ -21,9 +21,9 @@ class CreateOrganizationsTable  extends Migration
             $table->string('api_key')->nullable();
             $table->string('web_key')->nullable();
             $table->unsignedBigInteger('country_id')->nullable();
-            $table->foreign('country_id')->references('id')->on('countries');
+            $table->foreign('country_id')->references('id')->on('countries')->onDelete('set null');
             $table->unsignedBigInteger('city_id')->nullable();
-            $table->foreign('city_id')->references('id')->on('cities');
+            $table->foreign('city_id')->references('id')->on('cities')->onDelete('set null');
             $table->timestamps();
         });
     }
@@ -33,4 +33,3 @@ class CreateOrganizationsTable  extends Migration
         Schema::dropIfExists('organizations');
     }
 }
-

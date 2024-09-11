@@ -8,7 +8,9 @@ use App\Http\Controllers\Admin\CurriculumController;
 use App\Http\Controllers\Admin\DisabilityTypeController;
 use App\Http\Controllers\Admin\MainSessionController;
 use App\Http\Controllers\Admin\QuraanController;
+use App\Http\Controllers\Admin\SeasonController;
 use App\Http\Controllers\Admin\SessionTypeController;
+use App\Http\Controllers\Admin\YearController;
 use App\Http\Controllers\Global\StageController;
 use App\Http\Controllers\Organization\OrganizationController;
 use Illuminate\Support\Facades\Route;
@@ -89,12 +91,30 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 
     Route::controller(SessionTypeController::class)->group(function () {
-       Route::post('fetch_session_types', 'index');
-       Route::post('add_session_type', 'store');
-       Route::post('fetch_session_type_details', 'show');
-       Route::post('edit_session_type', 'update');
-       Route::post('delete_session_type', 'destroy');
-       Route::post('change_session_type_active_status', 'changeActiveStatus');
+        Route::post('fetch_session_types', 'index');
+        Route::post('add_session_type', 'store');
+        Route::post('fetch_session_type_details', 'show');
+        Route::post('edit_session_type', 'update');
+        Route::post('delete_session_type', 'destroy');
+        Route::post('change_session_type_active_status', 'changeActiveStatus');
+    });
+
+    Route::controller(YearController::class)->group(function () {
+        Route::post('fetch_years', 'index');
+        Route::post('add_year', 'store');
+        Route::post('fetch_year_details', 'show');
+        Route::post('edit_year', 'update');
+        Route::post('delete_year', 'destroy');
+        Route::post('change_year_active_status', 'changeActiveStatus');
+    });
+
+    Route::controller(SeasonController::class)->group(function () {
+        Route::post('fetch_seasons', 'index');
+        Route::post('add_season', 'store');
+        Route::post('fetch_season_details', 'show');
+        Route::post('edit_season', 'update');
+        Route::post('delete_season', 'destroy');
+        Route::post('change_season_active_status', 'changeActiveStatus');
     });
 
 

@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests\Stage;
+namespace App\Http\Requests\Year;
 
 use App\Helpers\Response\ApiRequest;
 use Illuminate\Foundation\Http\FormRequest;
 
-class AddStageRequest extends ApiRequest
+class AddYearRequest extends ApiRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,10 +24,8 @@ class AddStageRequest extends ApiRequest
     {
         return [
             'title' => 'required|string|max:191',
-            'description' => 'required|string|max:191',
-            'curriculum_id' => 'required|exists:curriculums,id',
-            'disability_ids' => 'required|array|exists:disability_types,id',
-            'quraan_ids' => 'nullable|array|exists:quraan,id',
+            'country_id' => 'required|exists:countries,id',
+            'organization_id' => 'nullable|exists:organizations,id',
         ];
     }
 }

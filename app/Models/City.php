@@ -11,19 +11,19 @@ class City extends Model
 {
     use HasFactory;
     protected $table = 'cities';
-    protected $fillable = ['title', 'country_id'];
+    protected $guarded = [];
 
-    public function country() : BelongsTo
+    public function country(): BelongsTo
     {
-        return $this->belongsTo(Country::class , 'country_id');
+        return $this->belongsTo(Country::class, 'country_id');
     }
 
-    public function users() : HasMany
+    public function users(): HasMany
     {
-        return $this->hasMany(User::class , 'user_id');
+        return $this->hasMany(User::class, 'user_id');
     }
 
-    public function organizations() : HasMany
+    public function organizations(): HasMany
     {
         return $this->hasMany(Organization::class, 'city_id');
     }
