@@ -33,4 +33,18 @@ class EditSessionRequest extends ApiRequest
             "end_verse" => "nullable",
         ];
     }
+
+    public function messages(): array
+    {
+        return [
+            'id.required' => 'حقل المعرف مطلوب.',
+            'id.exists' => 'المعرف المدخل غير موجود في الجلسات الرئيسية.',
+            'title.string' => 'عنوان الجلسة يجب أن يكون نصًا.',
+            'title.max' => 'عنوان الجلسة لا يمكن أن يتجاوز 255 حرفًا.',
+            'stage_id.exists' => 'المعرف المدخل غير موجود في المراحل.',
+            'quraan_id.exists' => 'المعرف المدخل غير موجود في القرآن.',
+            'session_type_id.exists' => 'المعرف المدخل غير موجود في أنواع الجلسات.',
+            'organization_id.exists' => 'المعرف المدخل غير موجود في المنظمات.',
+        ];
+    }
 }
