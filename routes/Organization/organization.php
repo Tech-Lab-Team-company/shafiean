@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Global\StageController;
 use App\Http\Controllers\Organization\AuthController;
+use App\Http\Controllers\Organization\CourseController;
 use App\Http\Controllers\Organization\EmployeeController;
 use App\Http\Controllers\Organization\TeacherAuthController;
 use App\Http\Controllers\Organization\TeacherController;
@@ -33,6 +34,17 @@ Route::middleware('auth:organization')->group(function () {
         Route::post('edit_employee', 'update_employee');
         Route::post('delete_employee', 'delete_employee');
         Route::post('edit_employee_password', 'edit_employee_password');
+    });
+
+    // Course Routes
+
+    Route::controller(CourseController::class)->group(function () {
+        Route::post('fetch_courses', 'fetch_courses');
+        Route::post('add_course', 'add_course');
+        Route::post('fetch_course_details', 'fetch_course_details');
+        Route::post('edit_course', 'edit_course');
+        Route::post('delete_course', 'delete_course');
+        Route::post('change_course_active_status', 'change_course_active_status');
     });
 });
 // Teacher Routes

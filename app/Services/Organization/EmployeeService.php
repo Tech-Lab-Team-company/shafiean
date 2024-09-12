@@ -46,6 +46,10 @@ class EmployeeService
             $data['organization_id'] = get_organization_id(auth()->guard('organization')->user());
 
             $employee = Teacher::create($data);
+
+            if (isset($request->curriculum_ids)) {
+                $employee->curriculums()->attach($request->curriculum_ids);
+            }
             return new DataSuccess(
                 data: new OrganizationEmployeeResource($employee),
                 status: true,
@@ -64,12 +68,12 @@ class EmployeeService
     {
         try {
             $employee = Teacher::where('id', $request->id)->first();
-            $data['name'] = $request->name;
-            $data['email'] = $request->email;
-            $data['phone'] = $request->phone;
-            $data['gender'] = $request->gender;
-            $data['age'] = $request->age;
-            $data['is_employed'] = $request->is_employed;
+            $data['name'] = $request->name ?? $employee->name;
+            $data['email'] = $request->email ?? $employee->email;
+            $data['phone'] = $request->phone ?? $employee->phone;
+            $data['gender'] = $request->gender ?? $employee->gender;
+            $data['age'] = $request->age ?? $employee->age;
+            $data['is_employed'] = $request->is_employed ?? $employee->is_employed;
 
             if ($request->hasFile('image')) {
                 if ($employee->image && file_exists($employee->image)) {
@@ -79,7 +83,9 @@ class EmployeeService
                 $data['image'] = $image;
             }
             $employee->update($data);
-
+            if (isset($request->curriculum_ids)) {
+                $employee->curriculums()->sync($request->curriculum_ids);
+            }
             return new DataSuccess(
                 data: new OrganizationEmployeeResource($employee),
                 status: true,

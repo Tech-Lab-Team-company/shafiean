@@ -137,4 +137,48 @@ class FilterService
                     ->where('country_id', $request->country_id);
             });
     }
+
+
+    public function filterCourse($request, $query)
+    {
+        // Filter by word
+        $query->when($request->has('word') && !$request->has('year_ids') && !$request->has('cirruculum_ids'), function ($q) use ($request) {
+            $q->where('name', 'like', '%' . $request->word . '%');
+        });
+
+        // Filter by year_ids
+        $query->when($request->has('year_ids') && !$request->has('word') && !$request->has('cirruculum_ids'), function ($q) use ($request) {
+            $q->whereIn('year_id', $request->year_ids);
+        });
+
+        // Filter by cirruculum_ids
+        $query->when($request->has('cirruculum_ids') && !$request->has('word') && !$request->has('year_ids'), function ($q) use ($request) {
+            $q->whereIn('curriculum_id', $request->cirruculum_ids);
+        });
+
+        // Handle combinations of filters
+        $query->when($request->has('word') && $request->has('year_ids') && !$request->has('cirruculum_ids'), function ($q) use ($request) {
+            $q->where('name', 'like', '%' . $request->word . '%')
+                ->whereIn('year_id', $request->year_ids);
+        });
+
+        $query->when($request->has('word') && $request->has('cirruculum_ids') && !$request->has('year_ids'), function ($q) use ($request) {
+            $q->where('name', 'like', '%' . $request->word . '%')
+                ->whereIn('curriculum_id', $request->cirruculum_ids);
+        });
+
+        $query->when($request->has('cirruculum_ids') && $request->has('year_ids') && !$request->has('word'), function ($q) use ($request) {
+            $q->whereIn('curriculum_id', $request->cirruculum_ids)
+                ->whereIn('year_id', $request->year_ids);
+        });
+
+        // When all three filters are present
+        $query->when($request->has('word') && $request->has('year_ids') && $request->has('cirruculum_ids'), function ($q) use ($request) {
+            $q->where('name', 'like', '%' . $request->word . '%')
+                ->whereIn('year_id', $request->year_ids)
+                ->whereIn('curriculum_id', $request->cirruculum_ids);
+        });
+
+        return $query;
+    }
 }
