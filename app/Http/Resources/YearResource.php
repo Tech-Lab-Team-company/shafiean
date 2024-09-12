@@ -18,7 +18,7 @@ class YearResource extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'status' => $this->status,
-            'cpuntry' => new CountryResource($this->country),
+            'country' => new CountryResource($this->country),
         ];
     }
 }

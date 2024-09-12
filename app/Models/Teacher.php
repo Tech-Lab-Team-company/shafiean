@@ -34,4 +34,9 @@ class Teacher extends Authenticatable
     {
         return $this->attributes['password'] = Hash::make($password);
     }
+
+    public function curriculums()
+    {
+        return $this->belongsToMany(Curriculum::class, 'teacher_curriculums', 'teacher_id', 'curriculum_id')->withTimestamps();
+    }
 }

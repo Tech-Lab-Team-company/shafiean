@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Curriculum\CurriculumRequest;
-use App\Http\Requests\Organization\AddCurriculumRequest;
-use App\Http\Requests\Organization\ChangeCirruclumActiveStatusRequest;
-use App\Http\Requests\Organization\DeleteCurriculmRequest;
-use App\Http\Requests\Organization\EditCurriculumRequest;
-use App\Http\Requests\Organization\FetchCurriculumDetailsRequest;
+use App\Http\Requests\Curriculum\AddCurriculumRequest;
+use App\Http\Requests\Curriculum\ChangeCirruclumActiveStatusRequest;
+use App\Http\Requests\Curriculum\DeleteCurriculmRequest;
+use App\Http\Requests\Curriculum\EditCurriculumRequest;
+use App\Http\Requests\Curriculum\FetchCurriculumDetailsRequest;
+use App\Http\Requests\Curriculum\FetchCurriculumsRequest;
+
+
 use App\Http\Resources\CurriculumResource;
 use App\Services\CurriculumService;
 use Illuminate\Http\Request;
@@ -22,7 +24,7 @@ class CurriculumController extends Controller
         $this->curriculumService = $curriculumService;
     }
 
-    public function index(CurriculumRequest $request)
+    public function index(FetchCurriculumsRequest $request)
     {
         return $this->curriculumService->getAllCurriculums($request)->response();
     }

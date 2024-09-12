@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests\Employee;
+namespace App\Http\Requests\Curriculum;
 
 use App\Helpers\Response\ApiRequest;
 use Illuminate\Foundation\Http\FormRequest;
 
-class FetchEmployeeDetailsRequest extends ApiRequest
+class FetchCurriculumDetailsRequest extends ApiRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,7 +23,7 @@ class FetchEmployeeDetailsRequest extends ApiRequest
     public function rules(): array
     {
         return [
-            'id' => 'required|exists:teachers,id',
+            'id' => 'required|exists:curriculums,id'
         ];
     }
 }

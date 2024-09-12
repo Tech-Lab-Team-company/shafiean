@@ -2,16 +2,17 @@
 
 namespace App\Http\Requests\Employee;
 
+use App\Helpers\Response\ApiRequest;
 use Illuminate\Foundation\Http\FormRequest;
 
-class DeleteEmployeeRequest extends FormRequest
+class DeleteEmployeeRequest extends ApiRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +23,7 @@ class DeleteEmployeeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'id' => 'required|exists:teachers,id',
         ];
     }
 }

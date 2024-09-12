@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests\Organization;
+namespace App\Http\Requests\Course;
 
 use App\Helpers\Response\ApiRequest;
 use Illuminate\Foundation\Http\FormRequest;
 
-class AddCurriculumRequest extends ApiRequest
+class AddCourseRequest extends ApiRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,8 +23,10 @@ class AddCurriculumRequest extends ApiRequest
     public function rules(): array
     {
         return [
-            'title' => 'required|string|max:191',
-            'type' => 'required|integer',
+            'name' => 'required|string|max:191',
+            'year_id' => 'required|exists:years,id',
+            'curriculum_id' => 'required|exists:curriculums,id',
+            'disability_ids' => 'required|array|exists:disability_types,id',
         ];
     }
 }

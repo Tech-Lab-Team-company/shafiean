@@ -2,11 +2,10 @@
 
 namespace App\Http\Resources;
 
-use App\Enum\EmployeeTypeEnum;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class OrganizationEmployeeResource extends JsonResource
+class CourseResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -18,12 +17,11 @@ class OrganizationEmployeeResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'email' => $this->email,
-            'image' => $this->image,
-            'phone' => $this->phone,
-            'is_master' => $this->is_master,
-            'organization_id' => $this->organization_id,
-            'status' => EmployeeTypeEnum::from($this->is_employed)->label(),
+            'status' => $this->status,
+            'year' => new YearResource($this->year),
+            'curriculum' => new CurriculumResource($this->curriculum),
+            'disability_types' =>  DisabilityTypeResource::collection($this->disability_types),
+            // 'organization' => new OrganizationResource($this->organization),
         ];
     }
 }

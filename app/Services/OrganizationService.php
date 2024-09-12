@@ -93,7 +93,8 @@ class OrganizationService
                 'email' => $request->manager_email,
                 'password' => '123123123',
                 'image' => $employeeImage,
-                'is_master' => 1
+                'is_master' => 1,
+                'is_employed' => 0
             ];
             // dd($employeeData);
             $employee = Teacher::create($employeeData);

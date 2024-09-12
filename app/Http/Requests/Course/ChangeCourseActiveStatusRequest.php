@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests\Organization;
+namespace App\Http\Requests\Course;
 
 use App\Helpers\Response\ApiRequest;
 use Illuminate\Foundation\Http\FormRequest;
 
-class DeleteCurriculmRequest extends ApiRequest
+class ChangeCourseActiveStatusRequest extends ApiRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,7 +23,7 @@ class DeleteCurriculmRequest extends ApiRequest
     public function rules(): array
     {
         return [
-            'id' => 'required|exists:curriculums,id',
+            'id' => 'required|exists:courses,id',
         ];
     }
 }
