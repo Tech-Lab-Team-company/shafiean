@@ -8,14 +8,32 @@ use App\Http\Controllers\Organization\TeacherController;
 use App\Http\Controllers\Organization\TermController;
 use Illuminate\Support\Facades\Route;
 
-Route::post('organization-login', [AuthController::class, 'login']);
-Route::post('organization-check-email', [AuthController::class, 'checkEmail']);
-Route::post('organization-check-code', [AuthController::class, 'checkCode']);
-Route::post('organization-reset-password', [AuthController::class, 'resetPassword']);
+// auth routes
+
+Route::controller(AuthController::class)->group(function () {
+    Route::post('organization-register', 'register');
+    Route::post('organization-login', 'login');
+    Route::post('organization-check-email', 'checkEmail');
+    Route::post('organization-check-code', 'checkCode');
+    Route::post('organization-reset-password', 'resetPassword');
+});
+// auth routes
 Route::middleware('auth:organization')->group(function () {
-    Route::post('organization-logout', [AuthController::class, 'logout']);
-    Route::post('organization-change-password', [AuthController::class, 'changePassword']);
-    Route::post('add_employee', [EmployeeController::class, 'add_employee']);
+    // auth routes
+    Route::controller(AuthController::class)->group(function () {
+        Route::post('organization-logout', 'logout');
+        Route::post('organization-change-password', 'changePassword');
+    });
+
+    // Employee Routes
+    Route::controller(EmployeeController::class)->group(function () {
+        Route::post('fetch_employees', 'fetch_employees');
+        Route::post('add_employee', 'add_employee');
+        Route::post('fetch_employee_details', 'fetch_employee_details');
+        Route::post('edit_employee', 'update_employee');
+        Route::post('delete_employee', 'delete_employee');
+        Route::post('edit_employee_password', 'edit_employee_password');
+    });
 });
 // Teacher Routes
 Route::prefix('teachers')->group(function () {

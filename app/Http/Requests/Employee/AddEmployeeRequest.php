@@ -29,7 +29,7 @@ class AddEmployeeRequest extends ApiRequest
             'password' => 'required|string|max:191',
             'gender' => 'required|string|max:191',
             'age' => 'required|string|max:191',
-            'is_employed' => 'required|string|max:191',
+            'is_employed' => 'required|max:191',
             'image' => 'nullable|image|mimes:jpg,jpeg,png',
         ];
     }

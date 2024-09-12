@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Organization;
+namespace App\Http\Requests\Curriculum;
 
 use App\Helpers\Response\ApiRequest;
 use Illuminate\Foundation\Http\FormRequest;

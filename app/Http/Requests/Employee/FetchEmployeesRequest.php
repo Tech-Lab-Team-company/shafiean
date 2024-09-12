@@ -2,16 +2,17 @@
 
 namespace App\Http\Requests\Employee;
 
+use App\Helpers\Response\ApiRequest;
 use Illuminate\Foundation\Http\FormRequest;
 
-class FetchEmployeesRequest extends FormRequest
+class FetchEmployeesRequest extends ApiRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +23,7 @@ class FetchEmployeesRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'word' => 'nullable|string',
         ];
     }
 }

@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests\Organization;
+namespace App\Http\Requests\Curriculum;
 
 use App\Helpers\Response\ApiRequest;
 use Illuminate\Foundation\Http\FormRequest;
 
-class DeleteCurriculmRequest extends ApiRequest
+class EditCurriculumRequest extends ApiRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,6 +24,8 @@ class DeleteCurriculmRequest extends ApiRequest
     {
         return [
             'id' => 'required|exists:curriculums,id',
+            'title' => 'nullable|string|max:191',
+            'type' => 'nullable|integer',
         ];
     }
 }

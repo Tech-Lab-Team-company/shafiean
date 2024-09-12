@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Enum\EmployeeTypeEnum;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -20,6 +21,9 @@ class OrganizationEmployeeResource extends JsonResource
             'email' => $this->email,
             'image' => $this->image,
             'phone' => $this->phone,
+            'is_master' => $this->is_master,
+            'organization_id' => $this->organization_id,
+            'status' => EmployeeTypeEnum::from($this->is_employed)->label(),
         ];
     }
 }
