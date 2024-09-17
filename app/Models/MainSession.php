@@ -32,4 +32,9 @@ class MainSession extends Model
     {
         return $this->belongsTo(Quraan::class, 'quraan_id');
     }
+
+    public function course_stages()
+    {
+        return $this->belongsToMany(CourseStageSession::class, 'course_stage_sessions', 'session_id', 'course_stage_id')->withTimestamps();
+    }
 }

@@ -28,8 +28,8 @@ class AddSessionRequest extends ApiRequest
             "quraan_id" => "required|exists:quraan,id",
             // "session_type_id" => "required|exists:session_types,id",
             "organization_id" => "nullable|exists:organizations,id",
-            "start_verse" => "required",
-            "end_verse" => "required",
+            "start_verse" => "nullable",
+            "end_verse" => "nullable",
         ];
     }
 }

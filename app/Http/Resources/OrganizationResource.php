@@ -12,6 +12,7 @@ class OrganizationResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'licence_number' => $this->licence_number,
+            'website_link' => $this->website_link,
             'phone' => $this->phone,
             'email' => $this->email,
             'address' => $this->address,
@@ -23,6 +24,7 @@ class OrganizationResource extends JsonResource
             'manager_email' => $this->manager_email,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
+            'disabilities' => DisabilityTypeResource::collection($this->disability_types),
         ];
     }
 }

@@ -50,4 +50,9 @@ class CourseController extends Controller
     {
         return $this->course_service->change_course_active_status($request)->response();
     }
+
+public function add_course_stage(Request $request){
+
+    return $this->course_service->add_course_stage($request)->response();
+}
 }

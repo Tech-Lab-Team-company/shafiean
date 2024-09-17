@@ -33,4 +33,10 @@ class Course extends Model
     {
         return $this->belongsToMany(DisabilityType::class, 'course_disability_types', 'course_id', 'disability_type_id');
     }
+
+    public function stages()
+    {
+
+        return $this->belongsToMany(Stage::class, 'course_stages', 'course_id', 'stage_id')->withTimestamps();
+    }
 }

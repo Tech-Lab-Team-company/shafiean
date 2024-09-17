@@ -35,4 +35,9 @@ class Stage extends Model
 
         return $this->belongsToMany(Quraan::class, 'stage_quraan', 'stage_id', 'quraan_id')->withTimestamps();
     }
+
+    public function courses()
+    {
+        return $this->belongsToMany(Course::class, 'course_stages', 'stage_id', 'course_id')->withTimestamps();
+    }
 }

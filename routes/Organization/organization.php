@@ -45,6 +45,7 @@ Route::middleware('auth:organization')->group(function () {
         Route::post('edit_course', 'edit_course');
         Route::post('delete_course', 'delete_course');
         Route::post('change_course_active_status', 'change_course_active_status');
+        Route::post('add_course_stage', 'add_course_stage');
     });
 });
 // Teacher Routes
