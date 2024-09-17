@@ -19,7 +19,7 @@ class OrganizationEmployeeResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'email' => $this->email,
-            'image' => $this->image,
+            'image' => $this->image_link,
             'phone' => $this->phone,
             'is_master' => $this->is_master,
             'organization_id' => $this->organization_id,

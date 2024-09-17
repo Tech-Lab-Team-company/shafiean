@@ -7,6 +7,7 @@ use App\Helpers\Response\DataStatus;
 use App\Helpers\Response\DataSuccess;
 use App\Http\Resources\CourseResource;
 use App\Models\Course;
+use App\Models\CourseStageSession;
 use App\Services\Global\FilterService;
 use Exception;
 
@@ -140,6 +141,51 @@ class CourseService
                 status: true,
                 data: new CourseResource($course),
                 message: 'Course status changed successfully'
+            );
+        } catch (Exception $exception) {
+            return new DataFailed(
+                status: false,
+                message: $exception->getMessage()
+            );
+        }
+    }
+
+    public function add_course_stage($request): DataStatus
+    {
+        try {
+            $course = Course::find($request->course_id);
+
+            $stage_ids = collect($request->stages)->pluck('stage_id')->toArray();
+            $course->stages()->attach($stage_ids);
+
+            // Get the correct mapping of course_stage_id for each stage
+            $course_stage_ids = $course->stages()->whereIn('stage_id', $stage_ids)->pluck('course_stages.id', 'stage_id')->toArray();
+
+
+            foreach ($request->stages as $stage) {
+                $course_stage_session_data['stage_id'] = $stage['stage_id'];
+
+                // Get the correct course_stage_id for this stage
+                $course_stage_id = $course_stage_ids[$stage['stage_id']];
+                // dd($course_stage_id);
+                $course_stage_sessions = [];
+                foreach ($stage['sessions'] as $session) {
+                    $course_stage_session_data['session_id'] = $session['session_id'];
+                    $course_stage_session_data['with_edit'] = $session['with_edit'];
+                    $course_stage_session_data['start_verse'] = $session['start_verse'] ?? null;
+                    $course_stage_session_data['end_verse'] = $session['end_verse'] ?? null;
+                    $course_stage_session_data['session_type_id'] = $session['session_type_id'];
+                    $course_stage_session_data['course_id'] = $request->course_id;
+                    $course_stage_session_data['course_stage_id'] = $course_stage_id; // Assign correct course_stage_id
+                    $course_stage_sessions[] = $course_stage_session_data;
+                }
+                // dd($course_stage_sessions);
+                CourseStageSession::insert($course_stage_sessions);
+            }
+
+            return new DataSuccess(
+                status: true,
+                message: 'Course stage added successfully'
             );
         } catch (Exception $exception) {
             return new DataFailed(
