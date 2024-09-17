@@ -4,6 +4,7 @@ use App\Http\Controllers\Global\StageController;
 use App\Http\Controllers\Organization\AuthController;
 use App\Http\Controllers\Organization\CourseController;
 use App\Http\Controllers\Organization\EmployeeController;
+use App\Http\Controllers\Organization\GroupController;
 use App\Http\Controllers\Organization\TeacherAuthController;
 use App\Http\Controllers\Organization\TeacherController;
 use App\Http\Controllers\Organization\TermController;
@@ -46,6 +47,15 @@ Route::middleware('auth:organization')->group(function () {
         Route::post('delete_course', 'delete_course');
         Route::post('change_course_active_status', 'change_course_active_status');
         Route::post('add_course_stage', 'add_course_stage');
+    });
+
+    Route::controller(GroupController::class)->group(function () {
+        Route::post('fetch_groups', 'fetch_groups');
+        Route::post('add_group', 'add_group');
+        Route::post('fetch_group_details', 'fetch_group_details');
+        Route::post('edit_group', 'edit_group');
+        Route::post('delete_group', 'delete_group');
+        Route::post('change_group_active_status', 'change_group_active_status');
     });
 });
 // Teacher Routes
