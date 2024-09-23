@@ -24,9 +24,9 @@ class AddCourseStageRequest extends ApiRequest
     {
         return [
             'course_id' => 'required|integer|exists:courses,id',
-            'stages' => 'required|array|min:1',
+            'stages' => 'required|array',
             'stages.*.stage_id' => 'required|integer|exists:stages,id',
-            'stages.*.sessions' => 'required|array|min:1',
+            'stages.*.sessions' => 'required|array',
             'stages.*.sessions.*.session_id' => 'required|integer|exists:main_sessions,id',
             'stages.*.sessions.*.with_edit' => 'required|boolean',
             'stages.*.sessions.*.start_verse' => 'nullable|integer',

@@ -24,6 +24,7 @@ class GroupResource extends JsonResource
             'status' => $this->status,
             'with_all_disability' => $this->with_all_disability,
             'with_all_course_content' => $this->with_all_course_content,
+            'days' => DayResource::collection($this->days),
 
         ];
     }

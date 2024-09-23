@@ -38,11 +38,14 @@ class GroupService
                 'teacher_id' => $request->teacher_id,
                 'start_date' => Carbon::createFromFormat('d/m/Y', $request->start_date)->format('Y-m-d'),
                 'end_date' => Carbon::createFromFormat('d/m/Y', $request->end_date)->format('Y-m-d'),
-                'start_time' => Carbon::createFromFormat('H:i', $request->start_time)->format('H:i:s'),
-                'end_time' => Carbon::createFromFormat('H:i', $request->end_time)->format('H:i:s'),
                 'with_all_disability' => $request->with_all_disability,
                 'with_all_course_content' => $request->with_all_course_content,
             ]);
+            if ($request->days) {
+                foreach ($request->days as $day) {
+                    $group->days()->attach($day['day_id'], ['start_time' => $day['start_time'], 'end_time' => $day['end_time']]);
+                }
+            }
             return new DataSuccess(
                 data: new GroupResource($group),
                 status: true,

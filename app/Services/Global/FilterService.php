@@ -181,4 +181,12 @@ class FilterService
 
         return $query;
     }
+
+    public function filterDay($request, $query)
+    {
+
+        $query->when($request->has('word'), function ($q) use ($request) {
+            $q->where('title', 'like', '%' . $request->word . '%');
+        });
+    }
 }

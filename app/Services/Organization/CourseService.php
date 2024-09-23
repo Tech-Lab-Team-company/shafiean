@@ -62,9 +62,14 @@ class CourseService
             }
             $data['name'] = $request->name;
             $data['year_id'] = $request->year_id;
+            $data['season_id'] = $request->season_id;
+            $data['all_curriculum'] = $request->all_curriculum;
             $data['curriculum_id'] = $request->curriculum_id;
             $course = Course::create($data);
             $course->disability_types()->attach($request->disability_ids);
+            if($request->stage_ids){
+                $course->stages()->attach($request->stage_ids);
+            }
             // dd($course);
             return new DataSuccess(
                 status: true,

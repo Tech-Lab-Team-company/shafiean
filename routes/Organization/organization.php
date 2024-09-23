@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Admin\CurriculumController;
+use App\Http\Controllers\Global\GlobalController;
 use App\Http\Controllers\Global\StageController;
 use App\Http\Controllers\Organization\AuthController;
 use App\Http\Controllers\Organization\CourseController;
@@ -18,6 +20,10 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('organization-check-email', 'checkEmail');
     Route::post('organization-check-code', 'checkCode');
     Route::post('organization-reset-password', 'resetPassword');
+});
+// global routes
+Route::controller(GlobalController::class)->group(function () {
+    Route::post('fetch_days',  'fetch_days');
 });
 // auth routes
 Route::middleware('auth:organization')->group(function () {
@@ -56,6 +62,9 @@ Route::middleware('auth:organization')->group(function () {
         Route::post('edit_group', 'edit_group');
         Route::post('delete_group', 'delete_group');
         Route::post('change_group_active_status', 'change_group_active_status');
+    });
+    Route::controller(CurriculumController::class)->group(function () {
+        Route::post('organization_fetch_curriculums',  'index');
     });
 });
 // Teacher Routes

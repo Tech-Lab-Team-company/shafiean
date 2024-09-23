@@ -7,7 +7,7 @@ use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
-    public function run() 
+    public function run()
     {
         $this->call([
             UserSeeder::class,
@@ -24,7 +24,8 @@ class DatabaseSeeder extends Seeder
             OrganizationDisabilityTypeSeeder::class ,
             CurriculumDisabilityTypeSeeder::class ,
             QuraanSeeder::class,
-            AyatSeeder::class
+            AyatSeeder::class,
+            DaySeeder::class
         ]);
     }
 }

@@ -25,8 +25,12 @@ class AddCourseRequest extends ApiRequest
         return [
             'name' => 'required|string|max:191',
             'year_id' => 'required|exists:years,id',
+            'season_id' => 'required|exists:seasons,id',
             'curriculum_id' => 'required|exists:curriculums,id',
             'disability_ids' => 'required|array|exists:disability_types,id',
+            'stage_ids' => 'nullable|array|exists:stages,id',
+            'all_curriculum' => 'nullable|integer|in:0,1',
+
         ];
     }
 }

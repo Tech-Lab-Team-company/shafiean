@@ -28,10 +28,12 @@ class AddGroupRequest extends ApiRequest
             'teacher_id' => 'required|exists:teachers,id',
             'start_date' => 'required|date',
             'end_date' => 'required|date',
-            'start_time' => 'required|date_format:H:i',
-            'end_time' => 'required|date_format:H:i',
             'with_all_disability' => 'required|integer',
             'with_all_course_content' => 'required|integer',
+            'days' =>  'required|array',
+            'days.*.day_id' => 'required|exists:days,id',
+            'days.*.start_time' => 'required|date_format:H:i',
+            'days.*.end_time' => 'required|date_format:H:i',
         ];
     }
 }

@@ -18,9 +18,12 @@ class CourseResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'status' => $this->status,
+            'all_curriculum' => $this->all_curriculum,
             'year' => new YearResource($this->year),
+            'season' => new SeasonResource($this->season),
             'curriculum' => new CurriculumResource($this->curriculum),
             'disability_types' =>  DisabilityTypeResource::collection($this->disability_types),
+            'stages' => StageResource::collection($this->stages),
             // 'organization' => new OrganizationResource($this->organization),
         ];
     }

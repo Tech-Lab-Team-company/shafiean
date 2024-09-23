@@ -19,6 +19,11 @@ class Course extends Model
         return $this->belongsTo(Year::class, 'year_id', 'id');
     }
 
+    public function season()
+    {
+        return $this->belongsTo(Season::class, 'season_id', 'id');
+    }
+
     public function curriculum()
     {
         return $this->belongsTo(Curriculum::class, 'curriculum_id', 'id');

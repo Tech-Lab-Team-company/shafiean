@@ -12,4 +12,20 @@ class Group extends Model
     protected $guarded = [];
 
     protected $table = 'groups';
+
+
+    public function course()
+    {
+        return $this->belongsTo(Course::class, 'course_id');
+    }
+
+    public function teacher()
+    {
+        return $this->belongsTo(Teacher::class, 'teacher_id');
+    }
+
+    public function days()
+    {
+        return $this->belongsToMany(Day::class, 'group_days', 'group_id', 'day_id')->withPivot('start_time', 'end_time' )->withTimestamps();
+    }
 }
