@@ -31,8 +31,13 @@ class AddEmployeeRequest extends ApiRequest
             'age' => 'required|string|max:191',
             'is_employed' => 'required|max:191',
             'image' => 'nullable|image|mimes:jpg,jpeg,png',
+            'certificate_images' => 'nullable|array',
+            'certificate_images.*' => 'nullable|image|mimes:jpg,jpeg,png',
+            'marital_status' => 'required|integer',
+            'identity_type' => 'required|integer',
+            'identity_number' => 'required|string|max:191',
+            'date_of_birth' => 'required',
             'curriculum_ids' => 'required_if:is_employed,1|array|exists:curriculums,id', // Moved here
         ];
     }
-
 }

@@ -39,4 +39,9 @@ class Teacher extends Authenticatable
     {
         return $this->belongsToMany(Curriculum::class, 'teacher_curriculums', 'teacher_id', 'curriculum_id')->withTimestamps();
     }
+
+    public function images()
+    {
+        return $this->morphMany(Image::class, 'imageable');
+    }
 }

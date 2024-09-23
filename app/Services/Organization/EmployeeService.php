@@ -6,7 +6,9 @@ use App\Helpers\Response\DataFailed;
 use App\Helpers\Response\DataStatus;
 use App\Helpers\Response\DataSuccess;
 use App\Http\Resources\OrganizationEmployeeResource;
+use App\Models\Image;
 use App\Models\Teacher;
+use Carbon\Carbon;
 use Exception;
 
 class EmployeeService
@@ -32,6 +34,7 @@ class EmployeeService
     {
         try {
             // dd(auth()->guard('organization')->user());
+            // dd($request->certificate_images);
             if ($request->hasFile('image')) {
                 $image = upload_image($request->file('image'), 'employees');
                 $data['image'] = $image;
@@ -43,10 +46,23 @@ class EmployeeService
             $data['gender'] = $request->gender;
             $data['age'] = $request->age;
             $data['is_employed'] = $request->is_employed;
+            $data['marital_status'] = $request->marital_status;
+            $data['identity_type'] = $request->identity_type;
+            $data['identity_number'] = $request->identity_number;
+            $data['date_of_birth'] = Carbon::createFromFormat('Y-m-d', $request->date_of_birth)->format('Y-m-d');;
             $data['organization_id'] = get_organization_id(auth()->guard('organization')->user());
 
             $employee = Teacher::create($data);
-
+            if ($request->certificate_images) {
+                foreach ($request->certificate_images as $image) {
+                    $image_data['imageable_id'] = $employee->id;
+                    $image_data['imageable_type'] = Teacher::class;
+                    if (is_file($image)) {
+                        $image_data['image'] = upload_image($image, 'employees');
+                    }
+                    Image::create($image_data);
+                }
+            }
             if (isset($request->curriculum_ids)) {
                 $employee->curriculums()->attach($request->curriculum_ids);
             }
@@ -74,7 +90,10 @@ class EmployeeService
             $data['gender'] = $request->gender ?? $employee->gender;
             $data['age'] = $request->age ?? $employee->age;
             $data['is_employed'] = $request->is_employed ?? $employee->is_employed;
-
+            $data['marital_status'] = $request->marital_status ?? $employee->marital_status;
+            $data['identity_type'] = $request->identity_type ?? $employee->identity_type;
+            $data['identity_number'] = $request->identity_number ?? $employee->identity_number;
+            $data['date_of_birth'] = $request->date_of_birth ? Carbon::createFromFormat('Y-m-d', $request->date_of_birth)->format('Y-m-d') : $employee->date_of_birth;
             if ($request->hasFile('image')) {
                 if ($employee->image && file_exists($employee->image)) {
                     delete_image($employee->image);
@@ -85,6 +104,17 @@ class EmployeeService
             $employee->update($data);
             if (isset($request->curriculum_ids)) {
                 $employee->curriculums()->sync($request->curriculum_ids);
+            }
+            if ($request->certificate_images) {
+                foreach ($request->certificate_images as $image) {
+                    $image_data['imageable_id'] = $employee->id;
+                    $image_data['imageable_type'] = Teacher::class;
+                    if (is_file($image)) {
+                        delete_image($image);
+                        $image_data['image'] = upload_image($image, 'employees');
+                    }
+                    Image::create($image_data);
+                }
             }
             return new DataSuccess(
                 data: new OrganizationEmployeeResource($employee),

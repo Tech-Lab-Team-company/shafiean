@@ -39,5 +39,6 @@ class Stage extends Model
     public function courses()
     {
         return $this->belongsToMany(Course::class, 'course_stages', 'stage_id', 'course_id')->withTimestamps();
+
     }
 }
