@@ -11,10 +11,19 @@ use App\Http\Controllers\Organization\GroupController;
 use App\Http\Controllers\Organization\CourseController;
 use App\Http\Controllers\Organization\TeacherController;
 use App\Http\Controllers\Organization\EmployeeController;
+use App\Http\Controllers\Organization\RelationController;
 use App\Http\Controllers\Organization\TeacherAuthController;
 
 
 Route::middleware('auth:organization')->group(function () {
+    //RELATION
+    Route::controller(RelationController::class)->group(function () {
+        Route::post('fetch_relations', 'index');
+        Route::post('add_relation', 'store');
+        Route::post('fetch_relation_details', 'show');
+        Route::post('edit_relation', 'update');
+        Route::post('delete_relation', 'delete');
+    });
     //USER
     Route::controller(UserController::class)->group(function () {
         Route::post('fetch_users', 'index');
