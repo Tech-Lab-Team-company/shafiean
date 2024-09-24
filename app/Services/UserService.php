@@ -14,14 +14,38 @@ use Illuminate\Support\Facades\Storage;
 
 class UserService
 {
-    public function createUser(array $data): DataStatus
+    public function index(): DataStatus
+    {
+        // $users = User::all();
+        $users = User::where('organization_id', get_organization_id(auth()->guard('organization')->user()))->paginate(10);
+
+        return new DataSuccess(
+            data: UserResource::collection($users),
+            statusCode: 200,
+            message: 'User updated successfully'
+        );
+    }
+
+    public function show($request): DataStatus
+    {
+        $user = User::whereId($request->id)->first();
+        // dd($user);
+        return new DataSuccess(
+            data: new UserResource($user),
+            statusCode: 200,
+            message: 'Fetch User successfully'
+        );
+    }
+    public function store(array $data): DataStatus
     {
         try {
-            if (isset($data['image'])){
-                $data['image'] = upload_image('users', $data['image']);
+            $organizationId = get_organization_id(auth()->guard('organization')->user());
+            if (isset($data['image'])) {
+                $data['image'] = upload_image($data['image'], 'users');
             } else {
-                $imagePath = 'uploads/default.jpg';
+                $data['image'] = 'uploads/default.jpg';
             }
+            $data['organization_id'] = $organizationId;
             $user = User::create($data);
             return new DataSuccess(
                 data: new UserResource($user),
@@ -36,10 +60,10 @@ class UserService
         }
     }
 
-    public function updateUser($id, array $data): DataStatus
+    public function update(array $data): DataStatus
     {
         try {
-            $user = User::find($id);
+            $user = User::whereId($data['id'])->first();
             if (isset($data['image'])) {
                 if ($user->image !== 'uploads/default.jpg') {
                     Storage::delete($user->image);
@@ -62,10 +86,10 @@ class UserService
         }
     }
 
-    public function deleteUser($id): DataStatus
+    public function delete($request): DataStatus
     {
         try {
-            $user = User::findOrFail($id);
+            $user = User::whereId($request->id)->first();
             if ($user->image !== 'uploads/default.jpg') {
                 Storage::delete($user->image);
             }
@@ -82,25 +106,4 @@ class UserService
             );
         }
     }
-
-    public function getAllUsers():DataStatus
-    {
-        $users = User::all();
-        return new DataSuccess(
-            data:  UserResource::collection($users),
-            statusCode: 200,
-            message: 'User updated successfully'
-        );
-    }
-
-    public function getUserById($id)
-    {
-        $user_by_id = User::find($id);
-        return new DataSuccess(
-            data: new UserResource($user_by_id),
-            statusCode: 200,
-            message: 'User updated successfully'
-        );
-    }
 }
-

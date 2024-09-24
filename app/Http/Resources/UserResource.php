@@ -15,20 +15,21 @@ class UserResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
-            'name' => $this->name,
-            'email' => $this->email,
-            'phone' => $this->phone,
-            'gender' => $this->gender,
-            'api_key' => $this->api_key,
-            'image' => url($this->image),
-            'created_at' => $this->created_at->toDateTimeString(),
-            'updated_at' => $this->updated_at->toDateTimeString(),
-            'token' => $this->token
+            'id' => $this->id ?? 0,
+            'name' => $this->name ?? "",
+            'email' => $this->email ?? "",
+            'phone' => $this->phone ?? "",
+            'gender' => $this->gender ?? "",
+            'api_key' => $this->api_key ?? "",
+            'image' => $this->image_link ?? "",
+            'token' => $this->token ?? "",
+            'date_of_birth' => $this->date_of_birth ?? "",
+            'identity_type' => $this->identity_type ?? "",
+            'identity_number' => $this->identity_number ?? "",
+            'address' => $this->address ?? "",
+            'type' => $this->type ?? "",
+            'blood_type' => new BloodTypeResource($this->bloodType ?? "") ?? "",
+            'country' => new CountryResource($this->country ?? "") ?? "",
         ];
     }
-
-
-
 }
-

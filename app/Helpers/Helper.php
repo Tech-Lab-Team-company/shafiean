@@ -28,4 +28,9 @@ if (!function_exists('upload_image')) {
 
         return $user->organization_id;
     }
+    function enumCaseValue($enum)
+    {
+        $values = array_map(fn($case) => $case->value, $enum::cases());
+        return implode(',', $values);
+    }
 }

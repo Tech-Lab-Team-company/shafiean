@@ -3,15 +3,17 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\BloodType;
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Facades\Hash;
-use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable , HasApiTokens ;
+    use HasFactory, Notifiable, HasApiTokens;
 
     /**
      * The attributes that are mass assignable.
@@ -19,12 +21,12 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $guard = 'web';
-    protected $fillable = [
-        'name' ,'email', 'phone', 'password', 'gender',
-        'city_id', 'disability_type_id', 'country_id',
-        'api_key', 'image'
-    ];
-
+    // protected $fillable = [
+    //     'name' ,'email', 'phone', 'password', 'gender',
+    //     'city_id', 'disability_type_id', 'country_id',
+    //     'api_key', 'image'
+    // ];
+    protected $guarded = [];
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -47,7 +49,12 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+    protected $appends  = ["image_link"];
 
+    public function getImageLinkAttribute()
+    {
+        return $this->image ? url('storage/' . $this->image) : '';
+    }
     protected function setPasswordAttribute($password)
     {
         return $this->attributes['password'] = Hash::make($password);
@@ -65,6 +72,8 @@ class User extends Authenticatable
     {
         return $this->belongsTo(DisabilityType::class);
     }
-
-
+    public function bloodType(): BelongsTo
+    {
+        return $this->belongsTo(BloodType::class);
+    }
 }

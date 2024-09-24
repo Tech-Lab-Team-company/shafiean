@@ -1,13 +1,15 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Http\Requests\User\UserStoreRequest;
-use App\Http\Requests\User\UserUpdateRequest;
-use Laravel\Sanctum\HasApiTokens;
-use Illuminate\Notifications\Notifiable;
-use App\Http\Requests\User\UserRequest;
-use App\Http\Resources\UserResource;
+
 use App\Services\UserService;
+use Laravel\Sanctum\HasApiTokens;
+use App\Http\Resources\UserResource;
+use Illuminate\Notifications\Notifiable;
+use App\Http\Requests\User\StoreUserRequest;
+use App\Http\Requests\User\DeleteUserRequest;
+use App\Http\Requests\User\UpdateUserRequest;
+use App\Http\Requests\User\FetchUserDetailsRequest;
 
 class UserController extends Controller
 {
@@ -21,31 +23,26 @@ class UserController extends Controller
 
     public function index()
     {
-        return $this->userService->getAllUsers()->response();
-
+        return $this->userService->index()->response();
     }
 
-    public function store(UserStoreRequest $request)
+    public function store(StoreUserRequest $request)
     {
-        return $this->userService->createUser($request->validated())->response();
+        return $this->userService->store($request->validated())->response();
     }
 
-    public function show($id)
+    public function show(FetchUserDetailsRequest $request)
     {
-        $user = $this->userService->getUserById($id);
-        return new UserResource($user);
+        return $this->userService->show($request)->response();
     }
 
-    public function update(UserUpdateRequest $request, $id)
+    public function update(UpdateUserRequest $request)
     {
-        return $this->userService->updateUser($id, $request->validated())->response();
+        return $this->userService->update($request->validated())->response();
     }
 
-    public function destroy($id)
+    public function delete(DeleteUserRequest $request)
     {
-        return $this->userService->deleteUser($id)->response();
-
+        return $this->userService->delete($request)->response();
     }
 }
-
-
