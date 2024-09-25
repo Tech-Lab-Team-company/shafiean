@@ -34,6 +34,8 @@ class AddGroupRequest extends ApiRequest
             'days.*.day_id' => 'required|exists:days,id',
             'days.*.start_time' => 'required|date_format:H:i',
             'days.*.end_time' => 'required|date_format:H:i',
+            'stages' => 'required|array',
+            'stages.*' => 'required|exists:stages,id',
         ];
     }
 }

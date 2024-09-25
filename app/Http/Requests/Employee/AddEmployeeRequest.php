@@ -30,7 +30,7 @@ class AddEmployeeRequest extends ApiRequest
             'gender' => 'required|string|max:191',
             'age' => 'required|string|max:191',
             'is_employed' => 'required|max:191',
-            'image' => 'nullable|image|mimes:jpg,jpeg,png',
+            // 'image' => 'nullable|image|mimes:jpg,jpeg,png',
             'certificate_images' => 'nullable|array',
             'certificate_images.*' => 'nullable|image|mimes:jpg,jpeg,png',
             'marital_status' => 'required|integer',

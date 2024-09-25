@@ -26,6 +26,10 @@ class Group extends Model
 
     public function days()
     {
-        return $this->belongsToMany(Day::class, 'group_days', 'group_id', 'day_id')->withPivot('start_time', 'end_time' )->withTimestamps();
+        return $this->belongsToMany(Day::class, 'group_days', 'group_id', 'day_id')->withPivot('start_time', 'end_time')->withTimestamps();
+    }
+    public function stages()
+    {
+        return $this->belongsToMany(GroupStage::class, 'group_stages', 'group_id', 'stage_id')->withTimestamps();
     }
 }

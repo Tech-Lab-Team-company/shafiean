@@ -46,6 +46,11 @@ class GroupService
                     $group->days()->attach($day['day_id'], ['start_time' => $day['start_time'], 'end_time' => $day['end_time']]);
                 }
             }
+            if ($request->stages) {
+                foreach ($request->stages as $stage) {
+                    $group->stages()->attach($stage);
+                }
+            }
             return new DataSuccess(
                 data: new GroupResource($group),
                 status: true,
@@ -90,7 +95,7 @@ class GroupService
                 'end_time' => isset($request->end_time) ? Carbon::createFromFormat('H:i', $request->end_time)->format('H:i:s') : $group->end_time,
                 'with_all_disability' => $request->with_all_disability ?? $group->with_all_disability,
                 'with_all_course_content' => $request->with_all_course_content ?? $group->with_all_course_content,
-            ]);
+            ]);      
             return new DataSuccess(
                 data: new GroupResource($group),
                 status: true,
