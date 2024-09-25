@@ -2,11 +2,12 @@
 
 namespace App\Models\Organization\UserRelation;
 
-use App\Enum\UserTypeEnum;
 use App\Models\User;
+use App\Enum\UserTypeEnum;
 use Illuminate\Database\Eloquent\Model;
 use App\Observers\OrganizationIdObserver;
 use App\Models\Scopes\PerOrganizationScope;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\Organization\Relation\Relation;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -14,7 +15,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class UserRelation extends Model
 {
 
-    use HasFactory;
+    use HasFactory, SoftDeletes;
     protected $table = 'user_relations';
     protected $guarded = [];
     public function relation(): BelongsTo
