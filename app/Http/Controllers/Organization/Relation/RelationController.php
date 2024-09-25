@@ -1,6 +1,7 @@
 <?php
 
-namespace App\Http\Controllers\Organization;
+namespace App\Http\Controllers\Organization\Relation;
+
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -17,7 +18,6 @@ class RelationController extends Controller
     {
         return $this->relationService->index()->response();
     }
-
     public function show(FetchRelationDetailsRequest $request)
     {
         return $this->relationService->show($request)->response();

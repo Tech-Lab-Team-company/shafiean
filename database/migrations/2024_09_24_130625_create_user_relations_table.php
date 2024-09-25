@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('user_relations', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('organization_id')->nullable()->references('id')->on('organizations')->onDelete('cascade');
+            $table->foreignId('relation_id')->nullable()->references('id')->on('relations')->onDelete('cascade');
+            $table->foreignId('student_id')->nullable()->references('id')->on('users')->onDelete('set null');
+            $table->foreignId('user_id')->nullable()->references('id')->on('users')->onDelete('set null');
             $table->timestamps();
         });
     }
