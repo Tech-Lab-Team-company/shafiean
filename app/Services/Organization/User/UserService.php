@@ -1,6 +1,6 @@
 <?php
+namespace App\Services\Organization\User;
 
-namespace App\Services;
 
 use App\Helpers\Response\DataFailed;
 use App\Helpers\Response\DataStatus;

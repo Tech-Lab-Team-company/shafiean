@@ -1,14 +1,15 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Organization\User;
 
-use App\Services\UserService;
+
 use Laravel\Sanctum\HasApiTokens;
-use App\Http\Resources\UserResource;
+use App\Http\Controllers\Controller;
 use Illuminate\Notifications\Notifiable;
 use App\Http\Requests\User\StoreUserRequest;
 use App\Http\Requests\User\DeleteUserRequest;
 use App\Http\Requests\User\UpdateUserRequest;
+use App\Services\Organization\User\UserService;
 use App\Http\Requests\User\FetchUserDetailsRequest;
 
 class UserController extends Controller

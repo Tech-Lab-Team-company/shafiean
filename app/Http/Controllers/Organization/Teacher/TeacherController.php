@@ -1,10 +1,10 @@
 <?php
+namespace App\Http\Controllers\Organization\Teacher;
 
-namespace App\Http\Controllers\Organization;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Teacher\TeacherRequest;
-use App\Services\TeacherService;
+use App\Services\Organization\Teacher\TeacherService;
 
 class TeacherController extends Controller
 {

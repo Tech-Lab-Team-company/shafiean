@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Organization;
+namespace App\Http\Controllers\Organization\Term;
+
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Term\TermRequest;
-use App\Services\TermService;
+use App\Services\Organization\Term\TermService;
 
 class TermController extends Controller
 {
@@ -17,7 +18,7 @@ class TermController extends Controller
 
     public function index()
     {
-       return $this->termService->getAllTerms()->response();
+        return $this->termService->getAllTerms()->response();
     }
 
     public function store(TermRequest $request)
@@ -32,7 +33,7 @@ class TermController extends Controller
 
     public function update(TermRequest $request, $id)
     {
-       return $this->termService->updateTerm($id, $request->validated())->response();
+        return $this->termService->updateTerm($id, $request->validated())->response();
     }
 
     public function destroy($id)

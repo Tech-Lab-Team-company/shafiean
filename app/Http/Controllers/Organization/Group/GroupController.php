@@ -1,16 +1,16 @@
 <?php
+namespace App\Http\Controllers\Organization\Group;
 
-namespace App\Http\Controllers\Organization;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Group\AddGroupRequest;
-use App\Http\Requests\Group\ChangeGroupActiveStatusRequest;
-use App\Http\Requests\Group\DeleteGroupRequest;
 use App\Http\Requests\Group\EditGroupRequest;
-use App\Http\Requests\Group\FetchGroupDetailsRequest;
+use App\Http\Requests\Group\DeleteGroupRequest;
 use App\Http\Requests\Group\FetchGroupsRequest;
-use App\Services\Organization\GroupService;
-use Illuminate\Http\Request;
+use App\Services\Organization\Group\GroupService;
+use App\Http\Requests\Group\FetchGroupDetailsRequest;
+use App\Http\Requests\Group\ChangeGroupActiveStatusRequest;
 
 class GroupController extends Controller
 {

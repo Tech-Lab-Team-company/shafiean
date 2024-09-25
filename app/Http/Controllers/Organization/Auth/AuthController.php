@@ -1,15 +1,15 @@
 <?php
+namespace App\Http\Controllers\Organization\Auth;
 
-namespace App\Http\Controllers\Organization;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Auth\OrganizationLoginRequest;
-use App\Http\Requests\Global\ChangePasswordRequest;
 use App\Http\Requests\Global\CheckCodeRequest;
 use App\Http\Requests\Global\CheckEmailRequest;
+use App\Services\Organization\Auth\AuthService;
 use App\Http\Requests\Global\ResetPasswordRequest;
-use App\Services\Organization\AuthService;
-use Illuminate\Http\Request;
+use App\Http\Requests\Global\ChangePasswordRequest;
+use App\Http\Requests\Auth\OrganizationLoginRequest;
 
 class AuthController extends Controller
 {
