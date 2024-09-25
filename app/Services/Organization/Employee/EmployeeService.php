@@ -1,6 +1,6 @@
 <?php
+namespace App\Services\Organization\Employee;
 
-namespace App\Services\Organization;
 
 use Exception;
 use Carbon\Carbon;

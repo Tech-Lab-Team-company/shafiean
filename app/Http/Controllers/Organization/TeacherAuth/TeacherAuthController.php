@@ -1,21 +1,19 @@
 <?php
 
-namespace App\Http\Controllers\Organization;
+namespace App\Http\Controllers\Organization\TeacherAuth;
 
-use App\Helpers\Response\DataSuccess;
+
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\AuthRequest;
-use App\Http\Resources\TeacherResource;
-use App\Models\Teacher;
-use App\Services\AuthService;
-use App\Services\TeacherAuthService;
-use Illuminate\Http\Request;
+use App\Services\Organization\TeacherAuth\TeacherAuthService;
 
 class TeacherAuthController extends Controller
 {
     protected $teacherAuthService;
 
-    public function __construct(TeacherAuthService $teacherAuthService){
+    public function __construct(TeacherAuthService $teacherAuthService)
+    {
         $this->teacherAuthService = $teacherAuthService;
     }
 
@@ -28,6 +26,4 @@ class TeacherAuthController extends Controller
     {
         return $this->teacherAuthService->logout()->response();
     }
-
-
 }

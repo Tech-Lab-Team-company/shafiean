@@ -1,16 +1,17 @@
 <?php
 
-namespace App\Http\Controllers\Organization;
+namespace App\Http\Controllers\Organization\Course;
 
+
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Course\AddCourseRequest;
-use App\Http\Requests\Course\ChangeCourseActiveStatusRequest;
-use App\Http\Requests\Course\DeleteCourseRequest;
 use App\Http\Requests\Course\EditCourseRequest;
-use App\Http\Requests\Course\FetchCourseDetailsRequest;
+use App\Http\Requests\Course\DeleteCourseRequest;
 use App\Http\Requests\Course\FetchCoursesRequest;
-use App\Services\Organization\CourseService;
-use Illuminate\Http\Request;
+use App\Services\Organization\Course\CourseService;
+use App\Http\Requests\Course\FetchCourseDetailsRequest;
+use App\Http\Requests\Course\ChangeCourseActiveStatusRequest;
 
 class CourseController extends Controller
 {
@@ -51,8 +52,9 @@ class CourseController extends Controller
         return $this->course_service->change_course_active_status($request)->response();
     }
 
-public function add_course_stage(Request $request){
+    public function add_course_stage(Request $request)
+    {
 
-    return $this->course_service->add_course_stage($request)->response();
-}
+        return $this->course_service->add_course_stage($request)->response();
+    }
 }

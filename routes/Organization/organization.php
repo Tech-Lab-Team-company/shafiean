@@ -1,17 +1,15 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\Global\StageController;
 use App\Http\Controllers\Global\GlobalController;
 use App\Http\Controllers\Admin\CurriculumController;
-use App\Http\Controllers\Organization\AuthController;
-use App\Http\Controllers\Organization\TermController;
-use App\Http\Controllers\Organization\GroupController;
-use App\Http\Controllers\Organization\CourseController;
-use App\Http\Controllers\Organization\TeacherController;
-use App\Http\Controllers\Organization\EmployeeController;
-use App\Http\Controllers\Organization\TeacherAuthController;
+use App\Http\Controllers\Organization\Auth\AuthController;
+use App\Http\Controllers\Organization\Term\TermController;
+use App\Http\Controllers\Organization\User\UserController;
+use App\Http\Controllers\Organization\Group\GroupController;
+use App\Http\Controllers\Organization\Course\CourseController;
+use App\Http\Controllers\Organization\Teacher\TeacherController;
+use App\Http\Controllers\Organization\Employee\EmployeeController;
 use App\Http\Controllers\Organization\Relation\RelationController;
 use App\Http\Controllers\Organization\UserRelation\UserRelationController;
 

@@ -1,6 +1,6 @@
 <?php
+namespace App\Services\Organization\Group;
 
-namespace App\Services\Organization;
 
 use Exception;
 use Carbon\Carbon;

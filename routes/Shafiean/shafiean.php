@@ -1,19 +1,19 @@
 <?php
 
-use App\Http\Controllers\Admin\AdminAuthController;
-use App\Http\Controllers\Admin\AdminController;
-use App\Http\Controllers\Admin\AdminHistoryController;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AyatController;
-use App\Http\Controllers\Admin\CurriculumController;
-use App\Http\Controllers\Admin\DisabilityTypeController;
-use App\Http\Controllers\Admin\MainSessionController;
+use App\Http\Controllers\Admin\YearController;
+use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\QuraanController;
 use App\Http\Controllers\Admin\SeasonController;
-use App\Http\Controllers\Admin\SessionTypeController;
-use App\Http\Controllers\Admin\YearController;
 use App\Http\Controllers\Global\StageController;
-use App\Http\Controllers\Organization\OrganizationController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\AdminAuthController;
+use App\Http\Controllers\Admin\CurriculumController;
+use App\Http\Controllers\Admin\MainSessionController;
+use App\Http\Controllers\Admin\SessionTypeController;
+use App\Http\Controllers\Admin\AdminHistoryController;
+use App\Http\Controllers\Admin\DisabilityTypeController;
+use App\Http\Controllers\Organization\Organization\OrganizationController;
 
 Route::prefix('admin')->group(function () {
     Route::post('login', [AdminAuthController::class, 'login']);

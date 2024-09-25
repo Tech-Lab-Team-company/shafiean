@@ -1,7 +1,6 @@
 <?php
 
-
-namespace App\Services;
+namespace App\Services\Organization\TeacherAuth;
 
 use App\Helpers\Response\DataFailed;
 use App\Helpers\Response\DataStatus;
