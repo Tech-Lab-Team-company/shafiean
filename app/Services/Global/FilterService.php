@@ -98,6 +98,20 @@ class FilterService
                     ->where('stage_id', $request->stage_id);
             });
     }
+    public function filterGroup($request, $query)
+    {
+        //THIS'S FOR SEARCH IF NEED FILTER USE OR WHERE
+        $query->when($request->has('word') && !$request->has('course_id'), function ($q) use ($request) {
+            $q->where('title', 'like', '%' . $request->word . '%');
+        })
+            ->when($request->has('course_id') && !$request->has('word'), function ($q) use ($request) {
+                $q->where('course_id', $request->course_id);
+            })
+            ->when($request->has('word') && $request->has('course_id'), function ($q) use ($request) {
+                $q->where('title', 'like', '%' . $request->word . '%')
+                    ->where('course_id', $request->course_id);
+            });
+    }
 
     public function filterSessionType($request, $query)
     {
