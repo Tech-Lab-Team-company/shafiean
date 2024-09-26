@@ -1,5 +1,6 @@
 <?php
 
+use Intervention\Image\File;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Laravel\Facades\Image;
 
@@ -21,6 +22,18 @@ if (!function_exists('upload_image')) {
     {
         // Delete the old image from the specified disk
         Storage::disk($disk)->delete($old_image_path);
+    }
+    function uploadFile($file, $folder, $disk = 'public')
+    {
+        $fileName = time() . rand(1, 9999) . '.' . $file->getClientOriginalExtension();
+        $uploadPath = 'uploads/' . $folder;
+        $fileUrl = $uploadPath . '/' . $fileName;
+        Storage::disk($disk)->putFileAs($uploadPath, $file, $fileName);
+        return $fileUrl;
+    }
+    function deleteFile($filePath, $disk = 'public')
+    {
+        Storage::disk($disk)->delete($filePath);
     }
 
     function get_organization_id($user = null)

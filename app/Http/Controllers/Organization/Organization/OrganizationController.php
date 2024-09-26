@@ -15,6 +15,7 @@ class OrganizationController extends Controller
 {
     protected $organizationService;
 
+
     public function __construct(OrganizationService $organizationService)
     {
         $this->organizationService = $organizationService;
