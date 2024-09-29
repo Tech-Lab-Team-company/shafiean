@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests\Organization\Exam;
+namespace App\Http\Requests\Organization\Exam\ExamQuestion;
 
 use App\Helpers\Response\ApiRequest;
 use Illuminate\Foundation\Http\FormRequest;
 
-class DeleteExamRequest extends ApiRequest
+class DeleteExamQuestionRequest extends ApiRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,7 +23,7 @@ class DeleteExamRequest extends ApiRequest
     public function rules(): array
     {
         return [
-            'id' => 'required|exists:exams,id',
+            'id' => 'required|exists:exam_questions,id',
         ];
     }
 }

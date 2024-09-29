@@ -1,13 +1,13 @@
 <?php
+namespace App\Http\Requests\Organization\Exam\Exam;
 
-namespace App\Http\Requests\Organization\Exam;
 
 use App\Enum\ExamTypeEnum;
 use App\Enum\DegreeTypeEnum;
 use App\Helpers\Response\ApiRequest;
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateExamRequest extends ApiRequest
+class StoreExamRequest extends ApiRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,7 +25,6 @@ class UpdateExamRequest extends ApiRequest
     public function rules(): array
     {
         return [
-            'id' => 'required|exists:exams,id',
             'name' => 'required|string',
             'start_date' => 'required|date|date_format:Y-m-d|after_or_equal:today',
             'end_date' => 'required|date|date_format:Y-m-d|after:start_date',

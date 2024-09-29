@@ -2,32 +2,18 @@
 
 namespace App\Models\Organization\Exam;
 
-use App\Models\Organization\Exam\Exam;
 use Illuminate\Database\Eloquent\Model;
 use App\Observers\OrganizationIdObserver;
 use App\Models\Scopes\PerOrganizationScope;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use App\Models\Organization\Question\Question;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class ExamQuestion extends Model
+class ExamStudent extends Model
 {
     use HasFactory, SoftDeletes;
-    public $table = 'exam_questions';
-    // protected $gurded = [];
-    protected $fillable = [
-        'question_id',
-        'exam_id',
-    ];
-    public function question(): BelongsTo
-    {
-        return $this->belongsTo(Question::class);
-    }
-    public function exam(): BelongsTo
-    {
-        return $this->belongsTo(Exam::class);
-    }
+    protected $guarded = [];
+    protected $table = "exam_students";
+
     protected static function booted(): void
     {
         static::addGlobalScope(new PerOrganizationScope);

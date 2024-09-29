@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers\Organization\Teacher;
 
 
@@ -14,31 +15,22 @@ class TeacherController extends Controller
     {
         $this->teacherService = $teacherService;
     }
-
     public function index()
     {
-       return $this->teacherService->getAllTeachers()->response();
-
+        return $this->teacherService->getAllTeachers()->response();
     }
-
     public function add_employee(TeacherRequest $request)
     {
         return $this->teacherService->createTeacher($request->validated())->response();
-
     }
-
     public function show($id)
     {
-       return $this->teacherService->getTeacherById($id)->response();
-
+        return $this->teacherService->getTeacherById($id)->response();
     }
-
     public function update(TeacherRequest $request, $id)
     {
         return $this->teacherService->updateTeacher($id, $request->validated())->response();
-
     }
-
     public function destroy($id)
     {
         return $this->teacherService->deleteTeacher($id)->response();

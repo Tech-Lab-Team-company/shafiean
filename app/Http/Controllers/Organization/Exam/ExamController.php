@@ -5,10 +5,10 @@ namespace App\Http\Controllers\Organization\Exam;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Services\Organization\Exam\ExamService;
-use App\Http\Requests\Organization\Exam\StoreExamRequest;
-use App\Http\Requests\Organization\Exam\DeleteExamRequest;
-use App\Http\Requests\Organization\Exam\UpdateExamRequest;
-use App\Http\Requests\Organization\Exam\FetchExamDetailsRequest;
+use App\Http\Requests\Organization\Exam\Exam\StoreExamRequest;
+use App\Http\Requests\Organization\Exam\Exam\DeleteExamRequest;
+use App\Http\Requests\Organization\Exam\Exam\UpdateExamRequest;
+use App\Http\Requests\Organization\Exam\Exam\FetchExamDetailsRequest;
 
 class ExamController extends Controller
 {

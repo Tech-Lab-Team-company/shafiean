@@ -1,12 +1,11 @@
 <?php
+namespace App\Http\Requests\Organization\Exam\Exam;
 
-namespace App\Http\Requests\Organization\Answer;
 
-use Illuminate\Validation\Rule;
 use App\Helpers\Response\ApiRequest;
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateAnswerRequest extends ApiRequest
+class FetchExamDetailsRequest extends ApiRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,14 +23,7 @@ class UpdateAnswerRequest extends ApiRequest
     public function rules(): array
     {
         return [
-            'id' => 'required|exists:answers,id',
-            'answer' => 'required|string',
-            'is_correct' => 'required|boolean',
-            'question_id' => [
-                'required',
-                'integer',
-                Rule::exists('questions', 'id')->whereNull('deleted_at'),
-            ],
+            'id' => 'required|exists:exams,id',
         ];
     }
 }
