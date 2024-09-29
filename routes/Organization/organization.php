@@ -6,9 +6,11 @@ use App\Http\Controllers\Global\GlobalController;
 use App\Http\Controllers\Admin\CurriculumController;
 use App\Http\Controllers\Organization\Auth\AuthController;
 use App\Http\Controllers\Organization\Blog\BlogController;
+use App\Http\Controllers\Organization\Exam\ExamController;
 use App\Http\Controllers\Organization\Term\TermController;
 use App\Http\Controllers\Organization\User\UserController;
 use App\Http\Controllers\Organization\Group\GroupController;
+use App\Http\Controllers\Organization\Answer\AnswerController;
 use App\Http\Controllers\Organization\Course\CourseController;
 use App\Http\Controllers\Organization\JobType\JobTypeController;
 use App\Http\Controllers\Organization\Library\LibraryController;
@@ -16,6 +18,7 @@ use App\Http\Controllers\Organization\Teacher\TeacherController;
 use App\Http\Controllers\Organization\Blog\BlogHashtagController;
 use App\Http\Controllers\Organization\Blog\BlogCategoryController;
 use App\Http\Controllers\Organization\Employee\EmployeeController;
+use App\Http\Controllers\Organization\Question\QuestionController;
 use App\Http\Controllers\Organization\Relation\RelationController;
 use App\Http\Controllers\Organization\Competition\CompetitionController;
 use App\Http\Controllers\Organization\UserRelation\UserRelationController;
@@ -31,6 +34,30 @@ Route::controller(AuthController::class)->group(function () {
 });
 
 Route::middleware('auth:organization')->group(function () {
+    //ANSWER
+    Route::controller(AnswerController::class)->group(function () {
+        Route::post('fetch_answers', 'index');
+        Route::post('add_answer', 'store');
+        Route::post('fetch_answer_details', 'show');
+        Route::post('edit_answer', 'update');
+        Route::post('delete_answer', 'delete');
+    });
+    //EXAM
+    Route::controller(ExamController::class)->group(function () {
+        Route::post('fetch_exams', 'index');
+        Route::post('add_exam', 'store');
+        Route::post('fetch_exam_details', 'show');
+        Route::post('edit_exam', 'update');
+        Route::post('delete_exam', 'delete');
+    });
+    //QUESTION
+    Route::controller(QuestionController::class)->group(function () {
+        Route::post('fetch_questions', 'index');
+        Route::post('add_question', 'store');
+        Route::post('fetch_question_details', 'show');
+        Route::post('edit_question', 'update');
+        Route::post('delete_question', 'delete');
+    });
     //BLOG
     Route::controller(BlogController::class)->group(function () {
         Route::post('fetch_blogs', 'index');
