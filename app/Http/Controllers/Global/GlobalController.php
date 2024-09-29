@@ -15,8 +15,14 @@ class GlobalController extends Controller
         $this->global_service = $globalService;
     }
 
-    public function fetch_days(Request $request){
+    public function fetch_days(Request $request)
+    {
 
         return $this->global_service->fetch_days($request)->response();
+    }
+    public function fetch_exam_students(Request $request)
+    {
+
+        return $this->global_service->fetch_exam_students($request)->response();
     }
 }

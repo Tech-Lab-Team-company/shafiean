@@ -19,12 +19,14 @@ use App\Http\Controllers\Organization\JobType\JobTypeController;
 use App\Http\Controllers\Organization\Library\LibraryController;
 use App\Http\Controllers\Organization\Teacher\TeacherController;
 use App\Http\Controllers\Organization\Blog\BlogHashtagController;
+use App\Http\Controllers\Organization\Exam\ExamStudentController;
 use App\Http\Controllers\Organization\Blog\BlogCategoryController;
 use App\Http\Controllers\Organization\Employee\EmployeeController;
 use App\Http\Controllers\Organization\Exam\ExamQuestionController;
 use App\Http\Controllers\Organization\Question\QuestionController;
 use App\Http\Controllers\Organization\Relation\RelationController;
 use App\Http\Controllers\Organization\Competition\CompetitionController;
+use App\Http\Controllers\Organization\QuestionBank\QuestionBankController;
 use App\Http\Controllers\Organization\UserRelation\UserRelationController;
 use App\Http\Controllers\Organization\Competition\CompetitionRewardController;
 
@@ -39,6 +41,14 @@ Route::controller(AuthController::class)->group(function () {
 
 Route::middleware('auth:organization')->group(function () {
 
+    //EXAM STUDENT
+    Route::controller(ExamStudentController::class)->group(function () {
+        Route::post('fetch_exam_students', 'index');
+        Route::post('add_exam_student', 'store');
+        Route::post('fetch_exam_student_details', 'show');
+        Route::post('edit_exam_student', 'update');
+        Route::post('delete_exam_student', 'delete');
+    });
     //EXAM QUESTION
     Route::controller(ExamQuestionController::class)->group(function () {
         Route::post('fetch_exam_questions', 'index');
@@ -62,6 +72,14 @@ Route::middleware('auth:organization')->group(function () {
         Route::post('fetch_exam_details', 'show');
         Route::post('edit_exam', 'update');
         Route::post('delete_exam', 'delete');
+    });
+    //QUESTION BANK
+    Route::controller(QuestionBankController::class)->group(function () {
+        Route::post('fetch_question_banks', 'index');
+        Route::post('add_question_bank', 'store');
+        Route::post('fetch_question_bank_details', 'show');
+        Route::post('edit_question_bank', 'update');
+        Route::post('delete_question_bank', 'delete');
     });
     //QUESTION
     Route::controller(QuestionController::class)->group(function () {
@@ -184,15 +202,22 @@ Route::middleware('auth:organization')->group(function () {
         Route::post('delete_group', 'delete_group');
         Route::post('change_group_active_status', 'change_group_active_status');
     });
+    /**
+     * END POINT START
+     */
     //CURRICULUM
     Route::controller(CurriculumController::class)->group(function () {
         Route::post('organization_fetch_curriculums',  'index');
     });
     //DISABILITY
     Route::post('organization_fetch_disabilities', [DisabilityTypeController::class, 'index']);
-
     //STAGE
     Route::post('organization_fetch_stages', [StageController::class, 'index']);
+    //EXAM STUDENT
+    Route::post('organization_fetch_exam_students', [GlobalController::class, 'fetch_exam_students']);
+    /**
+     * END POINT END
+     */
 });
 
 //GLOBAL

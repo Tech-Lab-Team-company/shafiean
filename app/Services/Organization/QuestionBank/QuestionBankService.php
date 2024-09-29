@@ -1,24 +1,27 @@
 <?php
 
-namespace App\Services\Organization\ExamStudent;
+namespace App\Services\Organization\QuestionBank;
+
+
 
 use Exception;
 use App\Helpers\Response\DataFailed;
 use App\Helpers\Response\DataStatus;
 use App\Helpers\Response\DataSuccess;
-use App\Models\Organization\Exam\ExamStudent;
-use App\Http\Resources\Organization\ExamStudent\ExamStudentResource;
+use App\Models\Organization\Question\Question;
+use App\Models\Organization\Relation\Relation;
+use App\Http\Resources\Organization\QuestionBank\QuestionBankResource;
 
-class ExamStudentService
+class QuestionBankService
 {
     public function index()
     {
         try {
-            $examStudents = ExamStudent::orderBy('id', 'desc')->paginate(10);
+            $questions = Question::where('is_private', 0)->orderBy('id', 'desc')->paginate(10);
             return new DataSuccess(
-                data: ExamStudentResource::collection($examStudents)->response()->getData(true),
+                data: QuestionBankResource::collection($questions)->response()->getData(true),
                 status: true,
-                message: 'Exam Students fetched successfully'
+                message: 'Questions Bank fetched successfully'
             );
         } catch (Exception $e) {
             return new DataFailed(
@@ -29,27 +32,28 @@ class ExamStudentService
     }
     public function show($request)
     {
-        $examStudent = ExamStudent::whereId($request->id)->first();
-        if (!$examStudent) {
+        $question = Question::where('is_private', 0)->whereId($request->id)->first();
+        if (!$question) {
             return new DataFailed(
                 statusCode: 400,
                 message: 'not found'
             );
         }
         return new DataSuccess(
-            data: new ExamStudentResource($examStudent),
+            data: new QuestionBankResource($question),
             statusCode: 200,
-            message: 'Fetch Exam Student successfully'
+            message: 'Fetch Question Bank successfully'
         );
     }
     public function store(array $dataRequest): DataStatus
     {
         try {
-            $examStudent = ExamStudent::create($dataRequest);
+            $dataRequest['is_private'] = 0;
+            $question = Question::create($dataRequest);
             return new DataSuccess(
-                data: new ExamStudentResource($examStudent),
+                data: new QuestionBankResource($question),
                 status: true,
-                message: 'Exam Student created successfully'
+                message: 'Question Bank created successfully'
             );
         } catch (Exception $e) {
             return new DataFailed(
@@ -61,19 +65,20 @@ class ExamStudentService
     public function update(array $dataRequest): DataStatus
     {
         try {
-            $examStudent = ExamStudent::whereId($dataRequest['id'])->first();
-            if (!$examStudent) {
+            $question = Question::whereId($dataRequest['id'])->first();
+            if (!$question) {
                 return new DataFailed(
                     statusCode: 400,
                     message: 'not found'
                 );
             }
+            // $dataRequest['is_private'] = 1;
             unset($dataRequest['id']);
-            $examStudent->update($dataRequest);
+            $question->update($dataRequest);
             return new DataSuccess(
-                data: new ExamStudentResource($examStudent),
+                data: new QuestionBankResource($question),
                 status: true,
-                message: 'Exam Student updated successfully'
+                message: 'Question Bank updated successfully'
             );
         } catch (Exception $e) {
             return new DataFailed(
@@ -85,22 +90,22 @@ class ExamStudentService
     public function delete($request): DataStatus
     {
         try {
-            $examStudent = ExamStudent::whereId($request->id)->first();
-            if (!$examStudent) {
+            $question = Question::whereId($request->id)->first();
+            if (!$question) {
                 return new DataFailed(
                     statusCode: 400,
                     message: 'not found'
                 );
             }
-            $examStudent->delete();
+            $question->delete();
             return new DataSuccess(
                 statusCode: 200,
-                message: 'Exam Student deleted successfully'
+                message: 'Question Bank deleted successfully'
             );
         } catch (Exception $e) {
             return new DataFailed(
                 statusCode: 500,
-                message: 'Exam Student deletion failed: ' . $e->getMessage()
+                message: 'Question Bank deletion failed: ' . $e->getMessage()
             );
         }
     }

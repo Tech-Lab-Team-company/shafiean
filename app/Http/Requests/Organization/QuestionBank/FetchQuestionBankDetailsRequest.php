@@ -1,11 +1,11 @@
 <?php
+namespace App\Http\Requests\Organization\QuestionBank;
 
-namespace App\Http\Requests\Organization\Question;
 
 use App\Helpers\Response\ApiRequest;
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateQuestionRequest extends ApiRequest
+class FetchQuestionBankDetailsRequest extends ApiRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,9 +24,6 @@ class UpdateQuestionRequest extends ApiRequest
     {
         return [
             'id' => 'required|integer|exists:questions,id',
-            'question' => 'required|string|max:191',
-            'type' => 'required|string|max:191',
-            'degree' => 'required|numeric|min:0|max:10',
         ];
     }
 }
