@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Services\Organization\Group;
 
 
@@ -54,9 +55,10 @@ class GroupService
                 }
             }
             if ($request->stages) {
-                foreach ($request->stages as $stage) {
-                    $group->stages()->attach($stage);
-                }
+                $group->stages()->attach($request->stages);
+            }
+            if ($request->disabilities) {
+                $group->disabilities()->attach($request->disabilities, ['course_id' => $request->course_id]);
             }
             return new DataSuccess(
                 data: new GroupResource($group),

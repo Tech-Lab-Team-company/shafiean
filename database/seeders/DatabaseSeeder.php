@@ -17,16 +17,16 @@ class DatabaseSeeder extends Seeder
             AdminSeeder::class,
             AdminHistorySeeder::class,
             OrganizationSeeder::class,
-            TeacherSeeder::class,
+            // TeacherSeeder::class,
             CurriculumSeeder::class,
             StageSeeder::class,
-            TermSeeder::class,
-            OrganizationDisabilityTypeSeeder::class ,
-            CurriculumDisabilityTypeSeeder::class ,
+            // TermSeeder::class,
+            OrganizationDisabilityTypeSeeder::class,
+            CurriculumDisabilityTypeSeeder::class,
             QuraanSeeder::class,
-            AyatSeeder::class,
-            DaySeeder::class
+            // AyatSeeder::class,
+            DaySeeder::class,
+            BloodTypeTableSeeder::class,
         ]);
     }
 }
-

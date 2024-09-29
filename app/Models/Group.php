@@ -33,4 +33,8 @@ class Group extends Model
     {
         return $this->belongsToMany(GroupStage::class, 'group_stages', 'group_id', 'stage_id')->withTimestamps();
     }
+    public function disabilities()
+    {
+        return $this->belongsToMany(DisabilityType::class, 'group_disabilities', 'group_id', 'disability_id')->withTimestamps();
+    }
 }
