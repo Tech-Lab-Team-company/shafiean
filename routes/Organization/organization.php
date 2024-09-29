@@ -124,6 +124,7 @@ Route::middleware('auth:organization')->group(function () {
         Route::post('edit_employee', 'update_employee');
         Route::post('delete_employee', 'delete_employee');
         Route::post('edit_employee_password', 'edit_employee_password');
+        Route::post('fetch_teachers', 'fetch_teachers');
     });
     //COURSE
     Route::controller(CourseController::class)->group(function () {
