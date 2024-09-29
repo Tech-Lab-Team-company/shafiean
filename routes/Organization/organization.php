@@ -38,20 +38,7 @@ Route::controller(AuthController::class)->group(function () {
 });
 
 Route::middleware('auth:organization')->group(function () {
-    // Disability_types Routes
 
-    Route::post('fetch_disabilities', [DisabilityTypeController::class, 'index']);
-    Route::post('add_disability', [DisabilityTypeController::class, 'store']);
-    Route::post('fetch_disability_details', [DisabilityTypeController::class, 'show']);
-    Route::post('edit_disability', [DisabilityTypeController::class, 'update']);
-    Route::post('delete_disability', [DisabilityTypeController::class, 'destroy']);
-    // Stages Routes
-    Route::post('fetch_stages', [StageController::class, 'index']);
-    Route::post('add_stage', [StageController::class, 'store']);
-    Route::post('fetch_stage_details', [StageController::class, 'show']);
-    Route::post('edit_stage', [StageController::class, 'update']);
-    Route::post('delete_stage', [StageController::class, 'destroy']);
-    Route::post('change_stage_active_status', [StageController::class, 'changeActiveStatus']);
     //EXAM QUESTION
     Route::controller(ExamQuestionController::class)->group(function () {
         Route::post('fetch_exam_questions', 'index');
@@ -202,6 +189,11 @@ Route::middleware('auth:organization')->group(function () {
     Route::controller(CurriculumController::class)->group(function () {
         Route::post('organization_fetch_curriculums',  'index');
     });
+    //DISABILITY
+    Route::post('organization_fetch_disabilities', [DisabilityTypeController::class, 'index']);
+
+    //STAGE
+    Route::post('organization_fetch_stages', [StageController::class, 'index']);
 });
 
 //GLOBAL
