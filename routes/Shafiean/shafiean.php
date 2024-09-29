@@ -47,11 +47,11 @@ Route::middleware('auth:admin')->group(function () {
 
     // Disability_types Routes
 
-    // Route::post('fetch_disabilities', [DisabilityTypeController::class, 'index']);
-    // Route::post('add_disability', [DisabilityTypeController::class, 'store']);
-    // Route::post('fetch_disability_details', [DisabilityTypeController::class, 'show']);
-    // Route::post('edit_disability', [DisabilityTypeController::class, 'update']);
-    // Route::post('delete_disability', [DisabilityTypeController::class, 'destroy']);
+    Route::post('fetch_disabilities', [DisabilityTypeController::class, 'index']);
+    Route::post('add_disability', [DisabilityTypeController::class, 'store']);
+    Route::post('fetch_disability_details', [DisabilityTypeController::class, 'show']);
+    Route::post('edit_disability', [DisabilityTypeController::class, 'update']);
+    Route::post('delete_disability', [DisabilityTypeController::class, 'destroy']);
 
 
     // Organization Routes
@@ -73,12 +73,12 @@ Route::middleware('auth:admin')->group(function () {
     Route::post('change_cirruclum_active_status', [CurriculumController::class, 'changeActiveStatus']);
 
     // Stages Routes
-    // Route::post('fetch_stages', [StageController::class, 'index']);
-    // Route::post('add_stage', [StageController::class, 'store']);
-    // Route::post('fetch_stage_details', [StageController::class, 'show']);
-    // Route::post('edit_stage', [StageController::class, 'update']);
-    // Route::post('delete_stage', [StageController::class, 'destroy']);
-    // Route::post('change_stage_active_status', [StageController::class, 'changeActiveStatus']);
+    Route::post('fetch_stages', [StageController::class, 'index']);
+    Route::post('add_stage', [StageController::class, 'store']);
+    Route::post('fetch_stage_details', [StageController::class, 'show']);
+    Route::post('edit_stage', [StageController::class, 'update']);
+    Route::post('delete_stage', [StageController::class, 'destroy']);
+    Route::post('change_stage_active_status', [StageController::class, 'changeActiveStatus']);
 
     // main sessions Routes
     Route::controller(MainSessionController::class)->group(function () {
