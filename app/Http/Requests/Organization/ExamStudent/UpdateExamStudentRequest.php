@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Organization\ExamStudent;
 
+use Illuminate\Validation\Rule;
 use App\Helpers\Response\ApiRequest;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -23,7 +24,11 @@ class UpdateExamStudentRequest extends ApiRequest
     public function rules(): array
     {
         return [
-            //
+            'id' => 'required|exists:exam_students,id',
+            'exam_id' => ['required', 'integer',   Rule::exists('exams', 'id')->whereNull('deleted_at')],
+            'user_id' => ['required', 'integer',   Rule::exists('users', 'id')->whereNull('deleted_at')],
+            'grade' => 'required',
+            'is_pass' => 'required',
         ];
     }
 }

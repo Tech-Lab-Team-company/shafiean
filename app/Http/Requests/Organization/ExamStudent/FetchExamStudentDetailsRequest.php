@@ -23,7 +23,7 @@ class FetchExamStudentDetailsRequest extends ApiRequest
     public function rules(): array
     {
         return [
-            //
+            'id'=>'required|exists:exam_students,id',
         ];
     }
 }
