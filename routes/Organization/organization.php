@@ -2,8 +2,11 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Models\Organization\Blog\BlogCategory;
+use App\Models\Organization\Exam\ExamQuestion;
+use App\Http\Controllers\Global\StageController;
 use App\Http\Controllers\Global\GlobalController;
 use App\Http\Controllers\Admin\CurriculumController;
+use App\Http\Controllers\Admin\DisabilityTypeController;
 use App\Http\Controllers\Organization\Auth\AuthController;
 use App\Http\Controllers\Organization\Blog\BlogController;
 use App\Http\Controllers\Organization\Exam\ExamController;
@@ -18,6 +21,7 @@ use App\Http\Controllers\Organization\Teacher\TeacherController;
 use App\Http\Controllers\Organization\Blog\BlogHashtagController;
 use App\Http\Controllers\Organization\Blog\BlogCategoryController;
 use App\Http\Controllers\Organization\Employee\EmployeeController;
+use App\Http\Controllers\Organization\Exam\ExamQuestionController;
 use App\Http\Controllers\Organization\Question\QuestionController;
 use App\Http\Controllers\Organization\Relation\RelationController;
 use App\Http\Controllers\Organization\Competition\CompetitionController;
@@ -34,6 +38,28 @@ Route::controller(AuthController::class)->group(function () {
 });
 
 Route::middleware('auth:organization')->group(function () {
+    // Disability_types Routes
+
+    Route::post('fetch_disabilities', [DisabilityTypeController::class, 'index']);
+    Route::post('add_disability', [DisabilityTypeController::class, 'store']);
+    Route::post('fetch_disability_details', [DisabilityTypeController::class, 'show']);
+    Route::post('edit_disability', [DisabilityTypeController::class, 'update']);
+    Route::post('delete_disability', [DisabilityTypeController::class, 'destroy']);
+    // Stages Routes
+    Route::post('fetch_stages', [StageController::class, 'index']);
+    Route::post('add_stage', [StageController::class, 'store']);
+    Route::post('fetch_stage_details', [StageController::class, 'show']);
+    Route::post('edit_stage', [StageController::class, 'update']);
+    Route::post('delete_stage', [StageController::class, 'destroy']);
+    Route::post('change_stage_active_status', [StageController::class, 'changeActiveStatus']);
+    //EXAM QUESTION
+    Route::controller(ExamQuestionController::class)->group(function () {
+        Route::post('fetch_exam_questions', 'index');
+        Route::post('add_exam_question', 'store');
+        Route::post('fetch_exam_question_details', 'show');
+        Route::post('edit_exam_question', 'update');
+        Route::post('delete_exam_question', 'delete');
+    });
     //ANSWER
     Route::controller(AnswerController::class)->group(function () {
         Route::post('fetch_answers', 'index');

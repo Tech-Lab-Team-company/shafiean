@@ -1,11 +1,11 @@
 <?php
+namespace App\Http\Requests\Organization\Exam\Exam;
 
-namespace App\Http\Requests\Organization\Exam;
 
 use App\Helpers\Response\ApiRequest;
 use Illuminate\Foundation\Http\FormRequest;
 
-class FetchExamDetailsRequest extends ApiRequest
+class DeleteExamRequest extends ApiRequest
 {
     /**
      * Determine if the user is authorized to make this request.
