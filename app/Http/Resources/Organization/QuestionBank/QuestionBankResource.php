@@ -1,13 +1,14 @@
 <?php
 
-namespace App\Http\Resources\Organization\Question;
+namespace App\Http\Resources\Organization\QuestionBank;
+
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
-use App\Http\Resources\Organization\Question\QuestionSeasonResource;
-use App\Http\Resources\Organization\Question\QuestionCurriculumResource;
+use App\Http\Resources\Organization\QuestionBank\QuestionBankSeasonResource;
+use App\Http\Resources\Organization\QuestionBank\QuestionBankCurriculumResource;
 
-class QuestionResource extends JsonResource
+class QuestionBankResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -22,6 +23,8 @@ class QuestionResource extends JsonResource
             'type' => $this->type ?? "",
             'degree' => (int) $this->degree ?? "",
             'is_private' => (int)$this->is_private ?? "",
+            'curriculum' => new QuestionBankCurriculumResource($this->curriculum ?? "") ?? "",
+            'season' => new QuestionBankSeasonResource($this->season ?? "") ?? "",
         ];
     }
 }

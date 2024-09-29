@@ -23,12 +23,9 @@ class StoreQuestionRequest extends ApiRequest
     public function rules(): array
     {
         return [
-            'curriculum_id' => 'required|integer|exists:curriculums,id',
-            'season_id' => 'required|integer|exists:seasons,id',
             'question' => 'required|string|max:191',
             'type' => 'required|string|max:191',
             'degree' => 'required|numeric|min:0|max:10',
-            'is_private' => 'required|integer',
         ];
     }
 }

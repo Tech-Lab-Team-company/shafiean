@@ -17,7 +17,7 @@ class QuestionService
     public function index()
     {
         try {
-            $questions = Question::orderBy('id', 'desc')->paginate(10);
+            $questions = Question::where('is_private', 1)->orderBy('id', 'desc')->paginate(10);
             return new DataSuccess(
                 data: QuestionResource::collection($questions)->response()->getData(true),
                 status: true,
@@ -32,7 +32,7 @@ class QuestionService
     }
     public function show($request)
     {
-        $question = Question::whereId($request->id)->first();
+        $question = Question::where('is_private', 1)->whereId($request->id)->first();
         if (!$question) {
             return new DataFailed(
                 statusCode: 400,
@@ -48,6 +48,7 @@ class QuestionService
     public function store(array $dataRequest): DataStatus
     {
         try {
+            $dataRequest['is_private'] = 1;
             $question = Question::create($dataRequest);
             return new DataSuccess(
                 data: new QuestionResource($question),
@@ -71,6 +72,7 @@ class QuestionService
                     message: 'not found'
                 );
             }
+            // $dataRequest['is_private'] = 1;
             unset($dataRequest['id']);
             $question->update($dataRequest);
             return new DataSuccess(

@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Organization\Exam;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Services\Organization\ExamQuestion\ExamStudentService;
+use App\Services\Organization\ExamStudent\ExamStudentService;
 use App\Http\Requests\Organization\ExamStudent\StoreExamStudentRequest;
 use App\Http\Requests\Organization\ExamStudent\DeleteExamStudentRequest;
 use App\Http\Requests\Organization\ExamStudent\UpdateExamStudentRequest;

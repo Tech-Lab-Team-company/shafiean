@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Resources\Organization\Question;
+namespace App\Http\Resources\Organization\QuestionBank;
+
 
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class QuestionCurriculumResource extends JsonResource
+class QuestionBankCurriculumResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
