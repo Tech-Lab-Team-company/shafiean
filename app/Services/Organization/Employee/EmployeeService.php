@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Services\Organization\Employee;
 
 
@@ -157,6 +158,23 @@ class EmployeeService
                 status: true,
                 data: new OrganizationEmployeeResource($employee),
                 message: 'Employee password updated successfully'
+            );
+        } catch (Exception $e) {
+            return new DataFailed(
+                status: false,
+                message: $e->getMessage()
+            );
+        }
+    }
+
+    public function fetch_teachers($request): DataStatus
+    {
+        try {
+            $teachers = Teacher::where('organization_id', get_organization_id(auth()->guard('organization')->user()))->where('is_employed', 1)->paginate(10);
+            return new DataSuccess(
+                data: OrganizationEmployeeResource::collection($teachers)->response()->getData(true),
+                status: true,
+                message: 'Teachers fetched successfully'
             );
         } catch (Exception $e) {
             return new DataFailed(

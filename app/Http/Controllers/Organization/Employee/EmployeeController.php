@@ -12,6 +12,7 @@ use App\Http\Requests\Employee\FetchEmployeesRequest;
 use App\Services\Organization\Employee\EmployeeService;
 use App\Http\Requests\Employee\EditEmployeePasswordRequest;
 use App\Http\Requests\Employee\FetchEmployeeDetailsRequest;
+use App\Http\Requests\Employee\FetchTeachersRequest;
 
 class EmployeeController extends Controller
 {
@@ -56,5 +57,10 @@ class EmployeeController extends Controller
     {
 
         return $this->employee_service->edit_employee_password($request)->response();
+    }
+
+    public function fetch_teachers(FetchTeachersRequest $request)
+    {
+        return $this->employee_service->fetch_teachers($request)->response();
     }
 }
