@@ -2,6 +2,7 @@
 
 namespace App\Models\Organization\Exam;
 
+use App\Models\User;
 use App\Models\Group;
 use Illuminate\Database\Eloquent\Model;
 use App\Observers\OrganizationIdObserver;
@@ -18,6 +19,9 @@ class Exam extends Model
     public function groups(): BelongsToMany
     {
         return $this->belongsToMany(Group::class, 'exam_groups', 'exam_id', 'group_id')->withTimestamps();
+    }
+    public function students(): BelongsToMany{
+        return $this->belongsToMany(User::class, 'exam_students', 'exam_id', 'user_id')->withTimestamps();
     }
     protected static function booted(): void
     {
