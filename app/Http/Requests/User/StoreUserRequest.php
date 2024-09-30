@@ -31,6 +31,8 @@ class StoreUserRequest extends ApiRequest
             'address' => 'nullable|string|max:255',
             'blood_type_id' => 'nullable|exists:blood_types,id',
             'country_id' => 'nullable|exists:countries,id',
+            'group_ids' => 'nullable|array',
+            'group_ids.*' => ['nullable',R],
         ];
     }
 }

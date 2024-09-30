@@ -6,11 +6,15 @@ namespace App\Models;
 use App\Models\BloodType;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Support\Facades\Hash;
+use App\Models\Organization\Exam\Exam;
 use Illuminate\Notifications\Notifiable;
+use App\Models\Organization\Exam\ExamStudent;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class User extends Authenticatable
 {
@@ -76,5 +80,13 @@ class User extends Authenticatable
     public function bloodType(): BelongsTo
     {
         return $this->belongsTo(BloodType::class);
+    }
+    public function exams(): BelongsToMany
+    {
+        return $this->belongsToMany(Exam::class, 'exam_students', 'user_id', 'exam_id', 'id')->withTimestamps();
+    }
+    public function examStundents(): HasMany
+    {
+        return $this->hasMany(ExamStudent::class, 'user_id', 'id');
     }
 }

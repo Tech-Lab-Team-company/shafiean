@@ -2,13 +2,15 @@
 
 namespace App\Services\Global;
 
+use Exception;
+use App\Models\Day;
+use App\Http\Resources\DayResource;
 use App\Helpers\Response\DataFailed;
 use App\Helpers\Response\DataStatus;
 use App\Helpers\Response\DataSuccess;
-use App\Http\Resources\DayResource;
-use App\Models\Day;
+use App\Models\Organization\Exam\Exam;
 use App\Models\Organization\Exam\ExamStudent;
-use Exception;
+use App\Http\Resources\Organization\ExamStudent\EndPoint\FetchExamStudentResource;
 
 class GlobalService
 {
@@ -38,15 +40,9 @@ class GlobalService
     public function fetch_exam_students($request): DataStatus
     {
         try {
-
-            $examStudents = ExamStudent::query();
-            // if ($request) {
-            //     $filter_service = new FilterService();
-            //     $filter_service->filterDay($request, $days);
-            // }
-            $days = $examStudents->get();
+            $examStudents = ExamStudent::whereExamId($request->exam_id)->get();
             return new DataSuccess(
-                data: DayResource::collection($days),
+                data: FetchExamStudentResource::collection($examStudents),
                 status: true,
                 message: 'Fetch exam students  successfully'
             );

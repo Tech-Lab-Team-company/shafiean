@@ -10,6 +10,7 @@ use App\Models\Scopes\PerOrganizationScope;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class ExamStudent extends Model
 {
@@ -24,6 +25,7 @@ class ExamStudent extends Model
     {
         return $this->belongsTo(Exam::class);
     }
+
     protected static function booted(): void
     {
         static::addGlobalScope(new PerOrganizationScope);

@@ -26,8 +26,9 @@ class CurriculumController extends Controller
 
     public function index(FetchCurriculumsRequest $request)
     {
-        return $this->curriculumService->getAllCurriculums($request)->response();
+        return $this->curriculumService->getAllCurriculums($request)->response()->header('Access-Control-Allow-Origin', 'http://localhost:8080');
     }
+
 
     public function store(AddCurriculumRequest $request)
     {
