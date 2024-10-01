@@ -89,4 +89,7 @@ class User extends Authenticatable
     {
         return $this->hasMany(ExamStudent::class, 'user_id', 'id');
     }
+    public function groups(): BelongsToMany{
+        return $this->belongsToMany(Group::class, 'user_groups', 'user_id', 'group_id')->withTimestamps();
+    }
 }
