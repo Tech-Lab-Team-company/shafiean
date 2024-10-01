@@ -8,8 +8,10 @@ use App\Models\Organization\Exam\Exam;
 use Illuminate\Database\Eloquent\Model;
 use App\Observers\OrganizationIdObserver;
 use Illuminate\Database\Eloquent\Builder;
+use App\Models\Organization\Answer\Answer;
 use App\Models\Scopes\PerOrganizationScope;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -30,6 +32,10 @@ class Question extends Model
     public function exams(): BelongsToMany
     {
         return $this->belongsToMany(Exam::class, 'exam_questions', 'question_id', 'exam_id')->withTimestamps()->withPivot('organization_id');
+    }
+    public function answers(): HasMany
+    {
+        return $this->hasMany(Answer::class, 'question_id', 'id');
     }
     protected static function booted(): void
     {
