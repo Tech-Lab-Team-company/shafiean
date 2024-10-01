@@ -29,7 +29,7 @@ class UserController extends Controller
 
     public function store(StoreUserRequest $request)
     {
-        return $this->userService->store($request->validated())->response();
+        return $this->userService->store($request)->response();
     }
 
     public function show(FetchUserDetailsRequest $request)
@@ -39,7 +39,7 @@ class UserController extends Controller
 
     public function update(UpdateUserRequest $request)
     {
-        return $this->userService->update($request->validated())->response();
+        return $this->userService->update($request)->response();
     }
 
     public function delete(DeleteUserRequest $request)
