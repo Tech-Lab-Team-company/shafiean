@@ -51,13 +51,13 @@ Route::middleware('auth:organization')->group(function () {
         Route::post('delete_exam_student', 'delete');
     });
     //EXAM QUESTION
-    Route::controller(ExamQuestionController::class)->group(function () {
-        Route::post('fetch_exam_questions', 'index');
-        Route::post('add_exam_question', 'store');
-        Route::post('fetch_exam_question_details', 'show');
-        Route::post('edit_exam_question', 'update');
-        Route::post('delete_exam_question', 'delete');
-    });
+    // Route::controller(ExamQuestionController::class)->group(function () {
+    //     Route::post('fetch_exam_questions', 'index');
+    //     Route::post('add_exam_question', 'store');
+    //     Route::post('fetch_exam_question_details', 'show');
+    //     Route::post('edit_exam_question', 'update');
+    //     Route::post('delete_exam_question', 'delete');
+    // });
     //ANSWER
     Route::controller(AnswerController::class)->group(function () {
         Route::post('fetch_answers', 'index');

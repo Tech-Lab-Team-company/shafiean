@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('organization_id')->nullable()->references('id')->on('organizations')->onDelete('cascade');
             $table->foreignId('curriculum_id')->nullable()->references('id')->on('curriculums')->onDelete('set null');
             $table->foreignId('season_id')->nullable()->references('id')->on('seasons')->onDelete('set null');
-            $table->string('type')->nullable();
+            $table->string('type')->nullable()->comment('1 => Article , 2 => Multiple Choice , 3 => Complete , 4 => Correction');
             $table->string('question')->nullable();
             $table->tinyInteger('degree')->nullable();
             $table->boolean('is_private')->nullable();
