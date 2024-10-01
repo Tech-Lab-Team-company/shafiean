@@ -4,6 +4,7 @@ namespace App\Models\Organization\Question;
 
 use App\Models\Season;
 use App\Models\Curriculum;
+use App\Models\Organization\Exam\Exam;
 use Illuminate\Database\Eloquent\Model;
 use App\Observers\OrganizationIdObserver;
 use Illuminate\Database\Eloquent\Builder;
@@ -11,6 +12,7 @@ use App\Models\Scopes\PerOrganizationScope;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Question extends Model
 {
@@ -24,6 +26,10 @@ class Question extends Model
     public function season(): BelongsTo
     {
         return $this->belongsTo(Season::class, 'season_id');
+    }
+    public function exams(): BelongsToMany
+    {
+        return $this->belongsToMany(Exam::class, 'exam_questions', 'question_id', 'exam_id')->withTimestamps()->withPivot('organization_id');
     }
     protected static function booted(): void
     {

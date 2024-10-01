@@ -1,9 +1,11 @@
 <?php
+
 namespace App\Http\Requests\Organization\Exam\Exam;
 
 
 use App\Enum\ExamTypeEnum;
 use App\Enum\DegreeTypeEnum;
+use Illuminate\Validation\Rule;
 use App\Helpers\Response\ApiRequest;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -36,7 +38,9 @@ class StoreExamRequest extends ApiRequest
             'degree_type' => 'required|numeric|in:' . enumCaseValue(DegreeTypeEnum::class),
             'degree' => 'required|numeric',
             'group_ids' => 'required|array',
-            'group_ids.*' => 'required|exists:groups,id',
+            'group_ids.*' => ['required', Rule::exists('groups', 'id')->whereNull('deleted_at')],
+            'question_ids' => 'nullable|array',
+            'question_ids.*' => ['nullable', Rule::exists('questions', 'id')->whereNull('deleted_at')],
         ];
     }
 }

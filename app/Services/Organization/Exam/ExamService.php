@@ -9,6 +9,7 @@ use App\Helpers\Response\DataFailed;
 use App\Helpers\Response\DataStatus;
 use App\Helpers\Response\DataSuccess;
 use App\Models\Organization\Exam\Exam;
+use App\Models\Organization\Question\Question;
 use App\Http\Resources\Organization\Exam\ExamResource;
 
 class ExamService
@@ -61,6 +62,18 @@ class ExamService
             if (isset($dataRequest['group_ids']) && count($dataRequest['group_ids']) > 0) {
                 $exam->groups()->attach($dataRequest['group_ids']);
             }
+            if (isset($dataRequest['question_ids']) && count($dataRequest['question_ids']) > 0) {
+                $exam->questions()->attach($dataRequest['question_ids']);
+            }
+            if (isset($dataRequest['question']) && count($dataRequest['question']) > 0) {
+                $question = Question::create([
+                    'question' => $dataRequest['question']['question'],
+                    'type' => $dataRequest['question']['type'],
+                    'degree' => $dataRequest['question']['degree'],
+                    'is_private' => 1
+                ]);
+                $exam->questions()->attach($question->id);
+            }
             return new DataSuccess(
                 data: new ExamResource($exam),
                 status: true,
@@ -97,6 +110,9 @@ class ExamService
             $exam->update($data);
             if (isset($dataRequest['group_ids']) && count($dataRequest['group_ids']) > 0) {
                 $exam->groups()->sync($dataRequest['group_ids']);
+            }
+            if (isset($dataRequest['question_ids']) && count($dataRequest['question_ids']) > 0) {
+                $exam->questions()->sync($dataRequest['question_ids']);
             }
             return new DataSuccess(
                 data: new ExamResource($exam),

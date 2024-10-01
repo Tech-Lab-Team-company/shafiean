@@ -4,6 +4,7 @@ namespace App\Models\Organization\Exam;
 
 use App\Models\User;
 use App\Models\Group;
+use App\Models\Organization\Question\Question;
 use Illuminate\Database\Eloquent\Model;
 use App\Observers\OrganizationIdObserver;
 use App\Models\Scopes\PerOrganizationScope;
@@ -20,7 +21,12 @@ class Exam extends Model
     {
         return $this->belongsToMany(Group::class, 'exam_groups', 'exam_id', 'group_id')->withTimestamps();
     }
-    public function students(): BelongsToMany{
+    public function questions(): BelongsToMany
+    {
+        return $this->belongsToMany(Question::class, 'exam_questions', 'exam_id', 'question_id')->withTimestamps();
+    }
+    public function students(): BelongsToMany
+    {
         return $this->belongsToMany(User::class, 'exam_students', 'exam_id', 'user_id')->withTimestamps();
     }
     protected static function booted(): void
