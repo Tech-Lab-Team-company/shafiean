@@ -29,6 +29,7 @@ use App\Http\Controllers\Organization\Competition\CompetitionController;
 use App\Http\Controllers\Organization\QuestionBank\QuestionBankController;
 use App\Http\Controllers\Organization\UserRelation\UserRelationController;
 use App\Http\Controllers\Organization\Competition\CompetitionRewardController;
+use App\Http\Controllers\Organization\QuestionBank\FetchQuestionBankContoller;
 
 //AUTH
 Route::controller(AuthController::class)->group(function () {
@@ -216,6 +217,8 @@ Route::middleware('auth:organization')->group(function () {
     Route::post('organization_fetch_stages', [StageController::class, 'index']);
     //EXAM STUDENT
     Route::post('organization_fetch_exam_students', [GlobalController::class, 'fetch_exam_students']);
+    //QUESTION BANK
+    Route::get('organization_fetch_question_banks', FetchQuestionBankContoller::class);
     /**
      * END POINT END
      */

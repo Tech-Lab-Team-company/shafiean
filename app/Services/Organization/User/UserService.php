@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Services\Organization\User;
 
 
@@ -38,6 +39,7 @@ class UserService
     }
     public function store(array $data): DataStatus
     {
+
         try {
             $organizationId = get_organization_id(auth()->guard('organization')->user());
             if (isset($data['image'])) {
@@ -46,7 +48,12 @@ class UserService
                 $data['image'] = 'uploads/default.jpg';
             }
             $data['organization_id'] = $organizationId;
+            // $groupIds = $data['group_ids'];
+            // unset($data['group_ids']);
             $user = User::create($data);
+            // if ($groupIds) {
+            //     $user->groups()->attach($groupIds);
+            // }
             return new DataSuccess(
                 data: new UserResource($user),
                 statusCode: 200,
