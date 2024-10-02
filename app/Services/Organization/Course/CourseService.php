@@ -11,6 +11,8 @@ use App\Helpers\Response\DataFailed;
 use App\Helpers\Response\DataStatus;
 use App\Helpers\Response\DataSuccess;
 use App\Http\Resources\CourseResource;
+use App\Models\CourseStage;
+use App\Models\MainSession;
 use App\Services\Global\FilterService;
 
 class CourseService
@@ -54,11 +56,26 @@ class CourseService
             );
         }
     }
-
+    private function storeCourseStageSession($courseStages, $mainSessions, $course)
+    {
+        $organizationId = get_organization_id(auth()->guard('organization')->user());
+        foreach ($courseStages  as $stage) {
+            foreach ($mainSessions as $session) {
+                CourseStageSession::create([
+                    'course_stage_id' => $stage->id,
+                    'session_id' => $session->id,
+                    'organization_id' => $organizationId,
+                    'course_id' => $course->id,
+                    'stage_id' => $stage->stage_id,
+                    'session_type_id' => $session->session_type_id,
+                    'start_verse' => $session->start_verse,
+                ]);
+            }
+        }
+    }
     public function add_course($request): DataStatus
     {
         try {
-            $organizationId = get_organization_id(auth()->guard('organization')->user());
             if ($request->hasFile('image')) {
                 $image = upload_image($request->file('image'), 'courses');
                 $data['image'] = $image;
@@ -73,26 +90,15 @@ class CourseService
             if ($request->all_curriculum == HasCurriculumEnum::HAS_CURRICULUM->value) {
                 $curriclumStages = Curriculum::find($request->curriculum_id)->stages;
                 $stageIds = $curriclumStages->pluck('id')->toArray();
-                foreach ($curriclumStages as $stage) {
-                    foreach ($stage->mainSessions as $session) {
-                        CourseStageSession::create([
-                            // 'course_stage_id' => $stage->id,
-                            'session_id' => $session->id,
-                            'organization_id' => $organizationId,
-                            'course_id' => $course->id,
-                            'stage_id'=>$stage->id,
-                            'session_type_id'=>$session->session_type_id,
-                            'start_verse'=>$session->start_verse,
-                            'end_verse'=>$session->end_verse,
-                        ]);
-                    }
-                }
+                $mainSessions = MainSession::whereIn('stage_id', $stageIds)->get();
                 $course->stages()->attach($stageIds);
+            } else {
+                $mainSessions = MainSession::whereIn('stage_id', $request->stage_ids)->get();
+                $course->stages()->attach($request->stage_ids);
             }
-            // if ($request->stage_ids) {
-            //     $course->stages()->attach($request->stage_ids);
-            // }
-            // dd($course);
+            $courseStages = CourseStage::where('course_id', $course->id)->get();
+            $this->storeCourseStageSession($courseStages, $mainSessions, $course);
+
             return new DataSuccess(
                 status: true,
                 data: new CourseResource($course),
@@ -105,7 +111,6 @@ class CourseService
             );
         }
     }
-
     public function edit_course($request): DataStatus
     {
         try {

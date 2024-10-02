@@ -2,10 +2,14 @@
 
 namespace App\Services\Organization\Group;
 
-
 use Exception;
 use Carbon\Carbon;
 use App\Models\Group;
+use App\Models\Course;
+use App\Models\GroupStage;
+use App\Enum\HasCourseEnum;
+use App\Models\MainSession;
+use App\Models\GroupStageSession;
 use App\Helpers\Response\DataFailed;
 use App\Helpers\Response\DataStatus;
 use App\Helpers\Response\DataSuccess;
@@ -37,6 +41,25 @@ class GroupService
         }
     }
 
+
+    private function storeGroupStageSessions($groupStages, $mainSessions, $group)
+    {
+        $organizationId = get_organization_id(auth()->guard('organization')->user());
+        foreach ($groupStages as $stage) {
+            foreach ($mainSessions as $session) {
+                GroupStageSession::create([
+                    'group_stage_id' => $group->id,
+                    'session_id' => $session->id,
+                    'organization_id' => $organizationId,
+                    'group_id' => $group->id,
+                    'stage_id' => $stage->stage_id,
+                    'session_type_id' => $session->session_type_id,
+                    'start_verse' => $session->start_verse,
+                    'end_verse' => $session->end_verse,
+                ]);
+            }
+        }
+    }
     public function add_group($request): DataStatus
     {
         try {
@@ -54,12 +77,21 @@ class GroupService
                     $group->days()->attach($day['day_id'], ['start_time' => $day['start_time'], 'end_time' => $day['end_time']]);
                 }
             }
-            if ($request->stages) {
-                $group->stages()->attach($request->stages);
-            }
+
             if ($request->disabilities) {
                 $group->disabilities()->attach($request->disabilities, ['course_id' => $request->course_id]);
             }
+            if ($request->with_all_course_content == HasCourseEnum::HAS_COURSE->value) {
+                $courseStages = Course::find($request->course_id)->stages;
+                $stageIds = $courseStages->pluck('id')->toArray();
+                $mainSessions = MainSession::whereIn('stage_id', $stageIds)->get();
+                $group->stages()->attach($stageIds);
+            } else {
+                $mainSessions = MainSession::whereIn('stage_id', $request->stages)->get();
+                $group->stages()->attach($request->stages);
+            }
+            $groupStages = GroupStage::where('group_id', $group->id)->get();
+            $this->storeGroupStageSessions($groupStages, $mainSessions, $group);
             return new DataSuccess(
                 data: new GroupResource($group),
                 status: true,
