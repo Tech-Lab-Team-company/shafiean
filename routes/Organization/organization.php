@@ -25,6 +25,7 @@ use App\Http\Controllers\Organization\Employee\EmployeeController;
 use App\Http\Controllers\Organization\Exam\ExamQuestionController;
 use App\Http\Controllers\Organization\Question\QuestionController;
 use App\Http\Controllers\Organization\Relation\RelationController;
+use App\Http\Controllers\Organization\JobType\FetchJobTypeContoller;
 use App\Http\Controllers\Organization\Competition\CompetitionController;
 use App\Http\Controllers\Organization\QuestionBank\QuestionBankController;
 use App\Http\Controllers\Organization\UserRelation\UserRelationController;
@@ -219,6 +220,7 @@ Route::middleware('auth:organization')->group(function () {
     Route::post('organization_fetch_exam_students', [GlobalController::class, 'fetch_exam_students']);
     //QUESTION BANK
     Route::get('organization_fetch_question_banks', FetchQuestionBankContoller::class);
+    Route::get('organization_fetch_job_types', FetchJobTypeContoller::class);
     /**
      * END POINT END
      */

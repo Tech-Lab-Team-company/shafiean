@@ -38,6 +38,7 @@ class AddEmployeeRequest extends ApiRequest
             'identity_number' => 'required|string|max:191',
             'date_of_birth' => 'required',
             'curriculum_ids' => 'required_if:is_employed,1|array|exists:curriculums,id', // Moved here
+            'job_type_id' => 'required|exists:job_types,id',
         ];
     }
 }

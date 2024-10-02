@@ -23,6 +23,7 @@ class TeacherRequest extends FormRequest
             'age' => 'nullable|integer|min:18',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'organization_id' => 'nullable|exists:organizations,id',
+            
         ];
     }
 }

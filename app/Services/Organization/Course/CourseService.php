@@ -1,15 +1,17 @@
 <?php
+
 namespace App\Services\Organization\Course;
 
-
+use Exception;
+use App\Models\Course;
+use App\Models\Curriculum;
+use App\Enum\HasCurriculumEnum;
+use App\Models\CourseStageSession;
 use App\Helpers\Response\DataFailed;
 use App\Helpers\Response\DataStatus;
 use App\Helpers\Response\DataSuccess;
 use App\Http\Resources\CourseResource;
-use App\Models\Course;
-use App\Models\CourseStageSession;
 use App\Services\Global\FilterService;
-use Exception;
 
 class CourseService
 {
@@ -56,6 +58,7 @@ class CourseService
     public function add_course($request): DataStatus
     {
         try {
+            $organizationId = get_organization_id(auth()->guard('organization')->user());
             if ($request->hasFile('image')) {
                 $image = upload_image($request->file('image'), 'courses');
                 $data['image'] = $image;
@@ -67,9 +70,28 @@ class CourseService
             $data['curriculum_id'] = $request->curriculum_id;
             $course = Course::create($data);
             $course->disability_types()->attach($request->disability_ids);
-            if($request->stage_ids){
-                $course->stages()->attach($request->stage_ids);
+            if ($request->all_curriculum == HasCurriculumEnum::HAS_CURRICULUM->value) {
+                $curriclumStages = Curriculum::find($request->curriculum_id)->stages;
+                $stageIds = $curriclumStages->pluck('id')->toArray();
+                foreach ($curriclumStages as $stage) {
+                    foreach ($stage->mainSessions as $session) {
+                        CourseStageSession::create([
+                            // 'course_stage_id' => $stage->id,
+                            'session_id' => $session->id,
+                            'organization_id' => $organizationId,
+                            'course_id' => $course->id,
+                            'stage_id'=>$stage->id,
+                            'session_type_id'=>$session->session_type_id,
+                            'start_verse'=>$session->start_verse,
+                            'end_verse'=>$session->end_verse,
+                        ]);
+                    }
+                }
+                $course->stages()->attach($stageIds);
             }
+            // if ($request->stage_ids) {
+            //     $course->stages()->attach($request->stage_ids);
+            // }
             // dd($course);
             return new DataSuccess(
                 status: true,
