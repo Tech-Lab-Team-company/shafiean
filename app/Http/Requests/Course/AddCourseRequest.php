@@ -28,7 +28,7 @@ class AddCourseRequest extends ApiRequest
             'season_id' => 'required|exists:seasons,id',
             'curriculum_id' => 'required|exists:curriculums,id',
             'disability_ids' => 'required|array|exists:disability_types,id',
-            'stage_ids' => 'nullable|array|exists:stages,id',
+            'stage_ids' => 'required_if:all_curriculum,0|array|exists:stages,id',
             'all_curriculum' => 'nullable|integer|in:0,1',
 
         ];
