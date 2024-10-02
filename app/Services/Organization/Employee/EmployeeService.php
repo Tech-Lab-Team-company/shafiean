@@ -53,6 +53,7 @@ class EmployeeService
             $data['identity_number'] = $request->identity_number;
             $data['date_of_birth'] = Carbon::createFromFormat('Y-m-d', $request->date_of_birth)->format('Y-m-d');;
             $data['organization_id'] = get_organization_id(auth()->guard('organization')->user());
+            $data['job_type_id'] = $request->job_type_id;
             $employee = Teacher::create($data);
 
             if ($request->certificate_images) (new EmployeeImageService())->storeCertificateImage(null, $employee, $request);
@@ -88,6 +89,7 @@ class EmployeeService
             $data['identity_type'] = $request->identity_type ?? $employee->identity_type;
             $data['identity_number'] = $request->identity_number ?? $employee->identity_number;
             $data['date_of_birth'] = $request->date_of_birth ? Carbon::createFromFormat('Y-m-d', $request->date_of_birth)->format('Y-m-d') : $employee->date_of_birth;
+            $data['job_type_id'] = $request->job_type_id;
             if ($request->hasFile('image')) {
                 if ($employee->image && file_exists($employee->image)) {
                     delete_image($employee->image);

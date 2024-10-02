@@ -13,6 +13,9 @@ class Curriculum extends Model
     protected $table = "curriculums";
 
     protected $guarded = [];
+    public function stages():HasMany{
+        return $this->hasMany(Stage::class,'curriculum_id','id');
+    }
 
 }
 
