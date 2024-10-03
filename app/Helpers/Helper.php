@@ -43,6 +43,11 @@ if (!function_exists('upload_image')) {
 
         return $user->organization_id;
     }
+
+    function get_auth_organization_id()
+    {
+        return auth()->user()->organization_id ?? null; // Returns null if no organization is found
+    }
     function enumCaseValue($enum)
     {
         $values = array_map(fn($case) => $case->value, $enum::cases());
