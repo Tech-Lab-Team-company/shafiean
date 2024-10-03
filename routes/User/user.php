@@ -12,7 +12,6 @@ use App\Http\Controllers\User\Auth\UserResetPasswordController;
 use App\Http\Controllers\User\Auth\UserChangePasswordController;
 use App\Http\Controllers\User\Competition\CompetitionController;
 use App\Http\Controllers\User\Session\SessionController;
-use App\Http\Controllers\User\Stage\StageController;
 
 // AUTH
 Route::post('user_register', UserRegisterController::class);
