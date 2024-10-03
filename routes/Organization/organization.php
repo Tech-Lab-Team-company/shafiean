@@ -20,6 +20,7 @@ use App\Http\Controllers\Organization\Library\LibraryController;
 use App\Http\Controllers\Organization\Teacher\TeacherController;
 use App\Http\Controllers\Organization\Blog\BlogHashtagController;
 use App\Http\Controllers\Organization\Exam\ExamStudentController;
+use App\Http\Controllers\Organization\Group\FetchGroupController;
 use App\Http\Controllers\Organization\Blog\BlogCategoryController;
 use App\Http\Controllers\Organization\Employee\EmployeeController;
 use App\Http\Controllers\Organization\Question\QuestionController;
@@ -227,6 +228,8 @@ Route::middleware('auth:organization')->group(function () {
     Route::get('organization_fetch_blood_types', FetchBloodTypeController::class);
     //COUNTRY
     Route::get('organization_fetch_countries', FetchCountryController::class);
+    //GROUP
+    Route::get('organization_fetch_groups', FetchGroupController::class);
     /**
      * END POINT END
      */
