@@ -17,6 +17,7 @@ class UserResetPasswordService
     {
         try {
             $user = $this->getRow($dataRequest['email'], self::MODEL);
+            $this->checkVerified($user);
             $user->update([
                 'password' => $dataRequest->password
             ]);
