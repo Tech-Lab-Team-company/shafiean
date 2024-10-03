@@ -20,7 +20,7 @@ class StageService
                 $filter_service->filterStage($request, $query);
             }
             $stages = $query->orderBy('id', 'desc')->paginate(10);
-            dd($stages);
+            // dd($stages);
             return new DataSuccess(
                 data: StageResource::collection($stages)->response()->getData(true),
                 status: true,

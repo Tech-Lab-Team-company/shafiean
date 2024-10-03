@@ -206,11 +206,33 @@ class FilterService
 
     public function filterStage($request, $query)
     {
-        $query->when($request->has('word'), function ($q) use ($request) {
+        $query->when($request->has('word') && !$request->has('course_id') && !$request->has('stage_id'), function ($q) use ($request) {
             $q->where('title', 'like', '%' . $request->word . '%');
         })
-            ->when($request->has('course_id'), function ($q) use ($request) {
-                $q->whereRelation('courses', 'course_stages.course_id', $request->course_id);
+            ->when($request->has('course_id') && !$request->has('word') && !$request->has('stage_id'), function ($q) use ($request) {
+                $q->whereHas('courses', function ($q) use ($request) {
+                    $q->where('courses.id', $request->course_id);
+                });
+            })
+
+            ->when($request->has('stage_id') && $request->has('course_id') && !$request->has('word'), function ($q) use ($request) {
+                $q->whereHas('courses', function ($q) use ($request) {
+                    $q->where('courses.id', $request->course_id);
+                })
+                    ->where('id', $request->stage_id);
+            })
+            ->when($request->has('word') && $request->has('course_id') && !$request->has('stage_id'), function ($q) use ($request) {
+                $q->where('title', 'like', '%' . $request->word . '%')
+                    ->whereHas('courses', function ($q) use ($request) {
+                        $q->where('courses.id', $request->course_id);
+                    });
+            })
+            ->when($request->has('word') && $request->has('course_id') && $request->has('stage_id'), function ($q) use ($request) {
+                $q->where('title', 'like', '%' . $request->word . '%')
+                    ->whereHas('courses', function ($q) use ($request) {
+                        $q->where('courses.id', $request->course_id);
+                    })
+                    ->where('id', $request->stage_id);
             })
         ;
     }
