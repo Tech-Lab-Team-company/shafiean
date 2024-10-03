@@ -22,11 +22,11 @@ use App\Http\Controllers\Organization\Blog\BlogHashtagController;
 use App\Http\Controllers\Organization\Exam\ExamStudentController;
 use App\Http\Controllers\Organization\Blog\BlogCategoryController;
 use App\Http\Controllers\Organization\Employee\EmployeeController;
-use App\Http\Controllers\Organization\Exam\ExamQuestionController;
 use App\Http\Controllers\Organization\Question\QuestionController;
 use App\Http\Controllers\Organization\Relation\RelationController;
-use App\Http\Controllers\Organization\JobType\FetchJobTypeContoller;
+use App\Http\Controllers\Organization\JobType\FetchJobTypeController;
 use App\Http\Controllers\Organization\Competition\CompetitionController;
+use App\Http\Controllers\Organization\BloodType\FetchBloodTypeController;
 use App\Http\Controllers\Organization\QuestionBank\QuestionBankController;
 use App\Http\Controllers\Organization\UserRelation\UserRelationController;
 use App\Http\Controllers\Organization\Competition\CompetitionRewardController;
@@ -220,7 +220,10 @@ Route::middleware('auth:organization')->group(function () {
     Route::post('organization_fetch_exam_students', [GlobalController::class, 'fetch_exam_students']);
     //QUESTION BANK
     Route::get('organization_fetch_question_banks', FetchQuestionBankContoller::class);
-    Route::get('organization_fetch_job_types', FetchJobTypeContoller::class);
+    //JOB TYPE
+    Route::get('organization_fetch_job_types', FetchJobTypeController::class);
+    //BLOOD TYPE
+    Route::get('organization_blood_types', FetchBloodTypeController::class);
     /**
      * END POINT END
      */
