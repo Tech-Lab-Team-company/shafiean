@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('course_id')->nullable();
             $table->unsignedBigInteger('stage_id')->nullable();
-            $table->unsignedBigInteger('organization_id')->nullable();
-            $table->foreign('organization_id')->references('id')->on('organizations')->onDelete('set null');
+            // $table->unsignedBigInteger('organization_id')->nullable();
+            // $table->foreign('organization_id')->references('id')->on('organizations')->onDelete('set null');
             $table->foreign('stage_id')->references('id')->on('stages')->onDelete('set null');
             $table->foreign('course_id')->references('id')->on('courses')->onDelete('set null');
             $table->timestamps();
