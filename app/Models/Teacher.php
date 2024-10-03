@@ -52,4 +52,9 @@ class Teacher extends Authenticatable
     {
         return $this->belongsTo(JobType::class, 'job_type_id');
     }
+
+    public function subscriptions()
+    {
+        return $this->MorphMany(Subscription::class, 'creatable');
+    }
 }
