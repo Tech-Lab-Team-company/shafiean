@@ -36,6 +36,16 @@ class MainSession extends Model
 
     public function course_stages()
     {
-        return $this->belongsToMany(CourseStageSession::class, 'course_stage_sessions', 'session_id', 'course_stage_id')->withTimestamps();
+        return $this->belongsToMany(CourseStage::class, 'course_stage_sessions', 'session_id', 'course_stage_id')->withTimestamps();
+    }
+
+    public function courses() {
+
+        return $this->belongsToMany(Course::class, 'course_stage_sessions', 'session_id', 'course_id')->withTimestamps();
+    }
+
+    public function groups(){
+
+        return $this->belongsToMany(Group::class, 'group_stage_sessions', 'session_id', 'group_id')->withTimestamps();
     }
 }
