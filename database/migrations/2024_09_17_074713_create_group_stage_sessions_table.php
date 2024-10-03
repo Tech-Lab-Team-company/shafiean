@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('group_stage_id')->nullable();
             $table->unsignedBigInteger('session_id')->nullable();
-            $table->unsignedBigInteger('organization_id')->nullable();
+            // $table->unsignedBigInteger('organization_id')->nullable();
             $table->unsignedBigInteger('group_id')->nullable();
             $table->unsignedBigInteger('stage_id')->nullable();
             $table->unsignedBigInteger('session_type_id')->nullable();
@@ -30,7 +30,7 @@ return new class extends Migration
             $table->foreign('session_type_id')->references('id')->on('session_types')->onDelete('set null');
             $table->foreign('stage_id')->references('id')->on('stages')->onDelete('set null');
             $table->foreign('group_id')->references('id')->on('groups')->onDelete('set null');
-            $table->foreign('organization_id')->references('id')->on('organizations')->onDelete('set null');
+            // $table->foreign('organization_id')->references('id')->on('organizations')->onDelete('set null');
             $table->foreign('session_id')->references('id')->on('main_sessions')->onDelete('set null');
             $table->foreign('group_stage_id')->references('id')->on('group_stages')->onDelete('set null');
             $table->timestamps();

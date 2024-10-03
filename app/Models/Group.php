@@ -33,13 +33,18 @@ class Group extends Model
     }
     public function stages()
     {
-        return $this->belongsToMany(GroupStage::class, 'group_stages', 'group_id', 'stage_id')->withTimestamps();
+        return $this->belongsToMany(Stage::class, 'group_stages', 'group_id', 'stage_id')->withTimestamps();
     }
     public function disabilities()
     {
         return $this->belongsToMany(DisabilityType::class, 'group_disabilities', 'group_id', 'disability_id')->withTimestamps();
     }
 
+    public function sessions()
+    {
+
+        return $this->belongsToMany(MainSession::class, 'group_stage_sessions', 'group_id', 'session_id')->withTimestamps();
+    }
     protected static function booted(): void
     {
         static::addGlobalScope(new PerOrganizationScope);

@@ -15,6 +15,7 @@ use App\Http\Controllers\User\Auth\UserCheckCodeController;
 
 
 use App\Http\Controllers\User\Auth\UserResetPasswordController;
+use App\Http\Controllers\User\Session\SessionController;
 use App\Http\Controllers\User\Stage\StageController;
 
 // AUTHgit
@@ -35,6 +36,7 @@ Route::middleware('auth:user')->group(function () {
     Route::post('user_fetch_courses', [CourseController::class, 'fetch_courses']);
     Route::post('user_fetch_groups', [GroupController::class, 'fetch_groups']);
     Route::post('user_fetch_stages', [StageController::class, 'fetch_stages']);
+    Route::post('user_fetch_sessions', [SessionController::class, 'fetch_sessions']);
     /**
      * END POINT END
      */
