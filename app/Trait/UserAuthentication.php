@@ -16,6 +16,11 @@ trait UserAuthentication
     {
         return sanctumApiToken($row, 'api');
     }
+    public function regenerateSanctumToken(Model $row)
+    {
+        $this->removeAllSanctumToken($row);
+        return $this->generateSanctumToken($row);
+    }
     protected function generateApiToken(Model $row): void
     {
         if (!$row->api_token) {
@@ -27,6 +32,14 @@ trait UserAuthentication
     public function removeApiToken($user): void
     {
         $user->update(['api_token' => null]);
+    }
+    protected function removeAllSanctumToken(Model $model)
+    {
+        $model->tokens()->delete();
+    }
+    protected function removeCurrentSanctumToken(Model $model)
+    {
+        $model->currentAccessToken()->delete();
     }
     protected function getRow(string $email, string $model)
     {
