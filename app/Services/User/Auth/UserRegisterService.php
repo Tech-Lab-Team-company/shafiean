@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Helpers\Response\DataFailed;
 use App\Http\Resources\UserResource;
 use App\Helpers\Response\DataSuccess;
+use App\Notifications\EmailNotification;
 use App\Http\Resources\User\Auth\UserRegisterResource;
 
 class UserRegisterService
@@ -29,10 +30,12 @@ class UserRegisterService
                 'identity_number' => $dataRequest['identity_number'],
                 'image' => $dataRequest['image'] ? upload_image($dataRequest['image'], 'users') : null,
             ]);
+            $user->notify(new EmailNotification());
+
             return new DataSuccess(
                 status: true,
-                data: new UserRegisterResource($user),
-                message: 'user Registered successfully',
+                // data: new UserRegisterResource($user),
+                message: 'user Registered successfully,please verify your email',
             );
         } catch (Exception $exception) {
             return new DataFailed(

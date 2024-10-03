@@ -17,13 +17,13 @@ use App\Http\Controllers\User\Session\SessionController;
 Route::post('user_register', UserRegisterController::class);
 Route::post('user_login', UserLoginController::class);
 Route::post('user_change_password', UserChangePasswordController::class);
+Route::post('user_check_code', UserCheckCodeController::class);
 
 Route::middleware('auth:user')->group(function () {
 
     // AUTH
     Route::post('user_logout', UserLogoutController::class);
     Route::post('user_reset_password', UserResetPasswordController::class);
-    Route::post('user_check_code', UserCheckCodeController::class);
 
     /**
      * END POINT START
