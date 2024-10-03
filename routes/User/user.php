@@ -1,15 +1,21 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\User\Course\CourseController;
 use App\Http\Controllers\User\Auth\UserLoginController;
 use App\Http\Controllers\User\Auth\UserLogoutController;
-use App\Http\Controllers\User\Auth\UserRegisterController;
+
 
 use App\Http\Controllers\User\Competition\CompetitionController;
 use App\Http\Controllers\User\Course\CourseController;
 use App\Http\Controllers\User\Group\GroupController;
 
+use App\Http\Controllers\User\Auth\UserRegisterController;
+use App\Http\Controllers\User\Auth\UserCheckCodeController;
+
+
 use App\Http\Controllers\User\Auth\UserResetPasswordController;
+use App\Http\Controllers\User\Competition\CompetitionController;
 
 
 
@@ -22,6 +28,7 @@ Route::middleware('auth:user')->group(function () {
     // AUTH
     Route::post('user_logout', UserLogoutController::class);
     Route::post('user_reset_password', UserResetPasswordController::class);
+    Route::post('user_check_code', UserCheckCodeController::class);
 
     
     Route::post('user_fetch_competitions', [CompetitionController::class, 'fetch_competitions']);
