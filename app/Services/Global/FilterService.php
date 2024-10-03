@@ -56,15 +56,11 @@ class FilterService
     public function filterCities($request, $query)
     {
 
-        $query->when($request->has('word') && !$request->has('country_id'), function ($q) use ($request) {
+        $query->when($request->has('word'), function ($q) use ($request) {
             $q->where('title', 'like', '%' . $request->word . '%');
         })
-            ->when($request->has('country_id') && !$request->has('word'), function ($q) use ($request) {
+            ->when($request->has('country_id'), function ($q) use ($request) {
                 $q->where('country_id', $request->country_id);
-            })
-            ->when($request->has('word') && $request->has('country_id'), function ($q) use ($request) {
-                $q->where('title', 'like', '%' . $request->word . '%')
-                    ->where('country_id', $request->country_id);
             });
     }
 
@@ -72,44 +68,32 @@ class FilterService
     public function filterStages($request, $query)
     {
 
-        $query->when($request->has('word') && !$request->has('curriculum_id'), function ($q) use ($request) {
+        $query->when($request->has('word'), function ($q) use ($request) {
             $q->where('title', 'like', '%' . $request->word . '%');
         })
-            ->when($request->has('curriculum_id') && !$request->has('word'), function ($q) use ($request) {
+            ->when($request->has('curriculum_id'), function ($q) use ($request) {
                 $q->where('curriculum_id', $request->curriculum_id);
-            })
-            ->when($request->has('word') && $request->has('curriculum_id'), function ($q) use ($request) {
-                $q->where('title', 'like', '%' . $request->word . '%')
-                    ->where('curriculum_id', $request->curriculum_id);
             });
     }
 
     public function filterMainSession($request, $query)
     {
 
-        $query->when($request->has('word') && !$request->has('curriculum_id'), function ($q) use ($request) {
+        $query->when($request->has('word'), function ($q) use ($request) {
             $q->where('title', 'like', '%' . $request->word . '%');
         })
-            ->when($request->has('stage_id') && !$request->has('word'), function ($q) use ($request) {
+            ->when($request->has('stage_id'), function ($q) use ($request) {
                 $q->where('stage_id', $request->stage_id);
-            })
-            ->when($request->has('word') && $request->has('stage_id'), function ($q) use ($request) {
-                $q->where('title', 'like', '%' . $request->word . '%')
-                    ->where('stage_id', $request->stage_id);
             });
     }
     public function filterGroup($request, $query)
     {
         //THIS'S FOR SEARCH IF NEED FILTER USE OR WHERE
-        $query->when($request->has('word') && !$request->has('course_id'), function ($q) use ($request) {
+        $query->when($request->has('word'), function ($q) use ($request) {
             $q->where('title', 'like', '%' . $request->word . '%');
         })
-            ->when($request->has('course_id') && !$request->has('word'), function ($q) use ($request) {
+            ->when($request->has('course_id'), function ($q) use ($request) {
                 $q->where('course_id', $request->course_id);
-            })
-            ->when($request->has('word') && $request->has('course_id'), function ($q) use ($request) {
-                $q->where('title', 'like', '%' . $request->word . '%')
-                    ->where('course_id', $request->course_id);
             });
     }
 
@@ -124,31 +108,22 @@ class FilterService
     public function filterYear($request, $query)
     {
 
-        $query->when($request->has('word') && !$request->has('country_id'), function ($q) use ($request) {
+        $query->when($request->has('word'), function ($q) use ($request) {
             $q->where('title', 'like', '%' . $request->word . '%');
         })
-            ->when($request->has('country_id') && !$request->has('word'), function ($q) use ($request) {
+            ->when($request->has('country_id'), function ($q) use ($request) {
                 $q->where('country_id', $request->country_id);
-            })
-            ->when($request->has('word') && $request->has('country_id'), function ($q) use ($request) {
-                $q->where('title', 'like', '%' . $request->word . '%')
-                    ->where('country_id', $request->country_id);
             });
     }
 
     public function filterSeason($request, $query)
     {
 
-        $query->when($request->has('word') && !$request->has('country_id'), function ($q) use ($request) {
+        $query->when($request->has('word'), function ($q) use ($request) {
             $q->where('title', 'like', '%' . $request->word . '%');
         })
-            ->when($request->has('country_id') && !$request->has('word'), function ($q) use ($request) {
+            ->when($request->has('country_id'), function ($q) use ($request) {
                 $q->where('country_id', $request->country_id);
-            })
-
-            ->when($request->has('word') && $request->has('country_id'), function ($q) use ($request) {
-                $q->where('title', 'like', '%' . $request->word . '%')
-                    ->where('country_id', $request->country_id);
             });
     }
 
@@ -156,44 +131,19 @@ class FilterService
     public function filterCourse($request, $query)
     {
         // Filter by word
-        $query->when($request->has('word') && !$request->has('year_ids') && !$request->has('cirruculum_ids'), function ($q) use ($request) {
+        $query->when($request->has('word'), function ($q) use ($request) {
             $q->where('name', 'like', '%' . $request->word . '%');
         });
 
         // Filter by year_ids
-        $query->when($request->has('year_ids') && !$request->has('word') && !$request->has('cirruculum_ids'), function ($q) use ($request) {
+        $query->when($request->has('year_ids'), function ($q) use ($request) {
             $q->whereIn('year_id', $request->year_ids);
         });
 
         // Filter by cirruculum_ids
-        $query->when($request->has('cirruculum_ids') && !$request->has('word') && !$request->has('year_ids'), function ($q) use ($request) {
+        $query->when($request->has('cirruculum_ids'), function ($q) use ($request) {
             $q->whereIn('curriculum_id', $request->cirruculum_ids);
         });
-
-        // Handle combinations of filters
-        $query->when($request->has('word') && $request->has('year_ids') && !$request->has('cirruculum_ids'), function ($q) use ($request) {
-            $q->where('name', 'like', '%' . $request->word . '%')
-                ->whereIn('year_id', $request->year_ids);
-        });
-
-        $query->when($request->has('word') && $request->has('cirruculum_ids') && !$request->has('year_ids'), function ($q) use ($request) {
-            $q->where('name', 'like', '%' . $request->word . '%')
-                ->whereIn('curriculum_id', $request->cirruculum_ids);
-        });
-
-        $query->when($request->has('cirruculum_ids') && $request->has('year_ids') && !$request->has('word'), function ($q) use ($request) {
-            $q->whereIn('curriculum_id', $request->cirruculum_ids)
-                ->whereIn('year_id', $request->year_ids);
-        });
-
-        // When all three filters are present
-        $query->when($request->has('word') && $request->has('year_ids') && $request->has('cirruculum_ids'), function ($q) use ($request) {
-            $q->where('name', 'like', '%' . $request->word . '%')
-                ->whereIn('year_id', $request->year_ids)
-                ->whereIn('curriculum_id', $request->cirruculum_ids);
-        });
-
-        return $query;
     }
 
     public function filterDay($request, $query)
@@ -206,34 +156,55 @@ class FilterService
 
     public function filterStage($request, $query)
     {
-        $query->when($request->has('word') && !$request->has('course_id') && !$request->has('stage_id'), function ($q) use ($request) {
+        $query->when($request->has('word'), function ($q) use ($request) {
             $q->where('title', 'like', '%' . $request->word . '%');
         })
-            ->when($request->has('course_id') && !$request->has('word') && !$request->has('stage_id'), function ($q) use ($request) {
+            ->when($request->has('course_id'), function ($q) use ($request) {
                 $q->whereHas('courses', function ($q) use ($request) {
                     $q->where('courses.id', $request->course_id);
                 });
             })
-
-            ->when($request->has('stage_id') && $request->has('course_id') && !$request->has('word'), function ($q) use ($request) {
-                $q->whereHas('courses', function ($q) use ($request) {
-                    $q->where('courses.id', $request->course_id);
-                })
-                    ->where('id', $request->stage_id);
-            })
-            ->when($request->has('word') && $request->has('course_id') && !$request->has('stage_id'), function ($q) use ($request) {
+            ->when($request->has('word'), function ($q) use ($request) {
                 $q->where('title', 'like', '%' . $request->word . '%')
                     ->whereHas('courses', function ($q) use ($request) {
                         $q->where('courses.id', $request->course_id);
                     });
             })
-            ->when($request->has('word') && $request->has('course_id') && $request->has('stage_id'), function ($q) use ($request) {
+            ->when($request->has('group_id'), function ($q) use ($request) {
+                $q->whereHas('groups', function ($q) use ($request) {
+                    $q->where('groups.id', $request->course_id);
+                });
+            })
+            ->when($request->has('group_id'), function ($q) use ($request) {
                 $q->where('title', 'like', '%' . $request->word . '%')
-                    ->whereHas('courses', function ($q) use ($request) {
-                        $q->where('courses.id', $request->course_id);
-                    })
-                    ->where('id', $request->stage_id);
+                    ->whereHas('groups', function ($q) use ($request) {
+                        $q->where('groups.id', $request->group_id);
+                    });
             })
         ;
+    }
+
+    public function filterSessions($request, $query)
+    {
+        // DRY
+        $query
+            ->when($request->has('word') && !empty($request->word), function ($q) use ($request) {
+                $q->where('title', 'like', '%' . $request->word . '%');
+            })
+
+            ->when($request->has('course_id') && !empty($request->course_id), function ($q) use ($request) {
+                $q->whereHas('courses', function ($q) use ($request) {
+                    $q->where('courses.id', $request->course_id);
+                });
+            })
+
+            ->when($request->has('group_id') && !empty($request->group_id), function ($q) use ($request) {
+                $q->whereHas('groups', function ($q) use ($request) {
+                    $q->where('groups.id', $request->group_id);
+                });
+            })
+            ->when($request->has('stage_id') && !empty($request->stage_id), function ($q) use ($request) {
+                $q->where('stage_id', $request->stage_id);
+            });
     }
 }

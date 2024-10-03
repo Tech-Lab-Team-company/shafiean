@@ -52,6 +52,11 @@ class Course extends Model
         $this->hasMany(Group::class, 'course_id');
     }
 
+    public function sessions()
+    {
+        return $this->belongsToMany(MainSession::class, 'course_stage_sessions', 'course_id', 'session_id')->withTimestamps();
+    }
+
     protected static function booted(): void
     {
         static::addGlobalScope(new PerOrganizationScope);

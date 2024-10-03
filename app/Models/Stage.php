@@ -45,4 +45,9 @@ class Stage extends Model
     {
         return $this->hasMany(MainSession::class, 'stage_id');
     }
+
+    public function groups()
+    {
+        return $this->belongsToMany(Group::class, 'group_stages', 'stage_id', 'group_id')->withTimestamps();
+    }
 }
