@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Models\Scopes\PerOrganizationScope;
+use App\Observers\OrganizationIdObserver;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -36,5 +38,15 @@ class Group extends Model
     public function disabilities()
     {
         return $this->belongsToMany(DisabilityType::class, 'group_disabilities', 'group_id', 'disability_id')->withTimestamps();
+    }
+
+    protected static function booted(): void
+    {
+        static::addGlobalScope(new PerOrganizationScope);
+    }
+    protected static function boot()
+    {
+        parent::boot();
+        static::observe(OrganizationIdObserver::class);
     }
 }
