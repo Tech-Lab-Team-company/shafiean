@@ -13,9 +13,9 @@ class FetchGroupService
     public function fetchGroups()
     {
         try {
-            $jobTypes = Group::get();
+            $groups = Group::get();
             return new DataSuccess(
-                data: FetchGroupResource::collection($jobTypes),
+                data: FetchGroupResource::collection($groups),
                 status: true,
                 message: 'Fetch Groups successfully'
             );
