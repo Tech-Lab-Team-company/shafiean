@@ -14,7 +14,7 @@ use App\Http\Controllers\User\Competition\CompetitionController;
 
 
 
-// AUTH
+// AUTHgit
 Route::post('user_register', UserRegisterController::class);
 Route::post('user_login', UserLoginController::class);
 
@@ -27,5 +27,4 @@ Route::middleware('auth:user')->group(function () {
     Route::post('user_logout', UserLogoutController::class);
     Route::post('user_reset_password', UserResetPasswordController::class);
     Route::post('user_check_code', UserCheckCodeController::class);
-
 });
