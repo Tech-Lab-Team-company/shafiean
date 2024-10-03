@@ -7,17 +7,18 @@ use Illuminate\Foundation\Configuration\Middleware;
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
         web: __DIR__ . '/../routes/Web/web.php',
-        api:[
+        api: [
             __DIR__ . '/../routes/Api/api.php',
             __DIR__ . '/../routes/Organization/organization.php',
             __DIR__ . '/../routes/Shafiean/shafiean.php',
-            ],
-        commands: __DIR__.'/../routes/console.php',
+            __DIR__ . '/../routes/User/user.php',
+        ],
+        commands: __DIR__ . '/../routes/console.php',
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
         // $middleware->append(\App\Http\Middleware\CheckOrganization::class)->except('shafiean/*');
-        $middleware->api(append :\Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class);
+        $middleware->api(append: \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

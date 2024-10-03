@@ -1,6 +1,8 @@
 <?php
 
 use Intervention\Image\File;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Laravel\Facades\Image;
 
@@ -45,5 +47,13 @@ if (!function_exists('upload_image')) {
     {
         $values = array_map(fn($case) => $case->value, $enum::cases());
         return implode(',', $values);
+    }
+    function hashApiToken()
+    {
+        return Hash::make(rand(99, 99999999));
+    }
+    function sanctumApiToken(Model $model, string $name)
+    {
+        return $model->createToken($name)->plainTextToken;
     }
 }
