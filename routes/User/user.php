@@ -1,26 +1,23 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\User\Group\GroupController;
+use App\Http\Controllers\User\Stage\StageController;
 use App\Http\Controllers\User\Course\CourseController;
 use App\Http\Controllers\User\Auth\UserLoginController;
 use App\Http\Controllers\User\Auth\UserLogoutController;
-
-
-use App\Http\Controllers\User\Competition\CompetitionController;
-
-use App\Http\Controllers\User\Group\GroupController;
-
 use App\Http\Controllers\User\Auth\UserRegisterController;
 use App\Http\Controllers\User\Auth\UserCheckCodeController;
-
-
 use App\Http\Controllers\User\Auth\UserResetPasswordController;
+use App\Http\Controllers\User\Auth\UserChangePasswordController;
+use App\Http\Controllers\User\Competition\CompetitionController;
 use App\Http\Controllers\User\Session\SessionController;
 use App\Http\Controllers\User\Stage\StageController;
 
-// AUTHgit
+// AUTH
 Route::post('user_register', UserRegisterController::class);
 Route::post('user_login', UserLoginController::class);
+Route::post('user_change_password', UserChangePasswordController::class);
 
 Route::middleware('auth:user')->group(function () {
 

@@ -17,7 +17,7 @@ class UserLoginService
     {
         try {
             $user = $this->getRow($dataRequest['email'], self::MODEL);
-            $this->checkVerified($user);
+            // $this->checkVerified($user);
             $this->validatePassword($dataRequest['password'], $user);
             $token = $this->generateSanctumToken($user);
             return new DataSuccess(
