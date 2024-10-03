@@ -21,7 +21,7 @@ class UserService
         $users = User::where('organization_id', get_organization_id(auth()->guard('organization')->user()))->paginate(10);
 
         return new DataSuccess(
-            data: UserResource::collection($users),
+            data: UserResource::collection($users)->response()->getData(true),
             statusCode: 200,
             message: 'User updated successfully'
         );
