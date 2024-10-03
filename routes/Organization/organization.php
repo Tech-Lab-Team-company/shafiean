@@ -24,6 +24,7 @@ use App\Http\Controllers\Organization\Blog\BlogCategoryController;
 use App\Http\Controllers\Organization\Employee\EmployeeController;
 use App\Http\Controllers\Organization\Question\QuestionController;
 use App\Http\Controllers\Organization\Relation\RelationController;
+use App\Http\Controllers\Organization\Country\FetchCountryController;
 use App\Http\Controllers\Organization\JobType\FetchJobTypeController;
 use App\Http\Controllers\Organization\Competition\CompetitionController;
 use App\Http\Controllers\Organization\BloodType\FetchBloodTypeController;
@@ -223,7 +224,9 @@ Route::middleware('auth:organization')->group(function () {
     //JOB TYPE
     Route::get('organization_fetch_job_types', FetchJobTypeController::class);
     //BLOOD TYPE
-    Route::get('organization_blood_types', FetchBloodTypeController::class);
+    Route::get('organization_fetch_blood_types', FetchBloodTypeController::class);
+    //COUNTRY
+    Route::get('organization_fetch_countries', FetchCountryController::class);
     /**
      * END POINT END
      */
