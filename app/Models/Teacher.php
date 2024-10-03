@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use App\Models\Curriculum;
+use App\Models\Organization;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
+use App\Models\Organization\JobType\JobType;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -44,5 +47,9 @@ class Teacher extends Authenticatable
     public function images()
     {
         return $this->morphMany(Image::class, 'imageable');
+    }
+    public function jobType(): BelongsTo
+    {
+        return $this->belongsTo(JobType::class, 'job_type_id');
     }
 }
