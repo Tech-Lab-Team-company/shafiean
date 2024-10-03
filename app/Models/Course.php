@@ -47,6 +47,10 @@ class Course extends Model
 
         return $this->belongsToMany(Stage::class, 'course_stages', 'course_id', 'stage_id')->withTimestamps();
     }
+    public function groups()
+    {
+        $this->hasMany(Group::class, 'course_id');
+    }
 
     protected static function booted(): void
     {
