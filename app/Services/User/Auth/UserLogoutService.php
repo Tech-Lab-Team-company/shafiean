@@ -6,23 +6,20 @@ use Exception;
 use App\Trait\UserAuthentication;
 use App\Helpers\Response\DataFailed;
 use App\Helpers\Response\DataSuccess;
-use App\Http\Resources\User\Auth\UserLoginResource;
 
-class UserLoginService
+class UserLogoutService
 {
     use UserAuthentication;
-    const MODEL = "App\\Models\\User";
+    const GUARD = "user";
 
-    public function login($dataRequest)
+    public function logout()
     {
         try {
-            $user = $this->getRow($dataRequest['email'], self::MODEL);
-            $this->validatePassword($dataRequest['password'], $user);
-            $token = $this->generateSanctumToken($user);
+            $user = $this->getAuthenticatedUser(guard: self::GUARD);
+            $this->removeCurrentSanctumToken(model: $user);
             return new DataSuccess(
                 status: true,
-                data: (new UserLoginResource($user))->additional(['token' => $token]),
-                message: 'Login successfully',
+                message: 'Logout successful',
             );
         } catch (Exception $exception) {
             return new DataFailed(
