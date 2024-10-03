@@ -203,4 +203,15 @@ class FilterService
             $q->where('title', 'like', '%' . $request->word . '%');
         });
     }
+
+    public function filterStage($request, $query)
+    {
+        $query->when($request->has('word'), function ($q) use ($request) {
+            $q->where('title', 'like', '%' . $request->word . '%');
+        })
+            ->when($request->has('course_id'), function ($q) use ($request) {
+                $q->whereRelation('courses', 'course_stages.course_id', $request->course_id);
+            })
+        ;
+    }
 }
