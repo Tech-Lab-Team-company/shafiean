@@ -14,6 +14,7 @@ class CourseController extends Controller
         $this->courseService = $courseService;
     }
 
+
     public function fetch_courses(Request $request){
         return $this->courseService->fetch_courses($request)->response();
     }

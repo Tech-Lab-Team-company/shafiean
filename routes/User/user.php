@@ -17,7 +17,7 @@ use App\Http\Controllers\User\Auth\UserCheckCodeController;
 use App\Http\Controllers\User\Auth\UserResetPasswordController;
 use App\Http\Controllers\User\Stage\StageController;
 
-// AUTH
+// AUTHgit
 Route::post('user_register', UserRegisterController::class);
 Route::post('user_login', UserLoginController::class);
 
@@ -28,10 +28,13 @@ Route::middleware('auth:user')->group(function () {
     Route::post('user_check_code', UserCheckCodeController::class);
 
 
+
+
     Route::post('user_fetch_competitions', [CompetitionController::class, 'fetch_competitions']);
     Route::post('user_fetch_courses', [CourseController::class, 'fetch_courses']);
 
     Route::post('user_fetch_groups', [GroupController::class, 'fetch_groups']);
 
     Route::post('user_fetch_stages' , [StageController::class, 'fetch_stages']);
+
 });
