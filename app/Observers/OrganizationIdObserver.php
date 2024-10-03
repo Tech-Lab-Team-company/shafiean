@@ -12,7 +12,7 @@ class OrganizationIdObserver
         $table = $model->getTable();
         if (Schema::hasColumn($table, 'organization_id')) {
             if (auth('organization')->check()) {
-                $model->organization_id =  get_organization_id(auth('organization')->user());
+                $model->organization_id =  get_auth_organization_id();
             }
         }
     }
