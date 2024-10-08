@@ -49,23 +49,21 @@ class QuestionService
     public function store(array $dataRequest): DataStatus
     {
         try {
-            foreach ($dataRequest['questions'] as  $request) {
+            foreach ($dataRequest['questions'] as  $questionRequest) {
                 $data = [
-                    'question' => $request['title'],
-                    'type' => $request['type'],
-                    'degree' => $request['degree'],
+                    'question' => $questionRequest['title'],
+                    'type' => $questionRequest['type'],
+                    'degree' => $questionRequest['degree'],
                     'is_private' => 1
                 ];
                 $question = Question::create($data);
-                foreach ($request['answers'] as $answer) {
-                    $answerData = [
-                        'question_id' => $question->id,
+                $answers = array_map(function ($answer) {
+                    return [
                         'answer' => $answer['title'],
                         'is_correct' => $answer['is_correct'],
                     ];
-
-                    Answer::create($answerData);
-                }
+                }, $questionRequest['answers']);
+                $question->answers()->createMany($answers);
             }
 
             return new DataSuccess(
