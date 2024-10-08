@@ -7,6 +7,7 @@ use Exception;
 use App\Helpers\Response\DataFailed;
 use App\Helpers\Response\DataStatus;
 use App\Helpers\Response\DataSuccess;
+use App\Models\Organization\Answer\Answer;
 use App\Models\Organization\Question\Question;
 use App\Models\Organization\Relation\Relation;
 use App\Http\Resources\Organization\Question\QuestionResource;
@@ -48,8 +49,25 @@ class QuestionService
     public function store(array $dataRequest): DataStatus
     {
         try {
-            $dataRequest['is_private'] = 1;
-            $question = Question::create($dataRequest);
+            foreach ($dataRequest['questions'] as  $request) {
+                $data = [
+                    'question' => $request['title'],
+                    'type' => $request['type'],
+                    'degree' => $request['degree'],
+                    'is_private' => 1
+                ];
+                $question = Question::create($data);
+                foreach ($request['answers'] as $answer) {
+                    $answerData = [
+                        'question_id' => $question->id,
+                        'answer' => $answer['title'],
+                        'is_correct' => $answer['is_correct'],
+                    ];
+
+                    Answer::create($answerData);
+                }
+            }
+
             return new DataSuccess(
                 data: new QuestionResource($question),
                 status: true,
