@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Organization\Question;
 
+use App\Enum\QuestionTypeEnum;
 use App\Helpers\Response\ApiRequest;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -23,9 +24,13 @@ class StoreQuestionRequest extends ApiRequest
     public function rules(): array
     {
         return [
-            'question' => 'required|string|max:191',
-            'type' => 'required|string|max:191',
-            'degree' => 'required|numeric|min:0|max:10',
+            "questions" => "required|array",
+            "questions.*.title" => "required|string",
+            "questions.*.type" => 'required|in:' . enumCaseValue(QuestionTypeEnum::class),
+            "questions.*.degree" => 'required|numeric',
+            "questions.*.answers" => "required|array",
+            "questions.*.answers.*.title" => "required|string",
+            "questions.*.answers.*.is_correct" => "required|boolean"
         ];
     }
 }
