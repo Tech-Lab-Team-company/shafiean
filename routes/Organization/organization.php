@@ -25,12 +25,14 @@ use App\Http\Controllers\Organization\Blog\BlogCategoryController;
 use App\Http\Controllers\Organization\Employee\EmployeeController;
 use App\Http\Controllers\Organization\Question\QuestionController;
 use App\Http\Controllers\Organization\Relation\RelationController;
+use App\Http\Controllers\Organization\Season\FetchSeasonController;
 use App\Http\Controllers\Organization\Country\FetchCountryController;
 use App\Http\Controllers\Organization\JobType\FetchJobTypeController;
 use App\Http\Controllers\Organization\Competition\CompetitionController;
 use App\Http\Controllers\Organization\BloodType\FetchBloodTypeController;
 use App\Http\Controllers\Organization\QuestionBank\QuestionBankController;
 use App\Http\Controllers\Organization\UserRelation\UserRelationController;
+use App\Http\Controllers\Organization\Curriculum\FetchCurriculumController;
 use App\Http\Controllers\Organization\Competition\CompetitionRewardController;
 use App\Http\Controllers\Organization\QuestionBank\FetchQuestionBankContoller;
 
@@ -230,6 +232,10 @@ Route::middleware('auth:organization')->group(function () {
     Route::get('organization_fetch_countries', FetchCountryController::class);
     //GROUP
     Route::get('organization_fetch_groups', FetchGroupController::class);
+    //SEASON
+    Route::get('organization_fetch_seasons', FetchSeasonController::class);
+    //CRUCULUM
+    Route::get('organization_fetch_curriculums', FetchCurriculumController::class);
     /**
      * END POINT END
      */
