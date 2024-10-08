@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests\Organization\Question;
 
-use App\Enum\QuestionTypeEnum;
 use App\Helpers\Response\ApiRequest;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -25,12 +24,9 @@ class UpdateQuestionRequest extends ApiRequest
     {
         return [
             'id' => 'required|integer|exists:questions,id',
-            'title' => 'required|string|max:191',
-            "type" => 'required|in:' . enumCaseValue(QuestionTypeEnum::class),
-            'degree' => 'required|numeric',
-            "answers" => "nullable|array",
-            "answers.*.title" => "required|string",
-            "answers.*.is_correct" => "required|boolean"
+            'question' => 'required|string|max:191',
+            'type' => 'required|string|max:191',
+            'degree' => 'required|numeric|min:0|max:10',
         ];
     }
 }

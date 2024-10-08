@@ -28,7 +28,8 @@ class ExamResource extends JsonResource
             'degree_type' => $this->degree_type ?? '',
             'degree' => $this->degree ?? 0,
             'status' => $this->status ?? 0,
-            'groups' => ExamGroupResource::collection($this->groups??[])??[]
+            'groups' => ExamGroupResource::collection($this->groups ?? []) ?? [],
+            "questions" => ExamQuestionAndAnswerResource::collection($this->questions ?? []) ?? ""
         ];
     }
 }

@@ -7,7 +7,6 @@ use Exception;
 use App\Helpers\Response\DataFailed;
 use App\Helpers\Response\DataStatus;
 use App\Helpers\Response\DataSuccess;
-use App\Models\Organization\Answer\Answer;
 use App\Models\Organization\Question\Question;
 use App\Models\Organization\Relation\Relation;
 use App\Http\Resources\Organization\Question\QuestionResource;
@@ -49,25 +48,8 @@ class QuestionService
     public function store(array $dataRequest): DataStatus
     {
         try {
-            foreach ($dataRequest['questions'] as  $questionRequest) {
-                $data = [
-                    'question' => $questionRequest['title'],
-                    'type' => $questionRequest['type'],
-                    'degree' => $questionRequest['degree'],
-                    'is_private' => 1
-                ];
-                $question = Question::create($data);
-                if (isset($questionRequest['answers'])) {
-                    $answers = array_map(function ($answer) {
-                        return [
-                            'answer' => $answer['title'],
-                            'is_correct' => $answer['is_correct'],
-                        ];
-                    }, $questionRequest['answers']);
-                    $question->answers()->createMany($answers);
-                }
-            }
-
+            $dataRequest['is_private'] = 1;
+            $question = Question::create($dataRequest);
             return new DataSuccess(
                 data: new QuestionResource($question),
                 status: true,
@@ -90,23 +72,9 @@ class QuestionService
                     message: 'not found'
                 );
             }
+            // $dataRequest['is_private'] = 1;
             unset($dataRequest['id']);
-            $data = [
-                'question' => $dataRequest['title'],
-                'type' => $dataRequest['type'],
-                'degree' => $dataRequest['degree'],
-            ];
-            $question->update($data);
-            if (isset($dataRequest['answers'])) {
-                $question->answers()->delete();
-                $answers = array_map(function ($answer) {
-                    return [
-                        'answer' => $answer['title'],
-                        'is_correct' => $answer['is_correct'],
-                    ];
-                }, $dataRequest['answers']);
-                $question->answers()->createMany($answers);
-            }
+            $question->update($dataRequest);
             return new DataSuccess(
                 data: new QuestionResource($question),
                 status: true,
