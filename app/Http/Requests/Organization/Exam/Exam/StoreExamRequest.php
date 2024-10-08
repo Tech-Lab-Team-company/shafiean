@@ -5,6 +5,7 @@ namespace App\Http\Requests\Organization\Exam\Exam;
 
 use App\Enum\ExamTypeEnum;
 use App\Enum\DegreeTypeEnum;
+use App\Enum\QuestionTypeEnum;
 use Illuminate\Validation\Rule;
 use App\Helpers\Response\ApiRequest;
 use Illuminate\Foundation\Http\FormRequest;
@@ -39,8 +40,16 @@ class StoreExamRequest extends ApiRequest
             'degree' => 'required|numeric',
             'group_ids' => 'required|array',
             'group_ids.*' => ['required', Rule::exists('groups', 'id')->whereNull('deleted_at')],
-            'question_ids' => 'nullable|array',
-            'question_ids.*' => ['nullable', Rule::exists('questions', 'id')->whereNull('deleted_at')],
+            'bank_question_ids' => 'nullable|array',
+            'bank_question_ids.*' => ['nullable', Rule::exists('questions', 'id')->whereNull('deleted_at')],
+            "questions" => "nullable|array",
+            "questions.*.question" => "required|string",
+            "questions.*.type" => "required|in:" . enumCaseValue(QuestionTypeEnum::class),
+            "questions.*.degree" => "required|numeric",
+            "questions.*.answers" => "required|array",
+            "questions.*.answers.*.answer" => "required|string",
+            "questions.*.answers.*.is_correct" => "required|boolean",
+
         ];
     }
 }

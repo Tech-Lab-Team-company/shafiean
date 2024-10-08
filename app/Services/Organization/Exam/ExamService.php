@@ -62,17 +62,27 @@ class ExamService
             if (isset($dataRequest['group_ids']) && count($dataRequest['group_ids']) > 0) {
                 $exam->groups()->attach($dataRequest['group_ids']);
             }
-            if (isset($dataRequest['question_ids']) && count($dataRequest['question_ids']) > 0) {
-                $exam->questions()->attach($dataRequest['question_ids']);
+            if (isset($dataRequest['bank_question_ids']) && count($dataRequest['bank_question_ids']) > 0) {
+                $exam->questions()->attach($dataRequest['bank_question_ids']);
             }
-            if (isset($dataRequest['question']) && count($dataRequest['question']) > 0) {
-                $question = Question::create([
-                    'question' => $dataRequest['question']['question'],
-                    'type' => $dataRequest['question']['type'],
-                    'degree' => $dataRequest['question']['degree'],
-                    'is_private' => 1
-                ]);
-                $exam->questions()->attach($question->id);
+            if (isset($dataRequest['questions']) && count($dataRequest['questions']) > 0) {
+                foreach ($dataRequest['questions'] as $questionRequest) {
+                    $question = Question::create([
+                        'question' => $questionRequest['question'],
+                        'type' => $questionRequest['type'],
+                        'degree' => $questionRequest['degree'],
+                        'is_private' => 1
+                    ]);
+                    $exam->questions()->attach($question->id);
+                    $answers = array_map(function ($answer) {
+                        return [
+                            'answer' => $answer['answer'],
+                            'is_correct' => $answer['is_correct'],
+                        ];
+                    }, $questionRequest['answers']);
+
+                    $question->answers()->createMany($answers);
+                }
             }
             return new DataSuccess(
                 data: new ExamResource($exam),
