@@ -22,14 +22,14 @@ class Season extends Model
 
         return $this->belongsTo(Country::class, 'country_id', 'id');
     }
-    protected static function booted(): void
-    {
-        static::addGlobalScope(new PerOrganizationScope);
-    }
+    // protected static function booted(): void
+    // {
+    //     static::addGlobalScope(new PerOrganizationScope);
+    // }
 
-    protected static function boot()
-    {
-        parent::boot();
-        static::observe(OrganizationIdObserver::class);
-    }
+    // protected static function boot()
+    // {
+    //     parent::boot();
+    //     static::observe(OrganizationIdObserver::class);
+    // }
 }
