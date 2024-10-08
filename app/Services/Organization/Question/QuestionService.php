@@ -57,13 +57,15 @@ class QuestionService
                     'is_private' => 1
                 ];
                 $question = Question::create($data);
-                $answers = array_map(function ($answer) {
-                    return [
-                        'answer' => $answer['title'],
-                        'is_correct' => $answer['is_correct'],
-                    ];
-                }, $questionRequest['answers']);
-                $question->answers()->createMany($answers);
+                if (isset($questionRequest['answers'])) {
+                    $answers = array_map(function ($answer) {
+                        return [
+                            'answer' => $answer['title'],
+                            'is_correct' => $answer['is_correct'],
+                        ];
+                    }, $questionRequest['answers']);
+                    $question->answers()->createMany($answers);
+                }
             }
 
             return new DataSuccess(
@@ -88,9 +90,23 @@ class QuestionService
                     message: 'not found'
                 );
             }
-            // $dataRequest['is_private'] = 1;
             unset($dataRequest['id']);
-            $question->update($dataRequest);
+            $data = [
+                'question' => $dataRequest['title'],
+                'type' => $dataRequest['type'],
+                'degree' => $dataRequest['degree'],
+            ];
+            $question->update($data);
+            if (isset($dataRequest['answers'])) {
+                $question->answers()->delete();
+                $answers = array_map(function ($answer) {
+                    return [
+                        'answer' => $answer['title'],
+                        'is_correct' => $answer['is_correct'],
+                    ];
+                }, $dataRequest['answers']);
+                $question->answers()->createMany($answers);
+            }
             return new DataSuccess(
                 data: new QuestionResource($question),
                 status: true,
