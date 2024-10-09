@@ -29,18 +29,18 @@ class AddEmployeeRequest extends ApiRequest
             'email' => 'required|email|max:191|unique:teachers,email',
             'phone' => 'required|string|max:191|unique:teachers,phone',
             'password' => 'required|string|max:191',
-            'gender' => 'required|string|in:' . enumCaseValue(GenderEnum::class),
+            'gender' => 'required|string|in:' . enumCaseValue(GenderEnum::class), 
             'age' => 'required|string|max:191',
             'is_employed' => 'required|max:191',
             // 'image' => 'nullable|image|mimes:jpg,jpeg,png',
             'certificate_images' => 'nullable|array',
             'certificate_images.*' => 'nullable|image|mimes:jpg,jpeg,png',
-            'marital_status' => 'required|integer|in:' . enumCaseValue(MaritalStatusEnum::class),
+            'marital_status' => 'required|integer|in:' . enumCaseValue(MaritalStatusEnum::class), 
             'identity_type' => 'required|integer',
             'identity_number' => 'required|string|max:191',
             'date_of_birth' => 'required',
             'curriculum_ids' => 'required_if:is_employed,1|array|exists:curriculums,id', // Moved here
             'job_type_id' => 'required|exists:job_types,id',
         ];
-    }
+    } 
 }

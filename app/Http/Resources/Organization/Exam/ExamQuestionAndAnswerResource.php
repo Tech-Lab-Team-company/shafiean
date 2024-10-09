@@ -22,7 +22,7 @@ class ExamQuestionAndAnswerResource extends JsonResource
             'type' => $this->type ?? "",
             'degree' => (int) $this->degree ?? "",
             'is_private' => (int)$this->is_private ?? "",
-            'answer' =>  QuestionAnswerResource::collection($this->answers ?? []) ?? []
+            'answers' =>  QuestionAnswerResource::collection($this->answers ?? []) ?? []
         ];
     }
 }
