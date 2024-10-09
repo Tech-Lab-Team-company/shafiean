@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests\Employee;
 
+use App\Enum\GenderEnum;
+use App\Enum\MaritalStatusEnum;
 use App\Helpers\Response\ApiRequest;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -27,13 +29,13 @@ class AddEmployeeRequest extends ApiRequest
             'email' => 'required|email|max:191|unique:teachers,email',
             'phone' => 'required|string|max:191|unique:teachers,phone',
             'password' => 'required|string|max:191',
-            'gender' => 'required|string|max:191',
+            'gender' => 'required|string|in:' . enumCaseValue(GenderEnum::class),
             'age' => 'required|string|max:191',
             'is_employed' => 'required|max:191',
             // 'image' => 'nullable|image|mimes:jpg,jpeg,png',
             'certificate_images' => 'nullable|array',
             'certificate_images.*' => 'nullable|image|mimes:jpg,jpeg,png',
-            'marital_status' => 'required|integer',
+            'marital_status' => 'required|integer|in:' . enumCaseValue(MaritalStatusEnum::class),
             'identity_type' => 'required|integer',
             'identity_number' => 'required|string|max:191',
             'date_of_birth' => 'required',
