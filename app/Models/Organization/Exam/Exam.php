@@ -25,6 +25,10 @@ class Exam extends Model
     {
         return $this->belongsToMany(Question::class, 'exam_questions', 'exam_id', 'question_id')->withTimestamps();
     }
+    public function bankQuestions(): BelongsToMany
+    {
+        return $this->belongsToMany(Question::class, 'exam_questions', 'exam_id', 'question_id')->withTimestamps()->where('is_private', 0);;
+    }
     public function students(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'exam_students', 'exam_id', 'user_id')->withTimestamps();
