@@ -27,7 +27,7 @@ class UpdateBlogHashtagRequest extends ApiRequest
             'id' => 'required|exists:blog_hashtags,id',
             'title' => 'required|string',
             'description' => 'required|string',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ];
     }
 }
