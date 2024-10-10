@@ -107,12 +107,12 @@ class ExamService
                 $exam->questions()->sync($dataRequest['bank_question_ids']);
             }
             if (isset($dataRequest['questions']) && count($dataRequest['questions']) > 0) {
-                $quids = [];
+                $quIds = [];
                 foreach ($dataRequest['questions'] as $questionRequest) {
-                    $quids[] = $questionRequest['id'] ?? null;
+                    $quIds[] = $questionRequest['id'] ?? null;
                     $questionIds = ExamQuestion::where('exam_id', $exam->id)->pluck('question_id')->toArray();
                     foreach ($questionIds as $qId) {
-                        if (!in_array($qId, $quids)) {
+                        if (!in_array($qId, $quIds)) {
                             ExamQuestion::where('question_id', $qId)->where('exam_id', $exam->id)->delete();
                         }
                     }
