@@ -11,6 +11,7 @@ use App\Helpers\Response\DataSuccess;
 use App\Models\Organization\Exam\Exam;
 use App\Models\Organization\Question\Question;
 use App\Http\Resources\Organization\Exam\ExamResource;
+use App\Models\Organization\Exam\ExamQuestion;
 
 class ExamService
 {
@@ -48,16 +49,7 @@ class ExamService
     public function store(object $dataRequest): DataStatus
     {
         try {
-            $data['name'] = $dataRequest->name;
-            $data['start_date'] = $dataRequest->start_date;
-            $data['end_date'] = $dataRequest->end_date;
-            $data['start_time'] = $dataRequest->start_time;
-            $data['end_time'] = $dataRequest->end_time;
-            $data['duration'] = $dataRequest->duration;
-            $data['question_count'] = $dataRequest->question_count;
-            $data['exam_type'] = $dataRequest->exam_type;
-            $data['degree_type'] = $dataRequest->degree_type;
-            $data['degree'] = $dataRequest->degree;
+            $data = $this->examData($dataRequest);
             $exam = Exam::create($data);
             if (isset($dataRequest['group_ids']) && count($dataRequest['group_ids']) > 0) {
                 $exam->groups()->attach($dataRequest['group_ids']);
@@ -106,23 +98,44 @@ class ExamService
                     message: 'not found'
                 );
             }
-            unset($dataRequest['id']);
-            $data['name'] = $dataRequest->name;
-            $data['start_date'] = $dataRequest->start_date;
-            $data['end_date'] = $dataRequest->end_date;
-            $data['start_time'] = $dataRequest->start_time;
-            $data['end_time'] = $dataRequest->end_time;
-            $data['duration'] = $dataRequest->duration;
-            $data['question_count'] = $dataRequest->question_count;
-            $data['exam_type'] = $dataRequest->exam_type;
-            $data['degree_type'] = $dataRequest->degree_type;
-            $data['degree'] = $dataRequest->degree;
+            $data = $this->examData($dataRequest);
             $exam->update($data);
             if (isset($dataRequest['group_ids']) && count($dataRequest['group_ids']) > 0) {
                 $exam->groups()->sync($dataRequest['group_ids']);
             }
-            if (isset($dataRequest['question_ids']) && count($dataRequest['question_ids']) > 0) {
-                $exam->questions()->sync($dataRequest['question_ids']);
+            if (isset($dataRequest['bank_question_ids']) && count($dataRequest['bank_question_ids']) > 0) {
+                $exam->questions()->sync($dataRequest['bank_question_ids']);
+            }
+            if (isset($dataRequest['questions']) && count($dataRequest['questions']) > 0) {
+                $quids = [];
+                foreach ($dataRequest['questions'] as $questionRequest) {
+                    $quids[] = $questionRequest['id'] ?? null;
+                    $questionIds = ExamQuestion::where('exam_id', $exam->id)->pluck('question_id')->toArray();
+                    foreach ($questionIds as $qId) {
+                        if (!in_array($qId, $quids)) {
+                            ExamQuestion::where('question_id', $qId)->where('exam_id', $exam->id)->delete();
+                        }
+                    }
+                    $questionId = $questionRequest['id'] ?? null;
+                    $question = Question::updateOrCreate([
+                        'id' => $questionId
+                    ], [
+                        'question' => $questionRequest['question'],
+                        'type' => $questionRequest['type'],
+                        'degree' => $questionRequest['degree'],
+                        'is_private' => 1
+                    ]);
+                    $exam->questions()->syncWithoutDetaching($question->id);
+                    $question->answers()->delete();
+                    $answers = array_map(function ($answer) {
+                        return [
+                            'answer' => $answer['answer'],
+                            'is_correct' => $answer['is_correct'],
+                        ];
+                    }, $questionRequest['answers']);
+
+                    $question->answers()->createMany($answers);
+                }
             }
             return new DataSuccess(
                 data: new ExamResource($exam),
@@ -157,5 +170,20 @@ class ExamService
                 message: 'Exam deletion failed: ' . $e->getMessage()
             );
         }
+    }
+    private function examData($dataRequest)
+    {
+        return  [
+            'name' => $dataRequest->name,
+            'start_date' => $dataRequest->start_date,
+            'end_date' => $dataRequest->end_date,
+            'start_time' => $dataRequest->start_time,
+            'end_time' => $dataRequest->end_time,
+            'duration' => $dataRequest->duration,
+            'question_count' => $dataRequest->question_count,
+            'exam_type' => $dataRequest->exam_type,
+            'degree_type' => $dataRequest->degree_type,
+            'degree' => $dataRequest->degree,
+        ];
     }
 }
