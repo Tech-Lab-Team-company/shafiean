@@ -7,6 +7,7 @@ use App\Http\Controllers\Global\StageController;
 use App\Http\Controllers\Global\GlobalController;
 use App\Http\Controllers\Admin\CurriculumController;
 use App\Http\Controllers\Admin\DisabilityTypeController;
+use App\Http\Controllers\Landingpage\SubheaderController;
 use App\Http\Controllers\Organization\Auth\AuthController;
 use App\Http\Controllers\Organization\Blog\BlogController;
 use App\Http\Controllers\Organization\Exam\ExamController;
@@ -252,6 +253,13 @@ Route::middleware('auth:organization')->group(function () {
         Route::post('organization_fetch_header_details',  'organization_fetch_header_details');
         Route::post('organization_edit_header',  'organization_edit_header');
         Route::post('organization_delete_header',  'organization_delete_header');
+    });
+    Route::controller(SubheaderController::class)->group(function () {
+        Route::post('organization_fetch_subheaders',  'organization_fetch_subheaders');
+        Route::post('organization_add_subheader',  'organization_add_subheader');
+        Route::post('organization_fetch_subheader_details',  'organization_fetch_subheader_details');
+        Route::post('organization_edit_subheader',  'organization_edit_subheader');
+        Route::post('organization_delete_subheader',  'organization_delete_subheader');
     });
 });
 
