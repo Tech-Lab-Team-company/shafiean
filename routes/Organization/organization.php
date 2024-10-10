@@ -34,6 +34,7 @@ use App\Http\Controllers\Organization\QuestionBank\QuestionBankController;
 use App\Http\Controllers\Organization\UserRelation\UserRelationController;
 use App\Http\Controllers\Organization\Curriculum\FetchCurriculumController;
 use App\Http\Controllers\Organization\Competition\CompetitionRewardController;
+use App\Http\Controllers\Organization\Landingpage\HeaderController;
 use App\Http\Controllers\Organization\QuestionBank\FetchQuestionBankContoller;
 
 //AUTH
@@ -239,6 +240,19 @@ Route::middleware('auth:organization')->group(function () {
     /**
      * END POINT END
      */
+
+
+
+    // ***********************************************************************************************************************************
+    //**************************************************** lANDINGPAGE START *************************************************************
+    // ***********************************************************************************************************************************
+    Route::controller(HeaderController::class)->group(function () {
+        Route::post('organization_fetch_headers',  'organization_fetch_headers');
+        Route::post('organization_add_header',  'organization_add_header');
+        Route::post('organization_fetch_header_details',  'organization_fetch_header_details');
+        Route::post('organization_edit_header',  'organization_edit_header');
+        Route::post('organization_delete_header',  'organization_delete_header');
+    });
 });
 
 //GLOBAL

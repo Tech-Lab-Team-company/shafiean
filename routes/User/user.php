@@ -14,7 +14,6 @@ use App\Http\Controllers\User\Competition\CompetitionController;
 use App\Http\Controllers\User\Session\SessionController;
 use App\Http\Controllers\User\Subscription\SubscriptionController;
 
-
 // AUTH
 Route::post('user_register', UserRegisterController::class);
 Route::post('user_login', UserLoginController::class);

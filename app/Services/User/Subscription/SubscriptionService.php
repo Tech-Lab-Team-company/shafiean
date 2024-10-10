@@ -13,11 +13,11 @@ class SubscriptionService
     public function subscripe_group($request): DataStatus
     {
         try {
-            $data['user_id'] = auth()->user()->id;
+            $data['user_id'] = auth('user')->user()->id;
             $data['group_id'] = $request->group_id;
             $data['course_id'] = $request->course_id;
             $data['creatable_type'] = User::class;
-            $data['creatable_id'] = auth()->user()->id;
+            $data['creatable_id'] = auth('user')->user()->id;
 
             $subscription = Subscription::create($data);
 
