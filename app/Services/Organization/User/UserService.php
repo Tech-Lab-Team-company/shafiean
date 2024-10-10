@@ -15,10 +15,13 @@ use Illuminate\Support\Facades\Storage;
 
 class UserService
 {
-    public function index(): DataStatus
+    public function index($dataRequest): DataStatus
     {
-        // $users = User::all();
-        $users = User::where('organization_id', get_organization_id(auth()->guard('organization')->user()))->paginate(10);
+        $users = User::query();
+        if ($dataRequest->has('type') && $dataRequest->type !== null) {
+            $users->where('type', $dataRequest->type);
+        }
+        $users = $users->orderBy('id', 'desc')->paginate(5);
 
         return new DataSuccess(
             data: UserResource::collection($users)->response()->getData(true),

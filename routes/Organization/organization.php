@@ -15,8 +15,10 @@ use App\Http\Controllers\Organization\User\UserController;
 use App\Http\Controllers\Organization\Group\GroupController;
 use App\Http\Controllers\Organization\Answer\AnswerController;
 use App\Http\Controllers\Organization\Course\CourseController;
+use App\Http\Controllers\Organization\Parent\ParentController;
 use App\Http\Controllers\Organization\JobType\JobTypeController;
 use App\Http\Controllers\Organization\Library\LibraryController;
+use App\Http\Controllers\Organization\Student\StudentController;
 use App\Http\Controllers\Organization\Teacher\TeacherController;
 use App\Http\Controllers\Organization\Blog\BlogHashtagController;
 use App\Http\Controllers\Organization\Exam\ExamStudentController;
@@ -28,6 +30,8 @@ use App\Http\Controllers\Organization\Relation\RelationController;
 use App\Http\Controllers\Organization\Season\FetchSeasonController;
 use App\Http\Controllers\Organization\Country\FetchCountryController;
 use App\Http\Controllers\Organization\JobType\FetchJobTypeController;
+use App\Http\Controllers\Organization\Blog\FetchBlogHashtagController;
+use App\Http\Controllers\Organization\Blog\FetchBlogCategoryController;
 use App\Http\Controllers\Organization\Competition\CompetitionController;
 use App\Http\Controllers\Organization\BloodType\FetchBloodTypeController;
 use App\Http\Controllers\Organization\QuestionBank\QuestionBankController;
@@ -236,6 +240,10 @@ Route::middleware('auth:organization')->group(function () {
     Route::get('organization_fetch_seasons', FetchSeasonController::class);
     //CRUCULUM
     Route::get('organization_fetch_curriculums', FetchCurriculumController::class);
+    //BLOG HASHTAG
+    Route::get('organization_fetch_blog_hashtags', FetchBlogHashtagController::class);
+    //BLOG CATEGORY
+    Route::get('organization_fetch_blog_categories', FetchBlogCategoryController::class);
     /**
      * END POINT END
      */

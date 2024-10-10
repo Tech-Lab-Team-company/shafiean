@@ -24,7 +24,7 @@ class UpdateUserRequest extends ApiRequest
             'phone' => 'nullable|string|max:20',
             'gender' => 'nullable|string|max:10',
             'api_key' => 'nullable|string|max:255',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif',
             'date_of_birth' => 'nullable|date|date_format:Y-m-d',
             'identity_type' => 'nullable|numeric|in:' . enumCaseValue(IdentityTypeEnum::class),
             'type' => ['nullable', 'numeric', 'in:' . enumCaseValue(UserTypeEnum::class)],
