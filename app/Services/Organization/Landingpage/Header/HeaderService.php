@@ -104,7 +104,9 @@ class HeaderService
     {
         try {
             $header = Header::where('id', $request->id)->first();
-            delete_image($header->image);
+            if ($header->image != null) {
+                delete_image($header->image);
+            }
             $header->delete();
             return new DataSuccess(
                 status: true,
