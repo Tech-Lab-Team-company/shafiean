@@ -25,7 +25,7 @@ class UpdateBlogRequest extends ApiRequest
             'id' => 'required|exists:blogs,id',
             'title' => 'required',
             'description' => 'required',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif',
             'blog_hashtags' => 'array',
             'blog_hashtags.*' => 'exists:blog_hashtags,id',
             'blog_categories' => 'array',
