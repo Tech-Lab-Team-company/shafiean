@@ -107,7 +107,9 @@ class SubheaderService
             $subheader = Subheader::where('id', $request->id)->first();
             // dd($subheader);
             // dd(auth()->user()->organization_id);
-            delete_image($subheader->image);
+            if($subheader->image != null){
+                delete_image($subheader->image);
+            }
             $subheader->delete();
             return new DataSuccess(
                 status: true,
