@@ -2,7 +2,9 @@
 
 namespace App\Http\Resources;
 
+use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\Organization\User\UserGroupResource;
 
 class UserResource extends JsonResource
 {
@@ -19,6 +21,8 @@ class UserResource extends JsonResource
             'name' => $this->name ?? "",
             'email' => $this->email ?? "",
             'phone' => $this->phone ?? "",
+            'address' => $this->address ?? "",
+            'age' => Carbon::parse($this->date_of_birth)->age ?? 0,
             'gender' => (int) $this->gender ?? 0,
             'api_key' => $this->api_key ?? "",
             'image' => $this->image_link ?? "",
@@ -26,10 +30,10 @@ class UserResource extends JsonResource
             'date_of_birth' => $this->date_of_birth ?? "",
             'identity_type' => (int) $this->identity_type ?? 0,
             'identity_number' => (int)$this->identity_number ?? 0,
-            'address' => $this->address ?? "",
             'type' => (int) $this->type ?? 0,
             'blood_type' => new BloodTypeResource($this->bloodType ?? "") ?? "",
             'country' => new CountryResource($this->country ?? "") ?? "",
+            "groups" => UserGroupResource::collection($this->groups ?? []) ?? [],
         ];
     }
 }
