@@ -28,13 +28,13 @@ class OrganizationEmployeeResource extends JsonResource
             'phone' => $this->phone,
             'is_master' => $this->is_master,
             'organization_id' => $this->organization_id,
-            'marital_status' => $this->marital_status ,
+            'marital_status' => $this->marital_status,
             'identity_type' => $this->identity_type,
             'identity_number' => $this->identity_number,
             'date_of_birth' => $this->date_of_birth,
             'is_employed' => $this->is_employed,
             'status' => EmployeeTypeEnum::from($this->is_employed)->label(),
-            // 'curriculums' => $this->curriculums()->count() > 0 ? CurriculumResource::collection($this->curriculums) : [],
+            'curriculums' => CurriculumResource::collection($this->curriculums ?? []) ?? [],
             'images' => $this->images()->count() > 0 ? ImageResource::collection($this->images) : [],
             'job_type' => new JobTypeResource($this->jobType)
         ];
