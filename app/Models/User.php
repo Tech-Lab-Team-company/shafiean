@@ -3,19 +3,23 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\City;
+use App\Models\Country;
 use App\Models\BloodType;
+use App\Models\DisabilityType;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Organization\Exam\Exam;
 use Illuminate\Notifications\Notifiable;
+use App\Models\Scopes\PerOrganizationScope;
 use App\Models\Organization\Exam\ExamStudent;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class User extends Authenticatable
 {
@@ -96,5 +100,9 @@ class User extends Authenticatable
 
     public function subscriptions () {
         return $this->MorphMany(Subscription::class , 'creatable');
+    }
+    protected static function booted(): void
+    {
+        static::addGlobalScope(new PerOrganizationScope);
     }
 }

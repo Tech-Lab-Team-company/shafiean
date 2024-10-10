@@ -11,6 +11,7 @@ use App\Http\Requests\User\DeleteUserRequest;
 use App\Http\Requests\User\UpdateUserRequest;
 use App\Services\Organization\User\UserService;
 use App\Http\Requests\User\FetchUserDetailsRequest;
+use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
@@ -22,9 +23,9 @@ class UserController extends Controller
         $this->userService = $userService;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        return $this->userService->index()->response();
+        return $this->userService->index($request)->response();
     }
 
     public function store(StoreUserRequest $request)
