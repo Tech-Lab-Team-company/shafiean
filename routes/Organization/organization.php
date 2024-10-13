@@ -34,6 +34,7 @@ use App\Http\Controllers\Organization\Season\FetchSeasonController;
 use App\Http\Controllers\Organization\Landingpage\FeatureController;
 use App\Http\Controllers\Organization\Landingpage\OpinionController;
 use App\Http\Controllers\Organization\Landingpage\PartnerController;
+use App\Http\Controllers\Organization\Landingpage\PrivacyController;
 use App\Http\Controllers\Organization\Landingpage\ServiceController;
 use App\Http\Controllers\Organization\Country\FetchCountryController;
 use App\Http\Controllers\Organization\JobType\FetchJobTypeController;
@@ -331,6 +332,14 @@ Route::middleware('auth:organization')->group(function () {
         Route::post('fetch_common_question_details', 'show');
         Route::post('edit_common_question', 'update');
         Route::post('delete_common_question', 'delete');
+    });
+    //PRIVACY
+    Route::controller(PrivacyController::class)->group(function () {
+        Route::post('fetch_privacies', 'index');
+        Route::post('add_privacy', 'store');
+        Route::post('fetch_privacy_details', 'show');
+        Route::post('edit_privacy', 'update');
+        Route::post('delete_privacy', 'delete');
     });
 });
 
