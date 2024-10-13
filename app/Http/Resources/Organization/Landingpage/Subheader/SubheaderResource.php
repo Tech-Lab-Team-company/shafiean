@@ -18,6 +18,7 @@ class SubheaderResource extends JsonResource
         return [
             'id' => $this->id,
             'title' => $this->title,
+            'subtitle' => $this->subtitle,
             'description' => $this->description,
             'organization_id' => $this->organization_id,
             'image' => $this->image_link,
