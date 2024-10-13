@@ -35,6 +35,7 @@ use App\Http\Controllers\Organization\Landingpage\ServiceController;
 use App\Http\Controllers\Organization\Country\FetchCountryController;
 use App\Http\Controllers\Organization\JobType\FetchJobTypeController;
 use App\Http\Controllers\Organization\Blog\FetchBlogHashtagController;
+use App\Http\Controllers\Organization\Landingpage\StatisticController;
 use App\Http\Controllers\Organization\Blog\FetchBlogCategoryController;
 use App\Http\Controllers\Organization\Competition\CompetitionController;
 use App\Http\Controllers\Organization\BloodType\FetchBloodTypeController;
@@ -286,6 +287,14 @@ Route::middleware('auth:organization')->group(function () {
         Route::post('fetch_screen_details', 'show');
         Route::post('edit_screen', 'update');
         Route::post('delete_screen', 'delete');
+    });
+    //STATISTIC
+    Route::controller(StatisticController::class)->group(function () {
+        Route::post('fetch_statistics', 'index');
+        Route::post('add_statistic', 'store');
+        Route::post('fetch_statistic_details', 'show');
+        Route::post('edit_statistic', 'update');
+        Route::post('delete_statistic', 'delete');
     });
 });
 
