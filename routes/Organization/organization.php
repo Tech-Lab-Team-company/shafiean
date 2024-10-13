@@ -28,7 +28,9 @@ use App\Http\Controllers\Organization\Blog\BlogCategoryController;
 use App\Http\Controllers\Organization\Employee\EmployeeController;
 use App\Http\Controllers\Organization\Question\QuestionController;
 use App\Http\Controllers\Organization\Relation\RelationController;
+use App\Http\Controllers\Organization\Landingpage\HeaderController;
 use App\Http\Controllers\Organization\Season\FetchSeasonController;
+use App\Http\Controllers\Organization\Landingpage\ServiceController;
 use App\Http\Controllers\Organization\Country\FetchCountryController;
 use App\Http\Controllers\Organization\JobType\FetchJobTypeController;
 use App\Http\Controllers\Organization\Blog\FetchBlogHashtagController;
@@ -39,7 +41,6 @@ use App\Http\Controllers\Organization\QuestionBank\QuestionBankController;
 use App\Http\Controllers\Organization\UserRelation\UserRelationController;
 use App\Http\Controllers\Organization\Curriculum\FetchCurriculumController;
 use App\Http\Controllers\Organization\Competition\CompetitionRewardController;
-use App\Http\Controllers\Organization\Landingpage\HeaderController;
 use App\Http\Controllers\Organization\QuestionBank\FetchQuestionBankContoller;
 
 //AUTH
@@ -268,6 +269,14 @@ Route::middleware('auth:organization')->group(function () {
         Route::post('organization_fetch_subheader_details',  'organization_fetch_subheader_details');
         Route::post('organization_edit_subheader',  'organization_edit_subheader');
         Route::post('organization_delete_subheader',  'organization_delete_subheader');
+    });
+    //SERVICE
+    Route::controller(ServiceController::class)->group(function () {
+        Route::post('fetch_services', 'index');
+        Route::post('add_service', 'store');
+        Route::post('fetch_service_details', 'show');
+        Route::post('edit_service', 'update');
+        Route::post('delete_service', 'delete');
     });
 });
 
