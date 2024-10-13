@@ -9,31 +9,26 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Subheader extends Model
+class Feature extends Model
 {
     use HasFactory, SoftDeletes;
 
     protected $guarded = [];
-
-    protected $table = 'subheaders';
-
     protected $appends  = ["image_link"];
 
     public function getImageLinkAttribute()
     {
         return $this->image ? url('storage/' . $this->image) : '';
     }
-
     public function organization()
     {
         return $this->belongsTo(Organization::class);
     }
 
-    public function features()
+    public function featurable()
     {
-        return $this->morphMany(Feature::class, 'featurable');
+        return $this->morphTo();
     }
-
     protected static function booted(): void
     {
         static::addGlobalScope(new PerOrganizationScope);

@@ -7,7 +7,6 @@ use App\Http\Controllers\Global\StageController;
 use App\Http\Controllers\Global\GlobalController;
 use App\Http\Controllers\Admin\CurriculumController;
 use App\Http\Controllers\Admin\DisabilityTypeController;
-use App\Http\Controllers\Landingpage\SubheaderController;
 use App\Http\Controllers\Organization\Auth\AuthController;
 use App\Http\Controllers\Organization\Blog\BlogController;
 use App\Http\Controllers\Organization\Exam\ExamController;
@@ -39,7 +38,9 @@ use App\Http\Controllers\Organization\QuestionBank\QuestionBankController;
 use App\Http\Controllers\Organization\UserRelation\UserRelationController;
 use App\Http\Controllers\Organization\Curriculum\FetchCurriculumController;
 use App\Http\Controllers\Organization\Competition\CompetitionRewardController;
+use App\Http\Controllers\Organization\Landingpage\FeatureController;
 use App\Http\Controllers\Organization\Landingpage\HeaderController;
+use App\Http\Controllers\Organization\Landingpage\SubheaderController;
 use App\Http\Controllers\Organization\QuestionBank\FetchQuestionBankContoller;
 
 //AUTH
@@ -268,6 +269,13 @@ Route::middleware('auth:organization')->group(function () {
         Route::post('organization_fetch_subheader_details',  'organization_fetch_subheader_details');
         Route::post('organization_edit_subheader',  'organization_edit_subheader');
         Route::post('organization_delete_subheader',  'organization_delete_subheader');
+    });
+    Route::controller(FeatureController::class)->group(function () {
+        Route::post('organization_fetch_features',  'organization_fetch_features');
+        Route::post('organization_add_feature',  'organization_add_feature');
+        Route::post('organization_fetch_feature_details',  'organization_fetch_feature_details');
+        Route::post('organization_edit_feature',  'organization_edit_feature');
+        Route::post('organization_delete_feature',  'organization_delete_feature');
     });
 });
 
