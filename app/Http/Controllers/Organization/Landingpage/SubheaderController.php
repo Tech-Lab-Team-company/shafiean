@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Landingpage;
+namespace App\Http\Controllers\Organization\Landingpage;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Organization\Landingpage\Subheader\OrganizationAddSubheaderRequest;

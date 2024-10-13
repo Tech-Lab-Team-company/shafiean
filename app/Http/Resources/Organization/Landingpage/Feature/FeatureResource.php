@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Http\Resources\Organization\Landingpage\Subheader;
+namespace App\Http\Resources\Organization\Landingpage\Feature;
 
-use App\Http\Resources\Organization\Landingpage\Feature\FeatureResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class SubheaderResource extends JsonResource
+class FeatureResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -19,9 +18,8 @@ class SubheaderResource extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'description' => $this->description,
-            'organization_id' => $this->organization_id,
             'image' => $this->image_link,
-            'features' => FeatureResource::collection($this->features),
+            'color' => $this->color
         ];
     }
 }
