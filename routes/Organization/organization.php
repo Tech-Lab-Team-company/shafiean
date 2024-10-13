@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Models\Organization\Blog\BlogCategory;
 use App\Models\Organization\Exam\ExamQuestion;
 use App\Http\Controllers\Global\StageController;
+use App\Models\Organization\Landingpage\Partner;
 use App\Http\Controllers\Global\GlobalController;
 use App\Http\Controllers\Admin\CurriculumController;
 use App\Http\Controllers\Admin\DisabilityTypeController;
@@ -29,6 +30,7 @@ use App\Http\Controllers\Organization\Question\QuestionController;
 use App\Http\Controllers\Organization\Relation\RelationController;
 use App\Http\Controllers\Organization\Landingpage\ScreenController;
 use App\Http\Controllers\Organization\Season\FetchSeasonController;
+use App\Http\Controllers\Organization\Landingpage\PartnerController;
 use App\Http\Controllers\Organization\Landingpage\ServiceController;
 use App\Http\Controllers\Organization\Country\FetchCountryController;
 use App\Http\Controllers\Organization\JobType\FetchJobTypeController;
@@ -303,6 +305,14 @@ Route::middleware('auth:organization')->group(function () {
         Route::post('fetch_statistic_details', 'show');
         Route::post('edit_statistic', 'update');
         Route::post('delete_statistic', 'delete');
+    });
+    //PARTNER
+    Route::controller(PartnerController::class)->group(function () {
+        Route::post('fetch_partners', 'index');
+        Route::post('add_partner', 'store');
+        Route::post('fetch_partner_details', 'show');
+        Route::post('edit_partner', 'update');
+        Route::post('delete_partner', 'delete');
     });
 });
 
