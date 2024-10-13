@@ -28,8 +28,10 @@ use App\Http\Controllers\Organization\Blog\BlogCategoryController;
 use App\Http\Controllers\Organization\Employee\EmployeeController;
 use App\Http\Controllers\Organization\Question\QuestionController;
 use App\Http\Controllers\Organization\Relation\RelationController;
+use App\Http\Controllers\Organization\Landingpage\HeaderController;
 use App\Http\Controllers\Organization\Landingpage\ScreenController;
 use App\Http\Controllers\Organization\Season\FetchSeasonController;
+use App\Http\Controllers\Organization\Landingpage\FeatureController;
 use App\Http\Controllers\Organization\Landingpage\OpinionController;
 use App\Http\Controllers\Organization\Landingpage\PartnerController;
 use App\Http\Controllers\Organization\Landingpage\ServiceController;
@@ -37,16 +39,15 @@ use App\Http\Controllers\Organization\Country\FetchCountryController;
 use App\Http\Controllers\Organization\JobType\FetchJobTypeController;
 use App\Http\Controllers\Organization\Blog\FetchBlogHashtagController;
 use App\Http\Controllers\Organization\Landingpage\StatisticController;
+use App\Http\Controllers\Organization\Landingpage\SubheaderController;
 use App\Http\Controllers\Organization\Blog\FetchBlogCategoryController;
 use App\Http\Controllers\Organization\Competition\CompetitionController;
 use App\Http\Controllers\Organization\BloodType\FetchBloodTypeController;
 use App\Http\Controllers\Organization\QuestionBank\QuestionBankController;
 use App\Http\Controllers\Organization\UserRelation\UserRelationController;
 use App\Http\Controllers\Organization\Curriculum\FetchCurriculumController;
+use App\Http\Controllers\Organization\Landingpage\CommonQuestionController;
 use App\Http\Controllers\Organization\Competition\CompetitionRewardController;
-use App\Http\Controllers\Organization\Landingpage\FeatureController;
-use App\Http\Controllers\Organization\Landingpage\HeaderController;
-use App\Http\Controllers\Organization\Landingpage\SubheaderController;
 use App\Http\Controllers\Organization\QuestionBank\FetchQuestionBankContoller;
 
 //AUTH
@@ -322,6 +323,14 @@ Route::middleware('auth:organization')->group(function () {
         Route::post('fetch_opinion_details', 'show');
         Route::post('edit_opinion', 'update');
         Route::post('delete_opinion', 'delete');
+    });
+    //COMMIN QUESTIONS
+    Route::controller(CommonQuestionController::class)->group(function () {
+        Route::post('fetch_common_questions', 'index');
+        Route::post('add_common_question', 'store');
+        Route::post('fetch_common_question_details', 'show');
+        Route::post('edit_common_question', 'update');
+        Route::post('delete_common_question', 'delete');
     });
 });
 
