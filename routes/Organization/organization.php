@@ -5,6 +5,7 @@ use App\Http\Controllers\Global\StageController;
 use App\Http\Controllers\Global\GlobalController;
 use App\Http\Controllers\Admin\CurriculumController;
 use App\Http\Controllers\Admin\DisabilityTypeController;
+use App\Http\Controllers\Landingpage\ServiceFeatureController;
 use App\Http\Controllers\Organization\Auth\AuthController;
 use App\Http\Controllers\Organization\Blog\BlogController;
 use App\Http\Controllers\Organization\Exam\ExamController;
@@ -279,6 +280,13 @@ Route::middleware('auth:organization')->group(function () {
         Route::post('organization_fetch_feature_details',  'organization_fetch_feature_details');
         Route::post('organization_edit_feature',  'organization_edit_feature');
         Route::post('organization_delete_feature',  'organization_delete_feature');
+    });
+    Route::controller(ServiceFeatureController::class)->group(function () {
+        Route::post('organization_fetch_service_features',  'organization_fetch_service_features');
+        Route::post('organization_add_service_feature',  'organization_add_service_feature');
+        Route::post('organization_fetch_service_feature_details',  'organization_fetch_service_feature_details');
+        Route::post('organization_edit_service_feature',  'organization_edit_service_feature');
+        Route::post('organization_delete_service_feature',  'organization_delete_service_feature');
     });
     //SERVICE
     Route::controller(ServiceController::class)->group(function () {
