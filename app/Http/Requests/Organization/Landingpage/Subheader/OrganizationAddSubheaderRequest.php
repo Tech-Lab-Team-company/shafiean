@@ -26,7 +26,7 @@ class OrganizationAddSubheaderRequest extends ApiRequest
             'title' => 'required|string|max:191',
             'subtitle' => 'required|string|max:191',
             'description' => 'required|string',
-            'image' => 'nullable|image',
+            'image' => 'nullable',
         ];
     }
 }
