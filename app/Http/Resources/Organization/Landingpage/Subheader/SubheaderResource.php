@@ -21,6 +21,7 @@ class SubheaderResource extends JsonResource
             'description' => $this->description,
             'organization_id' => $this->organization_id,
             'image' => $this->image_link,
+            'type' => $this->type,
             'features' => FeatureResource::collection($this->features),
         ];
     }
