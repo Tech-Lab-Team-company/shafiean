@@ -25,6 +25,7 @@ use App\Http\Controllers\Organization\Employee\EmployeeController;
 use App\Http\Controllers\Organization\Question\QuestionController;
 use App\Http\Controllers\Organization\Relation\RelationController;
 use App\Http\Controllers\Organization\Landingpage\HeaderController;
+use App\Http\Controllers\Organization\Landingpage\PolicyController;
 use App\Http\Controllers\Organization\Landingpage\ScreenController;
 use App\Http\Controllers\Organization\Season\FetchSeasonController;
 use App\Http\Controllers\Organization\Landingpage\FeatureController;
@@ -343,6 +344,14 @@ Route::middleware('auth:organization')->group(function () {
         Route::post('fetch_privacy_details', 'show');
         Route::post('edit_privacy', 'update');
         Route::post('delete_privacy', 'delete');
+    });
+    //POLICY
+    Route::controller(PolicyController::class)->group(function () {
+        Route::post('fetch_policies', 'index');
+        Route::post('add_policy', 'store');
+        Route::post('fetch_policy_details', 'show');
+        Route::post('edit_policy', 'update');
+        Route::post('delete_policy', 'delete');
     });
 });
 
