@@ -27,7 +27,9 @@ use App\Http\Controllers\Organization\Blog\BlogCategoryController;
 use App\Http\Controllers\Organization\Employee\EmployeeController;
 use App\Http\Controllers\Organization\Question\QuestionController;
 use App\Http\Controllers\Organization\Relation\RelationController;
+use App\Http\Controllers\Organization\Landingpage\ScreenController;
 use App\Http\Controllers\Organization\Season\FetchSeasonController;
+use App\Http\Controllers\Organization\Landingpage\ServiceController;
 use App\Http\Controllers\Organization\Country\FetchCountryController;
 use App\Http\Controllers\Organization\JobType\FetchJobTypeController;
 use App\Http\Controllers\Organization\Blog\FetchBlogHashtagController;
@@ -276,6 +278,22 @@ Route::middleware('auth:organization')->group(function () {
         Route::post('organization_fetch_feature_details',  'organization_fetch_feature_details');
         Route::post('organization_edit_feature',  'organization_edit_feature');
         Route::post('organization_delete_feature',  'organization_delete_feature');
+    });
+    //SERVICE
+    Route::controller(ServiceController::class)->group(function () {
+        Route::post('fetch_services', 'index');
+        Route::post('add_service', 'store');
+        Route::post('fetch_service_details', 'show');
+        Route::post('edit_service', 'update');
+        Route::post('delete_service', 'delete');
+    });
+    //SCREEN
+    Route::controller(ScreenController::class)->group(function () {
+        Route::post('fetch_screens', 'index');
+        Route::post('add_screen', 'store');
+        Route::post('fetch_screen_details', 'show');
+        Route::post('edit_screen', 'update');
+        Route::post('delete_screen', 'delete');
     });
 });
 
