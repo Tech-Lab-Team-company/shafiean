@@ -12,6 +12,7 @@ use App\Http\Resources\Organization\Landingpage\Service\ServiceResource;
 
 class ServiceLandingService
 {
+
     public function index()
     {
         try {
@@ -88,6 +89,12 @@ class ServiceLandingService
     {
         try {
             $service = Service::whereId($request->id)->first();
+            if (!$service) {
+                return new DataFailed(
+                    statusCode: 404,
+                    message: 'Service not found'
+                );
+            }
             if ($service->image) {
                 delete_image(old_image_path: $service->image, disk: 'public');
             }
