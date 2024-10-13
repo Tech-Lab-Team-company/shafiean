@@ -30,6 +30,7 @@ use App\Http\Controllers\Organization\Question\QuestionController;
 use App\Http\Controllers\Organization\Relation\RelationController;
 use App\Http\Controllers\Organization\Landingpage\ScreenController;
 use App\Http\Controllers\Organization\Season\FetchSeasonController;
+use App\Http\Controllers\Organization\Landingpage\OpinionController;
 use App\Http\Controllers\Organization\Landingpage\PartnerController;
 use App\Http\Controllers\Organization\Landingpage\ServiceController;
 use App\Http\Controllers\Organization\Country\FetchCountryController;
@@ -313,6 +314,14 @@ Route::middleware('auth:organization')->group(function () {
         Route::post('fetch_partner_details', 'show');
         Route::post('edit_partner', 'update');
         Route::post('delete_partner', 'delete');
+    });
+    //OPINION
+    Route::controller(OpinionController::class)->group(function () {
+        Route::post('fetch_opinions', 'index');
+        Route::post('add_opinion', 'store');
+        Route::post('fetch_opinion_details', 'show');
+        Route::post('edit_opinion', 'update');
+        Route::post('delete_opinion', 'delete');
     });
 });
 
