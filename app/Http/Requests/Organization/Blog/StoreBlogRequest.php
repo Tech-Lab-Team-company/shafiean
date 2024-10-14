@@ -25,7 +25,7 @@ class StoreBlogRequest extends ApiRequest
         return [
             'title' => 'required',
             'description' => 'required',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'blog_hashtags' => 'array',
             'blog_hashtags.*' => 'exists:blog_hashtags,id',
             'blog_categories' => 'array',
