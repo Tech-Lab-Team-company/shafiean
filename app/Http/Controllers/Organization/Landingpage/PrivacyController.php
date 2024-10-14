@@ -26,12 +26,4 @@ class PrivacyController extends Controller
     {
         return $this->privacyService->store($request)->response();
     }
-    public function update(UpdatePrivacyRequest $request)
-    {
-        return $this->privacyService->update($request)->response();
-    }
-    public function delete(DeletePrivacyRequest $request)
-    {
-        return $this->privacyService->delete($request)->response();
-    }
 }

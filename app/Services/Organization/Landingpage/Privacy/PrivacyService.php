@@ -43,7 +43,8 @@ class PrivacyService
             $data = [
                 'text' => $dataRequest->text,
             ];
-            $privacy = Privacy::create($data);
+            $privacy = Privacy::firstOrCreate();
+            $privacy->update($data);
             return new DataSuccess(
                 data: new PrivacyResource($privacy),
                 status: true,
@@ -53,47 +54,6 @@ class PrivacyService
             return new DataFailed(
                 status: false,
                 message: $e->getMessage()
-            );
-        }
-    }
-    public function update(object $dataRequest): DataStatus
-    {
-        try {
-            $privacy = Privacy::whereId($dataRequest['id'])->first();
-            unset($dataRequest['id']);
-            $data['text'] = $dataRequest->text;
-            $privacy->update($data);
-            return new DataSuccess(
-                data: new PrivacyResource($privacy),
-                status: true,
-                message: 'Privacy updated successfully'
-            );
-        } catch (Exception $e) {
-            return new DataFailed(
-                status: false,
-                message: $e->getMessage()
-            );
-        }
-    }
-    public function delete($request): DataStatus
-    {
-        try {
-            $privacy = Privacy::whereId($request->id)->first();
-            if (!$privacy) {
-                return new DataFailed(
-                    statusCode: 404,
-                    message: 'Privacy not found'
-                );
-            }
-            $privacy->delete();
-            return new DataSuccess(
-                statusCode: 200,
-                message: 'Privacy deleted successfully'
-            );
-        } catch (Exception $e) {
-            return new DataFailed(
-                statusCode: 500,
-                message: 'Privacy deletion failed: ' . $e->getMessage()
             );
         }
     }
