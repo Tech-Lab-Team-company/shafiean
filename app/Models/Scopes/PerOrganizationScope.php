@@ -2,6 +2,7 @@
 
 namespace App\Models\Scopes;
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Scope;
@@ -14,7 +15,6 @@ class PerOrganizationScope implements Scope
      */
     public function apply(Builder $builder, Model $model): void
     {
-        // $builder->where('organization_id', auth('organization')?->user()?->organization_id);
         $table = $model->getTable();
         if (Schema::hasColumn($table, 'organization_id')) {
             $builder->where('organization_id', get_auth_organization_id());

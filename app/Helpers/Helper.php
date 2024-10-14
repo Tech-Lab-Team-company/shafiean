@@ -1,10 +1,12 @@
 <?php
 
+use App\Models\Organization;
 use Intervention\Image\File;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Laravel\Facades\Image;
+use Illuminate\Http\Request;
 
 if (!function_exists('upload_image')) {
 
@@ -46,7 +48,22 @@ if (!function_exists('upload_image')) {
 
     function get_auth_organization_id()
     {
-        return auth()->user()->organization_id ?? null; // Returns null if no organization is found
+        return auth()->user()->organization_id ?? checkWebsiteLink(request()); // Returns null if no organization is found
+    }
+    function checkWebsiteLink($request)
+    {
+        $websiteLink = $request->header("website-link");
+
+        if ($websiteLink == null) {
+            throw new \Exception("Website Link is required in Header", 400);
+        }
+        $organization = Organization::whereWebsiteLink($websiteLink)->first();
+
+        if ($organization) {
+            return $organization->id;
+        }
+
+        throw new \Exception("website link is invaild", 400);
     }
     function enumCaseValue($enum)
     {
