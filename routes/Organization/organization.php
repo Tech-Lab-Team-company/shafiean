@@ -5,13 +5,13 @@ use App\Http\Controllers\Global\StageController;
 use App\Http\Controllers\Global\GlobalController;
 use App\Http\Controllers\Admin\CurriculumController;
 use App\Http\Controllers\Admin\DisabilityTypeController;
-use App\Http\Controllers\Landingpage\ServiceFeatureController;
 use App\Http\Controllers\Organization\Auth\AuthController;
 use App\Http\Controllers\Organization\Blog\BlogController;
 use App\Http\Controllers\Organization\Exam\ExamController;
 use App\Http\Controllers\Organization\Term\TermController;
 use App\Http\Controllers\Organization\User\UserController;
 use App\Http\Controllers\Organization\Group\GroupController;
+use App\Http\Controllers\Landingpage\ServiceFeatureController;
 use App\Http\Controllers\Organization\Answer\AnswerController;
 use App\Http\Controllers\Organization\Course\CourseController;
 use App\Http\Controllers\Organization\JobType\JobTypeController;
@@ -47,6 +47,19 @@ use App\Http\Controllers\Organization\Curriculum\FetchCurriculumController;
 use App\Http\Controllers\Organization\Landingpage\CommonQuestionController;
 use App\Http\Controllers\Organization\Competition\CompetitionRewardController;
 use App\Http\Controllers\Organization\QuestionBank\FetchQuestionBankContoller;
+use App\Http\Controllers\Organization\Landingpage\EndPoint\FetchBlogController;
+use App\Http\Controllers\Organization\Landingpage\EndPoint\FetchHeaderController;
+use App\Http\Controllers\Organization\Landingpage\EndPoint\FetchPolicyController;
+use App\Http\Controllers\Organization\Landingpage\EndPoint\FetchScreenController;
+use App\Http\Controllers\Organization\Landingpage\EndPoint\FetchOpinionController;
+use App\Http\Controllers\Organization\Landingpage\EndPoint\FetchPartnerController;
+use App\Http\Controllers\Organization\Landingpage\EndPoint\FetchPrivacyController;
+use App\Http\Controllers\Organization\Landingpage\EndPoint\FetchServiceController;
+use App\Http\Controllers\Organization\Landingpage\EndPoint\FetchStatisticController;
+use App\Http\Controllers\Organization\Landingpage\EndPoint\FetchSubHeaderController;
+use App\Http\Controllers\Organization\Landingpage\EndPoint\FetchCompetitionController;
+use App\Http\Controllers\Organization\Landingpage\EndPoint\FetchCommonQuestionController;
+use App\Http\Controllers\Organization\Landingpage\EndPoint\FetchServiceFeatureController;
 
 //AUTH
 Route::controller(AuthController::class)->group(function () {
@@ -256,15 +269,44 @@ Route::middleware('auth:organization')->group(function () {
      * END POINT END
      */
 
-
-
     // ***********************************************************************************************************************************
     //**************************************************** lANDINGPAGE START *************************************************************
     // ***********************************************************************************************************************************
 
-    //lANDINGPAGE END POINT START
+    /* *
+     * lANDINGPAGE END POINT START
+     */
 
-    //lANDINGPAGE END POINT END
+    //HEADER
+    Route::get('landing_page_fetch_headers', FetchHeaderController::class);
+    //SUB HEADER
+    Route::get('landing_page_fetch_sub_headers', FetchSubHeaderController::class);
+    //STATISTIC
+    Route::get('landing_page_fetch_Statistics', FetchStatisticController::class);
+    //PARTNER
+    Route::get('landing_page_fetch_partners', FetchPartnerController::class);
+    //SERVICE
+    Route::get('landing_page_fetch_services', FetchServiceController::class);
+    //SERVICE FEATURE
+    Route::get('landing_page_fetch_service_features', FetchServiceFeatureController::class);
+    //OPINION
+    Route::get('landing_page_fetch_opinions', FetchOpinionController::class);
+    //SCREEN
+    Route::get('landing_page_fetch_screens', FetchScreenController::class);
+    //COMPETITION
+    Route::get('landing_page_fetch_competitions', FetchCompetitionController::class);
+    //BLOG
+    Route::get('landing_page_fetch_blogs', FetchBlogController::class);
+    //COMMON QUESTION
+    Route::get('landing_page_fetch_common_questions', FetchCommonQuestionController::class);
+    //PRIVACY
+    Route::get('landing_page_fetch_privacy', FetchPrivacyController::class);
+    //POLICY
+    Route::get('landing_page_fetch_policy', FetchPolicyController::class);
+    /**
+     * lANDINGPAGE END POINT END
+     */
+
 
     Route::controller(HeaderController::class)->group(function () {
         Route::post('organization_fetch_headers',  'organization_fetch_headers');

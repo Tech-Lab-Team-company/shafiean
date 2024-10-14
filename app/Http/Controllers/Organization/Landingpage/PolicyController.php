@@ -26,12 +26,4 @@ class PolicyController extends Controller
     {
         return $this->policyService->store($request)->response();
     }
-    public function update(UpdatePolicyRequest $request)
-    {
-        return $this->policyService->update($request)->response();
-    }
-    public function delete(DeletePolicyRequest $request)
-    {
-        return $this->policyService->delete($request)->response();
-    }
 }

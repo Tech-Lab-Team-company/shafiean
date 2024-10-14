@@ -14,7 +14,10 @@ class Header extends Model
     use HasFactory, SoftDeletes;
 
     protected $guarded = [];
-
+    public function getImageLinkAttribute()
+    {
+        return $this->image ? url('storage/' . $this->image) : '';
+    }
     public function organization()
     {
         return $this->belongsTo(Organization::class);
