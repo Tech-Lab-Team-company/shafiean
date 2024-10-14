@@ -261,6 +261,11 @@ Route::middleware('auth:organization')->group(function () {
     // ***********************************************************************************************************************************
     //**************************************************** lANDINGPAGE START *************************************************************
     // ***********************************************************************************************************************************
+
+    //lANDINGPAGE END POINT START
+
+    //lANDINGPAGE END POINT END
+
     Route::controller(HeaderController::class)->group(function () {
         Route::post('organization_fetch_headers',  'organization_fetch_headers');
         Route::post('organization_add_header',  'organization_add_header');
@@ -353,24 +358,12 @@ Route::middleware('auth:organization')->group(function () {
         Route::post('edit_policy', 'update');
         Route::post('delete_policy', 'delete');
     });
+    // ***********************************************************************************************************************************
+    //**************************************************** lANDINGPAGE END *************************************************************
+    // ***********************************************************************************************************************************
 });
 
 //GLOBAL
 Route::controller(GlobalController::class)->group(function () {
     Route::post('fetch_days',  'fetch_days');
-});
-//TEACHER
-Route::prefix('teachers')->group(function () {
-    Route::post('/', [TeacherController::class, 'store'])->name('teachers.store');
-    Route::get('/{id}', [TeacherController::class, 'show'])->name('teachers.show');
-    Route::put('/{id}', [TeacherController::class, 'update'])->name('teachers.update');
-    Route::delete('/{id}', [TeacherController::class, 'destroy'])->name('teachers.destroy');
-});
-//TERM
-Route::prefix('terms')->group(function () {
-    Route::get('/', [TermController::class, 'index'])->name('terms.index');
-    Route::post('/', [TermController::class, 'store'])->name('terms.store');
-    Route::get('/{id}', [TermController::class, 'show'])->name('terms.show');
-    Route::put('/{id}', [TermController::class, 'update'])->name('terms.update');
-    Route::delete('/{id}', [TermController::class, 'destroy'])->name('terms.destroy');
 });
