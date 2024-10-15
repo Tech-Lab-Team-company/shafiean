@@ -64,11 +64,11 @@ class CourseService
                 CourseStageSession::create([
                     'course_stage_id' => $stage->id,
                     'session_id' => $session->id,
-                    'organization_id' => $organizationId,
+                    // 'organization_id' => $organizationId,
                     'course_id' => $course->id,
                     'stage_id' => $stage->stage_id,
                     'session_type_id' => $session->session_type_id,
-                    'start_verse' => $session->start_verse,
+                    'start_verse' => intval($session->start_verse),
                 ]);
             }
         }

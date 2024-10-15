@@ -49,7 +49,7 @@ if (!function_exists('upload_image')) {
 
     function get_auth_organization_id()
     {
-        return auth()->user()->organization_id ?? checkWebsiteLink(request()); // Returns null if no organization is found
+        return auth()->user()->organization_id; //?? checkWebsiteLink(request()); // Returns null if no organization is found
     }
     function checkWebsiteLink($request)
     {
