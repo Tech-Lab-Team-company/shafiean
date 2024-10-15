@@ -20,6 +20,7 @@ class FetchCompetitionResource extends JsonResource
             'description' => $this->description ?? "",
             'start_date' => $this->start_date ?? "",
             'end_date' => $this->end_date ?? "",
+            'duration' =>calculateDurationInWeeks($this->start_date, $this->end_date),
             'image' => $this->image_link ?? "",
         ];
     }
