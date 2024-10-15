@@ -20,7 +20,7 @@ use App\Http\Controllers\Organization\Landingpage\EndPoint\FetchSubHeaderControl
 use App\Http\Controllers\Organization\Landingpage\EndPoint\FetchCompetitionController;
 use App\Http\Controllers\Organization\Landingpage\EndPoint\FetchCommonQuestionController;
 use App\Http\Controllers\Organization\Landingpage\EndPoint\FetchServiceFeatureController;
-
+use App\Http\Middleware\CheckWebsiteLinkMiddleware;
 
 Route::post('user/login', [AuthController::class, 'login']);
 
@@ -44,47 +44,49 @@ Route::post('add_city', [CityController::class, 'store'])->name('cities.store');
 Route::post('fetch_city_details', [CityController::class, 'show'])->name('cities.show');
 Route::post('edit_city', [CityController::class, 'update'])->name('cities.update');
 Route::post('delete_city', [CityController::class, 'destroy'])->name('cities.destroy');
-/**
- * lANDINGPAGE END POINT START
- */
+Route::middleware(CheckWebsiteLinkMiddleware::class)->group(function () {
+    /**
+     * lANDINGPAGE END POINT START
+     */
 
-//HEADER
-Route::get('landing_page_fetch_headers', FetchHeaderController::class);
-//SUB HEADER
-Route::get('landing_page_fetch_sub_headers', FetchSubHeaderController::class);
-//STATISTIC
-Route::get('landing_page_fetch_Statistics', FetchStatisticController::class);
-//PARTNER
-Route::get('landing_page_fetch_partners', FetchPartnerController::class);
-//SERVICE
-Route::get('landing_page_fetch_services', FetchServiceController::class);
-//SERVICE FEATURE
-Route::get('landing_page_fetch_service_features', FetchServiceFeatureController::class);
-//OPINION
-Route::get('landing_page_fetch_opinions', FetchOpinionController::class);
-//SCREEN
-Route::get('landing_page_fetch_screens', FetchScreenController::class);
-//COMPETITION
-Route::controller(FetchCompetitionController::class)->group(function () {
-    Route::get('landing_page_fetch_competitions', 'landing_page_fetch_competitions');
-    Route::post('landing_page_fetch_competition_details', 'landing_page_fetch_competition_details');
+    //HEADER
+    Route::get('landing_page_fetch_headers', FetchHeaderController::class);
+    //SUB HEADER
+    Route::get('landing_page_fetch_sub_headers', FetchSubHeaderController::class);
+    //STATISTIC
+    Route::get('landing_page_fetch_Statistics', FetchStatisticController::class);
+    //PARTNER
+    Route::get('landing_page_fetch_partners', FetchPartnerController::class);
+    //SERVICE
+    Route::get('landing_page_fetch_services', FetchServiceController::class);
+    //SERVICE FEATURE
+    Route::get('landing_page_fetch_service_features', FetchServiceFeatureController::class);
+    //OPINION
+    Route::get('landing_page_fetch_opinions', FetchOpinionController::class);
+    //SCREEN
+    Route::get('landing_page_fetch_screens', FetchScreenController::class);
+    //COMPETITION
+    Route::controller(FetchCompetitionController::class)->group(function () {
+        Route::get('landing_page_fetch_competitions', 'landing_page_fetch_competitions');
+        Route::post('landing_page_fetch_competition_details', 'landing_page_fetch_competition_details');
+    });
+    //BLOG
+    Route::controller(FetchBlogController::class)->group(function () {
+        Route::get('landing_page_fetch_blogs', 'landing_page_fetch_blogs');
+        Route::post('landing_page_fetch_blog_details', 'landing_page_fetch_blog_details');
+    });
+
+    //COMMON QUESTION
+    Route::get('landing_page_fetch_common_questions', FetchCommonQuestionController::class);
+    //PRIVACY
+    Route::get('landing_page_fetch_privacy', FetchPrivacyController::class);
+    //POLICY
+    Route::get('landing_page_fetch_policy', FetchPolicyController::class);
+
+    // contact
+
+    Route::post('landing_page_add_contact', [ContactController::class, 'landing_page_add_contact']);
+    /**
+     * lANDINGPAGE END POINT END
+     */
 });
-//BLOG
-Route::controller(FetchBlogController::class)->group(function () {
-    Route::get('landing_page_fetch_blogs', 'landing_page_fetch_blogs');
-    Route::post('landing_page_fetch_blog_details', 'landing_page_fetch_blog_details');
-});
-
-//COMMON QUESTION
-Route::get('landing_page_fetch_common_questions', FetchCommonQuestionController::class);
-//PRIVACY
-Route::get('landing_page_fetch_privacy', FetchPrivacyController::class);
-//POLICY
-Route::get('landing_page_fetch_policy', FetchPolicyController::class);
-
-// contact
-
-Route::post('landing_page_add_contact', [ContactController::class, 'landing_page_add_contact']);
-/**
- * lANDINGPAGE END POINT END
- */
