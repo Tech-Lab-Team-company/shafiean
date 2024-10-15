@@ -16,9 +16,9 @@ class PolicyService
     public function index()
     {
         try {
-            $policies = Policy::orderBy('id', 'desc')->paginate(10);
+            $policies = Policy::orderBy('id', 'desc')->get();
             return new DataSuccess(
-                data: PolicyResource::collection($policies)->response()->getData(true),
+                data: PolicyResource::collection($policies),
                 status: true,
                 message: 'Policies fetched successfully'
             );

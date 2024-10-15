@@ -16,9 +16,9 @@ class PartnerService
     public function index()
     {
         try {
-            $partners = Partner::orderBy('id', 'desc')->paginate(10);
+            $partners = Partner::orderBy('id', 'desc')->get();
             return new DataSuccess(
-                data: PartnerResource::collection($partners)->response()->getData(true),
+                data: PartnerResource::collection($partners),
                 status: true,
                 message: 'Partners fetched successfully'
             );

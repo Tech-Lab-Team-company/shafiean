@@ -16,9 +16,9 @@ class ServiceLandingService
     public function index()
     {
         try {
-            $services = Service::orderBy('id', 'desc')->paginate(10);
+            $services = Service::orderBy('id', 'desc')->get();
             return new DataSuccess(
-                data: ServiceResource::collection($services)->response()->getData(true),
+                data: ServiceResource::collection($services),
                 status: true,
                 message: 'Services fetched successfully'
             );

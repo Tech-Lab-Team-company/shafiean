@@ -10,7 +10,6 @@ use App\Http\Controllers\Organization\Blog\BlogController;
 use App\Http\Controllers\Organization\Exam\ExamController;
 use App\Http\Controllers\Organization\User\UserController;
 use App\Http\Controllers\Organization\Group\GroupController;
-use App\Http\Controllers\Landingpage\ServiceFeatureController;
 use App\Http\Controllers\Organization\Answer\AnswerController;
 use App\Http\Controllers\Organization\Course\CourseController;
 use App\Http\Controllers\Organization\JobType\JobTypeController;
@@ -44,6 +43,7 @@ use App\Http\Controllers\Organization\UserRelation\UserRelationController;
 use App\Http\Controllers\Organization\Curriculum\FetchCurriculumController;
 use App\Http\Controllers\Organization\Landingpage\CommonQuestionController;
 use App\Http\Controllers\Organization\Competition\CompetitionRewardController;
+use App\Http\Controllers\Organization\Landingpage\ServiceFeatureController;
 use App\Http\Controllers\Organization\QuestionBank\FetchQuestionBankContoller;
 
 //AUTH

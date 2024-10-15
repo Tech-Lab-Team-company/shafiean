@@ -17,9 +17,9 @@ class StatisticService
     public function index()
     {
         try {
-            $statistics = Statistic::orderBy('id', 'desc')->paginate(10);
+            $statistics = Statistic::orderBy('id', 'desc')->get();
             return new DataSuccess(
-                data: StatisticResource::collection($statistics)->response()->getData(true),
+                data: StatisticResource::collection($statistics),
                 status: true,
                 message: 'Statistics fetched successfully'
             );
