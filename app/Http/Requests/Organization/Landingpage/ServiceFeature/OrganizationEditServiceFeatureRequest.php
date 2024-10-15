@@ -2,16 +2,17 @@
 
 namespace App\Http\Requests\Organization\Landingpage\ServiceFeature;
 
+use App\Helpers\Response\ApiRequest;
 use Illuminate\Foundation\Http\FormRequest;
 
-class OrganizationEditServiceFeatureRequest extends FormRequest
+class OrganizationEditServiceFeatureRequest extends ApiRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +23,16 @@ class OrganizationEditServiceFeatureRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'id' => 'required|exists:service_features,id',
+            'title' => 'required',
+            'subtitle' => 'required',
+            'description' => 'required',
+            'image' => 'nullable|image',
+            'features' => 'required|array',
+            'features.*.title' => 'required|string',
+            'features.*.description' => 'nullable|string',
+            'features.*.image' => 'nullable|image',
+            'features.*.color' => 'nullable|string',
         ];
     }
 }
