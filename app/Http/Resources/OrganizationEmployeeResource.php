@@ -34,7 +34,7 @@ class OrganizationEmployeeResource extends JsonResource
             'date_of_birth' => $this->date_of_birth,
             'is_employed' => $this->is_employed,
             'status' => EmployeeTypeEnum::from($this->is_employed)->label(),
-            'curriculums' => CurriculumResource::collection($this->curriculums ?? []) ?? [],
+            'curriculums' =>  CurriculumResource::collection($this->curriculums ?? []) ?? [],
             'images' => $this->images()->count() > 0 ? ImageResource::collection($this->images) : [],
             'job_type' => new JobTypeResource($this->jobType)
         ];
