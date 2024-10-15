@@ -29,4 +29,21 @@ class FetchBlogService
             );
         }
     }
+
+    public function landing_page_fetch_blog_details($request)
+    {
+        try {
+            $blog  = Blog::where('id', $request->id)->first();
+            return new DataSuccess(
+                data: new FetchBlogResource($blog),
+                status: true,
+                message: 'Fetch Blog successfully'
+            );
+        } catch (Exception $e) {
+            return new DataFailed(
+                status: false,
+                message: $e->getMessage()
+            );
+        }
+    }
 }

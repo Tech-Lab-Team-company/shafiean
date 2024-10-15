@@ -4,6 +4,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Global\CityController;
 use App\Http\Controllers\Global\CountryController;
+use App\Http\Controllers\Organization\Blog\BlogController;
+use App\Http\Controllers\Organization\Competition\CompetitionController;
+use App\Http\Controllers\Organization\Landingpage\EndPoint\ContactController;
 use App\Http\Controllers\Organization\Landingpage\EndPoint\FetchBlogController;
 use App\Http\Controllers\Organization\Landingpage\EndPoint\FetchHeaderController;
 use App\Http\Controllers\Organization\Landingpage\EndPoint\FetchPolicyController;
@@ -62,15 +65,26 @@ Route::get('landing_page_fetch_opinions', FetchOpinionController::class);
 //SCREEN
 Route::get('landing_page_fetch_screens', FetchScreenController::class);
 //COMPETITION
-Route::get('landing_page_fetch_competitions', FetchCompetitionController::class);
+Route::controller(FetchCompetitionController::class)->group(function () {
+    Route::get('landing_page_fetch_competitions', 'landing_page_fetch_competitions');
+    Route::post('landing_page_fetch_competition_details', 'landing_page_fetch_competition_details');
+});
 //BLOG
-Route::get('landing_page_fetch_blogs', FetchBlogController::class);
+Route::controller(FetchBlogController::class)->group(function () {
+    Route::get('landing_page_fetch_blogs', 'landing_page_fetch_blogs');
+    Route::post('landing_page_fetch_blog_details', 'landing_page_fetch_blog_details');
+});
+
 //COMMON QUESTION
 Route::get('landing_page_fetch_common_questions', FetchCommonQuestionController::class);
 //PRIVACY
 Route::get('landing_page_fetch_privacy', FetchPrivacyController::class);
 //POLICY
 Route::get('landing_page_fetch_policy', FetchPolicyController::class);
+
+// contact
+
+Route::post('landing_page_add_contact', [ContactController::class, 'landing_page_add_contact']);
 /**
  * lANDINGPAGE END POINT END
  */
