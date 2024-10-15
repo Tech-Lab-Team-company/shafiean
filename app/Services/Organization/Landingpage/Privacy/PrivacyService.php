@@ -15,9 +15,9 @@ class PrivacyService
     public function index()
     {
         try {
-            $privacies = Privacy::orderBy('id', 'desc')->paginate(10);
+            $privacies = Privacy::orderBy('id', 'desc')->get();
             return new DataSuccess(
-                data: PrivacyResource::collection($privacies)->response()->getData(true),
+                data: PrivacyResource::collection($privacies),
                 status: true,
                 message: 'Privacies fetched successfully'
             );

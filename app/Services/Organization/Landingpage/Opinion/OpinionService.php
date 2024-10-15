@@ -16,9 +16,9 @@ class OpinionService
     public function index()
     {
         try {
-            $opinions = Opinion::orderBy('id', 'desc')->paginate(10);
+            $opinions = Opinion::orderBy('id', 'desc')->get();
             return new DataSuccess(
-                data: OpinionResource::collection($opinions)->response()->getData(true),
+                data: OpinionResource::collection($opinions),
                 status: true,
                 message: 'Opinions fetched successfully'
             );

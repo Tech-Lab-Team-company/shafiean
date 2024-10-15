@@ -19,9 +19,9 @@ class ScreenService
     public function index()
     {
         try {
-            $screens = Screen::orderBy('id', 'desc')->paginate(10);
+            $screens = Screen::orderBy('id', 'desc')->get();
             return new DataSuccess(
-                data: ScreenResource::collection($screens)->response()->getData(true),
+                data: ScreenResource::collection($screens),
                 status: true,
                 message: 'Screens fetched successfully'
             );

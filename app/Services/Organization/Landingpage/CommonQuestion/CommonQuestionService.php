@@ -17,9 +17,9 @@ class CommonQuestionService
     public function index()
     {
         try {
-            $commonQuestions = CommonQuestion::orderBy('id', 'desc')->paginate(10);
+            $commonQuestions = CommonQuestion::orderBy('id', 'desc')->get();
             return new DataSuccess(
-                data: CommonQuestionResource::collection($commonQuestions)->response()->getData(true),
+                data: CommonQuestionResource::collection($commonQuestions),
                 status: true,
                 message: 'Common Questions fetched successfully'
             );
