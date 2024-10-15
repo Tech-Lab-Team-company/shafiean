@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Organization;
+use Carbon\Carbon;
 use Intervention\Image\File;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Eloquent\Model;
@@ -77,5 +78,24 @@ if (!function_exists('upload_image')) {
     function sanctumApiToken(Model $model, string $name)
     {
         return $model->createToken($name)->plainTextToken;
+    }
+
+
+    function calculateDurationInWeeks($start_date, $end_date)
+    {
+        if ($start_date && $end_date) {
+            $start = Carbon::parse($start_date);
+            $end = Carbon::parse($end_date);
+
+            // Calculate the difference in days and take the absolute value
+            $days = abs($end->diffInDays($start));
+            // dd($days);
+            // Divide t he days by 7 to get the number of weeks, round up to the nearest whole number
+            // $weeks = ceil($days / 7);
+
+            return $days;
+        }
+
+        return ""; // Return empty string if no dates provided
     }
 }
