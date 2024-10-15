@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Landingpage;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Organization\Landingpage\ServiceFeature\OrganizationEditServiceFeatureRequest;
 use App\Services\Organization\Landingpage\ServiceFeature\ServiceFeatureService;
 use Illuminate\Http\Request;
 
@@ -30,7 +31,7 @@ class ServiceFeatureController extends Controller
         return $this->service_feature_service->organization_add_service_feature($request)->response();
     }
 
-    public function organization_edit_service_feature(Request $request)
+    public function organization_edit_service_feature(OrganizationEditServiceFeatureRequest $request)
     {
         return $this->service_feature_service->organization_edit_service_feature($request)->response();
     }

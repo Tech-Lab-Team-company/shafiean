@@ -134,7 +134,8 @@ class ServiceFeatureService
         } catch (\Exception $e) {
             return new DataFailed(
                 status: false,
-                message: $e->getMessage()
+                message: $e->getMessage(),
+                errors: [$e->getTraceAsString()]
             );
         }
     }
