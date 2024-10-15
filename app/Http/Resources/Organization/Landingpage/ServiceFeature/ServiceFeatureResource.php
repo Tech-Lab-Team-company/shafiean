@@ -19,6 +19,7 @@ class ServiceFeatureResource extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'description' => $this->description,
+            'subtitle' => $this->subtitle,
             'organization_id' => $this->organization_id,
             'image' => $this->image_link,
             'features' => FeatureResource::collection($this->features),
