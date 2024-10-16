@@ -2,8 +2,12 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\User;
+use App\Models\Course;
 use Illuminate\Database\Eloquent\Model;
+use App\Observers\OrganizationIdObserver;
+use App\Models\Scopes\PerOrganizationScope;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Subscription extends Model
 {
@@ -26,5 +30,15 @@ class Subscription extends Model
 
     public function creatable() {
         return $this->morphTo();
+    }
+    protected static function booted(): void
+    {
+        static::addGlobalScope(new PerOrganizationScope);
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+        static::observe(OrganizationIdObserver::class);
     }
 }
