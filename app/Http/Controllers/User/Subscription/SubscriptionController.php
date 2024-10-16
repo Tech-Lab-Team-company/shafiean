@@ -2,20 +2,18 @@
 
 namespace App\Http\Controllers\User\Subscription;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Services\User\Subscription\SubscriptionService;
-use Illuminate\Http\Request;
+use App\Http\Requests\Organization\Subscription\StoreSubscriptionRequest;
 
 class SubscriptionController extends Controller
 {
-    protected $subscription_service;
 
-    public function __construct(SubscriptionService $subscription_service)
+    public function __construct(protected SubscriptionService $subscriptionService) {}
+
+    public function store(StoreSubscriptionRequest $request)
     {
-        $this->subscription_service = $subscription_service;
-    }
-
-    public function subscripe_group(Request $request) {
-        return $this->subscription_service->subscripe_group($request)->response();
+        return $this->subscriptionService->store($request->validated())->response();
     }
 }
