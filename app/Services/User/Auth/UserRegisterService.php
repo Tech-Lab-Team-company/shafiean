@@ -30,7 +30,7 @@ class UserRegisterService
                 'identity_number' => $dataRequest['identity_number'],
                 'image' => $dataRequest['image'] ? upload_image($dataRequest['image'], 'users') : null,
             ]);
-            $user->notify(new EmailNotification());
+            // $user->notify(new EmailNotification());
 
             return new DataSuccess(
                 status: true,

@@ -29,6 +29,7 @@ Route::middleware('auth:user')->group(function () {
     /**
      * END POINT START
      */
+
     Route::post('user_fetch_competitions', [CompetitionController::class, 'fetch_competitions']);
     Route::post('user_fetch_courses', [CourseController::class, 'fetch_courses']);
     Route::post('user_fetch_groups', [GroupController::class, 'fetch_groups']);
@@ -37,13 +38,10 @@ Route::middleware('auth:user')->group(function () {
     Route::post('subscripe_group', [SubscriptionController::class, 'subscripe_group']);
     //SUBSCRIPTION GROUP
     Route::post('fetch_user_subscription_group', FetchUserSubscriptionGroupController::class);
+    //SUBSCRIPTION COURSE
+    Route::post('fetch_user_subscription_course', FetchUserSubscriptionGroupController::class);
+
     /**
      * END POINT END
      */
-    // Route::post('user_fetch_competition_details', function () {
-    //     return response()->json([
-    //         'status' => true,
-    //         'data' => ['message' => '7omsa'],
-    //     ]);
-    // });
 });
