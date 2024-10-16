@@ -6,6 +6,7 @@ use App\Helpers\Response\DataFailed;
 use App\Helpers\Response\DataStatus;
 use App\Helpers\Response\DataSuccess;
 use App\Models\Subscription;
+use App\Models\Teacher;
 use App\Models\User;
 
 class SubscriptionService
@@ -13,11 +14,11 @@ class SubscriptionService
     public function subscripe_group($request): DataStatus
     {
         try {
-            $data['user_id'] = auth('user')->user()->id;
+            $data['user_id'] = $request->user_id;
             $data['group_id'] = $request->group_id;
             $data['course_id'] = $request->course_id;
-            $data['creatable_type'] = User::class;
-            $data['creatable_id'] = auth('user')->user()->id;
+            $data['creatable_type'] = Teacher::class;
+            $data['creatable_id'] = auth()->user()->id;
 
             $subscription = Subscription::create($data);
 

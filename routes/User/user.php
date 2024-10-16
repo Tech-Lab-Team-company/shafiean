@@ -34,7 +34,7 @@ Route::middleware('auth:user')->group(function () {
     Route::post('user_fetch_groups', [GroupController::class, 'fetch_groups']);
     Route::post('user_fetch_stages', [StageController::class, 'fetch_stages']);
     Route::post('user_fetch_sessions', [SessionController::class, 'fetch_sessions']);
-    Route::post('subscripe_group', [SubscriptionController::class, 'subscripe_group']);
+   
     /**
      * END POINT END
      */
