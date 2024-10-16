@@ -25,7 +25,7 @@ class UpdateScreenRequest extends ApiRequest
     {
         return [
             'id' => 'required|exists:screens,id',
-            'image' => 'required|image',
+            'image' => 'nullable|image',
         ];
     }
 }
