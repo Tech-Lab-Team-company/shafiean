@@ -4,7 +4,6 @@ namespace App\Services\Organization\Subscription;
 
 
 use Exception;
-use App\Models\User;
 use App\Models\Teacher;
 use App\Models\Subscription;
 use App\Helpers\Response\DataFailed;
@@ -18,7 +17,6 @@ class SubscriptionService
     {
         try {
             $subscriptions = Subscription::get();
-
             return new DataSuccess(
                 data: SubscriptionResource::collection($subscriptions)->response()->getData(true),
                 status: true,
@@ -30,6 +28,15 @@ class SubscriptionService
                 message: $e->getMessage()
             );
         }
+    }
+    public function show($request)
+    {
+        $subscription = Subscription::whereId($request->id)->first();
+        return new DataSuccess(
+            data: new SubscriptionResource($subscription),
+            statusCode: 200,
+            message: 'Fetch Subscription successfully'
+        );
     }
     public function store($request): DataStatus
     {
@@ -54,21 +61,18 @@ class SubscriptionService
             );
         }
     }
-    public function update(array $dataRequest): DataStatus
+    public function delete($request): DataStatus
     {
         try {
-            $subscription = Subscription::whereId($dataRequest['id'])->first();
-            unset($dataRequest['id']);
-            $subscription->update($dataRequest);
+            Subscription::whereId($request->id)->first()->delete();
             return new DataSuccess(
-                data: new SubscriptionResource($subscription),
-                status: true,
-                message: 'Subscription updated successfully'
+                statusCode: 200,
+                message: 'Subscription deleted successfully'
             );
         } catch (Exception $e) {
             return new DataFailed(
-                status: false,
-                message: $e->getMessage()
+                statusCode: 500,
+                message: 'Subscription deletion failed: ' . $e->getMessage()
             );
         }
     }

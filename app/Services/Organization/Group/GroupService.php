@@ -50,7 +50,7 @@ class GroupService
                 GroupStageSession::create([
                     'group_stage_id' => $group->id,
                     'session_id' => $session->id,
-                    'organization_id' => $organizationId,
+                    // 'organization_id' => $organizationId,
                     'group_id' => $group->id,
                     'stage_id' => $stage->stage_id,
                     'session_type_id' => $session->session_type_id,
