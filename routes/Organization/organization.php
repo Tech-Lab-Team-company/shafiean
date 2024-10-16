@@ -45,7 +45,11 @@ use App\Http\Controllers\Organization\Landingpage\CommonQuestionController;
 use App\Http\Controllers\Organization\Competition\CompetitionRewardController;
 use App\Http\Controllers\Organization\Landingpage\ServiceFeatureController;
 use App\Http\Controllers\Organization\QuestionBank\FetchQuestionBankContoller;
+
+use App\Http\Controllers\User\Subscription\SubscriptionController;
+
 use App\Http\Middleware\CheckWebsiteLinkMiddleware;
+
 
 //AUTH
 Route::controller(AuthController::class)->group(function () {
@@ -220,6 +224,7 @@ Route::middleware('auth:organization')->group(function () {
         Route::post('delete_group', 'delete_group');
         Route::post('change_group_active_status', 'change_group_active_status');
     });
+    Route::post('subscripe_group', [SubscriptionController::class, 'subscripe_group']);
     /**
      * END POINT START
      */
