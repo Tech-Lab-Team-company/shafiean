@@ -75,7 +75,7 @@ class BlogService
                 if ($blog->image) {
                     delete_image(old_image_path: $blog->image, disk: 'public');
                 }
-                $dataRequest['image'] = upload_image(folder: 'blog', image: $dataRequest['image']);
+                $data['image'] = upload_image(folder: 'blog', image: $dataRequest['image']);
             }
             unset($dataRequest['id']);
             $data['title'] = $dataRequest['title'];
