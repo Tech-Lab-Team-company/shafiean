@@ -224,7 +224,7 @@ Route::middleware('auth:organization')->group(function () {
         Route::post('delete_group', 'delete_group');
         Route::post('change_group_active_status', 'change_group_active_status');
     });
-    Route::post('subscripe_group', [SubscriptionController::class, 'subscripe_group']);
+    Route::post('add_subscripe_group', [SubscriptionController::class, 'subscripe_group']);
     /**
      * END POINT START
      */

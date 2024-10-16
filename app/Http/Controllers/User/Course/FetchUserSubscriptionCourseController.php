@@ -13,6 +13,7 @@ class FetchUserSubscriptionCourseController extends Controller
     public function __construct(protected FetchUserSubscriptionCourseService $fetchUserSubscriptionCourseService) {}
     public function __invoke()
     {
-        return $this->fetchUserSubscriptionCourseService->fetchUserSubscriptionCourse()->response();
+        $userId = authUser()->id;
+        return $this->fetchUserSubscriptionCourseService->fetchUserSubscriptionCourse($userId)->response();
     }
 }
