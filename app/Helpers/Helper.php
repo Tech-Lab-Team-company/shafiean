@@ -48,7 +48,13 @@ function get_organization_id($user = null)
 
 function get_auth_organization_id()
 {
+    // dd(Auth::guard());
     return auth()->user()->organization_id ?? null; //?? checkWebsiteLink(request()); // Returns null if no organization is found
+}
+function authUser()
+{
+
+    return auth('user')->user();
 }
 /**
  * @param Request $request

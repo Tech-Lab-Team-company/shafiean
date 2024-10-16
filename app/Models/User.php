@@ -8,12 +8,14 @@ use App\Models\Country;
 use App\Models\BloodType;
 use App\Models\DisabilityType;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Organization\Exam\Exam;
 use Illuminate\Notifications\Notifiable;
 use App\Models\Scopes\PerOrganizationScope;
 use App\Models\Organization\Exam\ExamStudent;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\Scopes\PerOrganizationWebsiteScope;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
@@ -30,7 +32,7 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected $guard = 'web';
+    // protected $guard = 'web';
     // protected $fillable = [
     //     'name' ,'email', 'phone', 'password', 'gender',
     //     'city_id', 'disability_type_id', 'country_id',
@@ -94,15 +96,24 @@ class User extends Authenticatable
     {
         return $this->hasMany(ExamStudent::class, 'user_id', 'id');
     }
-    public function groups(): BelongsToMany{
+    public function groups(): BelongsToMany
+    {
         return $this->belongsToMany(Group::class, 'user_groups', 'user_id', 'group_id')->withTimestamps();
     }
 
-    public function subscriptions () {
-        return $this->MorphMany(Subscription::class , 'creatable');
+    public function subscriptions()
+    {
+        return $this->MorphMany(Subscription::class, 'creatable');
     }
     protected static function booted(): void
     {
-        static::addGlobalScope(new PerOrganizationScope);
+
+        // static::addGlobalScope(new PerOrganizationScope);
+// dd(auth('user')->check());
+        if (auth('user')->check()) {
+            static::addGlobalScope(new PerOrganizationScope);
+        } else {
+            static::addGlobalScope(new PerOrganizationWebsiteScope);
+        }
     }
 }
