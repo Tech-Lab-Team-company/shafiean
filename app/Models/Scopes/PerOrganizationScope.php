@@ -21,11 +21,11 @@ class PerOrganizationScope implements Scope
         /* $organization_id = null;
         if(FacadesAuth::check()){
             $organization_id = get_auth_organization_id();
-        }else{
-            $organization_id = get_organization_id_for_website(request());
+            }else{
+                $organization_id = get_organization_id_for_website(request());
         } */
-        if (Schema::hasColumn($table, 'organization_id')) {
-            $builder->where('organization_id',get_auth_organization_id());
+       if (Schema::hasColumn($table, 'organization_id')) {
+            $builder->where('organization_id', get_auth_organization_id());
         }
     }
 }

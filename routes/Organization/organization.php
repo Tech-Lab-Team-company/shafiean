@@ -324,9 +324,6 @@ Route::middleware('auth:organization')->group(function () {
     // ***********************************************************************************************************************************
     //**************************************************** lANDINGPAGE END *************************************************************
     // ***********************************************************************************************************************************
-});
-
-Route::middleware(CheckWebsiteLinkMiddleware::class)->group(function () {
     //CURRICULUM
     Route::controller(CurriculumController::class)->group(function () {
         Route::post('organization_fetch_curriculums',  'index');
@@ -355,10 +352,12 @@ Route::middleware(CheckWebsiteLinkMiddleware::class)->group(function () {
     Route::get('organization_fetch_blog_hashtags', FetchBlogHashtagController::class);
     //BLOG CATEGORY
     Route::get('organization_fetch_blog_categories', FetchBlogCategoryController::class);
+});
+
+
     /**
      * END POINT END
      */
-});
 
 //GLOBAL
 Route::controller(GlobalController::class)->group(function () {
