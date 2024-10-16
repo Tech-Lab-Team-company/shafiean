@@ -62,13 +62,13 @@ class GroupService
     }
     public function add_group($request): DataStatus
     {
-        try {
+        // try {
             $group = Group::create([
                 'title' => $request->title,
                 'course_id' => $request->course_id,
                 'teacher_id' => $request->teacher_id,
-                'start_date' => Carbon::createFromFormat('d/m/Y', $request->start_date)->format('Y-m-d'),
-                'end_date' => Carbon::createFromFormat('d/m/Y', $request->end_date)->format('Y-m-d'),
+                'start_date' => $request->start_date,
+                'end_date' => $request->end_date,
                 'with_all_disability' => $request->with_all_disability,
                 'with_all_course_content' => $request->with_all_course_content,
             ]);
@@ -97,12 +97,12 @@ class GroupService
                 status: true,
                 message: 'Group created successfully'
             );
-        } catch (Exception $exception) {
-            return new DataFailed(
-                status: false,  // false
-                message: $exception->getMessage()
-            );
-        }
+        // } catch (Exception $exception) {
+            // return new DataFailed(
+                // status: false,  // false
+                // message: $exception->getMessage()
+            // );
+        // }
     }
 
     public function fetch_group_details($request): DataStatus
