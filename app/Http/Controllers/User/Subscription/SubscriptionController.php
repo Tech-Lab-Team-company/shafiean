@@ -15,7 +15,7 @@ class SubscriptionController extends Controller
         $this->subscription_service = $subscription_service;
     }
 
-    public function subscripe_group($request) {
+    public function subscripe_group(Request $request) {
         return $this->subscription_service->subscripe_group($request)->response();
     }
 }

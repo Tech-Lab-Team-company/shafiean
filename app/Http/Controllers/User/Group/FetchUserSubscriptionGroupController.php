@@ -12,6 +12,7 @@ class FetchUserSubscriptionGroupController extends Controller
     public function __construct(protected FetchUserSubscriptionGroupService $fetchUserSubscriptionGroupService) {}
     public function __invoke()
     {
-        return $this->fetchUserSubscriptionGroupService->fetchUserSubscriptionGroup()->response();
+        $userId =authUser()->id;
+        return $this->fetchUserSubscriptionGroupService->fetchUserSubscriptionGroup($userId)->response();
     }
 }

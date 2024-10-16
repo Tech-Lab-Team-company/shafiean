@@ -11,13 +11,14 @@ use App\Http\Resources\User\EndPoint\Course\FetchUserSubscriptionCourseResource;
 class FetchUserSubscriptionCourseService
 {
 
-    public function fetchUserSubscriptionCourse()
+    public function fetchUserSubscriptionCourse($userId)
     {
         try {
-            $subscriptions = Subscription::whereUserId(authUser()->id)->get()->pluck('course_id')->toArray();
+            $subscriptions = Subscription::whereUserId($userId)->whereNotNull('course_id')->get()->pluck('course_id')->toArray();
             $courses = Course::whereIn('id', $subscriptions)->get();
             return new DataSuccess(
                 status: true,
+                message: 'Courses retrieved successfully',
                 data: FetchUserSubscriptionCourseResource::collection($courses)->response()->getData(true),
             );
         } catch (\Exception $exception) {
