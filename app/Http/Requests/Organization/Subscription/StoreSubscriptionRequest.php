@@ -26,7 +26,7 @@ class StoreSubscriptionRequest extends ApiRequest
             "user_ids" => "required|array",
             "user_ids.*" => "required|exists:users,id",
             "course_id" => "required|exists:courses,id",
-            "group_id" => "nullable|exists:groups,id",
+            "group_id" => "required|exists:groups,id",
         ];
     }
 }

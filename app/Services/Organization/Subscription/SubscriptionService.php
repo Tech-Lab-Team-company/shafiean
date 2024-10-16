@@ -1,7 +1,9 @@
 <?php
 
-namespace App\Services\User\Subscription;
+namespace App\Services\Organization\Subscription;
 
+
+use Exception;
 use App\Models\User;
 use App\Models\Teacher;
 use App\Models\Subscription;
@@ -46,6 +48,24 @@ class SubscriptionService
                 data: new SubscriptionResource($subscription)
             );
         } catch (\Exception $e) {
+            return new DataFailed(
+                status: false,
+                message: $e->getMessage()
+            );
+        }
+    }
+    public function update(array $dataRequest): DataStatus
+    {
+        try {
+            $subscription = Subscription::whereId($dataRequest['id'])->first();
+            unset($dataRequest['id']);
+            $subscription->update($dataRequest);
+            return new DataSuccess(
+                data: new SubscriptionResource($subscription),
+                status: true,
+                message: 'Subscription updated successfully'
+            );
+        } catch (Exception $e) {
             return new DataFailed(
                 status: false,
                 message: $e->getMessage()
