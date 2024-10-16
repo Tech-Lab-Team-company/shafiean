@@ -226,6 +226,9 @@ Route::middleware('auth:organization')->group(function () {
     });
     Route::post('fetch_subscripe_groups', [SubscriptionController::class, 'index']);
     Route::post('add_subscripe_group', [SubscriptionController::class, 'store']);
+    Route::post('fetch_subscripe_group_details', [SubscriptionController::class, 'show']);
+    Route::post('delete_subscripe_group', [SubscriptionController::class, 'delete']);
+
     /**
      * END POINT START
      */

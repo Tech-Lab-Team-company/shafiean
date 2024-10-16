@@ -6,7 +6,9 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Services\Organization\Subscription\SubscriptionService;
 use App\Http\Requests\Organization\Subscription\StoreSubscriptionRequest;
+use App\Http\Requests\Organization\Subscription\DeleteSubscriptionRequest;
 use App\Http\Requests\Organization\Subscription\UpdateSubscriptionRequest;
+use App\Http\Requests\Organization\Subscription\FetchSubscriptionDetailsRequest;
 
 class SubscriptionController extends Controller
 {
@@ -16,9 +18,7 @@ class SubscriptionController extends Controller
     {
         return $this->subscriptionService->index()->response();
     }
-
-
-    public function show(FetchExamDetailsRequest $request)
+    public function show(FetchSubscriptionDetailsRequest $request)
     {
         return $this->subscriptionService->show($request)->response();
     }
@@ -26,11 +26,7 @@ class SubscriptionController extends Controller
     {
         return $this->subscriptionService->store($request->validated())->response();
     }
-    public function update(UpdateSubscriptionRequest $request)
-    {
-        return $this->subscriptionService->update($request->validated())->response();
-    }
-    public function delete(DeleteExamRequest $request)
+    public function delete(DeleteSubscriptionRequest $request)
     {
         return $this->subscriptionService->delete($request)->response();
     }
