@@ -45,7 +45,11 @@ use App\Http\Controllers\Organization\Landingpage\CommonQuestionController;
 use App\Http\Controllers\Organization\Competition\CompetitionRewardController;
 use App\Http\Controllers\Organization\Landingpage\ServiceFeatureController;
 use App\Http\Controllers\Organization\QuestionBank\FetchQuestionBankContoller;
+
 use App\Http\Controllers\User\Subscription\SubscriptionController;
+
+use App\Http\Middleware\CheckWebsiteLinkMiddleware;
+
 
 //AUTH
 Route::controller(AuthController::class)->group(function () {
@@ -224,37 +228,7 @@ Route::middleware('auth:organization')->group(function () {
     /**
      * END POINT START
      */
-    //CURRICULUM
-    Route::controller(CurriculumController::class)->group(function () {
-        Route::post('organization_fetch_curriculums',  'index');
-    });
-    //DISABILITY
-    Route::post('organization_fetch_disabilities', [DisabilityTypeController::class, 'index']);
-    //STAGE
-    Route::post('organization_fetch_stages', [StageController::class, 'index']);
-    //EXAM STUDENT
-    Route::post('organization_fetch_exam_students', [GlobalController::class, 'fetch_exam_students']);
-    //QUESTION BANK
-    Route::get('organization_fetch_question_banks', FetchQuestionBankContoller::class);
-    //JOB TYPE
-    Route::get('organization_fetch_job_types', FetchJobTypeController::class);
-    //BLOOD TYPE
-    Route::get('organization_fetch_blood_types', FetchBloodTypeController::class);
-    //COUNTRY
-    Route::get('organization_fetch_countries', FetchCountryController::class);
-    //GROUP
-    Route::get('organization_fetch_groups', FetchGroupController::class);
-    //SEASON
-    Route::get('organization_fetch_seasons', FetchSeasonController::class);
-    //CRUCULUM
-    Route::get('organization_fetch_curriculums', FetchCurriculumController::class);
-    //BLOG HASHTAG
-    Route::get('organization_fetch_blog_hashtags', FetchBlogHashtagController::class);
-    //BLOG CATEGORY
-    Route::get('organization_fetch_blog_categories', FetchBlogCategoryController::class);
-    /**
-     * END POINT END
-     */
+
 
     // ***********************************************************************************************************************************
     //**************************************************** lANDINGPAGE START *************************************************************
@@ -355,7 +329,40 @@ Route::middleware('auth:organization')->group(function () {
     // ***********************************************************************************************************************************
     //**************************************************** lANDINGPAGE END *************************************************************
     // ***********************************************************************************************************************************
+    //CURRICULUM
+    Route::controller(CurriculumController::class)->group(function () {
+        Route::post('organization_fetch_curriculums',  'index');
+    });
+    //DISABILITY
+    Route::post('organization_fetch_disabilities', [DisabilityTypeController::class, 'index']);
+    //STAGE
+    Route::post('organization_fetch_stages', [StageController::class, 'index']);
+    //EXAM STUDENT
+    Route::post('organization_fetch_exam_students', [GlobalController::class, 'fetch_exam_students']);
+    //QUESTION BANK
+    Route::get('organization_fetch_question_banks', FetchQuestionBankContoller::class);
+    //JOB TYPE
+    Route::get('organization_fetch_job_types', FetchJobTypeController::class);
+    //BLOOD TYPE
+    Route::get('organization_fetch_blood_types', FetchBloodTypeController::class);
+    //COUNTRY
+    Route::get('organization_fetch_countries', FetchCountryController::class);
+    //GROUP
+    Route::get('organization_fetch_groups', FetchGroupController::class);
+    //SEASON
+    Route::get('organization_fetch_seasons', FetchSeasonController::class);
+    //CRUCULUM
+    Route::get('organization_fetch_curriculums', FetchCurriculumController::class);
+    //BLOG HASHTAG
+    Route::get('organization_fetch_blog_hashtags', FetchBlogHashtagController::class);
+    //BLOG CATEGORY
+    Route::get('organization_fetch_blog_categories', FetchBlogCategoryController::class);
 });
+
+
+    /**
+     * END POINT END
+     */
 
 //GLOBAL
 Route::controller(GlobalController::class)->group(function () {
