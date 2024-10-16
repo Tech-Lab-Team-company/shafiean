@@ -1,6 +1,6 @@
 <?php
+namespace App\Services\User\EndPoint\Group;
 
-namespace App\Services\User\EndPoint;
 
 use App\Models\Group;
 use App\Models\Subscription;
