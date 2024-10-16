@@ -14,6 +14,7 @@ use App\Http\Controllers\User\Auth\UserChangePasswordController;
 use App\Http\Controllers\User\Competition\CompetitionController;
 use App\Http\Controllers\User\Subscription\SubscriptionController;
 use App\Http\Controllers\User\Group\FetchUserSubscriptionGroupController;
+use App\Http\Controllers\User\Course\FetchUserSubscriptionCourseController;
 
 // AUTH
 Route::post('user_register', UserRegisterController::class);
@@ -39,7 +40,7 @@ Route::middleware('auth:user')->group(function () {
     //SUBSCRIPTION GROUP
     Route::post('fetch_user_subscription_group', FetchUserSubscriptionGroupController::class);
     //SUBSCRIPTION COURSE
-    Route::post('fetch_user_subscription_course', FetchUserSubscriptionGroupController::class);
+    Route::post('fetch_user_subscription_course', FetchUserSubscriptionCourseController::class);
 
     /**
      * END POINT END
