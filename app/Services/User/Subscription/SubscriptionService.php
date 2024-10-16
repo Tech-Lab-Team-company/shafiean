@@ -12,6 +12,23 @@ use App\Http\Resources\Organization\Subscription\SubscriptionResource;
 
 class SubscriptionService
 {
+    public function  index(): DataStatus
+    {
+        try {
+            $subscriptions = Subscription::get();
+
+            return new DataSuccess(
+                data: SubscriptionResource::collection($subscriptions)->response()->getData(true),
+                status: true,
+                message: 'Subscription fetched successfully'
+            );
+        } catch (\Exception $e) {
+            return new DataFailed(
+                status: false,
+                message: $e->getMessage()
+            );
+        }
+    }
     public function store($request): DataStatus
     {
         try {

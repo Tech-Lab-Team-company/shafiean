@@ -11,7 +11,9 @@ class SubscriptionController extends Controller
 {
 
     public function __construct(protected SubscriptionService $subscriptionService) {}
-
+    public function index(){
+        return $this->subscriptionService->index()->response();
+    }
     public function store(StoreSubscriptionRequest $request)
     {
         return $this->subscriptionService->store($request->validated())->response();

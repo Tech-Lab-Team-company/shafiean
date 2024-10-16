@@ -24,10 +24,10 @@ class SubscriptionGroupResource extends JsonResource
             'start_time' => $this->start_time,
             'end_time' => $this->end_time,
             'status' => $this->status,
-            'with_all_disability' => $this->with_all_disability,
-            'with_all_course_content' => $this->with_all_course_content,
-            'days' => DayResource::collection($this->days),
-            'course' => new CourseResource($this->course),
+            // 'with_all_disability' => $this->with_all_disability,
+            // 'with_all_course_content' => $this->with_all_course_content,
+            // 'days' => DayResource::collection($this->days),
+            // 'course' => new CourseResource($this->course),
         ];
     }
 }
