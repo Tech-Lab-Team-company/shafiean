@@ -20,7 +20,7 @@ class SubscriptionService
                 $data['group_id'] = $request['group_id'];
                 $data['course_id'] = $request['course_id'];
                 $data['creatable_type'] = Teacher::class;
-                $data['creatable_id'] = auth()->user()->id;
+                $data['creatable_id'] = auth('organization')->user()->id;
                 $subscription = Subscription::create($data);
             }
             return new DataSuccess(
