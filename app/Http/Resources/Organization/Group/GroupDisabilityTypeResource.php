@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\Organization\Group;
+
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class DisabilityTypeResource extends JsonResource
+class GroupDisabilityTypeResource extends JsonResource
 {
     public function toArray($request)
     {
