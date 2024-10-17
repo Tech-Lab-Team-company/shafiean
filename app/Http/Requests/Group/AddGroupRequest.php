@@ -30,12 +30,14 @@ class AddGroupRequest extends ApiRequest
             'end_date' => 'required|date|date_format:Y-m-d',
             'with_all_disability' => 'required|integer',
             'with_all_course_content' => 'required|integer',
+            'disabilities' => 'required_if:with_all_disability,1|array',
+            'disabilities.*' => 'required_if:with_all_disability,1|exists:disability_types,id',
             'days' =>  'required|array',
             'days.*.day_id' => 'required|exists:days,id',
             'days.*.start_time' => 'required|date_format:H:i',
             'days.*.end_time' => 'required|date_format:H:i',
-            'stages' => 'required|array',
-            'stages.*' => 'required|exists:stages,id',
+            'stages' => 'required_if:with_all_course_content,0|array',
+            'stages.*' => 'required_if:with_all_course_content,0|exists:stages,id',
         ];
     }
 }

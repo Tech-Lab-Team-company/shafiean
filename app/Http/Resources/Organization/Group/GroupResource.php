@@ -1,8 +1,11 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\Organization\Group;
+
 
 use Illuminate\Http\Request;
+use App\Http\Resources\DayResource;
+use App\Http\Resources\CourseResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class GroupResource extends JsonResource
@@ -26,6 +29,8 @@ class GroupResource extends JsonResource
             'with_all_course_content' => $this->with_all_course_content,
             'days' => DayResource::collection($this->days),
             'course' => new CourseResource($this->course),
+            "stages" => GroupStageResource::collection($this->stages ?? []) ?? [],
+
         ];
     }
 }
