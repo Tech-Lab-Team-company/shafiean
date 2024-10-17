@@ -361,6 +361,8 @@ Route::middleware('auth:organization')->group(function () {
     Route::get('organization_fetch_blog_hashtags', FetchBlogHashtagController::class);
     //BLOG CATEGORY
     Route::get('organization_fetch_blog_categories', FetchBlogCategoryController::class);
+    //YEAR
+    Route::get('organization_fetch_years', [GlobalController::class, "fetch_years"]);
 });
 
 

@@ -26,4 +26,8 @@ class GlobalController extends Controller
     {
         return $this->global_service->fetch_exam_students($request)->response();
     }
+    public function fetch_years()
+    {
+        return $this->global_service->fetchYears()->response();
+    }
 }

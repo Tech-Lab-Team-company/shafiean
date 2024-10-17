@@ -4,12 +4,14 @@ namespace App\Services\Global;
 
 use Exception;
 use App\Models\Day;
+use App\Models\Year;
 use App\Http\Resources\DayResource;
 use App\Helpers\Response\DataFailed;
 use App\Helpers\Response\DataStatus;
 use App\Helpers\Response\DataSuccess;
 use App\Models\Organization\Exam\Exam;
 use App\Models\Organization\Exam\ExamStudent;
+use App\Http\Resources\Year\FetchYearResource;
 use App\Http\Resources\Organization\ExamStudent\EndPoint\FetchExamStudentResource;
 
 class GlobalService
@@ -45,6 +47,22 @@ class GlobalService
                 data: FetchExamStudentResource::collection($examStudents),
                 status: true,
                 message: 'Fetch exam students  successfully'
+            );
+        } catch (Exception $exception) {
+            return new DataFailed(
+                status: false,
+                message: $exception->getMessage()
+            );
+        }
+    }
+    public function fetchYears(): DataStatus
+    {
+        try {
+            $years = Year::get();
+            return new DataSuccess(
+                data: FetchYearResource::collection($years),
+                status: true,
+                message: 'Fetch Years Successfully'
             );
         } catch (Exception $exception) {
             return new DataFailed(
