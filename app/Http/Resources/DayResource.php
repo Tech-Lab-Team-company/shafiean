@@ -15,9 +15,11 @@ class DayResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id' => $this->id,
-            'title' => $this->title,
-            'day_of_week' => $this->day_of_week,
+            'id' => $this->id ?? 0,
+            'title' => $this->title ?? "",
+            "start_time" => $this?->pivot?->start_time ?? "",
+            "end_time" => $this?->pivot?->end_time ?? "",
+            'day_of_week' => $this->day_of_week ?? "",
         ];
     }
 }

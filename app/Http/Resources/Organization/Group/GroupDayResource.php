@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Resources\Organization\Group;
 
 
@@ -14,9 +15,13 @@ class GroupDayResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+
         return [
             'id' => $this->id ?? 0,
             'title' => $this->title ?? "",
+            "start_time" => $this?->pivot?->start_time ?? "",
+            "end_time" => $this?->pivot?->end_time ?? "",
+
         ];
     }
 }
