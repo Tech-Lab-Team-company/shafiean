@@ -14,7 +14,6 @@ class FetchCompetitionService
     {
         try {
             $compitions  = Competition::get();
-            // dd($compitions);
             return new DataSuccess(
                 data: FetchCompetitionResource::collection($compitions),
                 status: true,

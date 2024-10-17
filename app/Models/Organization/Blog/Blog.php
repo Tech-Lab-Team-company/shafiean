@@ -2,10 +2,12 @@
 
 namespace App\Models\Organization\Blog;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 use App\Observers\OrganizationIdObserver;
 use App\Models\Scopes\PerOrganizationScope;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\Scopes\PerOrganizationWebsiteScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
@@ -30,7 +32,12 @@ class Blog extends Model
     }
     protected static function booted(): void
     {
-        static::addGlobalScope(new PerOrganizationScope);
+        if (Auth::check()) {
+            static::addGlobalScope(new PerOrganizationScope);
+        } else {
+            static::addGlobalScope(new PerOrganizationWebsiteScope);
+        }
+        // static::addGlobalScope(new PerOrganizationScope);
     }
 
     protected static function boot()
