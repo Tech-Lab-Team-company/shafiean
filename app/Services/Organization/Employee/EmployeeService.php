@@ -19,7 +19,7 @@ class EmployeeService
     public function fetch_employees($request): DataStatus
     {
         try {
-            $employees = Teacher::where('organization_id', get_organization_id(auth()->guard('organization')->user()))->paginate(10);
+            $employees = Teacher::where('organization_id', get_organization_id(auth()->guard('organization')->user()))->orderBy('id', 'desc')->paginate(10);
             return new DataSuccess(
                 data: OrganizationEmployeeResource::collection($employees)->response()->getData(true),
                 status: true,
