@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\Organization\BlogHashtag\BlogHashtagResource;
 use App\Http\Resources\Organization\BlogCategory\BlogCategoryResource;
+use Carbon\Carbon;
 
 class FetchBlogResource extends JsonResource
 {
@@ -18,10 +19,11 @@ class FetchBlogResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id' => $this->id,
-            'title' => $this->title,
-            'description' => $this->description,
-            'image' => $this->image_link,
+            'id' => $this->id ?? 0,
+            'title' => $this->title ?? "",
+            'description' => $this->description ?? "",
+            'image' => $this->image_link ?? "",
+            "created_at" => Carbon::parse($this->created_at)->format('Y-m-d'),
         ];
     }
 }
