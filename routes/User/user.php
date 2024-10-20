@@ -19,7 +19,7 @@ use App\Http\Controllers\User\Course\FetchUserSubscriptionCourseController;
 
 // AUTH
 Route::post('user_register', UserRegisterController::class);
-Route::post('user_login', UserLoginController::class);
+Route::post('user_login', UserLoginController::class)->name('user_login');
 Route::post('user_change_password', UserChangePasswordController::class);
 Route::post('user_check_code', UserCheckCodeController::class);
 

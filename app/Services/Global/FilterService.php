@@ -205,6 +205,14 @@ class FilterService
             })
             ->when($request->has('stage_id') && !empty($request->stage_id), function ($q) use ($request) {
                 $q->where('stage_id', $request->stage_id);
-            });
+            })
+            ->when($request->has('with_subscription') && !empty($request->with_subscription), function ($q) use ($request) {
+                $q->whereHas('groups', function ($q) use ($request) {
+                    $q->whereHas('subscripe_users', function ($q) use ($request) {
+                        $q->where('user_id', auth()->user()->id);
+                    });
+                });
+            })
+            ;
     }
 }
