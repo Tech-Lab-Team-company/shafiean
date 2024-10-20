@@ -19,22 +19,22 @@ use App\Http\Resources\User\ExamResultAnswer\UserExamResultAnswerResource;
 
 class ExamResultAnswerService
 {
-    // public function index()
-    // {
-    //     try {
-    //         $exams = Exam::orderBy('id', 'desc')->paginate(10);
-    //         return new DataSuccess(
-    //             data: ExamResource::collection($exams)->response()->getData(true),
-    //             status: true,
-    //             message: 'Exams fetched successfully'
-    //         );
-    //     } catch (Exception $e) {
-    //         return new DataFailed(
-    //             status: false,
-    //             message: $e->getMessage()
-    //         );
-    //     }
-    // }
+    public function fetchExamResultAnswers($dataRequest)
+    {
+        try {
+            $examResult = ExamResultAnswer::whereExamResultId($dataRequest["exam_result_id"])->orderBy('id', 'desc')->paginate(10);
+            return new DataSuccess(
+                data: UserExamResultAnswerResource::collection($examResult)->response()->getData(true),
+                status: true,
+                message: 'Exam Result Answer fetched successfully'
+            );
+        } catch (Exception $e) {
+            return new DataFailed(
+                status: false,
+                message: $e->getMessage()
+            );
+        }
+    }
 
     public function store(object $dataRequest): DataStatus
     {
