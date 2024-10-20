@@ -3,10 +3,15 @@
 namespace App\Models\Organization\Exam;
 
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
+use App\Observers\OrganizationIdObserver;
 use App\Models\Organization\Answer\Answer;
+use App\Models\Scopes\PerOrganizationScope;
+use App\Models\Organization\Exam\ExamResult;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\Organization\Question\Question;
+use App\Models\Scopes\PerOrganizationWebsiteScope;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -30,5 +35,18 @@ class ExamResultAnswer extends Model
     public function answer(): BelongsTo
     {
         return $this->belongsTo(Answer::class, "answer_id", "id");
+    }
+    protected static function booted(): void
+    {
+        if (Auth::check()) {
+            static::addGlobalScope(new PerOrganizationScope);
+        } else {
+            static::addGlobalScope(new PerOrganizationWebsiteScope);
+        }
+    }
+    protected static function boot()
+    {
+        parent::boot();
+        static::observe(OrganizationIdObserver::class);
     }
 }

@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Requests\User\ExamResult;
+namespace App\Http\Requests\User\Exam;
+
 
 use App\Helpers\Response\ApiRequest;
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreExamResultRequest extends ApiRequest
+class FetchUserExamResultRequest extends ApiRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +25,6 @@ class StoreExamResultRequest extends ApiRequest
     {
         return [
             "exam_id" => "required|exists:exams,id",
-            "grade" => "nullable",
         ];
     }
 }

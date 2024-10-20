@@ -29,11 +29,11 @@ class ExamResult extends Model
     }
     protected static function booted(): void
     {
-        // if (Auth::check()) {
+        if (Auth::check()) {
             static::addGlobalScope(new PerOrganizationScope);
-        // } else {
-            // static::addGlobalScope(new PerOrganizationWebsiteScope);
-        // }
+        } else {
+            static::addGlobalScope(new PerOrganizationWebsiteScope);
+        }
     }
     protected static function boot()
     {
