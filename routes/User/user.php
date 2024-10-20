@@ -32,6 +32,7 @@ Route::middleware('auth:user')->group(function () {
     //EXAM RESULT ANSWER
     Route::controller(ExamResultAnswerController::class)->group(function () {
         Route::post('add_exam_result_answer', 'store');
+        Route::post('fetch_exam_result_answers', 'fetchExamResultAnswers');
     });
     /**
      * END POINT START
