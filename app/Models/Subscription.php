@@ -31,14 +31,14 @@ class Subscription extends Model
     public function creatable() {
         return $this->morphTo();
     }
-    protected static function booted(): void
-    {
-        static::addGlobalScope(new PerOrganizationScope);
-    }
+    // protected static function booted(): void
+    // {
+    //     static::addGlobalScope(new PerOrganizationScope);
+    // }
 
-    protected static function boot()
-    {
-        parent::boot();
-        static::observe(OrganizationIdObserver::class);
-    }
+    // protected static function boot()
+    // {
+    //     parent::boot();
+    //     static::observe(OrganizationIdObserver::class);
+    // }
 }
