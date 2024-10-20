@@ -46,16 +46,17 @@ class GroupService
 
     private function storeGroupStageSessions($groupStages, $mainSessions, $group)
     {
+        // dd($groupStages, $mainSessions, $group);
         foreach ($groupStages as $stage) {
             foreach ($mainSessions as $session) {
                 GroupStageSession::create([
-                    'group_stage_id' => $group->id,
+                    'group_stage_id' => $stage->id,
                     'session_id' => $session->id,
                     'group_id' => $group->id,
                     'stage_id' => $stage->stage_id,
                     'session_type_id' => $session->session_type_id,
-                    'start_verse' => $session->start_verse,
-                    'end_verse' => $session->end_verse,
+                    'start_verse' => (int) $session->start_verse,
+                    'end_verse' => (int) $session->end_verse,
                 ]);
             }
         }
@@ -90,6 +91,7 @@ class GroupService
                 $group->stages()->attach($request->stages);
             }
             $groupStages = GroupStage::where('group_id', $group->id)->get();
+            // dd($groupStages, $mainSessions, $group);
             $this->storeGroupStageSessions($groupStages, $mainSessions, $group);
             return new DataSuccess(
                 data: new GroupResource($group),
