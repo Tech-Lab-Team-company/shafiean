@@ -13,6 +13,7 @@ use App\Http\Controllers\User\Auth\UserResetPasswordController;
 use App\Http\Controllers\User\Auth\UserChangePasswordController;
 use App\Http\Controllers\User\Competition\CompetitionController;
 use App\Http\Controllers\User\Subscription\SubscriptionController;
+use App\Http\Controllers\User\Exam\FetchUserExamQuestionController;
 use App\Http\Controllers\User\Group\FetchUserSubscriptionGroupController;
 use App\Http\Controllers\User\Course\FetchUserSubscriptionCourseController;
 
@@ -40,7 +41,8 @@ Route::middleware('auth:user')->group(function () {
     Route::post('fetch_user_subscription_group', FetchUserSubscriptionGroupController::class);
     //SUBSCRIPTION COURSE
     Route::post('fetch_user_subscription_course', FetchUserSubscriptionCourseController::class);
-
+    //EXAM QUESTION
+    Route::post('fetch_user_exam_question',FetchUserExamQuestionController::class);
     /**
      * END POINT END
      */
