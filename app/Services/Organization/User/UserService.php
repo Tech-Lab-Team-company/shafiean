@@ -110,8 +110,6 @@ class UserService
                 delete_image(old_image_path: $user->image, disk: 'public');
             }
             $data['image'] = upload_image($dataRequest['image'], 'users');
-        } else {
-            $data['image'] = 'uploads/default.jpg';
         }
         $data['organization_id'] = $organizationId;
         $data['name'] = $dataRequest['name'];
