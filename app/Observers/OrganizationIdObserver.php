@@ -11,7 +11,7 @@ class OrganizationIdObserver
     {
         $table = $model->getTable();
         if (Schema::hasColumn($table, 'organization_id')) {
-            if (auth('organization')->check()) {
+            if (auth()->check()) {
                 $model->organization_id =  get_auth_organization_id();
             }
         }
