@@ -7,7 +7,13 @@ namespace App\Services\Global;
 class FilterService
 {
 
+    public function filterAdmins($query, $request)
+    {
 
+        $query->when($request->has('word') && !empty($request->word), function ($q) use ($request) {
+            $q->where('name', 'like', '%' . $request->word . '%');
+        });
+    }
 
     public function filterOrganizations($query, $request)
     {
@@ -216,6 +222,6 @@ class FilterService
                 });
             })
 
-            ;
+        ;
     }
 }

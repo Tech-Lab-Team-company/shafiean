@@ -19,10 +19,10 @@ class AdminController extends Controller
         $this->adminService = $adminService;
     }
 
-    public function index()
+    public function index(Request $request)
     {
 
-        return $this->adminService->getAll()->response();
+        return $this->adminService->getAll($request)->response();
     }
 
     public function store(AdminStoreRequest $request)

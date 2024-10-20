@@ -7,13 +7,22 @@ use App\Helpers\Response\DataStatus;
 use App\Helpers\Response\DataSuccess;
 use App\Http\Resources\AdminResource;
 use App\Models\Admin\Admin;
+use App\Services\Global\FilterService;
 use Illuminate\Support\Facades\Hash;
 
 class AdminService
 {
-    public function getAll()
+    public function getAll($request)
     {
-        $admin_all = Admin::orderBy('id', 'desc')->paginate(10);
+        $query = Admin::query();
+        // dd($request);
+        $filter_service = new FilterService();
+        if (isset($request)) {
+            $filter_service->filterAdmins($query, $request);
+        }
+
+        $admin_all = $query->orderBy('id', 'desc')->paginate(10);
+
         return new DataSuccess(
             data: AdminResource::collection($admin_all)->response()->getData(true),
             status: true,

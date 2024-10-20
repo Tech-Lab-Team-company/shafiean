@@ -28,8 +28,8 @@ Route::middleware('auth:admin')->group(function () {
     });
     // Admin Routes
     Route::prefix('admins')->group(function () {
-        Route::get('/', [AdminController::class, 'index']);
-        Route::post('/', [AdminController::class, 'store']);
+        Route::post('/', [AdminController::class, 'index']);
+        Route::post('/store', [AdminController::class, 'store']);
         Route::post('/show', [AdminController::class, 'show']);
         Route::post('/update', [AdminController::class, 'update']);
         Route::post('/destroy', [AdminController::class, 'destroy']);
