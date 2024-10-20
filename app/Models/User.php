@@ -22,6 +22,7 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Support\Facades\Route;
 
 class User extends Authenticatable
 {
@@ -101,18 +102,24 @@ class User extends Authenticatable
         return $this->belongsToMany(Group::class, 'user_groups', 'user_id', 'group_id')->withTimestamps();
     }
 
+    public function subscripe_groups()
+    {
+
+        return $this->belongsToMany(Group::class, 'subscriptions', 'user_id', 'group_id')->withTimestamps();
+    }
+
     public function subscriptions()
     {
-        return $this->MorphMany(Subscription::class, 'creatable');
+        return $this->hasMany(Subscription::class, 'user_id', 'id');
     }
     protected static function booted(): void
     {
 
         // static::addGlobalScope(new PerOrganizationScope);
-// dd(auth('user')->check());
+        // dd(auth('user')->check());
         if (auth('user')->check()) {
             static::addGlobalScope(new PerOrganizationScope);
-        } else {
+        } else if (!Route::currentRouteName() === 'user_login') {
             static::addGlobalScope(new PerOrganizationWebsiteScope);
         }
     }
