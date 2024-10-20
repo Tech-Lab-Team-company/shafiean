@@ -15,9 +15,11 @@ class CurriculumService
     {
         try {
             if (isset($request->word)) {
+
                 $curriculums = Curriculum::where('title', 'like', '%' . $request->word . '%')->orderBy('id', 'desc')->paginate(10);
+            } else {
+                $curriculums = Curriculum::orderBy('id', 'desc')->paginate(10);
             }
-            $curriculums = Curriculum::orderBy('id', 'desc')->paginate(10);
             return new DataSuccess(
                 data: CurriculumResource::collection($curriculums)->response()->getData(true),
                 status: true,
