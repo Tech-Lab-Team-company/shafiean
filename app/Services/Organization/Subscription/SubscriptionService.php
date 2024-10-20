@@ -16,7 +16,7 @@ class SubscriptionService
     public function  index(): DataStatus
     {
         try {
-            $subscriptions = Subscription::get();
+            $subscriptions = Subscription::orderBy('id', 'desc')->paginate(10);
             return new DataSuccess(
                 data: SubscriptionResource::collection($subscriptions)->response()->getData(true),
                 status: true,
