@@ -32,7 +32,8 @@ class PasswordService
                 );
             }
             $user->update([
-                'password' => $request->password
+                'password' => $request->password,
+                'email_verified_at' => null
             ]);
             return new DataSuccess(
                 status: true,
