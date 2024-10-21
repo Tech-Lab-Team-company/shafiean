@@ -50,6 +50,7 @@ use App\Http\Controllers\Organization\Competition\CompetitionRewardController;
 
 use App\Http\Controllers\Organization\QuestionBank\FetchQuestionBankContoller;
 use App\Http\Controllers\Organization\Curriculum\FetchCurriculumStageController;
+use App\Http\Controllers\Organization\LibraryCategory\LibraryCategoryController;
 
 
 //AUTH
@@ -158,6 +159,14 @@ Route::middleware('auth:organization')->group(function () {
         Route::post('fetch_library_details', 'show');
         Route::post('edit_library', 'update');
         Route::post('delete_library', 'delete');
+    });
+    //LIBRARY CATEGORY
+    Route::controller(LibraryCategoryController::class)->group(function () {
+        Route::post('fetch_library_categories', 'index');
+        Route::post('add_library_category', 'store');
+        Route::post('fetch_library_category_details', 'show');
+        Route::post('edit_library_category', 'update');
+        Route::post('delete_library_category', 'delete');
     });
     //JOB TYPE
     Route::controller(JobTypeController::class)->group(function () {

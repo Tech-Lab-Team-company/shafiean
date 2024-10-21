@@ -1,13 +1,14 @@
 <?php
 
-namespace App\Http\Resources\Organization\Library;
+namespace App\Http\Resources\User\EndPoint\Library;
+
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\Organization\BlogCategory\BlogCategoryResource;
 use App\Http\Resources\Organization\LibraryCategory\LibraryCategoryResource;
 
-class LibraryResource extends JsonResource
+class FetchLibraryResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -19,9 +20,6 @@ class LibraryResource extends JsonResource
         return [
             'id' => $this->id ?? 0,
             'name' => $this->name ?? '',
-            'description' => $this->description ?? '',
-            'file' => $this->file_link ?? '',
-            'library_category' => new LibraryCategoryResource($this->libraryCategory) ?? "",
         ];
     }
 }

@@ -199,22 +199,20 @@ class FilterService
             })
 
             ->when($request->has('course_id') && !empty($request->course_id), function ($q) use ($request) {
-                $q->whereHas('courses', function ($q) use ($request) {
-                    $q->where('courses.id', $request->course_id);
+                $q->whereHas('group' , function ($q) use ($request) {
+                    $q->where('course_id', $request->course_id);
                 });
             })
 
             ->when($request->has('group_id') && !empty($request->group_id), function ($q) use ($request) {
-                $q->whereHas('groups', function ($q) use ($request) {
-                    $q->where('groups.id', $request->group_id);
-                });
+                $q->where('group_id', $request->group_id);
             })
             ->when($request->has('stage_id') && !empty($request->stage_id), function ($q) use ($request) {
                 $q->where('stage_id', $request->stage_id);
             })
             ->when($request->has('with_subscription') && !empty($request->with_subscription) && $request->with_subscription == 1, function ($group_q) use ($request) {
                 // dd(auth()->user()->id);
-                return $group_q->whereHas('groups', function ($subscripe_users_q) use ($request) {
+                return $group_q->whereHas('group', function ($subscripe_users_q) use ($request) {
                     $subscripe_users_q->whereHas('subscripe_users', function ($user_q) use ($request) {
                         return $user_q->where('user_id', auth()->user()->id);
                         // dd(auth()->user()->id);
