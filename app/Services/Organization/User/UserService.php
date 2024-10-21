@@ -3,25 +3,32 @@
 namespace App\Services\Organization\User;
 
 
+use Exception;
+use App\Models\User;
 use App\Helpers\Response\DataFailed;
 use App\Helpers\Response\DataStatus;
-use App\Helpers\Response\DataSuccess;
-use App\Http\Requests\User\UserRequest;
 use App\Http\Resources\UserResource;
-use App\Models\User;
-use Exception;
 use Illuminate\Support\Facades\Hash;
+use App\Helpers\Response\DataSuccess;
+use App\Services\Global\FilterService;
+use App\Http\Requests\User\UserRequest;
 use Illuminate\Support\Facades\Storage;
 
 class UserService
 {
     public function index($dataRequest): DataStatus
     {
-        $users = User::query();
+        $query = User::query();
         if ($dataRequest->has('type') && $dataRequest->type !== null) {
-            $users->where('type', $dataRequest->type);
+            $query->where('type', $dataRequest->type);
         }
-        $users = $users->orderBy('id', 'desc')->paginate(5);
+        $filter_service = new FilterService();
+        if (isset($dataRequest)) {
+
+            $filter_service->filterUsers($query, $dataRequest);
+        }
+
+        $users = $query->orderBy('id', 'desc')->paginate(5);
 
         return new DataSuccess(
             data: UserResource::collection($users)->response()->getData(true),

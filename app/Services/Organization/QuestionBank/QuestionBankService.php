@@ -8,16 +8,22 @@ use Exception;
 use App\Helpers\Response\DataFailed;
 use App\Helpers\Response\DataStatus;
 use App\Helpers\Response\DataSuccess;
+use App\Services\Global\FilterService;
 use App\Models\Organization\Question\Question;
 use App\Models\Organization\Relation\Relation;
 use App\Http\Resources\Organization\QuestionBank\QuestionBankResource;
 
 class QuestionBankService
 {
-    public function index()
+    public function index($dataRequest)
     {
         try {
-            $questions = Question::where('is_private', 0)->orderBy('id', 'desc')->paginate(10);
+            $query = Question::where('is_private', 0);
+            $filter_service = new FilterService();
+            if (isset($dataRequest)) {
+                $filter_service->filterQuestions($query, $dataRequest);
+            }
+            $questions = $query->paginate(10);
             return new DataSuccess(
                 data: QuestionBankResource::collection($questions)->response()->getData(true),
                 status: true,

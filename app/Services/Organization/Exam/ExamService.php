@@ -9,16 +9,22 @@ use App\Helpers\Response\DataFailed;
 use App\Helpers\Response\DataStatus;
 use App\Helpers\Response\DataSuccess;
 use App\Models\Organization\Exam\Exam;
+use App\Services\Global\FilterService;
+use App\Models\Organization\Exam\ExamQuestion;
 use App\Models\Organization\Question\Question;
 use App\Http\Resources\Organization\Exam\ExamResource;
-use App\Models\Organization\Exam\ExamQuestion;
 
 class ExamService
 {
-    public function index()
+    public function index($dataRequest)
     {
         try {
-            $exams = Exam::orderBy('id', 'desc')->paginate(10);
+            $query = Exam::query();
+            $filter_service = new FilterService();
+            if (isset($dataRequest)) {
+                $filter_service->filterExams($query, $dataRequest);
+            }
+            $exams = $query->paginate(10);
             return new DataSuccess(
                 data: ExamResource::collection($exams)->response()->getData(true),
                 status: true,
