@@ -13,9 +13,9 @@ use App\Http\Requests\Organization\Exam\Exam\FetchExamDetailsRequest;
 class ExamController extends Controller
 {
     public function __construct(protected  ExamService $examService) {}
-    public function index()
+    public function index(Request $request)
     {
-        return $this->examService->index()->response();
+        return $this->examService->index($request)->response();
     }
     public function show(FetchExamDetailsRequest $request)
     {

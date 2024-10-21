@@ -179,7 +179,13 @@ class EmployeeService
     public function fetch_teachers($request): DataStatus
     {
         try {
-            $teachers = Teacher::where('organization_id', get_organization_id(auth()->guard('organization')->user()))->where('is_employed', 1)->paginate(10);
+            $query = Teacher::where('organization_id', get_organization_id(auth()->guard('organization')->user()))->where('is_employed', 1);
+            $filter_service = new FilterService();
+            if (isset($request)) {
+                $filter_service->filterTeachers($query, $request);
+            }
+
+            $teachers = $query->paginate(10);
             return new DataSuccess(
                 data: OrganizationEmployeeResource::collection($teachers)->response()->getData(true),
                 status: true,

@@ -14,9 +14,9 @@ use App\Http\Requests\Organization\QuestionBank\FetchQuestionBankDetailsRequest;
 class QuestionBankController extends Controller
 {
     public function __construct(protected  QuestionBankService $questionBankService) {}
-    public function index()
+    public function index(Request $request)
     {
-        return $this->questionBankService->index()->response();
+        return $this->questionBankService->index($request)->response();
     }
     public function show(FetchQuestionBankDetailsRequest $request)
     {

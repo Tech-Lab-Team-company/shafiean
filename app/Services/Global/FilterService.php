@@ -21,6 +21,24 @@ class FilterService
             $q->where('name', 'like', '%' . $request->word . '%');
         });
     }
+    public function filterExams($query, $request)
+    {
+        $query->when($request->has('word') && !empty($request->word), function ($q) use ($request) {
+            $q->where('name', 'like', '%' . $request->word . '%');
+        });
+    }
+    public function filterUsers($query, $request)
+    {
+        $query->when($request->has('word') && !empty($request->word), function ($q) use ($request) {
+            $q->where('name', 'like', '%' . $request->word . '%');
+        });
+    }
+    public function filterQuestions($query, $request)
+    {
+        $query->when($request->has('word') && !empty($request->word), function ($q) use ($request) {
+            $q->where('question', 'like', '%' . $request->word . '%');
+        });
+    }
 
     public function filterOrganizations($query, $request)
     {
@@ -206,7 +224,7 @@ class FilterService
             })
 
             ->when($request->has('course_id') && !empty($request->course_id), function ($q) use ($request) {
-                $q->whereHas('group' , function ($q) use ($request) {
+                $q->whereHas('group', function ($q) use ($request) {
                     $q->where('course_id', $request->course_id);
                 });
             })
