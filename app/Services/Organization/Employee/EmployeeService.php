@@ -10,6 +10,7 @@ use App\Models\Teacher;
 use App\Helpers\Response\DataFailed;
 use App\Helpers\Response\DataStatus;
 use App\Helpers\Response\DataSuccess;
+use App\Services\Global\FilterService;
 use App\Http\Resources\OrganizationEmployeeResource;
 use App\Services\Organization\Employee\EmployeeImageService;
 
@@ -19,7 +20,13 @@ class EmployeeService
     public function fetch_employees($request): DataStatus
     {
         try {
-            $employees = Teacher::where('organization_id', get_organization_id(auth()->guard('organization')->user()))->orderBy('id', 'desc')->paginate(10);
+            $query = Teacher::where('organization_id', get_organization_id(auth()->guard('organization')->user()));
+            $filter_service = new FilterService();
+            if (isset($request)) {
+                $filter_service->filterTeachers($query, $request);
+            }
+
+            $employees = $query->paginate(10);
             return new DataSuccess(
                 data: OrganizationEmployeeResource::collection($employees)->response()->getData(true),
                 status: true,
