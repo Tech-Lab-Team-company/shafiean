@@ -27,6 +27,7 @@ class UpdateLibraryRequest extends ApiRequest
             'name' => 'required|string',
             'description' => 'required|string',
             'file' => 'nullable|file|mimes:pdf,doc,docx,ppt,pptx|max:2048',
+            'library_category_id' => 'required|exists:library_categories,id',
         ];
     }
 }

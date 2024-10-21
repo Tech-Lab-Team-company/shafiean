@@ -9,6 +9,7 @@ use App\Http\Controllers\User\Auth\UserLogoutController;
 use App\Http\Controllers\User\Session\SessionController;
 use App\Http\Controllers\User\Auth\UserRegisterController;
 use App\Http\Controllers\User\Auth\UserCheckCodeController;
+use App\Http\Controllers\User\Library\FetchLibraryController;
 use App\Http\Controllers\User\Auth\UserResetPasswordController;
 use App\Http\Controllers\User\Auth\UserChangePasswordController;
 use App\Http\Controllers\User\Competition\CompetitionController;
@@ -18,6 +19,7 @@ use App\Http\Controllers\User\Exam\FetchUserExamQuestionController;
 use App\Http\Controllers\User\Group\FetchUserSubscriptionGroupController;
 use App\Http\Controllers\User\ExamResultAnswer\ExamResultAnswerController;
 use App\Http\Controllers\User\Course\FetchUserSubscriptionCourseController;
+use App\Http\Controllers\User\LibraryCategory\FetchLibraryCategoryController;
 
 // AUTH
 Route::post('user_register', UserRegisterController::class);
@@ -51,7 +53,10 @@ Route::middleware('auth:user')->group(function () {
     Route::post('fetch_user_exam_questions', FetchUserExamQuestionController::class);
     //EXAM RESULT
     Route::post('fetch_user_exam_result', FetchUserExamResultController::class);
-
+    //LIBRARY CATEGORY
+    Route::post('fetch_user_library_categories', [FetchLibraryCategoryController::class, "fetchLibraryCategory"]);
+    //LIBRARY
+    Route::post('fetch_user_library_by_category_id', [FetchLibraryController::class, "fetchLibraryByCategoryId"]);
     /**
      * END POINT END
      */
