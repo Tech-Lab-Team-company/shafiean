@@ -9,6 +9,7 @@ use App\Http\Controllers\User\Auth\UserLogoutController;
 use App\Http\Controllers\User\Session\SessionController;
 use App\Http\Controllers\User\Auth\UserRegisterController;
 use App\Http\Controllers\User\Auth\UserCheckCodeController;
+use App\Http\Controllers\User\Blog\FetchUserBlogController;
 use App\Http\Controllers\User\Library\FetchLibraryController;
 use App\Http\Controllers\User\Auth\UserResetPasswordController;
 use App\Http\Controllers\User\Auth\UserChangePasswordController;
@@ -57,6 +58,8 @@ Route::middleware('auth:user')->group(function () {
     Route::post('fetch_user_library_categories', [FetchLibraryCategoryController::class, "fetchLibraryCategory"]);
     //LIBRARY
     Route::post('fetch_user_library_by_category_id', [FetchLibraryController::class, "fetchLibraryByCategoryId"]);
+    //BLOG
+    Route::post('fetch_user_blog', FetchUserBlogController::class);
     /**
      * END POINT END
      */
