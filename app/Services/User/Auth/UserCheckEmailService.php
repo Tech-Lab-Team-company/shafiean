@@ -5,28 +5,26 @@ namespace App\Services\User\Auth;
 use Exception;
 use App\Trait\UserAuthentication;
 use App\Helpers\Response\DataFailed;
+use App\Services\Global\CodeService;
 use App\Helpers\Response\DataSuccess;
-use App\Http\Resources\User\Auth\UserLoginResource;
+use App\Services\Global\EmailService;
 use App\Http\Resources\User\UserWithOutTokenResource;
 
-class UserChangePasswordService
+class UserCheckEmailService
 {
     use UserAuthentication;
     const MODEL = "App\\Models\\User";
-    const GUARD = "user";
-    public function changePassword($dataRequest)
+
+    public function checkEmail($dataRequest)
     {
         try {
-            $user = $this->getAuthenticatedUser(self::GUARD);
-            // $this->checkVerified($user);
-            $this->validatePassword($dataRequest['old_password'], $user);
-            $user->update([
-                'password' => $dataRequest->new_password
-            ]);
+            $user = $this->getRow($dataRequest['email'], self::MODEL);
+            $email_service = new EmailService();
+            $response = $email_service->checkEmail($user)->response()->getData();
             return new DataSuccess(
                 status: true,
-                data: new UserWithOutTokenResource($user),
-                message: 'Change password successfully',
+                data: true,
+                message: $response->message
             );
         } catch (Exception $exception) {
             return new DataFailed(

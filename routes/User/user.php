@@ -10,6 +10,7 @@ use App\Http\Controllers\User\Session\SessionController;
 use App\Http\Controllers\User\Auth\UserRegisterController;
 use App\Http\Controllers\User\Auth\UserCheckCodeController;
 use App\Http\Controllers\User\Blog\FetchUserBlogController;
+use App\Http\Controllers\User\Auth\UserCheckEmailController;
 use App\Http\Controllers\User\Library\FetchLibraryController;
 use App\Http\Controllers\User\Auth\UserResetPasswordController;
 use App\Http\Controllers\User\Auth\UserChangePasswordController;
@@ -27,6 +28,7 @@ Route::post('user_register', UserRegisterController::class);
 Route::post('user_login', UserLoginController::class)->name('user_login');
 Route::post('user_change_password', UserChangePasswordController::class);
 Route::post('user_check_code', UserCheckCodeController::class);
+Route::post('user_check_email', UserCheckEmailController::class);
 
 Route::middleware('auth:user')->group(function () {
     // AUTH
