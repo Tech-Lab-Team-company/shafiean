@@ -4,7 +4,7 @@ namespace App\Http\Requests\User\Auth;
 
 use App\Helpers\Response\ApiRequest;
 
-class UserChangePasswordRequest extends ApiRequest
+class UserCheckEmailRequest extends ApiRequest
 {
     public function authorize(): bool
     {
@@ -13,9 +13,7 @@ class UserChangePasswordRequest extends ApiRequest
     public function rules(): array
     {
         return [
-            // 'email' => 'required|email|exists:users,email',
-            'old_password' => 'required',
-            'new_password' => 'required|string|min:8|confirmed',
+            'email' => 'required|email|exists:users,email',
         ];
     }
 }
