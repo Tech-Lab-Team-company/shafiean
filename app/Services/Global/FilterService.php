@@ -30,7 +30,7 @@ class FilterService
     public function filterUsers($query, $request)
     {
         $query->when($request->has('word') && !empty($request->word), function ($q) use ($request) {
-            $q->where('name', 'like', '%' . $request->word . '%');
+            $q->where('name', 'like', '%' . $request->word . '%')->orWhere('email', 'like', '%' . $request->word . '%');
         });
     }
     public function filterQuestions($query, $request)
