@@ -17,14 +17,12 @@ class CompetitionService
     {
         try {
             $competitions = Competition::query();
-            $competitions->when($dataRequest->period, function ($query) use ($dataRequest) {
+            $now = Carbon::now();
+            $competitions->when($dataRequest->period, function ($query) use ($dataRequest, $now) {
                 if ($dataRequest->period == CompetitionPeriodEnum::CURRENT->value) {
-                    $query->whereBetween('start_date', [
-                        Carbon::now()->startOfDay()->format('Y-m-d'),
-                        Carbon::now()->addDays(1)->endOfDay()->format('Y-m-d')
-                    ]);
+                    $query->where('start_date', '<=', $now->format('Y-m-d'))->where('end_date', '>=', $now->format('Y-m-d'));
                 } elseif ($dataRequest->period == CompetitionPeriodEnum::NEXT->value) {
-                    $query->where('start_date', '>=', Carbon::now()->addDays(2)->startOfDay()->format('Y-m-d'));
+                    $query->where('start_date', '>', $now->format('Y-m-d'));
                 }
             });
             $competitions = $competitions->paginate(10);
