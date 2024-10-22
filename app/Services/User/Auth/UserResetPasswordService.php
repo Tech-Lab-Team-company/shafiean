@@ -7,6 +7,7 @@ use App\Trait\UserAuthentication;
 use App\Helpers\Response\DataFailed;
 use App\Helpers\Response\DataSuccess;
 use App\Http\Resources\User\Auth\UserLoginResource;
+use App\Services\Global\PasswordService;
 
 class UserResetPasswordService
 {
@@ -17,15 +18,12 @@ class UserResetPasswordService
     {
         try {
             $user = $this->getRow($dataRequest['email'], self::MODEL);
-            // $this->checkVerified($user);
-            $user->update([
-                'password' => $dataRequest->password
-            ]);
-            $token =  $this->regenerateSanctumToken(row: $user);
+            $password_service = new PasswordService();
+            $response = $password_service->resetPassword($dataRequest, $user)->response()->getData();
+            // $token =  $this->regenerateSanctumToken(row: $user);
             return new DataSuccess(
                 status: true,
-                data: (new UserLoginResource($user))->additional(['token' => $token]),
-                message: 'Reset password successfully',
+                message: $response->message
             );
         } catch (Exception $exception) {
             return new DataFailed(
