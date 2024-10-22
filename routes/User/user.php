@@ -26,14 +26,15 @@ use App\Http\Controllers\User\LibraryCategory\FetchLibraryCategoryController;
 // AUTH
 Route::post('user_register', UserRegisterController::class);
 Route::post('user_login', UserLoginController::class)->name('user_login');
-Route::post('user_change_password', UserChangePasswordController::class);
+Route::post('user_reset_password', UserResetPasswordController::class);
 Route::post('user_check_code', UserCheckCodeController::class);
 Route::post('user_check_email', UserCheckEmailController::class);
 
 Route::middleware('auth:user')->group(function () {
     // AUTH
     Route::post('user_logout', UserLogoutController::class);
-    Route::post('user_reset_password', UserResetPasswordController::class);
+    Route::post('user_change_password', UserChangePasswordController::class);
+
     //EXAM RESULT ANSWER
     Route::controller(ExamResultAnswerController::class)->group(function () {
         Route::post('add_exam_result_answer', 'store');
