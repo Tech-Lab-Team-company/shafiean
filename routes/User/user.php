@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Global\DisabilityController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\User\Group\GroupController;
 use App\Http\Controllers\User\Stage\StageController;
@@ -29,7 +30,7 @@ Route::post('user_login', UserLoginController::class)->name('user_login');
 Route::post('user_reset_password', UserResetPasswordController::class);
 Route::post('user_check_code', UserCheckCodeController::class);
 Route::post('user_check_email', UserCheckEmailController::class);
-
+Route::get('user_fetch_disabilities', [DisabilityController::class, 'fetch_disabilities']);
 Route::middleware('auth:user')->group(function () {
     // AUTH
     Route::post('user_logout', UserLogoutController::class);
