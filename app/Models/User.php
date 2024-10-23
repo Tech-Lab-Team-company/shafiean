@@ -10,8 +10,10 @@ use App\Models\DisabilityType;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Route;
 use App\Models\Organization\Exam\Exam;
 use Illuminate\Notifications\Notifiable;
+use App\Observers\OrganizationIdObserver;
 use App\Models\Scopes\PerOrganizationScope;
 use App\Models\Organization\Exam\ExamStudent;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -22,7 +24,6 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Support\Facades\Route;
 
 class User extends Authenticatable
 {
@@ -115,10 +116,9 @@ class User extends Authenticatable
 
     protected static function booted(): void
     {
-
         // static::addGlobalScope(new PerOrganizationScope);
         // dd(auth('user')->check());
-        if (auth('user')->check()) {
+        if (auth('user')->check() || Auth::check()) {
             static::addGlobalScope(new PerOrganizationScope);
         } else if (!Route::currentRouteName() === 'user_login') {
             static::addGlobalScope(new PerOrganizationWebsiteScope);
