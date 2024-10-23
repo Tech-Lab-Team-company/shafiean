@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User\Competition;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\User\Competition\FetchCompetitionDetailRequest;
 use App\Services\User\Competition\CompetitionService;
 use App\Http\Requests\User\Competition\FetchCompetitionRequest;
 
@@ -18,5 +19,8 @@ class CompetitionController extends Controller
     public function fetch_competitions(FetchCompetitionRequest $request){
 
         return $this->competition_service->fetch_competitions( $request)->response();
+    }
+    public function fetch_competition_details(FetchCompetitionDetailRequest $request){
+        return $this->competition_service->fetch_competition_details( $request)->response();
     }
 }
