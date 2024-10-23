@@ -49,7 +49,6 @@ Route::middleware('auth:user')->group(function () {
         Route::post('user_fetch_competition_details', 'fetch_competition_details');
         Route::post('user_fetch_competitions', 'fetch_competitions');
     });
-
     Route::post('user_fetch_courses', [CourseController::class, 'fetch_courses']);
     Route::post('user_fetch_groups', [GroupController::class, 'fetch_groups']);
     Route::post('user_fetch_stages', [StageController::class, 'fetch_stages']);
@@ -66,10 +65,9 @@ Route::middleware('auth:user')->group(function () {
     Route::post('fetch_user_library_categories', [FetchLibraryCategoryController::class, "fetchLibraryCategory"]);
     //LIBRARY
     Route::post('fetch_user_library_by_category_id', [FetchLibraryController::class, "fetchLibraryByCategoryId"]);
-    //BLOG
-    Route::post('fetch_user_blog', FetchUserBlogController::class);
     //EXAM
     Route::post('fetch_user_exams', FetchUserExamController::class);
+    // //BLOG
     Route::controller(FetchUserBlogController::class)->group(function () {
         Route::post('user_fetch_blogs', 'fetchBlogs');
         Route::post('user_fetch_blog_details', 'fetchBlogDetails');
@@ -78,4 +76,3 @@ Route::middleware('auth:user')->group(function () {
      * END POINT END
      */
 });
-    
