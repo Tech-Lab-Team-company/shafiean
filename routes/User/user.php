@@ -60,7 +60,8 @@ Route::middleware('auth:user')->group(function () {
     //EXAM QUESTION
     Route::post('fetch_user_exam_questions', FetchUserExamQuestionController::class);
     //EXAM RESULT
-    Route::post('fetch_user_exam_result', FetchUserExamResultController::class);
+    Route::post('fetch_user_exam_result', [FetchUserExamResultController::class, "fetchUserExamResult"]);
+    Route::post('fetch_user_exam_results', [FetchUserExamResultController::class, "fetchUserExamResults"]);
     //LIBRARY CATEGORY
     Route::post('fetch_user_library_categories', [FetchLibraryCategoryController::class, "fetchLibraryCategory"]);
     //LIBRARY

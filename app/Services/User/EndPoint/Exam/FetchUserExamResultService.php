@@ -39,4 +39,29 @@ class FetchUserExamResultService
             );
         }
     }
+    public function fetchUserExamResults(): DataStatus
+    {
+        try {
+            $userId = auth('user')->user()->id;
+            $examResult = ExamResult::whereUserId($userId)
+                ->whereStatus(ExamResultStatusEnum::ACTIVE->value)
+                ->get();
+                if (!$examResult) {
+                    return new DataFailed(
+                        status: false,
+                        message: 'Exam Result not found for user'
+                    );
+                }
+            return new DataSuccess(
+                status: true,
+                message: 'Exam Results retrieved successfully',
+                data:  FetchExamResultResource::collection($examResult),
+            );
+        } catch (\Exception $exception) {
+            return new DataFailed(
+                status: false,
+                message: $exception->getMessage()
+            );
+        }
+    }
 }

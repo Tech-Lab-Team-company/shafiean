@@ -11,8 +11,12 @@ use App\Services\User\EndPoint\Exam\FetchUserExamResultService;
 class FetchUserExamResultController extends Controller
 {
     public function __construct(protected FetchUserExamResultService $fetchUserExamResultService) {}
-    public function __invoke(FetchUserExamResultRequest $request)
+    public function fetchUserExamResult(FetchUserExamResultRequest $request)
     {
         return $this->fetchUserExamResultService->fetchUserExamResult($request)->response();
+    }
+    public function fetchUserExamResults()
+    {
+        return $this->fetchUserExamResultService->fetchUserExamResults()->response();
     }
 }
