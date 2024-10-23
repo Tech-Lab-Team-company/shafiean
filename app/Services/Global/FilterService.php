@@ -39,7 +39,25 @@ class FilterService
             $q->where('question', 'like', '%' . $request->word . '%');
         });
     }
+    public function filterServices($query, $request)
+    {
 
+        $query->when($request->has('word') && !empty($request->word), function ($q) use ($request) {
+            $q->where('title', 'like', '%' . $request->word . '%');
+        });
+    }
+    public function filterStatistics($query, $request)
+    {
+        $query->when($request->has('word') && !empty($request->word), function ($q) use ($request) {
+            $q->where('title', 'like', '%' . $request->word . '%');
+        });
+    }
+    public function filterHeaders($query, $request)
+    {
+        $query->when($request->has('word') && !empty($request->word), function ($q) use ($request) {
+            $q->where('title', 'like', '%' . $request->word . '%');
+        });
+    }
     public function filterOrganizations($query, $request)
     {
         if ($request->filled('word') && !$request->filled('city_ids') && !$request->filled('country_ids')) {
