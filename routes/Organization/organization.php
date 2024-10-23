@@ -5,8 +5,8 @@ use App\Http\Controllers\Global\StageController;
 use App\Http\Controllers\Global\GlobalController;
 use App\Http\Middleware\CheckWebsiteLinkMiddleware;
 use App\Http\Controllers\Admin\CurriculumController;
-use App\Http\Controllers\Admin\DisabilityTypeController;
 use App\Http\Controllers\Global\DisabilityController;
+use App\Http\Controllers\Admin\DisabilityTypeController;
 use App\Http\Controllers\Organization\Auth\AuthController;
 use App\Http\Controllers\Organization\Blog\BlogController;
 use App\Http\Controllers\Organization\Exam\ExamController;
@@ -35,6 +35,7 @@ use App\Http\Controllers\Organization\Landingpage\PrivacyController;
 use App\Http\Controllers\Organization\Landingpage\ServiceController;
 use App\Http\Controllers\Organization\Country\FetchCountryController;
 use App\Http\Controllers\Organization\JobType\FetchJobTypeController;
+use App\Http\Controllers\Organization\Student\FetchStudentController;
 use App\Http\Controllers\Organization\Blog\FetchBlogHashtagController;
 use App\Http\Controllers\Organization\Landingpage\StatisticController;
 use App\Http\Controllers\Organization\Landingpage\SubheaderController;
@@ -45,10 +46,10 @@ use App\Http\Controllers\Organization\QuestionBank\QuestionBankController;
 use App\Http\Controllers\Organization\UserRelation\UserRelationController;
 use App\Http\Controllers\Organization\Curriculum\FetchCurriculumController;
 use App\Http\Controllers\Organization\Landingpage\CommonQuestionController;
+
 use App\Http\Controllers\Organization\Landingpage\ServiceFeatureController;
 
 use App\Http\Controllers\Organization\Competition\CompetitionRewardController;
-
 use App\Http\Controllers\Organization\QuestionBank\FetchQuestionBankContoller;
 use App\Http\Controllers\Organization\Curriculum\FetchCurriculumStageController;
 use App\Http\Controllers\Organization\LibraryCategory\LibraryCategoryController;
@@ -276,6 +277,9 @@ Route::middleware('auth:organization')->group(function () {
     Route::get('organization_fetch_years', [GlobalController::class, "fetch_years"]);
     //COURSE
     Route::post('organization_fetch_curriculum_stages', FetchCurriculumStageController::class);
+    //STUDENT
+    Route::post('organization_fetch_students', FetchStudentController::class);
+
     /**
      * END POINT END
      */
