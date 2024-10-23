@@ -14,9 +14,9 @@ use App\Http\Requests\Organization\Landingpage\Statistic\FetchStatisticDetailsRe
 class StatisticController extends Controller
 {
     public function __construct(protected  StatisticService $statisticService) {}
-    public function index()
+    public function index(Request $request)
     {
-        return $this->statisticService->index()->response();
+        return $this->statisticService->index($request)->response();
     }
     public function show(FetchStatisticDetailsRequest $request)
     {

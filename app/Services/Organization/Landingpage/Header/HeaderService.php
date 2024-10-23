@@ -5,17 +5,22 @@ namespace App\Services\Organization\Landingpage\Header;
 use App\Helpers\Response\DataFailed;
 use App\Helpers\Response\DataStatus;
 use App\Helpers\Response\DataSuccess;
-use App\Http\Resources\Organization\Landingpage\Header\HeaderResource;
+use App\Services\Global\FilterService;
 use App\Models\Organization\Landingpage\Header;
+use App\Http\Resources\Organization\Landingpage\Header\HeaderResource;
 
 class HeaderService
 {
-    public function organization_fetch_headers($request): DataStatus
+    public function organization_fetch_headers($dataRequest): DataStatus
     {
         try {
 
-            $headers = Header::orderBy('id', 'desc')->get();
-
+            $query = Header::query();
+            if (isset($dataRequest)) {
+                $filter_service = new FilterService();
+                $filter_service->filterHeaders($query, $dataRequest);
+            }
+            $headers = $query->get();
             return new DataSuccess(
                 status: true,
                 data: HeaderResource::collection($headers),

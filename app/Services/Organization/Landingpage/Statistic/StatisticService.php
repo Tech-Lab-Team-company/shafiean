@@ -8,16 +8,22 @@ use Exception;
 use App\Helpers\Response\DataFailed;
 use App\Helpers\Response\DataStatus;
 use App\Helpers\Response\DataSuccess;
+use App\Services\Global\FilterService;
 use App\Models\Organization\Landingpage\Statistic;
 use App\Http\Resources\Organization\Landingpage\Statistic\StatisticResource;
 
 class StatisticService
 {
 
-    public function index()
+    public function index($dataRequest)
     {
         try {
-            $statistics = Statistic::orderBy('id', 'desc')->get();
+            $query = Statistic::query();
+            if (isset($dataRequest)) {
+                $filter_service = new FilterService();
+                $filter_service->filterStatistics($query, $dataRequest);
+            }
+            $statistics = $query->get();
             return new DataSuccess(
                 data: StatisticResource::collection($statistics),
                 status: true,
