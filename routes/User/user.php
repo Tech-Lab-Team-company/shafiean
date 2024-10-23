@@ -1,9 +1,9 @@
 <?php
 
-use App\Http\Controllers\Global\DisabilityController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\User\Group\GroupController;
 use App\Http\Controllers\User\Stage\StageController;
+use App\Http\Controllers\Global\DisabilityController;
 use App\Http\Controllers\User\Course\CourseController;
 use App\Http\Controllers\User\Auth\UserLoginController;
 use App\Http\Controllers\User\Auth\UserLogoutController;
@@ -11,6 +11,7 @@ use App\Http\Controllers\User\Session\SessionController;
 use App\Http\Controllers\User\Auth\UserRegisterController;
 use App\Http\Controllers\User\Auth\UserCheckCodeController;
 use App\Http\Controllers\User\Blog\FetchUserBlogController;
+use App\Http\Controllers\User\Exam\FetchUserExamController;
 use App\Http\Controllers\User\Auth\UserCheckEmailController;
 use App\Http\Controllers\User\Library\FetchLibraryController;
 use App\Http\Controllers\User\Auth\UserResetPasswordController;
@@ -64,7 +65,10 @@ Route::middleware('auth:user')->group(function () {
     Route::post('fetch_user_library_by_category_id', [FetchLibraryController::class, "fetchLibraryByCategoryId"]);
     //BLOG
     Route::post('fetch_user_blog', FetchUserBlogController::class);
+    //EXAM
+    Route::post('fetch_user_exams', FetchUserExamController::class);
     /**
      * END POINT END
      */
 });
+    
