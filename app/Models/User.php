@@ -112,6 +112,7 @@ class User extends Authenticatable
     {
         return $this->hasMany(Subscription::class, 'user_id', 'id');
     }
+
     protected static function booted(): void
     {
 
