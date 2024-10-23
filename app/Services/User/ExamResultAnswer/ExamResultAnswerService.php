@@ -44,6 +44,12 @@ class ExamResultAnswerService
                 ->whereUserId($userId)
                 ->whereStatus(ExamResultStatusEnum::ACTIVE->value)
                 ->first();
+            if (!$examResult) {
+                return new DataFailed(
+                    status: false,
+                    message: "Exam Result not found for user"
+                );
+            }
             $examResultAnswer = ExamResultAnswer::create([
                 'user_id' => auth('user')->user()->id,
                 'question_id' => $dataRequest->question_id,
