@@ -6,6 +6,7 @@ use App\Http\Controllers\Global\GlobalController;
 use App\Http\Middleware\CheckWebsiteLinkMiddleware;
 use App\Http\Controllers\Admin\CurriculumController;
 use App\Http\Controllers\Admin\DisabilityTypeController;
+use App\Http\Controllers\Global\DisabilityController;
 use App\Http\Controllers\Organization\Auth\AuthController;
 use App\Http\Controllers\Organization\Blog\BlogController;
 use App\Http\Controllers\Organization\Exam\ExamController;
@@ -248,7 +249,7 @@ Route::middleware('auth:organization')->group(function () {
         Route::post('organization_fetch_curriculums',  'index');
     });
     //DISABILITY
-    Route::post('organization_fetch_disabilities', [DisabilityTypeController::class, 'index']);
+    Route::post('organization_fetch_disabilities', [DisabilityController::class, 'fetch_disabilities']);
     //STAGE
     Route::post('organization_fetch_stages', [StageController::class, 'index']);
     //EXAM STUDENT

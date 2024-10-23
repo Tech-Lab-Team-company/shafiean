@@ -37,4 +37,20 @@ class CompetitionService
             );
         }
     }
+
+    public function fetch_competition_details($dataRequest): DataStatus
+    {
+        try {
+            $competition = Competition::find($dataRequest->competition_id);
+            return new DataSuccess(
+                status: true,
+                data: new CompetitionResource($competition),
+            );
+        } catch (\Exception $exception) {
+            return new DataFailed(
+                status: false,
+                message: $exception->getMessage()
+            );
+        }
+    }
 }
