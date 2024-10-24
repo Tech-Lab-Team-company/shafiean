@@ -15,6 +15,7 @@ use App\Models\Organization\Exam\Exam;
 use Illuminate\Notifications\Notifiable;
 use App\Observers\OrganizationIdObserver;
 use App\Models\Scopes\PerOrganizationScope;
+use App\Models\Organization\Exam\ExamResult;
 use App\Models\Organization\Exam\ExamStudent;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\Scopes\PerOrganizationWebsiteScope;
@@ -113,7 +114,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(Subscription::class, 'user_id', 'id');
     }
-
+    public function examResults(): HasMany
+    {
+        return $this->hasMany(ExamResult::class, 'user_id', 'id');
+    }
     protected static function booted(): void
     {
         // static::addGlobalScope(new PerOrganizationScope);
