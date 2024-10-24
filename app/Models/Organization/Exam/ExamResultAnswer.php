@@ -36,17 +36,17 @@ class ExamResultAnswer extends Model
     {
         return $this->belongsTo(Answer::class, "answer_id", "id");
     }
-    protected static function booted(): void
-    {
-        if (Auth::check()) {
-            static::addGlobalScope(new PerOrganizationScope);
-        } else {
-            static::addGlobalScope(new PerOrganizationWebsiteScope);
-        }
-    }
-    protected static function boot()
-    {
-        parent::boot();
-        static::observe(OrganizationIdObserver::class);
-    }
+    // protected static function booted(): void
+    // {
+    //     if (Auth::check()) {
+    //         static::addGlobalScope(new PerOrganizationScope);
+    //     } else {
+    //         static::addGlobalScope(new PerOrganizationWebsiteScope);
+    //     }
+    // }
+    // protected static function boot()
+    // {
+    //     parent::boot();
+    //     static::observe(OrganizationIdObserver::class);
+    // }
 }

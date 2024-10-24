@@ -19,10 +19,10 @@ class FetchExamResultsResource extends JsonResource
             'id' => $this->id ?? 0,
             'grade' => (int)$this->grade ?? 0,
             'status' => (int) $this->status ?? 0,
-            "question_count" => (int)$this->examResultAnswers()->count(),
-            "total_score" => (int)$this->examResultAnswers()->sum('grade'),
+            "question_count" => (int)$this->examResultAnswers()->count() ?? 0,
+            "total_score" => (int)$this->examResultAnswers()->sum('grade') ?? 0,
             'teacher' => new FetchExamResultsTeacherResource($this?->exam?->groups?->first()?->teacher) ?? "",
-            'exam' => new UserExamResource($this->exam ?? "") ?? "",
+            'exam' => new UserExamResource($this->exam) ?? "",
         ];
     }
 }
