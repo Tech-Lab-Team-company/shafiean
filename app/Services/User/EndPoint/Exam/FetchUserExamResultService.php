@@ -10,6 +10,7 @@ use App\Helpers\Response\DataSuccess;
 use App\Models\Organization\Exam\Exam;
 use App\Models\Organization\Exam\ExamResult;
 use App\Http\Resources\User\ExamResult\FetchExamResultResource;
+use App\Http\Resources\User\ExamResult\FetchExamResultsResource;
 
 class FetchUserExamResultService
 {
@@ -55,7 +56,7 @@ class FetchUserExamResultService
             return new DataSuccess(
                 status: true,
                 message: 'Exam Results retrieved successfully',
-                data:  FetchExamResultResource::collection($examResult),
+                data:  FetchExamResultsResource::collection($examResult),
             );
         } catch (\Exception $exception) {
             return new DataFailed(

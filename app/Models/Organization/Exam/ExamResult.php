@@ -10,6 +10,7 @@ use App\Observers\OrganizationIdObserver;
 use App\Models\Scopes\PerOrganizationScope;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\Scopes\PerOrganizationWebsiteScope;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -26,6 +27,10 @@ class ExamResult extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, "user_id", "id");
+    }
+    public function examResultAnswers(): HasMany
+    {
+        return $this->hasMany(ExamResultAnswer::class, "exam_result_id", "id");
     }
     protected static function booted(): void
     {

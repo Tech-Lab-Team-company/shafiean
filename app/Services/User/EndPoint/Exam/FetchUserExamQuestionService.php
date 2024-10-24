@@ -23,6 +23,14 @@ class FetchUserExamQuestionService
         try {
             $exam = Exam::whereId($dataRequest["exam_id"])->first();
             $user = auth('user')->user();
+            $examResult = ExamResult::where('exam_id', $dataRequest["exam_id"])->where('user_id', $user->id)->first();
+
+            if ($examResult && $examResult->status == ExamResultStatusEnum::ACTIVE->value) {
+                return new DataFailed(
+                    status: false,
+                    message: 'You have already taken this exam'
+                );
+            }
             ExamResult::create([
                 'exam_id' => $dataRequest["exam_id"],
                 'user_id' => $user->id,
