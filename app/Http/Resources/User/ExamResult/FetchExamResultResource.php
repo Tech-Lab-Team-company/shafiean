@@ -5,6 +5,7 @@ namespace App\Http\Resources\User\ExamResult;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\User\ExamResult\UserExamResource;
+use App\Http\Resources\User\ExamResult\FetchExamResultQuestionAndAnswerResource;
 
 class FetchExamResultResource extends JsonResource
 {
@@ -19,6 +20,7 @@ class FetchExamResultResource extends JsonResource
             'id' => $this->id ?? 0,
             'grade' => (int)$this->grade ?? 0,
             'status' => (int) $this->status ?? 0,
+            'questions'=> FetchExamResultQuestionAndAnswerResource::collection($this->examResultAnswers ?? []) ?? [],
             'exam' => new UserExamResource($this->exam ?? "") ?? "",
         ];
     }
