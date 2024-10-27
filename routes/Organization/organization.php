@@ -279,6 +279,7 @@ Route::middleware('auth:organization')->group(function () {
     Route::post('organization_fetch_curriculum_stages', FetchCurriculumStageController::class);
     //STUDENT
     Route::post('organization_fetch_students', FetchStudentController::class);
+    
 
     /**
      * END POINT END

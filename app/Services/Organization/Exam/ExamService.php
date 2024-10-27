@@ -24,7 +24,7 @@ class ExamService
             if (isset($dataRequest)) {
                 $filter_service->filterExams($query, $dataRequest);
             }
-            $exams = $query->paginate(10);
+            $exams = $query->orderBy('id', 'desc')->paginate(10);
             return new DataSuccess(
                 data: ExamResource::collection($exams)->response()->getData(true),
                 status: true,
