@@ -20,6 +20,9 @@ class FetchLibraryResource extends JsonResource
         return [
             'id' => $this->id ?? 0,
             'name' => $this->name ?? '',
+            'description' => $this->description ?? '',
+            'file' => $this->file_link ?? '',
+
         ];
     }
 }
