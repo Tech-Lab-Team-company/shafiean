@@ -13,6 +13,7 @@ use App\Http\Controllers\User\Auth\UserCheckCodeController;
 use App\Http\Controllers\User\Blog\FetchUserBlogController;
 use App\Http\Controllers\User\Exam\FetchUserExamController;
 use App\Http\Controllers\User\Auth\UserCheckEmailController;
+use App\Http\Controllers\User\Contact\UserContactController;
 use App\Http\Controllers\User\Library\FetchLibraryController;
 use App\Http\Controllers\User\Auth\UserResetPasswordController;
 use App\Http\Controllers\User\Auth\UserChangePasswordController;
@@ -43,6 +44,10 @@ Route::middleware('auth:user')->group(function () {
     Route::controller(ExamResultAnswerController::class)->group(function () {
         Route::post('add_exam_result_answer', 'store');
         Route::post('fetch_exam_result_answers', 'fetchExamResultAnswers');
+    });
+    //CONTACT
+    Route::controller(UserContactController::class)->group(function () {
+        Route::post('user_add_contact', 'store');
     });
     /**
      * END POINT START
