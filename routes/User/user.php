@@ -20,10 +20,12 @@ use App\Http\Controllers\User\Competition\CompetitionController;
 use App\Http\Controllers\User\Exam\FetchUserExamResultController;
 use App\Http\Controllers\User\Subscription\SubscriptionController;
 use App\Http\Controllers\User\Exam\FetchUserExamQuestionController;
+use App\Http\Controllers\User\Library\FetchLibraryDetailsController;
 use App\Http\Controllers\User\Group\FetchUserSubscriptionGroupController;
 use App\Http\Controllers\User\ExamResultAnswer\ExamResultAnswerController;
 use App\Http\Controllers\User\Course\FetchUserSubscriptionCourseController;
 use App\Http\Controllers\User\LibraryCategory\FetchLibraryCategoryController;
+use App\Http\Controllers\User\Library\LibraryController as UserLibraryController;
 
 // AUTH
 Route::post('user_register', UserRegisterController::class);
@@ -66,6 +68,8 @@ Route::middleware('auth:user')->group(function () {
     Route::post('fetch_user_library_categories', [FetchLibraryCategoryController::class, "fetchLibraryCategory"]);
     //LIBRARY
     Route::post('fetch_user_library_by_category_id', [FetchLibraryController::class, "fetchLibraryByCategoryId"]);
+    Route::post('user_fetch_library_details', [FetchLibraryDetailsController::class, "show"]);
+
     //EXAM
     Route::post('fetch_user_exams', FetchUserExamController::class);
     // //BLOG
