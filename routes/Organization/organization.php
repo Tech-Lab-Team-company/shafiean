@@ -49,6 +49,7 @@ use App\Http\Controllers\Organization\Landingpage\CommonQuestionController;
 
 use App\Http\Controllers\Organization\Landingpage\ServiceFeatureController;
 
+use App\Http\Controllers\Organization\MainSession\FetchMainSessionController;
 use App\Http\Controllers\Organization\Competition\CompetitionRewardController;
 use App\Http\Controllers\Organization\QuestionBank\FetchQuestionBankContoller;
 use App\Http\Controllers\Organization\Curriculum\FetchCurriculumStageController;
@@ -279,7 +280,8 @@ Route::middleware('auth:organization')->group(function () {
     Route::post('organization_fetch_curriculum_stages', FetchCurriculumStageController::class);
     //STUDENT
     Route::post('organization_fetch_students', FetchStudentController::class);
-    
+    //MAIN SESSION
+    Route::post('organization_fetch_main_sessions', FetchMainSessionController::class);
 
     /**
      * END POINT END
