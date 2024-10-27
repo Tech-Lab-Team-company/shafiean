@@ -16,8 +16,8 @@ class MainSessionResource extends JsonResource
     {
         return [
             'id' => $this->id ?? 0,
-            'title' => $this->session->title ?? "",
-            'status' => $this->session->status ?? "",
+            'title' => $this->title ?? "",
+            'status' => $this->status ?? "",
             'start_verse' => $this->start_verse ?? "",
             'end_verse' => $this->end_verse ?? "",
             "quraan" => new QuraanResource($this->quraan) ?? "",
