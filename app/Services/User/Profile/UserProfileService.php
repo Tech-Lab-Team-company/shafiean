@@ -11,6 +11,7 @@ use App\Helpers\Response\DataStatus;
 use App\Helpers\Response\DataSuccess;
 use App\Models\Organization\Blog\Blog;
 use App\Models\Organization\Blog\BlogHashtag;
+use App\Http\Resources\User\Auth\UserLoginResource;
 use App\Http\Resources\Organization\Blog\BlogResource;
 use App\Http\Resources\User\Profile\UserProfileResource;
 use App\Http\Resources\Organization\BlogHashtag\BlogHashtagResource;
@@ -49,7 +50,7 @@ class UserProfileService
             }
             $user->update($data);
             return new DataSuccess(
-                data: new UserProfileResource($user),
+                data: new UserLoginResource($user),
                 status: true,
                 message: 'User Profile Updated Successfully'
             );
