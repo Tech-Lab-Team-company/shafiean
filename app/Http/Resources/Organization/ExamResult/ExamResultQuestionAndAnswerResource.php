@@ -19,17 +19,15 @@ class ExamResultQuestionAndAnswerResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        // dd($this->examResultAnswers->map(fn($q) => $q->is_correct));
-        $correctAnswer = Answer::where("question_id", $this?->id)->where("is_correct", 1)->first();
-        // dd($correctAnswer);
-        // $isCorrect = $this?->answer->is_correct;
+        $correctAnswer = Answer::where("question_id", $this?->question?->id)->where("is_correct", 1)->first();
+        $isCorrect = $this?->answer->is_correct;
         return [
-            'id' => $this?->id ?? 0,
-            'question' => $this?->question ?? "",
-            'degree' => (int) $this?->degree ?? "",
-            // 'is_correct' => (int)$isCorrect ?? false,
-            'answer' =>  new FetchExamResultQuestionAnswerResource($this?->examResultAnswers) ?? "",
-            'correct_answer' =>/* $isCorrect ? "" :*/ new FetchExamResultQuestionAnswerResource($correctAnswer) ?? ""
+            'id' => $this?->question?->id ?? 0,
+            'question' => $this?->question?->question ?? "",
+            'degree' => (int) $this?->question?->degree ?? "",
+            'is_correct' => (int)$isCorrect ?? false,
+            'answer' =>  new FetchExamResultQuestionAnswerResource($this?->answer) ?? "",
+            'correct_answer' => $isCorrect ? "" : new FetchExamResultQuestionAnswerResource($correctAnswer) ?? ""
         ];
     }
 }

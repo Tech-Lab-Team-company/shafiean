@@ -37,12 +37,12 @@ class ExamResultService
     }
     public function show($dataRequest)
     {
-        $examResultAnswers = ExamResultAnswer::whereExamResultId($dataRequest->exam_result_id)->get();
+        $examResultAnswers = ExamResult::whereId($dataRequest->exam_result_id)->first();
 
         return new DataSuccess(
-            data: ExamResultAnswerResource::collection($examResultAnswers),
+            data: new ExamResultAnswerResource($examResultAnswers),
             statusCode: 200,
-            message: 'Fetch Exam successfully'
+            message: 'Fetch Exam Result Answer successfully'
         );
     }
 }
