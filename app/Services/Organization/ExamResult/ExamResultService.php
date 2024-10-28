@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Services\Organization\ExamResult;
 
 use Exception;
@@ -7,25 +8,25 @@ use App\Helpers\Response\DataStatus;
 use App\Helpers\Response\DataSuccess;
 use App\Models\Organization\Exam\Exam;
 use App\Services\Global\FilterService;
+use App\Models\Organization\Exam\ExamResult;
 use App\Models\Organization\Exam\ExamQuestion;
 use App\Models\Organization\Question\Question;
+use App\Models\Organization\Exam\ExamResultAnswer;
 use App\Http\Resources\Organization\Exam\ExamResource;
+use App\Http\Resources\User\ExamResult\FetchExamResultResource;
+use App\Http\Resources\Organization\ExamResult\ExamResultResource;
+use App\Http\Resources\Organization\ExamResult\ExamResultAnswerResource;
 
 class ExamResultService
 {
-    public function index($dataRequest)
+    public function index()
     {
         try {
-            $query = Exam::query();
-            $filter_service = new FilterService();
-            if (isset($dataRequest)) {
-                $filter_service->filterExams($query, $dataRequest);
-            }
-            $exams = $query->orderBy('id', 'desc')->paginate(10);
+            $examResults = ExamResult::orderBy('id', 'desc')->paginate(10);
             return new DataSuccess(
-                data: ExamResource::collection($exams)->response()->getData(true),
+                data: ExamResultResource::collection($examResults)->response()->getData(true),
                 status: true,
-                message: 'Exams fetched successfully'
+                message: 'Exam Results fetched successfully'
             );
         } catch (Exception $e) {
             return new DataFailed(
@@ -34,43 +35,14 @@ class ExamResultService
             );
         }
     }
-    public function show($request)
+    public function show($dataRequest)
     {
-        $exam = Exam::whereId($request->id)->first();
-        if (!$exam) {
-            return new DataFailed(
-                statusCode: 400,
-                message: 'not found'
-            );
-        }
+        $examResultAnswers = ExamResultAnswer::whereExamResultId($dataRequest->exam_result_id)->get();
+
         return new DataSuccess(
-            data: new ExamResource($exam),
+            data: ExamResultAnswerResource::collection($examResultAnswers),
             statusCode: 200,
             message: 'Fetch Exam successfully'
         );
     }
-
-    public function delete($request): DataStatus
-    {
-        try {
-            $exam = Exam::whereId($request->id)->first();
-            if (!$exam) {
-                return new DataFailed(
-                    statusCode: 400,
-                    message: 'not found'
-                );
-            }
-            $exam->delete();
-            return new DataSuccess(
-                statusCode: 200,
-                message: 'Exam deleted successfully'
-            );
-        } catch (Exception $e) {
-            return new DataFailed(
-                statusCode: 500,
-                message: 'Exam deletion failed: ' . $e->getMessage()
-            );
-        }
-    }
-    
 }

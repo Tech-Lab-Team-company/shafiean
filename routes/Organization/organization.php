@@ -38,6 +38,7 @@ use App\Http\Controllers\Organization\Country\FetchCountryController;
 use App\Http\Controllers\Organization\JobType\FetchJobTypeController;
 use App\Http\Controllers\Organization\Student\FetchStudentController;
 use App\Http\Controllers\Organization\Blog\FetchBlogHashtagController;
+use App\Http\Controllers\Organization\ExamResult\ExamResultController;
 use App\Http\Controllers\Organization\Landingpage\StatisticController;
 use App\Http\Controllers\Organization\Landingpage\SubheaderController;
 use App\Http\Controllers\Organization\Blog\FetchBlogCategoryController;
@@ -45,10 +46,10 @@ use App\Http\Controllers\Organization\Competition\CompetitionController;
 use App\Http\Controllers\Organization\BloodType\FetchBloodTypeController;
 use App\Http\Controllers\Organization\QuestionBank\QuestionBankController;
 use App\Http\Controllers\Organization\UserRelation\UserRelationController;
+
 use App\Http\Controllers\Organization\Curriculum\FetchCurriculumController;
 
 use App\Http\Controllers\Organization\Landingpage\CommonQuestionController;
-
 use App\Http\Controllers\Organization\Landingpage\ServiceFeatureController;
 use App\Http\Controllers\Organization\MainSession\FetchMainSessionController;
 use App\Http\Controllers\Organization\Competition\CompetitionRewardController;
@@ -246,7 +247,11 @@ Route::middleware('auth:organization')->group(function () {
     Route::post('add_subscripe_group', [SubscriptionController::class, 'store']);
     Route::post('fetch_subscripe_group_details', [SubscriptionController::class, 'show']);
     Route::post('delete_subscripe_group', [SubscriptionController::class, 'delete']);
-
+    //EXAM RESULT
+    Route::controller(ExamResultController::class)->group(function () {
+        Route::post('fetch_exam_results', 'index');
+        Route::post('show_exam_result_answers', 'show');
+    });
     /**
      * END POINT START
      */
