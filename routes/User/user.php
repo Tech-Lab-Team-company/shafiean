@@ -14,6 +14,7 @@ use App\Http\Controllers\User\Blog\FetchUserBlogController;
 use App\Http\Controllers\User\Exam\FetchUserExamController;
 use App\Http\Controllers\User\Auth\UserCheckEmailController;
 use App\Http\Controllers\User\Contact\UserContactController;
+use App\Http\Controllers\User\Profile\UserProfileController;
 use App\Http\Controllers\User\Library\FetchLibraryController;
 use App\Http\Controllers\User\Auth\UserResetPasswordController;
 use App\Http\Controllers\User\Auth\UserChangePasswordController;
@@ -49,6 +50,12 @@ Route::middleware('auth:user')->group(function () {
     Route::controller(UserContactController::class)->group(function () {
         Route::post('user_add_contact', 'store');
     });
+    //PROFILE
+    Route::controller(UserProfileController::class)->group(function () {
+        Route::post('show_user_profile', 'show');
+        Route::post('update_user_profile', 'update');
+    });
+
     /**
      * END POINT START
      */
@@ -74,7 +81,6 @@ Route::middleware('auth:user')->group(function () {
     //LIBRARY
     Route::post('fetch_user_library_by_category_id', [FetchLibraryController::class, "fetchLibraryByCategoryId"]);
     Route::post('user_fetch_library_details', [FetchLibraryDetailsController::class, "show"]);
-
     //EXAM
     Route::post('fetch_user_exams', FetchUserExamController::class);
     // //BLOG
