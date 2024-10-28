@@ -18,11 +18,11 @@ class ExamResultAnswerResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id' => $this?->examResult?->id ?? 0,
-            'grade' => (int)$this?->examResult?->grade ?? 0,
-            'status' => (int) $this?->examResult?->status ?? 0,
-            'question' => new ExamResultQuestionAndAnswerResource($this->question ) ?? [],
-            'exam' => new UserExamResource($this->examResult?->exam ?? "") ?? "",
+            'id' => $this?->id ?? 0,
+            'grade' => (int)$this?->grade ?? 0,
+            'status' => (int) $this?->status ?? 0,
+            'questions' =>ExamResultQuestionAndAnswerResource::collection($this->examResultAnswers) ?? [],
+            'exam' => new UserExamResource($this->exam ?? "") ?? "",
         ];
     }
 }
