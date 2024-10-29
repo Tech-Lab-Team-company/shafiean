@@ -17,9 +17,9 @@ class CompetitionRewardResource extends JsonResource
     {
         return [
             'id' => $this->id ?? 0,
-            'stage' => $this->stage ?? "",
-            'reward' => $this->reward ?? "",
-            'competition' => new CompetitionResource($this->competition ?? "") ?? "",
+            'stage' => (int) $this->stage ?? "",
+            'reward' => (int) $this->reward ?? "",
+            // 'competition' => new CompetitionResource($this->competition ?? "") ?? "",
         ];
     }
 }

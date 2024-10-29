@@ -24,7 +24,8 @@ class FetchUserExamResultRequest extends ApiRequest
     public function rules(): array
     {
         return [
-            "exam_id" => "required|exists:exams,id",
+            // "exam_id" => "required|exists:exams,id",
+            "exam_result_id" => "required|exists:exam_results,id",
         ];
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Organization\Competition;
 
+use App\Enum\CompetitionStageEnum;
 use App\Helpers\Response\ApiRequest;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -28,6 +29,9 @@ class StoreCompetitionRequest extends ApiRequest
             'start_date' => 'required|date|after_or_equal:today|date_format:Y-m-d',
             'end_date' => 'required|date|after:start_date|date_format:Y-m-d',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'rewards' => 'nullable|array',
+            'rewards.*.stage' => 'nullable|in:' . enumCaseValue(CompetitionStageEnum::class),
+            'rewards.*.reward' => 'nullable|numeric',
         ];
     }
 }

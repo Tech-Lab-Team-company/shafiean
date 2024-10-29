@@ -7,16 +7,22 @@ use Exception;
 use App\Helpers\Response\DataFailed;
 use App\Helpers\Response\DataStatus;
 use App\Helpers\Response\DataSuccess;
+use App\Services\Global\FilterService;
 use App\Models\Organization\Landingpage\Service;
 use App\Http\Resources\Organization\Landingpage\Service\ServiceResource;
 
 class ServiceLandingService
 {
 
-    public function index()
+    public function index($dataRequest)
     {
         try {
-            $services = Service::orderBy('id', 'desc')->get();
+            $query = Service::query();
+            if (isset($request)) {
+                $filter_service = new FilterService();
+                $filter_service->filterServices($query, $dataRequest);
+            }
+            $services = $query->get();
             return new DataSuccess(
                 data: ServiceResource::collection($services),
                 status: true,

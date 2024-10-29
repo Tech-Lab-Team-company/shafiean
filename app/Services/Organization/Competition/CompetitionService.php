@@ -48,7 +48,12 @@ class CompetitionService
             if (isset($dataRequest['image'])) {
                 $dataRequest['image'] = upload_image(folder: 'competitions', image: $dataRequest['image']);
             }
+            $rewards = $dataRequest['rewards'] ?? [];
+            unset($dataRequest['rewards']);
             $competition = Competition::create($dataRequest);
+            if ($rewards) {
+                $competition->competitionRewards()->createMany($rewards);
+            }
             return new DataSuccess(
                 data: new CompetitionResource($competition),
                 status: true,
@@ -71,8 +76,14 @@ class CompetitionService
                 }
                 $dataRequest['image'] = uploadFile(folder: 'competitions', file: $dataRequest['image']);
             }
+            $rewards = $dataRequest['rewards'] ?? [];
             unset($dataRequest['id']);
+            unset($dataRequest['rewards']);
             $competition->update($dataRequest);
+            if ($rewards) {
+                $competition->competitionRewards()->delete();
+                $competition->competitionRewards()->createMany($rewards);
+            }
             return new DataSuccess(
                 data: new CompetitionResource($competition),
                 status: true,

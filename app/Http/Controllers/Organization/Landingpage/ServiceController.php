@@ -13,9 +13,9 @@ use App\Http\Requests\Organization\Landingpage\Service\FetchServiceDetailsReques
 class ServiceController extends Controller
 {
     public function __construct(protected  ServiceLandingService $serviceLandingService) {}
-    public function index()
+    public function index(Request $request)
     {
-        return $this->serviceLandingService->index()->response();
+        return $this->serviceLandingService->index($request)->response();
     }
     public function show(FetchServiceDetailsRequest $request)
     {

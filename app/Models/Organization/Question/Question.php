@@ -37,6 +37,10 @@ class Question extends Model
     {
         return $this->hasMany(Answer::class, 'question_id', 'id');
     }
+    public function examResultAnswers(): BelongsToMany
+    {
+        return $this->belongsToMany(Answer::class, "exam_result_answers", "question_id", "answer_id");
+    }
     protected static function booted(): void
     {
         static::addGlobalScope(new PerOrganizationScope);

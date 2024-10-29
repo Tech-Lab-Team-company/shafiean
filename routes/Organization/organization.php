@@ -5,8 +5,8 @@ use App\Http\Controllers\Global\StageController;
 use App\Http\Controllers\Global\GlobalController;
 use App\Http\Middleware\CheckWebsiteLinkMiddleware;
 use App\Http\Controllers\Admin\CurriculumController;
-use App\Http\Controllers\Admin\DisabilityTypeController;
 use App\Http\Controllers\Global\DisabilityController;
+use App\Http\Controllers\Admin\DisabilityTypeController;
 use App\Http\Controllers\Global\Live100MSIntegrationController;
 use App\Http\Controllers\Organization\Auth\AuthController;
 use App\Http\Controllers\Organization\Blog\BlogController;
@@ -15,6 +15,7 @@ use App\Http\Controllers\Organization\User\UserController;
 use App\Http\Controllers\Organization\Group\GroupController;
 use App\Http\Controllers\Organization\Answer\AnswerController;
 use App\Http\Controllers\Organization\Course\CourseController;
+use App\Http\Controllers\Organization\Contact\ContactController;
 use App\Http\Controllers\Organization\JobType\JobTypeController;
 use App\Http\Controllers\Organization\Library\LibraryController;
 use App\Http\Controllers\Organization\Blog\BlogHashtagController;
@@ -36,7 +37,9 @@ use App\Http\Controllers\Organization\Landingpage\PrivacyController;
 use App\Http\Controllers\Organization\Landingpage\ServiceController;
 use App\Http\Controllers\Organization\Country\FetchCountryController;
 use App\Http\Controllers\Organization\JobType\FetchJobTypeController;
+use App\Http\Controllers\Organization\Student\FetchStudentController;
 use App\Http\Controllers\Organization\Blog\FetchBlogHashtagController;
+use App\Http\Controllers\Organization\ExamResult\ExamResultController;
 use App\Http\Controllers\Organization\Landingpage\StatisticController;
 use App\Http\Controllers\Organization\Landingpage\SubheaderController;
 use App\Http\Controllers\Organization\Blog\FetchBlogCategoryController;
@@ -44,12 +47,13 @@ use App\Http\Controllers\Organization\Competition\CompetitionController;
 use App\Http\Controllers\Organization\BloodType\FetchBloodTypeController;
 use App\Http\Controllers\Organization\QuestionBank\QuestionBankController;
 use App\Http\Controllers\Organization\UserRelation\UserRelationController;
+
 use App\Http\Controllers\Organization\Curriculum\FetchCurriculumController;
+
 use App\Http\Controllers\Organization\Landingpage\CommonQuestionController;
 use App\Http\Controllers\Organization\Landingpage\ServiceFeatureController;
-
+use App\Http\Controllers\Organization\MainSession\FetchMainSessionController;
 use App\Http\Controllers\Organization\Competition\CompetitionRewardController;
-
 use App\Http\Controllers\Organization\QuestionBank\FetchQuestionBankContoller;
 use App\Http\Controllers\Organization\Curriculum\FetchCurriculumStageController;
 use App\Http\Controllers\Organization\LibraryCategory\LibraryCategoryController;
@@ -236,11 +240,19 @@ Route::middleware('auth:organization')->group(function () {
         Route::post('delete_group', 'delete_group');
         Route::post('change_group_active_status', 'change_group_active_status');
     });
+    //CONTACT
+    Route::controller(ContactController::class)->group(function () {
+        Route::post('fetch_contacts', 'index');
+    });
     Route::post('fetch_subscripe_groups', [SubscriptionController::class, 'index']);
     Route::post('add_subscripe_group', [SubscriptionController::class, 'store']);
     Route::post('fetch_subscripe_group_details', [SubscriptionController::class, 'show']);
     Route::post('delete_subscripe_group', [SubscriptionController::class, 'delete']);
-
+    //EXAM RESULT
+    Route::controller(ExamResultController::class)->group(function () {
+        Route::post('fetch_exam_results', 'index');
+        Route::post('show_exam_result_answers', 'show');
+    });
     /**
      * END POINT START
      */
@@ -277,6 +289,11 @@ Route::middleware('auth:organization')->group(function () {
     Route::get('organization_fetch_years', [GlobalController::class, "fetch_years"]);
     //COURSE
     Route::post('organization_fetch_curriculum_stages', FetchCurriculumStageController::class);
+    //STUDENT
+    Route::post('organization_fetch_students', FetchStudentController::class);
+    //MAIN SESSION
+    Route::post('organization_fetch_main_sessions', FetchMainSessionController::class);
+
     /**
      * END POINT END
      */

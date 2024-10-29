@@ -20,6 +20,10 @@ class FetchUserBlogResource extends JsonResource
         return [
             'id' => $this->id ?? 0,
             'title' => $this->title ?? "",
+            'description' => $this->description??"",
+            'image' => $this->image_link??"",
+            'blog_hashtags' => BlogHashtagResource::collection($this->blogHashtagRelations)??[],
+            'blog_categories' => BlogCategoryResource::collection($this->blogCategoryRelations)??[],
         ];
     }
 }
