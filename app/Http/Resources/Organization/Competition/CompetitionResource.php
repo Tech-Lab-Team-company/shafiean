@@ -4,6 +4,7 @@ namespace App\Http\Resources\Organization\Competition;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\Organization\CompetitionReward\CompetitionRewardResource;
 
 class CompetitionResource extends JsonResource
 {
@@ -21,6 +22,7 @@ class CompetitionResource extends JsonResource
             'start_date' => $this->start_date ?? "",
             'end_date' => $this->end_date ?? "",
             'image' => $this->image_link ?? "",
+            "rewards" => CompetitionRewardResource::collection($this->competitionRewards) ?? []
         ];
     }
 }
