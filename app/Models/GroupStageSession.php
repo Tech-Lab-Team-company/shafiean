@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Live\Live;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -22,7 +23,7 @@ class GroupStageSession extends Model
 
     public function group()
     {
-        return $this->belongsTo(Group::class, 'group_id');
+        return $this->belongsTo(Group::class, 'group_id' ,'id');
     }
 
     public function stage()
@@ -37,5 +38,10 @@ class GroupStageSession extends Model
     public function teacher()
     {
         return $this->belongsTo(Teacher::class, 'teacher_id');
+    }
+
+    public function lives() {
+
+        return $this->hasMany(Live::class, 'session_id');
     }
 }
