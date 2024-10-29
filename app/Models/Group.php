@@ -51,6 +51,12 @@ class Group extends Model
 
         return $this->belongsToMany(MainSession::class, 'group_stage_sessions', 'group_id', 'session_id')->withTimestamps();
     }
+
+    public function groupStageSessions()
+    {
+
+        return $this->hasMany(GroupStageSession::class, 'group_id');
+    }
     protected static function booted(): void
     {
         static::addGlobalScope(new PerOrganizationScope);

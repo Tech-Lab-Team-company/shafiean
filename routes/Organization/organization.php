@@ -7,6 +7,7 @@ use App\Http\Middleware\CheckWebsiteLinkMiddleware;
 use App\Http\Controllers\Admin\CurriculumController;
 use App\Http\Controllers\Admin\DisabilityTypeController;
 use App\Http\Controllers\Global\DisabilityController;
+use App\Http\Controllers\Global\Live100MSIntegrationController;
 use App\Http\Controllers\Organization\Auth\AuthController;
 use App\Http\Controllers\Organization\Blog\BlogController;
 use App\Http\Controllers\Organization\Exam\ExamController;
@@ -379,6 +380,17 @@ Route::middleware('auth:organization')->group(function () {
     // ***********************************************************************************************************************************
     //**************************************************** lANDINGPAGE END *************************************************************
     // ***********************************************************************************************************************************
+
+
+
+     // ***********************************************************************************************************************************
+    //**************************************************** Live100MS Start *************************************************************
+    // ***********************************************************************************************************************************
+
+    Route::controller(Live100MSIntegrationController::class)->group(function () {
+        Route::post('create_room',  'create_room');
+        Route::post('join_room',  'join_room');
+    });
 
 });
 
