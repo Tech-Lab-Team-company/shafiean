@@ -15,9 +15,9 @@ class JoinRoomResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'room_id' => $this->room_id,
-            'host_code' => $this->host_code,
-            'guest_code' => $this->guest_code
+            'room_id' => $this->room_id??"",
+            'host_code' => $this->host_code??"",
+            'guest_code' => $this->guest_code??""
         ];
     }
 }

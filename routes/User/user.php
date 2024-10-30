@@ -16,6 +16,7 @@ use App\Http\Controllers\User\Auth\UserCheckEmailController;
 use App\Http\Controllers\User\Contact\UserContactController;
 use App\Http\Controllers\User\Profile\UserProfileController;
 use App\Http\Controllers\User\Library\FetchLibraryController;
+use App\Http\Controllers\Global\Live100MSIntegrationController;
 use App\Http\Controllers\User\Auth\UserResetPasswordController;
 use App\Http\Controllers\User\Auth\UserChangePasswordController;
 use App\Http\Controllers\User\Competition\CompetitionController;
@@ -54,6 +55,10 @@ Route::middleware('auth:user')->group(function () {
     Route::controller(UserProfileController::class)->group(function () {
         Route::post('show_user_profile', 'show');
         Route::post('update_user_profile', 'update');
+    });
+    //LIVE
+    Route::controller(Live100MSIntegrationController::class)->group(function () {
+        Route::post('user_join_room',  'join_room');
     });
 
     /**

@@ -25,7 +25,7 @@ class Live100MSIntegrationService
         $this->App_key = $App_key;
         $this->App_secret = $App_secret;
     }
-    public function create_room($request): DataStatus
+    public function create_room($request, $join = false): DataStatus
     {
         try {
             $room_data = $this->handle_live_room_body($request);
@@ -43,6 +43,14 @@ class Live100MSIntegrationService
             // dd($room_info_data);
             $live_info = $this->store_live_info($room_data['data']['live_id'], $room_info_data);
 
+            if ($join) {
+                return new DataSuccess(
+                    status: true,
+                    data: $room_data['data']['live'],
+                    message: 'Room created successfully',
+                );
+                // return $room_data['data']['live'];
+            }
             return new DataSuccess(
                 status: true,
                 message: 'Room created successfully',
@@ -53,21 +61,21 @@ class Live100MSIntegrationService
                 message: $e->getMessage()
             );
         }
-        // dd($live_info);
     }
 
     public function join_room($request): DataStatus
     {
         try {
             $session = GroupStageSession::find($request->session_id);
-            $live = $session->lives()->where('id', $request->live_id)->first();
-            if (is_null($live)) {
-                $live =  $this->create_room($request);
+            if ($request->live_id == null) {
+                $live = $session->lives()->latest()->first();
+            } else {
+                $live = $session->lives()->where('id', $request->live_id)->first();
             }
-
-            // dd($live->live_info);
+            if ($live == null) {
+                $live =  $this->create_room($request, true)->getData();
+            }
             $live_info = $live->live_info;
-
             return new DataSuccess(
                 status: true,
                 message: 'Room joined successfully',
@@ -84,47 +92,37 @@ class Live100MSIntegrationService
     public function handle_live_room_body($request)
     {
         $session = GroupStageSession::find($request->session_id);
-        // dd($session);
         $this->live100MSIntegrationParam = new Live100MSIntegrationParam($session, $request->enable_recording);
         $body = $this->live100MSIntegrationParam->prepare_body();
-        // dd($body);
         $live = $this->store_live($session);
-        // dd($live);
         $token = $this->generate_token();
-        // dd($token);
         $response = [
             'data' => [
                 'body' => $body,
                 'token' => $token,
-                'live_id' => $live->id
+                'live_id' => $live->id,
+                'live' => $live
             ]
         ];
         return $response;
     }
     public function store_live($session)
     {
-
         $live_data =  $this->live100MSIntegrationParam->handel_live_data($session);
-        // dd($live_data);
         $live = Live::create($live_data);
-
         return $live;
     }
 
     public function store_live_info($live_id, $data)
     {
-        // dd($data , $live_id);
         $live_info_data = $this->live100MSIntegrationParam->handel_live_info_data($live_id, $data);
-        // dd($live_info_data);
         $live_info = Live100msInfo::create($live_info_data);
-
         return $live_info;
     }
     public function generate_token()
     {
         $issuedAt   = new DateTimeImmutable('now');
         $expire     = $issuedAt->modify('+24 hours')->getTimestamp();
-
         $payload = [
             'access_key' => $this->App_key,
             'type' => 'management',
@@ -140,14 +138,11 @@ class Live100MSIntegrationService
     public function get_room_code($room_id)
     {
         $token = $this->generate_token(); //generate
-        $room_id = $room_id;
         $headers = [
             'Authorization' => 'Bearer ' . $token,
             'Content-Type' => 'application/json'
         ];
-
         $response = Http::withHeaders($headers)->post('https://api.100ms.live/v2/room-codes/room/' . $room_id);
-        //        dd($response->json());
         return $response->json();
     }
 
