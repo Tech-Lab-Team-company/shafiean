@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Resources\Organization\MainSession;
 
 
@@ -21,7 +22,8 @@ class FetchMainSessionResource extends JsonResource
             'title' => $this->title ?? "",
             'status' => (int)$this->status ?? "",
             'start_verse' => (int)$this->start_verse ?? "",
-            'end_verse' =>(int) $this->end_verse ?? "",
+            'end_verse' => (int) $this->end_verse ?? "",
+            'organization_id' => $this->organization_id ?? 0,
             // 'start_date' => $this->start_date ?? "",
             // 'end_date' => $this->end_date ?? "",
             // 'start_time' => $this->start_time ?? "",

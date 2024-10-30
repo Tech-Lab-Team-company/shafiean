@@ -14,6 +14,7 @@ use App\Http\Controllers\Organization\Exam\ExamController;
 use App\Http\Controllers\Organization\User\UserController;
 use App\Http\Controllers\Organization\Group\GroupController;
 use App\Http\Controllers\Organization\Answer\AnswerController;
+use App\Http\Controllers\Organization\Attendance\AttendanceController;
 use App\Http\Controllers\Organization\Course\CourseController;
 use App\Http\Controllers\Organization\Contact\ContactController;
 use App\Http\Controllers\Organization\JobType\JobTypeController;
@@ -253,6 +254,14 @@ Route::middleware('auth:organization')->group(function () {
         Route::post('fetch_exam_results', 'index');
         Route::post('show_exam_result_answers', 'show');
     });
+
+
+    // Attendance end point
+    Route::controller(AttendanceController::class)->group(function () {
+        Route::post('organization_attendance', 'attendance');
+        Route::post('fetch_attendance', 'fetch_attendance');
+    });
+
     /**
      * END POINT START
      */
