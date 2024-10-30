@@ -1,0 +1,67 @@
+<?php
+
+namespace App\Services\User\Attendance;
+
+
+use App\Models\User;
+use App\Models\GroupStageSession;
+use App\Helpers\Response\DataFailed;
+use App\Helpers\Response\DataStatus;
+use App\Helpers\Response\DataSuccess;
+use App\Models\UserSession;
+use App\Services\Global\FilterService;
+
+class AttendanceService
+{
+
+    public function attendance($request): DataStatus
+    {
+        try {
+            $session = GroupStageSession::find($request->session_id);
+            // dd($session);
+            $live = $session->lives()->latest()->first();
+            // dd($live);
+            if ($live == null) {
+                return new DataFailed(
+                    status: false,
+                    message: 'Live not found'
+                );
+            }
+            $user_session = UserSession::create([
+                'user_id' => auth()->guard('user')->user()->id,
+                'session_id' => $request->session_id,
+                'live_id' => $live->id,
+                'from' => now(),
+            ]);
+            return new DataSuccess(
+                status: true,
+                message: 'Attendance marked successfully'
+            );
+        } catch (\Exception $exception) {
+            return new DataFailed(
+                status: false,
+                message: $exception->getMessage()
+            );
+        }
+    }
+    public function fetch_attendance($request): DataStatus
+    {
+        try {
+            $query = User::query();
+            $filter_service = new FilterService();
+            if ($request) {
+                $filter_service->filterUsersAttendance($query, $request);
+            }
+
+            return new DataSuccess(
+                status: true,
+                message: 'Attendance marked successfully'
+            );
+        } catch (\Exception $exception) {
+            return new DataFailed(
+                status: false,
+                message: $exception->getMessage()
+            );
+        }
+    }
+}

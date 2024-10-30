@@ -16,6 +16,7 @@ use App\Http\Controllers\User\Auth\UserCheckEmailController;
 use App\Http\Controllers\User\Contact\UserContactController;
 use App\Http\Controllers\User\Profile\UserProfileController;
 use App\Http\Controllers\User\Library\FetchLibraryController;
+use App\Http\Controllers\User\Attendance\AttendanceController;
 use App\Http\Controllers\Global\Live100MSIntegrationController;
 use App\Http\Controllers\User\Auth\UserResetPasswordController;
 use App\Http\Controllers\User\Auth\UserChangePasswordController;
@@ -55,6 +56,12 @@ Route::middleware('auth:user')->group(function () {
     Route::controller(UserProfileController::class)->group(function () {
         Route::post('show_user_profile', 'show');
         Route::post('update_user_profile', 'update');
+    });
+
+       // Attendance end point
+       Route::controller(AttendanceController::class)->group(function () {
+        Route::post('user_attendance', 'attendance');
+        Route::post('fetch_student_attendance', 'fetch_attendance');
     });
     //LIVE
     Route::controller(Live100MSIntegrationController::class)->group(function () {
