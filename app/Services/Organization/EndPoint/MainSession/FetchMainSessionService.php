@@ -22,10 +22,10 @@ class FetchMainSessionService
     public function fetchMainSessions($dataRequest)
     {
         try {
-            $groupStageSessions = GroupStageSession::where('group_id', $dataRequest->group_id)->pluck("session_id")->toArray();
-            $mainSessions = MainSession::whereIn("id", $groupStageSessions)->orderBy('id', 'desc')->paginate(10);
+            $groupStageSessions = GroupStageSession::where('group_id', $dataRequest->group_id)->orderBy('id', 'desc')->paginate(10);
+            // $mainSessions = MainSession::whereIn("id", $groupStageSessions)->orderBy('id', 'desc')->paginate(10);
             return new DataSuccess(
-                data: FetchMainSessionResource::collection($mainSessions)->response()->getData(true),
+                data: FetchMainSessionResource::collection($groupStageSessions)->response()->getData(true),
                 status: true,
                 message: 'Main Session fetched successfully'
             );

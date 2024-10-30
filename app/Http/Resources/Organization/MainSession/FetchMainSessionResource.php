@@ -19,8 +19,8 @@ class FetchMainSessionResource extends JsonResource
     {
         return [
             'id' => $this->id ?? 0,
-            'title' => $this->title ?? "",
-            'status' => (int)$this->status ?? "",
+            'title' => $this->session->title ?? "",
+            // 'status' => (int)$this->status ?? "",
             'start_verse' => (int)$this->start_verse ?? "",
             'end_verse' => (int) $this->end_verse ?? "",
             'organization_id' => $this->organization_id ?? 0,
@@ -33,7 +33,7 @@ class FetchMainSessionResource extends JsonResource
             // "course_name" => $this->group->course->name ?? "",
             // "teacher_name" => $this->teacher->name ?? "",
             // "teacher_image" => $this->teacher->image_link ?? "",
-            "quraan" => new QuraanResource($this->quraan) ?? "",
+            // "quraan" => new QuraanResource($this->quraan) ?? "",
             "stage" => new StageResource($this->stage) ?? "",
         ];
     }
