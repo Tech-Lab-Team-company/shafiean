@@ -75,7 +75,7 @@ class Live100MSIntegrationService
             if ($live == null) {
                 $live =  $this->create_room($request, true)->getData();
             }
-            dd($live->live_info);
+            dd($live);
             $live_info = $live->live_info;
             return new DataSuccess(
                 status: true,
