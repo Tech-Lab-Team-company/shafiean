@@ -265,4 +265,14 @@ class FilterService
 
         ;
     }
+
+    public function filterUsersAttendance($query, $request){
+
+        $query
+            ->when($request->has('user_id') && !empty($request->user_id), function ($q) use ($request) {
+                $q->whereHas('subscripe_groups', function ($q) use ($request) {
+                    $q->where('user_id', $request->user_id);
+                });
+            });
+    }
 }
