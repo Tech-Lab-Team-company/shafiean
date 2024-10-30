@@ -73,9 +73,19 @@ class Live100MSIntegrationService
                 $live = $session->lives()->where('id', $request->live_id)->first();
             }
             if ($live == null) {
-                $live =  $this->create_room($request, true)->getData();
+                $check_live =  $this->create_room($request, true);
+                if ($check_live instanceof DataFailed) {
+                    return new DataFailed(
+                        status: false,
+                        message: $this->create_room($request, true)->getMessage()
+                    );
+                }
+                if ($check_live instanceof DataSuccess) {
+                    $live =   $check_live->getData();
+                }
             }
-            dd($live);
+
+            // dd($live);
             $live_info = $live->live_info;
             return new DataSuccess(
                 status: true,
