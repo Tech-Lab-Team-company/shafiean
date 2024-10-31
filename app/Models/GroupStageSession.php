@@ -23,7 +23,7 @@ class GroupStageSession extends Model
 
     public function group()
     {
-        return $this->belongsTo(Group::class, 'group_id' ,'id');
+        return $this->belongsTo(Group::class, 'group_id', 'id');
     }
 
     public function stage()
@@ -40,8 +40,14 @@ class GroupStageSession extends Model
         return $this->belongsTo(Teacher::class, 'teacher_id');
     }
 
-    public function lives() {
+    public function lives()
+    {
 
         return $this->hasMany(Live::class, 'session_id');
+    }
+
+    public function users()
+    {
+        return $this->hasMany(UserSession::class, 'session_id');
     }
 }

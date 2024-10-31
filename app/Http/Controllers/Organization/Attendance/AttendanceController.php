@@ -25,4 +25,8 @@ class AttendanceController extends Controller
     {
         return $this->attendance_service->fetch_attendance($request)->response();
     }
+    public function leave(FetchAttendanceRequest $request)
+    {
+        return $this->attendance_service->leave($request)->response();
+    }
 }
