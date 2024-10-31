@@ -15,6 +15,7 @@ use App\Http\Controllers\Organization\Group\GroupController;
 use App\Http\Controllers\Organization\Answer\AnswerController;
 use App\Http\Controllers\Organization\Course\CourseController;
 use App\Http\Controllers\Global\Live100MSIntegrationController;
+use App\Http\Controllers\Organization\User\FetchUserController;
 use App\Http\Controllers\Organization\Contact\ContactController;
 use App\Http\Controllers\Organization\JobType\JobTypeController;
 use App\Http\Controllers\Organization\Library\LibraryController;
@@ -47,10 +48,10 @@ use App\Http\Controllers\Organization\Blog\FetchBlogCategoryController;
 use App\Http\Controllers\Organization\Competition\CompetitionController;
 use App\Http\Controllers\Organization\BloodType\FetchBloodTypeController;
 use App\Http\Controllers\Organization\QuestionBank\QuestionBankController;
+
 use App\Http\Controllers\Organization\UserRelation\UserRelationController;
 
 use App\Http\Controllers\Organization\Curriculum\FetchCurriculumController;
-
 use App\Http\Controllers\Organization\Landingpage\CommonQuestionController;
 use App\Http\Controllers\Organization\Landingpage\ServiceFeatureController;
 use App\Http\Controllers\Organization\MainSession\FetchMainSessionController;
@@ -305,6 +306,8 @@ Route::middleware('auth:organization')->group(function () {
     Route::post('organization_fetch_main_sessions', FetchMainSessionController::class);
     //COMPETITON REWARD
     Route::post('assign_competition_reward', [AssignCompetitionRewardController::class, 'assignUser']);
+    //USER
+    Route::post('organization_fetch_users', FetchUserController::class);
 
 
     /**
