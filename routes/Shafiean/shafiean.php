@@ -13,6 +13,8 @@ use App\Http\Controllers\Admin\MainSessionController;
 use App\Http\Controllers\Admin\SessionTypeController;
 use App\Http\Controllers\Admin\AdminHistoryController;
 use App\Http\Controllers\Admin\DisabilityTypeController;
+use App\Http\Controllers\Admin\AdminHomeStatisticController;
+use App\Http\Controllers\Admin\FetchAdminHomeStatisticController;
 use App\Http\Controllers\Organization\Organization\OrganizationController;
 
 Route::prefix('admin')->group(function () {
@@ -120,4 +122,23 @@ Route::middleware('auth:admin')->group(function () {
 
     Route::resource('ayat', AyatController::class);
     Route::resource('quraan', QuraanController::class);
+
+    //STATISTIC
+    Route::controller(AdminHomeStatisticController::class)->group(
+        function () {
+            Route::post('fetch_count_statistics', 'fetchCounts');
+            Route::post('fetch_latest_students_statistics', 'fetchLatestStudents');
+            Route::post('fetch_most_active_organizations_statistics', 'fetchMostActiveOrganizations');
+            Route::post('fetch_best_places_interacted_with_organization_statistics', 'fetchBestPlacesInteractedWithOrganization');
+        }
+    );
+
+    /**
+     * END POINT START
+     */
+
+
+    /**
+     * END POINT END
+     */
 });

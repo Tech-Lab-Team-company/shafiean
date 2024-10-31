@@ -27,4 +27,15 @@ class Organization extends Model
     {
         return $this->belongsToMany(DisabilityType::class, 'organization_disability_types', 'organization_id', 'disability_type_id')->withTimestamps();
     }
+    public function users(): HasMany
+    {
+        return $this->hasMany(User::class, 'organization_id');
+    }
+    public function teachers(): HasMany
+    {
+        return $this->hasMany(Teacher::class, 'organization_id');
+    }
+    public function city():BelongsTo{
+        return $this->belongsTo(City::class,'city_id');
+    }
 }
