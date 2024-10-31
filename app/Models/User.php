@@ -128,4 +128,9 @@ class User extends Authenticatable
             static::addGlobalScope(new PerOrganizationWebsiteScope);
         }
     }
+
+    public function sessions()
+    {
+        return $this->hasMany(UserSession::class, 'user_id', 'id');
+    }
 }

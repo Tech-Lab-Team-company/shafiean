@@ -31,4 +31,9 @@ class UserSession extends Model
     {
         return $this->belongsTo(Live::class, 'live_id');
     }
+
+    public function group() {
+
+        return $this->belongsTo(Group::class, 'group_id');
+    }
 }
