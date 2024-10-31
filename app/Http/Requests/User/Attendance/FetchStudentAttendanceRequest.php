@@ -2,16 +2,17 @@
 
 namespace App\Http\Requests\User\Attendance;
 
+use App\Helpers\Response\ApiRequest;
 use Illuminate\Foundation\Http\FormRequest;
 
-class FetchStudentAttendanceRequest extends FormRequest
+class FetchStudentAttendanceRequest extends ApiRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +23,7 @@ class FetchStudentAttendanceRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'student_id' => 'nullable|exists:users,id',
         ];
     }
 }
