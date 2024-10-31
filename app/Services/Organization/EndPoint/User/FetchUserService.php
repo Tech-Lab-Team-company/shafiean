@@ -17,9 +17,9 @@ class FetchUserService
     public function fetchUsers()
     {
         try {
-            $students = User::get();
+            $users = User::get();
             return new DataSuccess(
-                data: FetchStudentResource::collection($students),
+                data: FetchStudentResource::collection($users),
                 status: true,
                 message: 'Users fetched successfully'
             );
