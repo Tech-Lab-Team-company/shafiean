@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Services\Organization\Attendance\AttendanceService;
 use App\Http\Requests\Organization\Attendance\AttendanceRequest;
 use App\Http\Requests\Organization\Attendance\FetchAttendanceRequest;
+use App\Http\Requests\Organization\Attendance\LeaveRequest;
 
 class AttendanceController extends Controller
 {
@@ -25,7 +26,7 @@ class AttendanceController extends Controller
     {
         return $this->attendance_service->fetch_attendance($request)->response();
     }
-    public function leave(FetchAttendanceRequest $request)
+    public function leave(LeaveRequest $request)
     {
         return $this->attendance_service->leave($request)->response();
     }

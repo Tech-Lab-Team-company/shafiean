@@ -68,4 +68,23 @@ class AttendanceService
             );
         }
     }
+
+    public function leave($request): DataStatus
+    {
+        try {
+            $user_session = UserSession::where('user_id', auth()->guard('user')->user()->id)->where('session_id', $request->session_id)->first();
+            $user_session->update([
+                'to' => now(),
+            ]);
+            return new DataSuccess(
+                status: true,
+                message: 'leaved  successfully'
+            );
+        } catch (\Exception $exception) {
+            return new DataFailed(
+                status: false,
+                message: $exception->getMessage()
+            );
+        }
+    }
 }
