@@ -7,15 +7,14 @@ use App\Http\Middleware\CheckWebsiteLinkMiddleware;
 use App\Http\Controllers\Admin\CurriculumController;
 use App\Http\Controllers\Global\DisabilityController;
 use App\Http\Controllers\Admin\DisabilityTypeController;
-use App\Http\Controllers\Global\Live100MSIntegrationController;
 use App\Http\Controllers\Organization\Auth\AuthController;
 use App\Http\Controllers\Organization\Blog\BlogController;
 use App\Http\Controllers\Organization\Exam\ExamController;
 use App\Http\Controllers\Organization\User\UserController;
 use App\Http\Controllers\Organization\Group\GroupController;
 use App\Http\Controllers\Organization\Answer\AnswerController;
-use App\Http\Controllers\Organization\Attendance\AttendanceController;
 use App\Http\Controllers\Organization\Course\CourseController;
+use App\Http\Controllers\Global\Live100MSIntegrationController;
 use App\Http\Controllers\Organization\Contact\ContactController;
 use App\Http\Controllers\Organization\JobType\JobTypeController;
 use App\Http\Controllers\Organization\Library\LibraryController;
@@ -39,6 +38,7 @@ use App\Http\Controllers\Organization\Landingpage\ServiceController;
 use App\Http\Controllers\Organization\Country\FetchCountryController;
 use App\Http\Controllers\Organization\JobType\FetchJobTypeController;
 use App\Http\Controllers\Organization\Student\FetchStudentController;
+use App\Http\Controllers\Organization\Attendance\AttendanceController;
 use App\Http\Controllers\Organization\Blog\FetchBlogHashtagController;
 use App\Http\Controllers\Organization\ExamResult\ExamResultController;
 use App\Http\Controllers\Organization\Landingpage\StatisticController;
@@ -58,6 +58,7 @@ use App\Http\Controllers\Organization\Competition\CompetitionRewardController;
 use App\Http\Controllers\Organization\QuestionBank\FetchQuestionBankContoller;
 use App\Http\Controllers\Organization\Curriculum\FetchCurriculumStageController;
 use App\Http\Controllers\Organization\LibraryCategory\LibraryCategoryController;
+use App\Http\Controllers\Organization\Competition\AssignCompetitionRewardController;
 
 
 //AUTH
@@ -302,6 +303,9 @@ Route::middleware('auth:organization')->group(function () {
     Route::post('organization_fetch_students', FetchStudentController::class);
     //MAIN SESSION
     Route::post('organization_fetch_main_sessions', FetchMainSessionController::class);
+    //COMPETITON REWARD
+    Route::post('assign_competition_reward', [AssignCompetitionRewardController::class, 'assignUser']);
+
 
     /**
      * END POINT END
@@ -409,7 +413,7 @@ Route::middleware('auth:organization')->group(function () {
 
 
 
-     // ***********************************************************************************************************************************
+    // ***********************************************************************************************************************************
     //**************************************************** Live100MS Start *************************************************************
     // ***********************************************************************************************************************************
 
@@ -417,7 +421,6 @@ Route::middleware('auth:organization')->group(function () {
         Route::post('create_room',  'create_room');
         Route::post('join_room',  'join_room');
     });
-
 });
 
 
