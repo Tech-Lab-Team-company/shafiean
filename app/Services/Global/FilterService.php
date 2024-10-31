@@ -270,9 +270,12 @@ class FilterService
 
         $query
             ->when($request->has('user_id') && !empty($request->user_id), function ($q) use ($request) {
-                $q->whereHas('subscripe_groups', function ($q) use ($request) {
-                    $q->where('user_id', $request->user_id);
-                });
-            });
+                $q->where('user_id', $request->user_id);
+            })->when($request->has('session_id') && !empty($request->session_id), function ($q) use ($request) {
+                $q->where('session_id', $request->session_id);
+            })->when($request->has('group_id') && !empty($request->group_id) , function ($q) use ($request) {
+                $q->where('group_id', $request->group_id);
+            })
+            ;
     }
 }

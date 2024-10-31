@@ -7,6 +7,8 @@ use App\Models\GroupStageSession;
 use App\Helpers\Response\DataFailed;
 use App\Helpers\Response\DataStatus;
 use App\Helpers\Response\DataSuccess;
+use App\Http\Resources\Organization\Attendance\AttendanceResource;
+use App\Models\UserSession;
 use App\Services\Global\FilterService;
 
 class AttendanceService
@@ -42,14 +44,15 @@ class AttendanceService
     public function fetch_attendance($request): DataStatus
     {
         try {
-            $query = User::query();
+            $query = UserSession::query();
             $filter_service = new FilterService();
             if($request){
                 $filter_service->filterUsersAttendance($query, $request);
             }
-
+            $user_session = $query->paginate(10);
             return new DataSuccess(
                 status: true,
+                data: AttendanceResource::collection($user_session),
                 message: 'Attendance marked successfully'
             );
         } catch (\Exception $exception) {
