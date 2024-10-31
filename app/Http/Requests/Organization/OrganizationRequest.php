@@ -2,9 +2,12 @@
 
 namespace App\Http\Requests\Organization;
 
+use Illuminate\Validation\Rule;
+use App\Rules\CityBelongsToCountry;
+use App\Helpers\Response\ApiRequest;
 use Illuminate\Foundation\Http\FormRequest;
 
-class OrganizationRequest extends FormRequest
+class OrganizationRequest extends ApiRequest
 {
     public function authorize()
     {
@@ -22,7 +25,7 @@ class OrganizationRequest extends FormRequest
             'email' => 'nullable|string|email|max:191',
             'address' => 'nullable|string|max:191',
             'country_id' => 'required|exists:countries,id',
-            'city_id' => 'required|exists:cities,id',
+            'city_id' => ['required', new CityBelongsToCountry($this->input('country_id'))],
             'manager_name' => 'required|string|max:191',
             'manager_phone' => 'required|string|max:191',
             'manager_email' => 'nullable|string|email|max:191|unique:organizations,manager_email',
