@@ -17,6 +17,7 @@ use App\Observers\OrganizationIdObserver;
 use App\Models\Scopes\PerOrganizationScope;
 use App\Models\Organization\Exam\ExamResult;
 use App\Models\Organization\Exam\ExamStudent;
+use App\Models\Organization\UserRelation\UserRelation;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\Scopes\PerOrganizationWebsiteScope;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -118,6 +119,22 @@ class User extends Authenticatable
     {
         return $this->hasMany(ExamResult::class, 'user_id', 'id');
     }
+    public function sessions()
+    {
+        return $this->hasMany(UserSession::class, 'user_id', 'id');
+    }
+
+    public function parent()
+    {
+
+        return $this->belongsToMany(User::class, 'user_relation', 'child_id', 'parent_id')->withTimestamps();
+    }
+
+    public function childs()
+    {
+
+        return $this->belongsToMany(User::class, 'user_relation', 'parent_id', 'child_id')->withTimestamps();
+    }
     protected static function booted(): void
     {
         // static::addGlobalScope(new PerOrganizationScope);
@@ -127,10 +144,5 @@ class User extends Authenticatable
         } else if (!Route::currentRouteName() === 'user_login') {
             static::addGlobalScope(new PerOrganizationWebsiteScope);
         }
-    }
-
-    public function sessions()
-    {
-        return $this->hasMany(UserSession::class, 'user_id', 'id');
     }
 }

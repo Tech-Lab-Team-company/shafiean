@@ -8,6 +8,7 @@ use App\Models\GroupStageSession;
 use App\Helpers\Response\DataFailed;
 use App\Helpers\Response\DataStatus;
 use App\Helpers\Response\DataSuccess;
+use App\Http\Resources\User\Attendance\AttendanceResource;
 use App\Models\UserSession;
 use App\Services\Global\FilterService;
 
@@ -48,15 +49,36 @@ class AttendanceService
     public function fetch_attendance($request): DataStatus
     {
         try {
-            $query = User::query();
+            $query = UserSession::query();
             $filter_service = new FilterService();
             if ($request) {
-                $filter_service->filterUsersAttendance($query, $request);
+                $filter_service->parentStudentAttendance($query, $request);
             }
 
+            $user_sessions = $query->get();
             return new DataSuccess(
                 status: true,
+                data: AttendanceResource::collection($user_sessions),
                 message: 'Attendance marked successfully'
+            );
+        } catch (\Exception $exception) {
+            return new DataFailed(
+                status: false,
+                message: $exception->getMessage()
+            );
+        }
+    }
+
+    public function leave($request): DataStatus
+    {
+        try {
+            $user_session = UserSession::where('user_id', auth()->guard('user')->user()->id)->where('session_id', $request->session_id)->first();
+            $user_session->update([
+                'to' => now(),
+            ]);
+            return new DataSuccess(
+                status: true,
+                message: 'leaved  successfully'
             );
         } catch (\Exception $exception) {
             return new DataFailed(

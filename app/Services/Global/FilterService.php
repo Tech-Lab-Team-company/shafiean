@@ -3,6 +3,8 @@
 
 namespace App\Services\Global;
 
+use App\Enum\UserTypeEnum;
+
 
 class FilterService
 {
@@ -266,16 +268,32 @@ class FilterService
         ;
     }
 
-    public function filterUsersAttendance($query, $request){
+    public function filterUsersAttendance($query, $request)
+    {
 
         $query
             ->when($request->has('user_id') && !empty($request->user_id), function ($q) use ($request) {
                 $q->where('user_id', $request->user_id);
             })->when($request->has('session_id') && !empty($request->session_id), function ($q) use ($request) {
                 $q->where('session_id', $request->session_id);
-            })->when($request->has('group_id') && !empty($request->group_id) , function ($q) use ($request) {
+            })->when($request->has('group_id') && !empty($request->group_id), function ($q) use ($request) {
                 $q->where('group_id', $request->group_id);
             })
-            ;
+        ;
+    }
+
+    public function parentStudentAttendance($query, $request)
+    {
+        if (auth()->guard('user')->user()->type == UserTypeEnum::class::PARENT->value) {
+            $query
+                ->when(filled($request->student_id), function ($q) use ($request) {
+                    $q->where('user_id', $request->student_id);
+                }, function ($q) use ($request) {
+                    $q->where('user_id', auth()->guard('user')->user()->childs()->first()->id);
+                });
+        } else if (auth()->guard('user')->user()->type == UserTypeEnum::class::STUDENT->value) {
+
+            $query->where('user_id', auth()->guard('user')->user()->id);
+        }
     }
 }

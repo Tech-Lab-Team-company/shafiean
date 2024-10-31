@@ -62,6 +62,7 @@ Route::middleware('auth:user')->group(function () {
        Route::controller(AttendanceController::class)->group(function () {
         Route::post('user_attendance', 'attendance');
         Route::post('fetch_student_attendance', 'fetch_attendance');
+        Route::post('user_leave', 'leave');
     });
     //LIVE
     Route::controller(Live100MSIntegrationController::class)->group(function () {

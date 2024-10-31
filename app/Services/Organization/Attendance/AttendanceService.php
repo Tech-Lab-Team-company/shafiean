@@ -46,7 +46,7 @@ class AttendanceService
         try {
             $query = UserSession::query();
             $filter_service = new FilterService();
-            if($request){
+            if ($request) {
                 $filter_service->filterUsersAttendance($query, $request);
             }
             $user_session = $query->paginate(10);
@@ -54,6 +54,32 @@ class AttendanceService
                 status: true,
                 data: AttendanceResource::collection($user_session),
                 message: 'Attendance marked successfully'
+            );
+        } catch (\Exception $exception) {
+            return new DataFailed(
+                status: false,
+                message: $exception->getMessage()
+            );
+        }
+    }
+
+    public function leave($request): DataStatus
+    {
+        try {
+            $session = GroupStageSession::find($request->session_id);
+            $live = $session->lives()->where('teacher_id', auth()->guard('organization')->user()->id)->latest()->first();
+            if ($live == null) {
+                return new DataFailed(
+                    status: false,
+                    message: 'Live not found'
+                );
+            }
+            $live->update([
+                'leave_date' => now(),
+            ]);
+            return new DataSuccess(
+                status: true,
+                message: 'leaved  successfully'
             );
         } catch (\Exception $exception) {
             return new DataFailed(

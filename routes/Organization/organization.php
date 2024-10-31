@@ -261,6 +261,7 @@ Route::middleware('auth:organization')->group(function () {
     Route::controller(AttendanceController::class)->group(function () {
         Route::post('organization_attendance', 'attendance');
         Route::post('fetch_attendance', 'fetch_attendance');
+        Route::post('organization_leave', 'leave');
     });
 
     /**

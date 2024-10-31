@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests\User\Attendance;
+namespace App\Http\Requests\Organization\Attendance;
 
 use App\Helpers\Response\ApiRequest;
 use Illuminate\Foundation\Http\FormRequest;
 
-class FetchStudentAttendanceRequest extends ApiRequest
+class LeaveRequest extends ApiRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,7 +23,7 @@ class FetchStudentAttendanceRequest extends ApiRequest
     public function rules(): array
     {
         return [
-            'student_id' => 'nullable|exists:users,id',
+            'session_id' => 'required|exists:group_stage_sessions,id',
         ];
     }
 }
