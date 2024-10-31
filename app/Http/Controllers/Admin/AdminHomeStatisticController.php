@@ -27,4 +27,8 @@ class AdminHomeStatisticController extends Controller
     {
         return $this->adminHomeStatisticsService->fetchBestPlacesInteractedWithOrganization($request)->response();
     }
+    public function fetchInteractedRateWithOrganization()
+    {
+        return $this->adminHomeStatisticsService->fetchInteractedRateWithOrganization()->response();
+    }
 }

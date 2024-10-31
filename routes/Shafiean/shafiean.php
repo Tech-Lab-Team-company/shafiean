@@ -130,6 +130,7 @@ Route::middleware('auth:admin')->group(function () {
             Route::post('fetch_latest_students_statistics', 'fetchLatestStudents');
             Route::post('fetch_most_active_organizations_statistics', 'fetchMostActiveOrganizations');
             Route::post('fetch_best_places_interacted_with_organization_statistics', 'fetchBestPlacesInteractedWithOrganization');
+            Route::post('fetch_interacted_rate_with_organization_statistics', 'fetchInteractedRateWithOrganization');
         }
     );
 

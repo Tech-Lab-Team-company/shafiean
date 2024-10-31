@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Services\Organization\Organization;
 
 
@@ -92,7 +93,7 @@ class OrganizationService
                 'phone' => $request->manager_phone,
                 'email' => $request->manager_email,
                 'password' => '123123123',
-                'image' => $employeeImage,
+                'image' => $employeeImage ?? null,
                 'is_master' => 1,
                 'is_employed' => 0
             ];
