@@ -22,14 +22,12 @@ use App\Http\Controllers\User\Auth\UserResetPasswordController;
 use App\Http\Controllers\User\Auth\UserChangePasswordController;
 use App\Http\Controllers\User\Competition\CompetitionController;
 use App\Http\Controllers\User\Exam\FetchUserExamResultController;
-use App\Http\Controllers\User\Subscription\SubscriptionController;
 use App\Http\Controllers\User\Exam\FetchUserExamQuestionController;
 use App\Http\Controllers\User\Library\FetchLibraryDetailsController;
 use App\Http\Controllers\User\Group\FetchUserSubscriptionGroupController;
 use App\Http\Controllers\User\ExamResultAnswer\ExamResultAnswerController;
 use App\Http\Controllers\User\Course\FetchUserSubscriptionCourseController;
 use App\Http\Controllers\User\LibraryCategory\FetchLibraryCategoryController;
-use App\Http\Controllers\User\Library\LibraryController as UserLibraryController;
 
 // AUTH
 Route::post('user_register', UserRegisterController::class);
@@ -39,6 +37,9 @@ Route::post('user_check_code', UserCheckCodeController::class);
 Route::post('user_check_email', UserCheckEmailController::class);
 Route::get('user_fetch_disabilities', [DisabilityController::class, 'fetch_disabilities']);
 Route::middleware('auth:user')->group(function () {
+    // Route::get('test_route', function () {
+    //     dd("heeeeeeeeeeeelp");
+    // });
     // AUTH
     Route::post('user_logout', UserLogoutController::class);
     Route::post('user_change_password', UserChangePasswordController::class);
@@ -58,8 +59,8 @@ Route::middleware('auth:user')->group(function () {
         Route::post('update_user_profile', 'update');
     });
 
-       // Attendance end point
-       Route::controller(AttendanceController::class)->group(function () {
+    // Attendance end point
+    Route::controller(AttendanceController::class)->group(function () {
         Route::post('user_attendance', 'attendance');
         Route::post('fetch_student_attendance', 'fetch_attendance');
         Route::post('user_leave', 'leave');
