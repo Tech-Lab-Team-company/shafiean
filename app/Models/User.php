@@ -137,12 +137,12 @@ class User extends Authenticatable
     }
     protected static function booted(): void
     {
-        // static::addGlobalScope(new PerOrganizationScope);
-        // dd(auth('user')->check());
-        if (auth('user')->check() || Auth::check()) {
-            static::addGlobalScope(new PerOrganizationScope);
-        } else if (!Route::currentRouteName() === 'user_login') {
-            static::addGlobalScope(new PerOrganizationWebsiteScope);
-        }
+    //     // static::addGlobalScope(new PerOrganizationScope);
+    //     // dd(auth('user')->check());
+    //     if (auth('user')->check() || Auth::check()) {
+            // static::addGlobalScope(new PerOrganizationScope);
+    //     } else if (!Route::currentRouteName() === 'user_login') {
+    //         static::addGlobalScope(new PerOrganizationWebsiteScope);
+    //     }
     }
 }

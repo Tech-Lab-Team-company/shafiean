@@ -24,9 +24,8 @@ class PerOrganizationScope implements Scope
             }else{
                 $organization_id = get_organization_id_for_website(request());
         } */
-
-        if (Schema::hasColumn($table, 'organization_id') && !auth('admin')->check()) {
+    //    if (Schema::hasColumn($table, 'organization_id') && !auth('admin')->check()) {
             $builder->where('organization_id', get_auth_organization_id());
-        }
+        // }
     }
 }
