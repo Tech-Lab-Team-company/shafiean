@@ -28,7 +28,8 @@ class FetchUserSessionResource extends JsonResource
             "quraan" => new QuraanResource($this->session->quraan) ?? "",
             "stage" => new StageResource($this->session->stage) ?? "",
             'is_live' => $isLive ?? "",
-            'live' => $isLive ?  LiveInfoResource::collection($this->lives) : []
+            // 'live' => $isLive ?  LiveInfoResource::collection($this->lives) : []
+            'live' => $isLive ?  new LiveInfoResource($this->lives()->latest()->first()) : []
         ];
     }
 }
