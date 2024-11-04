@@ -30,7 +30,7 @@ class AttendanceService
             }
             $user_session = UserSession::create([
                 'user_id' => auth()->guard('user')->user()->id,
-                'group_id' => $request->group_id,
+                'group_id' => $session->group->id,
                 'session_id' => $request->session_id,
                 'live_id' => $live->id,
                 'from' => now(),
