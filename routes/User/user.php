@@ -6,6 +6,7 @@ use App\Models\Organization\Blog\Blog;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
+use App\Http\Middleware\CheckWebsiteLinkMiddleware;
 use App\Http\Controllers\User\Group\GroupController;
 use App\Http\Controllers\User\Stage\StageController;
 use App\Http\Controllers\Global\DisabilityController;
@@ -35,21 +36,15 @@ use App\Http\Controllers\User\Course\FetchUserSubscriptionCourseController;
 use App\Http\Controllers\User\LibraryCategory\FetchLibraryCategoryController;
 
 // AUTH
-Route::post('user_register', UserRegisterController::class);
+Route::middleware(CheckWebsiteLinkMiddleware::class)->group(function () {
+    Route::post('user_register', UserRegisterController::class);
+});
 Route::post('user_login', UserLoginController::class)->name('user_login');
 Route::post('user_reset_password', UserResetPasswordController::class);
 Route::post('user_check_code', UserCheckCodeController::class);
 Route::post('user_check_email', UserCheckEmailController::class);
 Route::get('user_fetch_disabilities', [DisabilityController::class, 'fetch_disabilities']);
 Route::middleware('auth:user')->group(function () {
-    // Route::get('test_route', function () {
-    //     $user = new User();
-    //     $table = $user->getTable();
-    //     if (Schema::hasColumn($table, 'organization_id')) {
-    //         return Blog::where('organization_id', get_auth_organization_id())->get();
-    //     }
-    //     dd("no");
-    // });
     // AUTH
     Route::post('user_logout', UserLogoutController::class);
     Route::post('user_change_password', UserChangePasswordController::class);

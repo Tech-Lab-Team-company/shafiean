@@ -15,6 +15,8 @@ class UserRegisterService
     public function register($dataRequest)
     {
         try {
+            $organizationId = checkWebsiteLink($dataRequest);
+
             $user = User::create([
                 'name' => $dataRequest['name'],
                 'email' => $dataRequest['email'],
@@ -29,6 +31,7 @@ class UserRegisterService
                 'identity_type' => $dataRequest['identity_type'],
                 'identity_number' => $dataRequest['identity_number'],
                 'image' => $dataRequest['image'] ? upload_image($dataRequest['image'], 'users') : null,
+                'organization_id' => $organizationId,
             ]);
             // $user->notify(new EmailNotification());
 
