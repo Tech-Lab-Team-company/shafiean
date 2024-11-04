@@ -83,7 +83,6 @@ class CompetitionService
                 $dataRequest['image'] = uploadFile(folder: 'competitions', file: $dataRequest['image']);
             }
             $rewards = $dataRequest['rewards'] ?? [];
-            unset($dataRequest['id']);
             unset($dataRequest['rewards']);
             $competition->update($dataRequest);
             if ($rewards) {
