@@ -2,13 +2,14 @@
 
 namespace App\Services\User\Session;
 
+use App\Models\MainSession;
+use App\Models\GroupStageSession;
 use App\Helpers\Response\DataFailed;
 use App\Helpers\Response\DataStatus;
 use App\Helpers\Response\DataSuccess;
-use App\Http\Resources\MainSessionResource;
-use App\Models\GroupStageSession;
-use App\Models\MainSession;
 use App\Services\Global\FilterService;
+use App\Http\Resources\MainSessionResource;
+use App\Http\Resources\User\EndPoint\MainSession\FetchUserSessionResource;
 
 class SessionService
 {
@@ -23,7 +24,7 @@ class SessionService
 
             $sessions = $query->orderBy('id', 'desc')->paginate(10);
             return new DataSuccess(
-                data: MainSessionResource::collection($sessions)->response()->getData(true),
+                data: FetchUserSessionResource::collection($sessions)->response()->getData(true),
                 status: true,
                 message: 'Sessions fetched successfully'
             );

@@ -187,8 +187,8 @@ class ExamService
             'end_time' => $dataRequest->end_time,
             'duration' => $dataRequest->duration,
             // 'question_count' => $dataRequest->question_count,
-            'exam_type' => $dataRequest->exam_type,
-            'degree_type' => $dataRequest->degree_type,
+            // 'exam_type' => $dataRequest->exam_type,
+            // 'degree_type' => $dataRequest->degree_type,
             // 'degree' => $dataRequest->degree,
         ];
     }
