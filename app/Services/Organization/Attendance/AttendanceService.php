@@ -52,7 +52,7 @@ class AttendanceService
             $user_session = $query->paginate(10);
             return new DataSuccess(
                 status: true,
-                data: AttendanceResource::collection($user_session),
+                data: AttendanceResource::collection($user_session)->response()->getData(true),
                 message: 'Attendance marked successfully'
             );
         } catch (\Exception $exception) {
