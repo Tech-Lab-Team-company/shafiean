@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\SessionTypeController;
 use App\Http\Controllers\Admin\AdminHistoryController;
 use App\Http\Controllers\Admin\DisabilityTypeController;
 use App\Http\Controllers\Admin\AdminHomeStatisticController;
+use App\Http\Controllers\Admin\EndPoint\FetchCitiesByCountryIdController;
 use App\Http\Controllers\Admin\FetchAdminHomeStatisticController;
 use App\Http\Controllers\Organization\Organization\OrganizationController;
 
@@ -137,7 +138,7 @@ Route::middleware('auth:admin')->group(function () {
     /**
      * END POINT START
      */
-
+    Route::post('fetch_cities_by_country_id', FetchCitiesByCountryIdController::class);
 
     /**
      * END POINT END
