@@ -47,7 +47,7 @@ class FetchUserExamResultService
             $userId = auth('user')->user()->id;
             $examResult = ExamResult::whereUserId($userId)
                 ->whereStatus(ExamResultStatusEnum::ACTIVE->value)
-                ->get();
+                ->orderBy('id', 'desc')->get();
             if (!$examResult) {
                 return new DataFailed(
                     status: false,
