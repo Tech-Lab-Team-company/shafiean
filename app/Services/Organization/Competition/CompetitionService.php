@@ -68,33 +68,33 @@ class CompetitionService
     }
     public function update(array $dataRequest): DataStatus
     {
-        try {
-            $competition = Competition::whereId($dataRequest['id'])->first();
-            if (isset($dataRequest['image'])) {
-                if ($competition->image) {
-                    delete_image(old_image_path: $competition->image, disk: 'public');
-                }
-                $dataRequest['image'] = uploadFile(folder: 'competitions', file: $dataRequest['image']);
+        // try {
+        $competition = Competition::whereId($dataRequest['id'])->first();
+        if (isset($dataRequest['image'])) {
+            if ($competition->image) {
+                delete_image(old_image_path: $competition->image, disk: 'public');
             }
-            $rewards = $dataRequest['rewards'] ?? [];
-            unset($dataRequest['id']);
-            unset($dataRequest['rewards']);
-            $competition->update($dataRequest);
-            if ($rewards) {
-                $competition->competitionRewards()->delete();
-                $competition->competitionRewards()->createMany($rewards);
-            }
-            return new DataSuccess(
-                data: new CompetitionResource($competition),
-                status: true,
-                message: 'Competition updated successfully'
-            );
-        } catch (Exception $e) {
-            return new DataFailed(
-                status: false,
-                message: $e->getMessage()
-            );
+            $dataRequest['image'] = uploadFile(folder: 'competitions', file: $dataRequest['image']);
         }
+        $rewards = $dataRequest['rewards'] ?? [];
+        unset($dataRequest['id']);
+        unset($dataRequest['rewards']);
+        $competition->update($dataRequest);
+        if ($rewards) {
+            $competition->competitionRewards()->delete();
+            $competition->competitionRewards()->createMany($rewards);
+        }
+        return new DataSuccess(
+            data: new CompetitionResource($competition),
+            status: true,
+            message: 'Competition updated successfully'
+        );
+        // } catch (Exception $e) {
+        //     return new DataFailed(
+        //         status: false,
+        //         message: $e->getMessage()
+        //     );
+        // }
     }
     public function delete($request): DataStatus
     {

@@ -26,11 +26,10 @@ class CheckWebsiteLinkMiddleware
 
         if ($organization) {
             // return $organization->id;
-            
+
             return $next($request);
         }
 
         throw new \Exception("website link is invaild", 400);
-
     }
 }
