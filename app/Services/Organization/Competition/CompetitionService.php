@@ -70,8 +70,8 @@ class CompetitionService
     {
         try {
             $competition = Competition::whereId($dataRequest['id'])->first();
-            dd($competition);
             if (!$competition) {
+                dd($competition);
                 return new DataFailed(
                     status: false,
                     message: 'Competition not found'
