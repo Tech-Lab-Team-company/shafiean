@@ -2,13 +2,14 @@
 
 namespace App\Models\Scopes;
 
-use Illuminate\Container\Attributes\Auth;
+// use Illuminate\Container\Attributes\Auth;
+use App\Models\Admin\Admin;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Scope;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Facades\Auth as FacadesAuth;
 
 class PerOrganizationScope implements Scope
 {
@@ -24,7 +25,7 @@ class PerOrganizationScope implements Scope
             }else{
                 $organization_id = get_organization_id_for_website(request());
         } */
-        if (Schema::hasColumn($table, 'organization_id') && !auth('admin')->check()) {
+        if (Schema::hasColumn($table, 'organization_id') &&  !(auth()->user() instanceof Admin)) {
             $builder->where('organization_id', get_auth_organization_id());
         }
     }

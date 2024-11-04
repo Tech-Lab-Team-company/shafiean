@@ -42,14 +42,14 @@ Route::post('user_check_code', UserCheckCodeController::class);
 Route::post('user_check_email', UserCheckEmailController::class);
 Route::get('user_fetch_disabilities', [DisabilityController::class, 'fetch_disabilities']);
 Route::middleware('auth:user')->group(function () {
-    Route::get('test_route', function () {
-        // $user = new User();
-        // $table = $user->getTable();
-        // if (Schema::hasColumn($table, 'organization_id')) {
-        //     return Blog::where('organization_id', get_auth_organization_id())->get();
-        // }
-        // dd("no");
-    });
+    // Route::get('test_route', function () {
+    //     $user = new User();
+    //     $table = $user->getTable();
+    //     if (Schema::hasColumn($table, 'organization_id')) {
+    //         return Blog::where('organization_id', get_auth_organization_id())->get();
+    //     }
+    //     dd("no");
+    // });
     // AUTH
     Route::post('user_logout', UserLogoutController::class);
     Route::post('user_change_password', UserChangePasswordController::class);

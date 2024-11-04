@@ -26,6 +26,7 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Support\Facades\Schema;
 
 class User extends Authenticatable
 {
@@ -135,14 +136,13 @@ class User extends Authenticatable
 
         return $this->belongsToMany(User::class, 'user_relation', 'parent_id', 'child_id')->withTimestamps();
     }
-    // protected static function booted(): void
-    // {
-    // //     // static::addGlobalScope(new PerOrganizationScope);
-    // //     // dd(auth('user')->check());
-    //     if (auth('user')->check() || Auth::check()) {
-    //         static::addGlobalScope(new PerOrganizationScope);
-    //     } else if (!Route::currentRouteName() === 'user_login') {
-    //         static::addGlobalScope(new PerOrganizationWebsiteScope);
-    //     }
-    // }
+    protected static function booted(): void
+    {
+        
+        if (Auth::check()) {
+            static::addGlobalScope(new PerOrganizationScope);
+        } else if (!Route::currentRouteName() === 'user_login') {
+            static::addGlobalScope(new PerOrganizationWebsiteScope);
+        }
+    }
 }
