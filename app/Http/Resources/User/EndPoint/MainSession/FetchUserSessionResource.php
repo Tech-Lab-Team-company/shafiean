@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Resources\User\EndPoint\MainSession;
 
 
@@ -21,9 +22,9 @@ class FetchUserSessionResource extends JsonResource
         return [
             'id' => $this->session->id ?? 0,
             'title' => $this->session->title ?? "",
-            'status' => $this->session->status ?? "",
-            'start_verse' => $this->session->start_verse ?? "",
-            'end_verse' => $this->session->end_verse ?? "",
+            'status' => (int) $this->session->status ?? "",
+            'start_verse' => (int) $this->session->start_verse ?? "",
+            'end_verse' => (int) $this->session->end_verse ?? "",
             "quraan" => new QuraanResource($this->session->quraan) ?? "",
             "stage" => new StageResource($this->session->stage) ?? "",
             'is_live' => $isLive ?? "",
