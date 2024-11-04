@@ -135,14 +135,14 @@ class User extends Authenticatable
 
         return $this->belongsToMany(User::class, 'user_relation', 'parent_id', 'child_id')->withTimestamps();
     }
-    protected static function booted(): void
-    {
-    //     // static::addGlobalScope(new PerOrganizationScope);
-    //     // dd(auth('user')->check());
+    // protected static function booted(): void
+    // {
+    // //     // static::addGlobalScope(new PerOrganizationScope);
+    // //     // dd(auth('user')->check());
     //     if (auth('user')->check() || Auth::check()) {
-            // static::addGlobalScope(new PerOrganizationScope);
+    //         static::addGlobalScope(new PerOrganizationScope);
     //     } else if (!Route::currentRouteName() === 'user_login') {
     //         static::addGlobalScope(new PerOrganizationWebsiteScope);
     //     }
-    }
+    // }
 }
