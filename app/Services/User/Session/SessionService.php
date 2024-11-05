@@ -22,9 +22,9 @@ class SessionService
                 $filter_service->filterSessions($request, $query);
             }
 
-            $sessions = $query->orderBy('id', 'desc')->paginate(10);
+            $sessions = $query->orderBy('id', 'desc')->get();
             return new DataSuccess(
-                data: FetchUserSessionResource::collection($sessions)->response()->getData(true),
+                data: FetchUserSessionResource::collection($sessions),
                 status: true,
                 message: 'Sessions fetched successfully'
             );
