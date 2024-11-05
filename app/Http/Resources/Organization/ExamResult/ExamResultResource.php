@@ -27,6 +27,8 @@ class ExamResultResource extends JsonResource
             'id' => $this->id ?? 0,
             'grade' => (int)$this->grade ?? 0,
             'status' => (int) $this->status ?? 0,
+            'question_count' => (int) $this?->exam?->questions()->count() ?? 0,
+            'total_degree' => (int) $this?->exam?->questions()->sum('degree') ?? 0,
             "answer_count" => (int)$this->examResultAnswers()->count() ?? 0,
             'correct_answer_count' => $correctAnswerCount ?? 0,
             'user' => new ExamResultUserResource($this->user) ?? "",
