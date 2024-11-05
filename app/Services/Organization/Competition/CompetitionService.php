@@ -9,6 +9,7 @@ use App\Helpers\Response\DataFailed;
 use App\Helpers\Response\DataStatus;
 use Illuminate\Support\Facades\File;
 use App\Helpers\Response\DataSuccess;
+use App\Services\Global\FilterService;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Organization\Library\Library;
 use App\Models\Organization\Competition\Competition;
@@ -17,10 +18,15 @@ use App\Http\Resources\Organization\Competition\CompetitionResource;
 
 class CompetitionService
 {
-    public function index()
+    public function index($dataRequest)
     {
         try {
-            $competitions = Competition::orderBy('id', 'desc')->paginate(10);
+            $query = Competition::query();
+            if (isset($dataRequest)) {
+                $filter_service = new FilterService();
+                $filter_service->filterCompetitions($query, $dataRequest);
+            }
+            $competitions = $query->orderBy('id', 'desc')->paginate(10);
             return new DataSuccess(
                 data: CompetitionResource::collection($competitions)->response()->getData(true),
                 status: true,

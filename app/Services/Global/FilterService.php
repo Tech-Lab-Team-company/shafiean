@@ -54,6 +54,12 @@ class FilterService
             $q->where('title', 'like', '%' . $request->word . '%');
         });
     }
+    public function filterCompetitions($query, $request)
+    {
+        $query->when($request->has('word') && !empty($request->word), function ($q) use ($request) {
+            $q->where('name', 'like', '%' . $request->word . '%');
+        });
+    }
     public function filterHeaders($query, $request)
     {
         $query->when($request->has('word') && !empty($request->word), function ($q) use ($request) {
