@@ -20,7 +20,7 @@ class FetchUserSessionResource extends JsonResource
     {
         $isLive = $this->lives()->count() > 0 ? true : false;
         return [
-            'id' => $this->session->id ?? 0,
+            'id' => $this->id ?? 0,
             'title' => $this->session->title ?? "",
             'status' => (int) $this->session->status ?? "",
             'start_verse' => (int) $this->session->start_verse ?? "",
