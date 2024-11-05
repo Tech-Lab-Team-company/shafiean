@@ -14,9 +14,9 @@ class CompetitionController extends Controller
 {
     public function __construct(protected  CompetitionService $competitionService) {}
 
-    public function index()
+    public function index(Request $request)
     {
-        return $this->competitionService->index()->response();
+        return $this->competitionService->index($request)->response();
     }
     public function show(FetchCompetitionDetailsRequest $request)
     {
