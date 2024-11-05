@@ -65,7 +65,7 @@ class Live100MSIntegrationService
 
     public function join_room($request): DataStatus
     {
-        try {
+        // try {
             $session = GroupStageSession::find($request->session_id);
             if ($request->live_id == null) {
                 $live = $session->lives()->latest()->first();
@@ -92,12 +92,12 @@ class Live100MSIntegrationService
                 message: 'Room joined successfully',
                 data: new JoinRoomResource($live_info)
             );
-        } catch (\Exception $e) {
-            return new DataFailed(
-                status: false,
-                message: $e->getMessage() . ' ' . $e->getLine(),
-            );
-        }
+        // } catch (\Exception $e) {
+            // return new DataFailed(
+                // status: false,
+                // message: $e->getMessage() . ' ' . $e->getLine(),
+            // );
+        // }
     }
 
     public function handle_live_room_body($request)
