@@ -38,7 +38,6 @@ class FetchUserExamService
             $exams = Exam::whereIn('id', $examGroups)
                 ->whereNotIn('id', $completedExams)
                 ->get();
-
             return new DataSuccess(
                 status: true,
                 message: 'Exam retrieved successfully',
