@@ -17,7 +17,7 @@ class MainSessionResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        $isLive = $this->lives()->count() > 0 ? true : false;
+        // $isLive = $this->lives()->count() > 0 ? true : false;
         return [
             'id' => $this->id ?? 0,
             'title' => $this->title ?? "",
@@ -26,8 +26,8 @@ class MainSessionResource extends JsonResource
             'end_verse' => $this->end_verse ?? "",
             "quraan" => new QuraanResource($this->quraan) ?? "",
             "stage" => new StageResource($this->stage) ?? "",
-            'is_live' => $isLive ?? "",
-            'live' => $isLive ?  LiveInfoResource::collection($this->lives) : []
+            // 'is_live' => $isLive ?? "",
+            // 'live' => $isLive ?  LiveInfoResource::collection($this->lives) : []
         ];
     }
 }
