@@ -25,6 +25,7 @@ class FetchUserSessionResource extends JsonResource
             'status' => (int) $this->session->status ?? "",
             'start_verse' => (int) $this->session->start_verse ?? "",
             'end_verse' => (int) $this->session->end_verse ?? "",
+            "group_name" => $this->group->title ?? "",
             "quraan" => new QuraanResource($this->session->quraan) ?? "",
             "stage" => new StageResource($this->session->stage) ?? "",
             'is_live' => $isLive ?? "",
