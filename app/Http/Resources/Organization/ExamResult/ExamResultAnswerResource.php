@@ -21,9 +21,6 @@ class ExamResultAnswerResource extends JsonResource
             'id' => $this?->id ?? 0,
             'grade' => (int)$this?->grade ?? 0,
             'status' => (int) $this?->status ?? 0,
-            'question_count' => (int) $this?->exam?->questions()->count() ?? 0,
-            'total_degree' => (int) $this?->exam?->questions()->sum('degree') ?? 0,
-
             'questions' => ExamResultQuestionAndAnswerResource::collection($this->examResultAnswers) ?? [],
             'exam' => new UserExamResource($this->exam ?? "") ?? "",
         ];
