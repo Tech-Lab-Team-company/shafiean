@@ -17,6 +17,7 @@ class AttendanceResource extends JsonResource
         return [
             'user_id' => $this->user->id ?? 0,
             'user_name' => $this->user->name ?? "",
+            'user_image' => $this->user->image_link ?? "",
             'group_id' => $this->group->id ?? 0,
             'group_name' => $this->group->title ?? "",
             'session_id' => $this->session->id ?? 0,
