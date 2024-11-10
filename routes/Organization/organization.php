@@ -60,7 +60,7 @@ use App\Http\Controllers\Organization\QuestionBank\FetchQuestionBankContoller;
 use App\Http\Controllers\Organization\Curriculum\FetchCurriculumStageController;
 use App\Http\Controllers\Organization\LibraryCategory\LibraryCategoryController;
 use App\Http\Controllers\Organization\Competition\AssignCompetitionRewardController;
-
+use App\Http\Controllers\Organization\Rate\RateController;
 
 //AUTH
 Route::controller(AuthController::class)->group(function () {
@@ -263,6 +263,17 @@ Route::middleware('auth:organization')->group(function () {
         Route::post('organization_attendance', 'attendance');
         Route::post('fetch_attendance', 'fetch_attendance');
         Route::post('organization_leave', 'leave');
+    });
+
+
+    // Rate end point
+
+    Route::controller(RateController::class)->group(function () {
+        Route::post('fetch_rates', 'fetch_rates');
+        Route::post('add_rate', 'add_rate');
+        Route::post('fetch_rate_details', 'fetch_rate_details');
+        Route::post('edit_rate', 'edit_rate');
+        Route::post('delete_rate', 'delete_rate');
     });
 
     /**

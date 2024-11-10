@@ -34,6 +34,7 @@ use App\Http\Controllers\User\Group\FetchUserSubscriptionGroupController;
 use App\Http\Controllers\User\ExamResultAnswer\ExamResultAnswerController;
 use App\Http\Controllers\User\Course\FetchUserSubscriptionCourseController;
 use App\Http\Controllers\User\LibraryCategory\FetchLibraryCategoryController;
+use App\Http\Controllers\User\Rate\RateController;
 
 // AUTH
 Route::middleware(CheckWebsiteLinkMiddleware::class)->group(function () {
@@ -75,6 +76,14 @@ Route::middleware('auth:user')->group(function () {
         Route::post('user_join_room',  'join_room');
     });
 
+    // Rate end point
+    Route::controller(RateController::class)->group(function () {
+        Route::post('user_fetch_rates', 'fetch_rates');
+        Route::post('user_add_rate', 'add_rate');
+        Route::post('user_fetch_rate_details', 'fetch_rate_details');
+        Route::post('user_edit_rate', 'edit_rate');
+        Route::post('user_delete_rate', 'delete_rate');
+    });
     /**
      * END POINT START
      */
