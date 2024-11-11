@@ -19,8 +19,12 @@ class RateService
             $data['s_understanding_comment'] = $request->s_understanding_comment;
             $data['student_performance'] = $request->student_performance;
             $data['s_performance_comment'] = $request->s_performance_comment;
-
-            $teacher_rate = SessionTeacherRate::create($data);
+            $attributes = [
+                'session_id',
+                'user_id',
+            ];
+            $teacher_rate = SessionTeacherRate::updateOrCreate($attributes, $data);
+            // $teacher_rate = SessionTeacherRate::create($data);
             return new DataSuccess(
                 status: true,
                 // data: new SessionTeacherRateResource($teacher_rate),

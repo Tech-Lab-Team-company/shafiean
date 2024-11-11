@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Organization\Rate;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Oraganization\Rate\AddRateRequest;
 use App\Services\Organization\Rate\RateService;
 use Illuminate\Http\Request;
 
@@ -15,7 +16,7 @@ class RateController extends Controller
         $this->rate_service = $rate_service;
     }
 
-    public function add_rate(Request $request){
+    public function add_rate(AddRateRequest $request){
 
         return $this->rate_service->add_rate($request)->response();
     }
