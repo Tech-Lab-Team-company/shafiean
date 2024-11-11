@@ -23,7 +23,7 @@ class RateService
                 'session_id',
                 'user_id',
             ];
-            $teacher_rate = SessionTeacherRate::updateOrCreate($attributes, $data);
+            $teacher_rate = SessionTeacherRate::updateOrCreate($data, $attributes);
             // $teacher_rate = SessionTeacherRate::create($data);
             return new DataSuccess(
                 status: true,
