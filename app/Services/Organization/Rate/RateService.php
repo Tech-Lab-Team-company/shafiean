@@ -5,6 +5,7 @@ namespace App\Services\Organization\Rate;
 use App\Helpers\Response\DataFailed;
 use App\Helpers\Response\DataStatus;
 use App\Helpers\Response\DataSuccess;
+use App\Http\Resources\Organization\Rate\SessionTeacherRateResource;
 use App\Models\SessionTeacherRate\SessionTeacherRate;
 
 class RateService
@@ -28,6 +29,24 @@ class RateService
             return new DataSuccess(
                 status: true,
                 // data: new SessionTeacherRateResource($teacher_rate),
+                message: 'Rate added successfully'
+            );
+        } catch (\Exception $e) {
+            return new DataFailed(
+                status: false,
+                message: $e->getMessage()
+            );
+        }
+    }
+    public function fetch_rate_details($request): DataStatus
+    {
+        try {
+
+            $teacher_rate = SessionTeacherRate::where('session_id', $request->session_id)->where('user_id', $request->user_id)->first();
+            // $teacher_rate = SessionTeacherRate::create($data);
+            return new DataSuccess(
+                status: true,
+                data: new SessionTeacherRateResource($teacher_rate),
                 message: 'Rate added successfully'
             );
         } catch (\Exception $e) {
