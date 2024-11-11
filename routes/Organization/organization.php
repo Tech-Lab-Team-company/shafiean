@@ -263,6 +263,7 @@ Route::middleware('auth:organization')->group(function () {
         Route::post('organization_attendance', 'attendance');
         Route::post('fetch_attendance', 'fetch_attendance');
         Route::post('organization_leave', 'leave');
+        Route::post('fetch_session_attendance', 'fetch_session_attendance');
     });
 
 

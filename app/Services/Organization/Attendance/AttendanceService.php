@@ -62,6 +62,23 @@ class AttendanceService
             );
         }
     }
+    public function fetch_session_attendance($request): DataStatus
+    {
+        try {
+            
+            $user_session = UserSession::where('session_id', $request->session_id)->get();
+            return new DataSuccess(
+                status: true,
+                data: AttendanceResource::collection($user_session)->response()->getData(true),
+                message: 'Attendance marked successfully'
+            );
+        } catch (\Exception $exception) {
+            return new DataFailed(
+                status: false,
+                message: $exception->getMessage()
+            );
+        }
+    }
 
     public function leave($request): DataStatus
     {
