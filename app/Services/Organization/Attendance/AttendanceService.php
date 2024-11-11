@@ -70,7 +70,7 @@ class AttendanceService
             return new DataSuccess(
                 status: true,
                 data: AttendanceResource::collection($user_session),
-                message: 'Attendance marked successfully'
+                message: 'user_session fetched successfully'
             );
         } catch (\Exception $exception) {
             return new DataFailed(
