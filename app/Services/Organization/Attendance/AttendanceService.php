@@ -65,11 +65,11 @@ class AttendanceService
     public function fetch_session_attendance($request): DataStatus
     {
         try {
-            
+
             $user_session = UserSession::where('session_id', $request->session_id)->get();
             return new DataSuccess(
                 status: true,
-                data: AttendanceResource::collection($user_session)->response()->getData(true),
+                data: AttendanceResource::collection($user_session),
                 message: 'Attendance marked successfully'
             );
         } catch (\Exception $exception) {
