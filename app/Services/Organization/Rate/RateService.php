@@ -12,18 +12,18 @@ class RateService
     public function add_rate($request): DataStatus
     {
         try {
-            $data['session_id'] = $request->session_id;
+            // $data['session_id'] = $request->session_id;
             $data['teacher_id'] = auth('organization')->user()->id;
-            $data['user_id'] = $request->user_id;
+            // $data['user_id'] = $request->user_id;
             $data['student_understanding'] = $request->student_understanding;
             $data['s_understanding_comment'] = $request->s_understanding_comment;
             $data['student_performance'] = $request->student_performance;
             $data['s_performance_comment'] = $request->s_performance_comment;
             $attributes = [
-                'session_id',
-                'user_id',
+                'session_id' => intval($request->session_id),
+                'user_id' => intval($request->user_id),
             ];
-            $teacher_rate = SessionTeacherRate::updateOrCreate($data, $attributes);
+            $teacher_rate = SessionTeacherRate::updateOrCreate($attributes, $data);
             // $teacher_rate = SessionTeacherRate::create($data);
             return new DataSuccess(
                 status: true,
