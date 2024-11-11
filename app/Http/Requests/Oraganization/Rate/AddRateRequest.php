@@ -23,7 +23,7 @@ class AddRateRequest extends ApiRequest
     public function rules(): array
     {
         return [
-            'session_id' => 'required|exists:sessions,id',
+            'session_id' => 'required|exists:group_stage_sessions,id',
             'user_id' => 'required|exists:users,id',
             'student_understanding' => 'required',
             's_understanding_comment' => 'required',
