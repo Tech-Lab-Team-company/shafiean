@@ -21,7 +21,7 @@ class RateService
             $data['s_performance_comment'] = $request->s_performance_comment;
             $attributes = [
                 'session_id' => intval($request->session_id),
-                'user_id' => intVal($request->user_id),
+                'user_id' => intval($request->user_id),
             ];
             $teacher_rate = SessionTeacherRate::updateOrCreate($attributes, $data);
             // $teacher_rate = SessionTeacherRate::create($data);
