@@ -13,13 +13,13 @@ use App\Http\Resources\User\EndPoint\MainSession\FetchUserSessionResource;
 
 class SessionService
 {
-    public function fetch_sessions($request): DataStatus
+    public function fetch_sessions($request, $student_id = null): DataStatus
     {
         try {
             $query = GroupStageSession::query();
             $filter_service = new FilterService();
             if ($request) {
-                $filter_service->filterSessions($request, $query);
+                $filter_service->filterSessions($request, $query, $student_id);
             }
 
             $sessions = $query->orderBy('id', 'desc')->paginate(10);
