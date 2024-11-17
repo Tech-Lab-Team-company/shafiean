@@ -241,7 +241,7 @@ class FilterService
         ;
     }
 
-    public function filterSessions($request, $query)
+    public function filterSessions($request, $query, $student_id = null)
     {
         // DRY
         $query
@@ -261,12 +261,28 @@ class FilterService
             ->when($request->has('stage_id') && !empty($request->stage_id), function ($q) use ($request) {
                 $q->where('stage_id', $request->stage_id);
             })
-            ->when($request->has('with_subscription') && !empty($request->with_subscription) && $request->with_subscription == 1, function ($group_q) use ($request) {
+            ->when($request->has('with_subscription') && !empty($request->with_subscription) && $request->with_subscription == 1, function ($group_q) use ($request, $student_id) {
                 // dd(auth()->user()->id);
-                return $group_q->whereHas('group', function ($subscripe_users_q) use ($request) {
-                    $subscripe_users_q->whereHas('subscripe_users', function ($user_q) use ($request) {
-                        return $user_q->where('user_id', auth()->user()->id);
+                return $group_q->whereHas('group', function ($subscripe_users_q) use ($request, $student_id) {
+                    $subscripe_users_q->whereHas('subscripe_users', function ($user_q) use ($request, $student_id) {
+                        return $user_q->where('user_id', $student_id);
                         // dd(auth()->user()->id);
+                    });
+                });
+            })
+            ->when($request->has('with_parent') && !empty($request->with_parent) && $request->with_parent == 1, function ($group_q) use ($request, $student_id) {
+                $user = auth()->guard('user')->user();
+                $childs = $user->childs;
+                if ($student_id == null) {
+                    return $group_q->whereHas('group', function ($subscripe_users_q) use ($request, $childs) {
+                        $subscripe_users_q->whereHas('subscripe_users', function ($user_q) use ($request, $childs) {
+                            return $user_q->whereIn('user_id', $childs->pluck('child_id'));
+                        });
+                    });
+                }
+                return $group_q->whereHas('group', function ($subscripe_users_q) use ($request, $student_id) {
+                    $subscripe_users_q->whereHas('subscripe_users', function ($user_q) use ($request, $student_id) {
+                        return $user_q->where('user_id', $student_id);
                     });
                 });
             })
