@@ -9,6 +9,7 @@ use App\Helpers\Response\DataStatus;
 use App\Helpers\Response\DataSuccess;
 use App\Services\Global\FilterService;
 use App\Http\Resources\MainSessionResource;
+use App\Http\Resources\Parent\Session\FetchChildSessionResource;
 use App\Http\Resources\User\EndPoint\MainSession\FetchUserSessionResource;
 
 class SessionService
@@ -24,7 +25,7 @@ class SessionService
 
             $sessions = $query->orderBy('id', 'desc')->paginate(10);
             return new DataSuccess(
-                data: FetchUserSessionResource::collection($sessions)->response()->getData(true),
+                data: isset($request->with_parent) ? FetchChildSessionResource::collection($sessions)->response()->getData(true) : FetchUserSessionResource::collection($sessions)->response()->getData(true),
                 status: true,
                 message: 'Sessions fetched successfully'
             );
