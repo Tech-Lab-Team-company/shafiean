@@ -26,21 +26,21 @@ class StoreUserRelationRequest extends ApiRequest
     {
         return [
             'relation_id' => 'required|exists:relations,id',
-            'student_id' => [
+            'child_id' => [
                 'required',
                 'exists:users,id',
                 Rule::unique('user_relations')->where(function ($query) {
-                    return $query->where('user_id', $this->user_id);
+                    return $query->where('parent_id', $this->parent_id);
                 }),
-                'different:user_id',
+                'different:parent_id',
             ],
-            'user_id' =>  [
+            'parent_id' =>  [
                 'required',
                 'exists:users,id',
                 Rule::unique('user_relations')->where(function ($query) {
-                    return $query->where('student_id', $this->student_id);
+                    return $query->where('child_id', $this->child_id);
                 }),
-                'different:student_id',
+                'different:child_id',
             ],
         ];
     }

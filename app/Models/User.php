@@ -128,17 +128,17 @@ class User extends Authenticatable
     public function parent()
     {
 
-        return $this->belongsToMany(User::class, 'user_relation', 'child_id', 'parent_id')->withTimestamps();
+        return $this->belongsToMany(User::class, 'user_relations', 'child_id', 'parent_id')->withTimestamps();
     }
 
     public function childs()
     {
 
-        return $this->belongsToMany(User::class, 'user_relation', 'parent_id', 'child_id')->withTimestamps();
+        return $this->belongsToMany(User::class, 'user_relations', 'parent_id', 'child_id')->withTimestamps();
     }
     protected static function booted(): void
     {
-        
+
         if (Auth::check()) {
             static::addGlobalScope(new PerOrganizationScope);
         } else if (!Route::currentRouteName() === 'user_login') {
