@@ -273,10 +273,11 @@ class FilterService
             ->when($request->has('with_parent') && !empty($request->with_parent) && $request->with_parent == 1, function ($group_q) use ($request, $student_id) {
                 $user = auth()->guard('user')->user();
                 $childs = $user->childs;
+                // dd($childs);
                 if ($student_id == null) {
                     return $group_q->whereHas('group', function ($subscripe_users_q) use ($request, $childs) {
                         $subscripe_users_q->whereHas('subscripe_users', function ($user_q) use ($request, $childs) {
-                            return $user_q->whereIn('user_id', $childs->pluck('child_id'));
+                            return $user_q->whereIn('user_id', $childs->pluck('id'));
                         });
                     });
                 }

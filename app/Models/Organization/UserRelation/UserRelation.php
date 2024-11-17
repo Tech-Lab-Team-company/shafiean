@@ -25,11 +25,11 @@ class UserRelation extends Model
 
     public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'parent_id', 'id')->whereType(UserTypeEnum::PARENT->value);
     }
     public function student(): BelongsTo
     {
-        return $this->belongsTo(User::class)->whereType(UserTypeEnum::STUDENT->value);
+        return $this->belongsTo(User::class, 'child_id', 'id')->whereType(UserTypeEnum::STUDENT->value);
     }
     protected static function booted(): void
     {
