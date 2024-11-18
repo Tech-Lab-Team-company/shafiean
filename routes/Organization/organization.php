@@ -74,13 +74,13 @@ Route::controller(AuthController::class)->group(function () {
 Route::middleware('auth:organization')->group(function () {
 
     //EXAM STUDENT
-    Route::controller(ExamStudentController::class)->group(function () {
-        Route::post('fetch_exam_students', 'index');
-        Route::post('add_exam_student', 'store');
-        Route::post('fetch_exam_student_details', 'show');
-        Route::post('edit_exam_student', 'update');
-        Route::post('delete_exam_student', 'delete');
-    });
+    // Route::controller(ExamStudentController::class)->group(function () {
+    //     Route::post('fetch_exam_students', 'index');
+    //     Route::post('add_exam_student', 'store');
+    //     Route::post('fetch_exam_student_details', 'show');
+    //     Route::post('edit_exam_student', 'update');
+    //     Route::post('delete_exam_student', 'delete');
+    // });
     //EXAM QUESTION
     // Route::controller(ExamQuestionController::class)->group(function () {
     //     Route::post('fetch_exam_questions', 'index');

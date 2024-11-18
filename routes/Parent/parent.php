@@ -10,6 +10,6 @@ Route::middleware('auth:user')->group(function () {
     });
 
     Route::controller(ChildController::class)->group(function () {
-        
+        Route::post('academic_report', 'academic_report');
     });
 });

@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use App\Models\Organization\JobType\JobType;
+use App\Models\SessionStudentRate\SessionStudentRate;
+use App\Models\SessionTeacherRate\SessionTeacherRate;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -56,5 +58,16 @@ class Teacher extends Authenticatable
     public function subscriptions()
     {
         return $this->MorphMany(Subscription::class, 'creatable');
+    }
+
+    public function given_rates()
+    {
+
+        return $this->hasMany(SessionTeacherRate::class, 'teacher_id', 'id');
+    }
+
+    public function received_rates()
+    {
+        return $this->hasMany(SessionStudentRate::class, 'teacher_id', 'id');
     }
 }

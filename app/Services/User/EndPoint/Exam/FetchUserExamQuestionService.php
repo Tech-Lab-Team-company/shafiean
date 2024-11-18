@@ -34,7 +34,7 @@ class FetchUserExamQuestionService
             ExamResult::create([
                 'exam_id' => $dataRequest["exam_id"],
                 'user_id' => $user->id,
-                'grade' => 1,
+                'grade' => 0,
                 'status' => ExamResultStatusEnum::ACTIVE->value
             ]);
             return new DataSuccess(
