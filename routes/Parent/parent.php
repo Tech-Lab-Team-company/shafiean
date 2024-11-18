@@ -11,5 +11,6 @@ Route::middleware('auth:user')->group(function () {
 
     Route::controller(ChildController::class)->group(function () {
         Route::post('academic_report', 'academic_report');
+        Route::post('exam_report', 'exam_report');
     });
 });

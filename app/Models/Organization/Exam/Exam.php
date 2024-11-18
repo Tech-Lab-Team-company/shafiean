@@ -33,6 +33,11 @@ class Exam extends Model
     {
         return $this->belongsToMany(User::class, 'exam_students', 'exam_id', 'user_id')->withTimestamps();
     }
+
+    public function exam_results()
+    {
+        return $this->hasMany(ExamResult::class, 'exam_id', 'id');
+    }
     protected static function booted(): void
     {
         static::addGlobalScope(new PerOrganizationScope);
