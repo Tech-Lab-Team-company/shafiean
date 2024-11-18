@@ -17,4 +17,8 @@ class ChildController extends Controller
     {
         return $this->childService->academic_report($request)->response();
     }
+    public function exam_report(Request $request)
+    {
+        return $this->childService->exam_report($request)->response();
+    }
 }

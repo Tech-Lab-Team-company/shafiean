@@ -14,10 +14,11 @@ class ChildResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        $last_rate = $this->received_rates()->latest()->first();
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'last_rate_date' => $this->received_rates()->latest()->first()->created_at->format('Y-m-d'),
+            'last_rate_date' => $last_rate?->created_at->format('Y-m-d') ?? '',
             'total_degree' => $this->examResults()->sum('grade'),
         ];
     }
