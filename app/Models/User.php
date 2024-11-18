@@ -20,6 +20,8 @@ use App\Models\Organization\Exam\ExamStudent;
 use App\Models\Organization\UserRelation\UserRelation;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\Scopes\PerOrganizationWebsiteScope;
+use App\Models\SessionStudentRate\SessionStudentRate;
+use App\Models\SessionTeacherRate\SessionTeacherRate;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
@@ -95,7 +97,7 @@ class User extends Authenticatable
     }
     public function exams(): BelongsToMany
     {
-        return $this->belongsToMany(Exam::class, 'exam_students', 'user_id', 'exam_id', 'id')->withTimestamps();
+        return $this->belongsToMany(Exam::class, 'exam_results', 'user_id', 'exam_id', 'id')->withTimestamps();
     }
     public function examStundents(): HasMany
     {
@@ -135,6 +137,17 @@ class User extends Authenticatable
     {
 
         return $this->belongsToMany(User::class, 'user_relations', 'parent_id', 'child_id')->withTimestamps();
+    }
+
+    public function given_rates()
+    {
+
+        return $this->hasMany(SessionStudentRate::class, 'user_id', 'id');
+    }
+
+    public function received_rates()
+    {
+        return $this->hasMany(SessionTeacherRate::class, 'user_id', 'id');
     }
     protected static function booted(): void
     {
