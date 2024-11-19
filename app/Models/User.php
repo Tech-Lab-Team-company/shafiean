@@ -149,6 +149,7 @@ class User extends Authenticatable
     {
         return $this->hasMany(SessionTeacherRate::class, 'user_id', 'id');
     }
+
     protected static function booted(): void
     {
 
