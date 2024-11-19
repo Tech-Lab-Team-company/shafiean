@@ -13,6 +13,7 @@ use App\Helpers\Response\DataSuccess;
 use App\Services\Global\FilterService;
 use App\Http\Requests\User\UserRequest;
 use Illuminate\Support\Facades\Storage;
+use App\Services\Organization\UserRelation\UserRelationService;
 
 class UserService
 {
@@ -51,6 +52,7 @@ class UserService
         try {
             $data = $this->userData($dataRequest);
             $user = User::create($data);
+            (new UserRelationService())->storeParentRelation($dataRequest->relation_id, $user->id, $dataRequest->parent_id);
             if ($dataRequest['group_ids']) {
                 $user->groups()->attach($dataRequest['group_ids']);
             }
