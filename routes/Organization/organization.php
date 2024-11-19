@@ -32,6 +32,7 @@ use App\Http\Controllers\User\Subscription\SubscriptionController;
 use App\Http\Controllers\Organization\Landingpage\HeaderController;
 use App\Http\Controllers\Organization\Landingpage\PolicyController;
 use App\Http\Controllers\Organization\Landingpage\ScreenController;
+use App\Http\Controllers\Organization\Parent\FetchParentController;
 use App\Http\Controllers\Organization\Season\FetchSeasonController;
 use App\Http\Controllers\Organization\Landingpage\FeatureController;
 use App\Http\Controllers\Organization\Landingpage\OpinionController;
@@ -47,10 +48,10 @@ use App\Http\Controllers\Organization\ExamResult\ExamResultController;
 use App\Http\Controllers\Organization\Landingpage\StatisticController;
 use App\Http\Controllers\Organization\Landingpage\SubheaderController;
 use App\Http\Controllers\Organization\Blog\FetchBlogCategoryController;
+
 use App\Http\Controllers\Organization\Relation\FetchRelationController;
 
 use App\Http\Controllers\Organization\Competition\CompetitionController;
-
 use App\Http\Controllers\Organization\BloodType\FetchBloodTypeController;
 use App\Http\Controllers\Organization\QuestionBank\QuestionBankController;
 use App\Http\Controllers\Organization\UserRelation\UserRelationController;
@@ -323,6 +324,8 @@ Route::middleware('auth:organization')->group(function () {
     Route::post('assign_competition_reward', [AssignCompetitionRewardController::class, 'assignUser']);
     //USER
     Route::post('organization_fetch_users', FetchUserController::class);
+    //PARENT
+    Route::post('organization_fetch_parents', FetchParentController::class);
     //RELATION
     Route::post('organization_fetch_relations', FetchRelationController::class);
 
