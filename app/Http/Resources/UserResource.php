@@ -5,6 +5,8 @@ namespace App\Http\Resources;
 use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\Organization\User\UserGroupResource;
+use App\Http\Resources\Organization\UserRelation\UserRelationResource;
+use App\Models\Organization\UserRelation\UserRelation;
 
 class UserResource extends JsonResource
 {
@@ -16,6 +18,8 @@ class UserResource extends JsonResource
     }
     public function toArray($request)
     {
+        $user = UserRelation::whereChildId($request->id)->first();
+
         return [
             'id' => $this->id ?? 0,
             "organization_id" => $this->organization_id ?? 0,
@@ -32,6 +36,7 @@ class UserResource extends JsonResource
             'identity_type' => (int) $this->identity_type ?? 0,
             'identity_number' => (int)$this->identity_number ?? 0,
             'type' => (int) $this->type ?? 0,
+            'user_relation' => new UserRelationResource($user ?? "") ?? "",
             'blood_type' => new BloodTypeResource($this->bloodType ?? "") ?? "",
             'country' => new CountryResource($this->country ?? "") ?? "",
             "groups" => UserGroupResource::collection($this->groups ?? []) ?? [],

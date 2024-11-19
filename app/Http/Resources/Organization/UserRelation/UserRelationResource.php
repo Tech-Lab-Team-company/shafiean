@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\Organization\Relation\RelationResource;
 use App\Http\Resources\Organization\UserRelation\UserNameResource;
+use App\Models\User;
 
 class UserRelationResource extends JsonResource
 {
@@ -19,8 +20,8 @@ class UserRelationResource extends JsonResource
     {
         return [
             'id' => $this->id ?? 0,
-            'student' => new UserNameResource($this->student ?? "") ?? "",
-            'user' => new UserNameResource($this->user ?? "") ?? "",
+            // 'student' => new UserNameResource($this->student ?? "") ?? "",
+            'parent' => new UserNameResource($this->user ?? "") ?? "",
             'relation' => new RelationResource($this->relation ?? "") ?? "",
         ];
     }

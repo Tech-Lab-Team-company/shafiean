@@ -75,6 +75,7 @@ class UserService
             $user = User::whereId($dataRequest['id'])->first();
             $data = $this->userData($dataRequest, $user);
             $user->update($data);
+            (new UserRelationService())->updateParentRelation($dataRequest->relation_id, $user->id, $dataRequest->parent_id);
             if ($dataRequest['group_ids']) {
                 $user->groups()->sync($dataRequest['group_ids']);
             }

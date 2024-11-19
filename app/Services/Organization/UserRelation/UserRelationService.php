@@ -55,23 +55,20 @@ class UserRelationService
     }
     public function storeParentRelation($relationId, $userId, $parentId)
     {
-        // try {
         UserRelation::create([
             'relation_id' => $relationId,
             'child_id' => $userId,
             'parent_id' => $parentId
         ]);
-        // return new DataSuccess(
-        // data: new UserRelationResource($relation),
-        // status: true,
-        // message: 'UserRelation created successfully'
-        // );
-        // } catch (Exception $e) {
-        // return new DataFailed(
-        // status: false,
-        // message: $e->getMessage()
-        // );
-        // }
+    }
+    public function updateParentRelation($relationId, $userId, $parentId)
+    {
+        $userRelation = UserRelation::whereRelationId($relationId)->whereChildId($userId)->first();
+        $userRelation->update([
+            'relation_id' => $relationId,
+            'child_id' => $userId,
+            'parent_id' => $parentId
+        ]);
     }
     public function update(array $dataRequest): DataStatus
     {
