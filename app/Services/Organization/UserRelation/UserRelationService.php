@@ -53,6 +53,26 @@ class UserRelationService
             );
         }
     }
+    public function storeParentRelation($relationId, $userId, $parentId)
+    {
+        // try {
+        UserRelation::create([
+            'relation_id' => $relationId,
+            'child_id' => $userId,
+            'parent_id' => $parentId
+        ]);
+        // return new DataSuccess(
+        // data: new UserRelationResource($relation),
+        // status: true,
+        // message: 'UserRelation created successfully'
+        // );
+        // } catch (Exception $e) {
+        // return new DataFailed(
+        // status: false,
+        // message: $e->getMessage()
+        // );
+        // }
+    }
     public function update(array $dataRequest): DataStatus
     {
         try {
