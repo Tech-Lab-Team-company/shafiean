@@ -34,8 +34,8 @@ class StoreUserRequest extends ApiRequest
             'country_id' => 'nullable|exists:countries,id',
             'group_ids' => 'nullable|array',
             'group_ids.*' => ['nullable', Rule::exists('groups', 'id')->whereNull('deleted_at')],
-            'relation_id' => 'required|exists:relations,id',
-            'parent_id' =>  ['required', 'exists:users,id'],
+            'relation_id' => 'requiredif:type,0|exists:relations,id',
+            'parent_id' =>  ['requiredif:type,0', 'exists:users,id'],
         ];
     }
 }
