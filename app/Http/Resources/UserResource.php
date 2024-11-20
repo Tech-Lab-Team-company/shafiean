@@ -35,6 +35,8 @@ class UserResource extends JsonResource
             'identity_type' => (int) $this->identity_type ?? 0,
             'identity_number' => (int)$this->identity_number ?? 0,
             'type' => (int) $this->type ?? 0,
+            'parent_id' => $user->parent_id ?? '',
+            'relation_id' => $user->relation_id ?? '',
             'user_relation' => new UserRelationResource($user ?? "") ?? "",
             'blood_type' => new BloodTypeResource($this->bloodType ?? "") ?? "",
             'country' => new CountryResource($this->country ?? "") ?? "",
