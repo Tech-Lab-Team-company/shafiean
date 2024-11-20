@@ -6,30 +6,31 @@ namespace App\Models;
 use App\Models\City;
 use App\Models\Country;
 use App\Models\BloodType;
+use App\Models\MainSession;
 use App\Models\DisabilityType;
-use App\Models\Organization\Competition\Competition;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 use App\Models\Organization\Exam\Exam;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Notifications\Notifiable;
 use App\Observers\OrganizationIdObserver;
 use App\Models\Scopes\PerOrganizationScope;
 use App\Models\Organization\Exam\ExamResult;
 use App\Models\Organization\Exam\ExamStudent;
-use App\Models\Organization\UserRelation\UserRelation;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\Scopes\PerOrganizationWebsiteScope;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use App\Models\Organization\Competition\Competition;
 use App\Models\SessionStudentRate\SessionStudentRate;
 use App\Models\SessionTeacherRate\SessionTeacherRate;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
+use App\Models\Organization\UserRelation\UserRelation;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Support\Facades\Schema;
 
 class User extends Authenticatable
 {

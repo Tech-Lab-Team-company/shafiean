@@ -37,7 +37,7 @@ class ReportsService
     public function AttendanceAndDepartureReport()
     {
         try {
-            $groupStageSessions = GroupStageSession::all();
+            $groupStageSessions = GroupStageSession::paginate(5);
             return new DataSuccess(
                 data: AttendanceAndDepartureReportResource::collection($groupStageSessions)->response()->getData(true),
                 status: true,
