@@ -7,6 +7,7 @@ use App\Models\City;
 use App\Models\Country;
 use App\Models\BloodType;
 use App\Models\DisabilityType;
+use App\Models\Organization\Competition\Competition;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -150,6 +151,10 @@ class User extends Authenticatable
         return $this->hasMany(SessionTeacherRate::class, 'user_id', 'id');
     }
 
+    public function competitions()
+    {
+        return $this->belongsToMany(Competition::class, 'competition_users', 'user_id', 'competition_id')->withTimestamps();
+    }
     protected static function booted(): void
     {
 
