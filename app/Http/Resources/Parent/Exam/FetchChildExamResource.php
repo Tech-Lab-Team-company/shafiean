@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Parent\Exam;
 
+use App\Models\Organization\Exam\ExamGroup;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -18,11 +19,14 @@ class FetchChildExamResource extends JsonResource
         $exams->each(function ($exam) {
             $exam->child_id = $this->id;
         });
-        // dd($exams);
+
+        $groupIds = $this->subscripe_groups()->pluck('group_id')->toArray();
+        $examCount = ExamGroup::whereIn('group_id', $groupIds)->get()->count();
+
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'exam_count' => $this->exams()->count(),
+            'exam_count' => $examCount,
             'done_exam_count' => $this->exams()->whereHas('exam_results', function ($q) {
                 $q->where('user_id', $this->id);
             })->count(),
