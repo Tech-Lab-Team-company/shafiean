@@ -6,6 +6,7 @@ use App\Models\Organization\Blog\Blog;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
+use App\Http\Controllers\User\Rate\RateController;
 use App\Http\Middleware\CheckWebsiteLinkMiddleware;
 use App\Http\Controllers\User\Group\GroupController;
 use App\Http\Controllers\User\Stage\StageController;
@@ -13,6 +14,7 @@ use App\Http\Controllers\Global\DisabilityController;
 use App\Http\Controllers\User\Course\CourseController;
 use App\Http\Controllers\User\Auth\UserLoginController;
 use App\Http\Controllers\User\Auth\UserLogoutController;
+use App\Http\Controllers\User\Reports\ReportsController;
 use App\Http\Controllers\User\Session\SessionController;
 use App\Http\Controllers\User\Auth\UserRegisterController;
 use App\Http\Controllers\User\Auth\UserCheckCodeController;
@@ -34,7 +36,6 @@ use App\Http\Controllers\User\Group\FetchUserSubscriptionGroupController;
 use App\Http\Controllers\User\ExamResultAnswer\ExamResultAnswerController;
 use App\Http\Controllers\User\Course\FetchUserSubscriptionCourseController;
 use App\Http\Controllers\User\LibraryCategory\FetchLibraryCategoryController;
-use App\Http\Controllers\User\Rate\RateController;
 
 // AUTH
 Route::middleware(CheckWebsiteLinkMiddleware::class)->group(function () {
@@ -83,6 +84,10 @@ Route::middleware('auth:user')->group(function () {
         Route::post('user_fetch_rate_details', 'fetch_rate_details');
         Route::post('user_edit_rate', 'edit_rate');
         Route::post('user_delete_rate', 'delete_rate');
+    });
+    //REPORTS
+    Route::controller(ReportsController::class)->group(function () {
+        Route::post('user_fetch_competiton_report', 'competitionReport');
     });
     /**
      * END POINT START

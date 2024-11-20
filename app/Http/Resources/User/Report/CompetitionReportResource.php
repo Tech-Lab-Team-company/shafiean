@@ -1,12 +1,12 @@
 <?php
+namespace App\Http\Resources\User\Report;
 
-namespace App\Http\Resources\Organization\Report;
 
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ReportResource extends JsonResource
+class CompetitionReportResource extends JsonResource
 {
 
     public function toArray(Request $request): array

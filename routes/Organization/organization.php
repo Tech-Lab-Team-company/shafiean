@@ -280,10 +280,7 @@ Route::middleware('auth:organization')->group(function () {
         Route::post('edit_rate', 'edit_rate');
         Route::post('delete_rate', 'delete_rate');
     });
-    //REPORTS
-    Route::controller(ReportsController::class)->group(function () {
-        Route::post('organization_fetch_competiton_report', 'competitionReport');
-    });
+
     /**
      * END POINT START
      */
