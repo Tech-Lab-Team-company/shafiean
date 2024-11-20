@@ -63,7 +63,7 @@ class UserRelationService
     }
     public function updateParentRelation($relationId, $userId, $parentId)
     {
-        $userRelation = UserRelation::whereRelationId($relationId)->whereParentId($parentId)->first();
+        $userRelation = UserRelation::whereRelationId($relationId)->whereChildId($userId)->first();
         $userRelation->update([
             'relation_id' => $relationId,
             'child_id' => $userId,

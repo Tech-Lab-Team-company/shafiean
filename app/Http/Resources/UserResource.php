@@ -19,7 +19,6 @@ class UserResource extends JsonResource
     public function toArray($request)
     {
         $user = UserRelation::whereChildId($request->id)->first();
-
         return [
             'id' => $this->id ?? 0,
             "organization_id" => $this->organization_id ?? 0,
