@@ -41,7 +41,7 @@ class ReportsService
             return new DataSuccess(
                 data: AttendanceAndDepartureReportResource::collection($groupStageSessions)->response()->getData(true),
                 status: true,
-                message: 'Competition Report'
+                message: 'Attendance And Departure Report'
             );
         } catch (\Exception $e) {
             return new DataFailed(
