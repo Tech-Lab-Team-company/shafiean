@@ -53,4 +53,23 @@ class CompetitionService
             );
         }
     }
+    public function join_competition($dataRequest): DataStatus
+    {
+        try {
+            // dd($dataRequest->competition_id);
+            $competition = Competition::find($dataRequest->competition_id);
+            // dd($competition);
+            $competition->users()->sync(auth()->guard('user')->user()->id);
+            return new DataSuccess(
+                status: true,
+                message: 'joined successfully'
+                // data: new CompetitionResource($competition),
+            );
+        } catch (\Exception $exception) {
+            return new DataFailed(
+                status: false,
+                message: $exception->getMessage()
+            );
+        }
+    }
 }

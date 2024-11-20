@@ -22,6 +22,7 @@ class CompetitionResource extends JsonResource
             'start_date' => $this->start_date ?? "",
             'end_date' => $this->end_date ?? "",
             'image' => $this->image_link ?? "",
+            'is_joined' => $this->users()->where('user_id', auth()->guard('user')->user()->id)->exists() ,
             "rewards" => CompetitionRewardResource::collection($this->competitionRewards) ?? []
         ];
     }
