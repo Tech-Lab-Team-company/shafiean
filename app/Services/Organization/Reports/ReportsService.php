@@ -18,7 +18,7 @@ class ReportsService
             return new DataSuccess(
                 data: ReportResource::collection($competition)->response()->getData(true),
                 status: true,
-                message: 'Subscription fetched successfully'
+                message: 'Competition Report'
             );
         } catch (\Exception $e) {
             return new DataFailed(
