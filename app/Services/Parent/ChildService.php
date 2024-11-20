@@ -11,6 +11,7 @@ use App\Http\Resources\Parent\Child\ChildResource;
 use App\Http\Resources\Parent\Exam\FetchChildExamResource;
 use App\Http\Resources\Parent\Child\ChildAttendanceResource;
 use App\Http\Resources\Parent\Session\ChildSessionAttendanceResource;
+use App\Models\User;
 
 class ChildService
 {
@@ -35,6 +36,9 @@ class ChildService
     public function exam_report($request): DataStatus
     {
         try {
+            /**
+             * @var User
+             */
             $parent = auth()->guard('user')->user();
             if (isset($request->student_id)) {
                 $children = $parent->childs()->where('users.id', $request->student_id)->get();
