@@ -88,6 +88,7 @@ Route::middleware('auth:user')->group(function () {
     //REPORTS
     Route::controller(ReportsController::class)->group(function () {
         Route::post('user_fetch_competiton_report', 'competitionReport');
+        Route::post('user_fetch_attendance_and_departure_report', 'AttendanceAndDepartureReport');
     });
     /**
      * END POINT START
@@ -95,7 +96,7 @@ Route::middleware('auth:user')->group(function () {
     Route::controller(CompetitionController::class)->group(function () {
         Route::post('user_fetch_competition_details', 'fetch_competition_details');
         Route::post('user_fetch_competitions', 'fetch_competitions');
-        Route::post('join_competition' , 'join_competition');
+        Route::post('join_competition', 'join_competition');
     });
     Route::post('user_fetch_courses', [CourseController::class, 'fetch_courses']);
     Route::post('user_fetch_groups', [GroupController::class, 'fetch_groups']);

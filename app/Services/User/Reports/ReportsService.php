@@ -10,6 +10,7 @@ use App\Helpers\Response\DataFailed;
 use Illuminate\Support\Facades\Auth;
 use App\Helpers\Response\DataSuccess;
 use App\Http\Resources\User\Report\CompetitionReportResource;
+use App\Http\Resources\User\Report\AttendanceAndDepartureReportResource;
 
 class ReportsService
 {
@@ -20,7 +21,7 @@ class ReportsService
              * @var User
              */
             $user = Auth::guard('user')->user();
-            $competitions = $user->competitions;
+            $competitions = $user->competitions()->paginate(5);
             return new DataSuccess(
                 data: CompetitionReportResource::collection($competitions)->response()->getData(true),
                 status: true,
@@ -36,10 +37,9 @@ class ReportsService
     public function AttendanceAndDepartureReport()
     {
         try {
-          $groupStageSessions=GroupStageSession::all();
-            $competitions = $user->competitions;
+            $groupStageSessions = GroupStageSession::all();
             return new DataSuccess(
-                data: CompetitionReportResource::collection($competitions)->response()->getData(true),
+                data: AttendanceAndDepartureReportResource::collection($groupStageSessions)->response()->getData(true),
                 status: true,
                 message: 'Competition Report'
             );
