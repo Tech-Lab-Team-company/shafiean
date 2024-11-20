@@ -20,6 +20,7 @@ use App\Http\Controllers\Organization\User\FetchUserController;
 use App\Http\Controllers\Organization\Contact\ContactController;
 use App\Http\Controllers\Organization\JobType\JobTypeController;
 use App\Http\Controllers\Organization\Library\LibraryController;
+use App\Http\Controllers\Organization\Reports\ReportsController;
 use App\Http\Controllers\Organization\Blog\BlogHashtagController;
 use App\Http\Controllers\Organization\Exam\ExamStudentController;
 use App\Http\Controllers\Organization\Group\FetchGroupController;
@@ -47,10 +48,10 @@ use App\Http\Controllers\Organization\Blog\FetchBlogHashtagController;
 use App\Http\Controllers\Organization\ExamResult\ExamResultController;
 use App\Http\Controllers\Organization\Landingpage\StatisticController;
 use App\Http\Controllers\Organization\Landingpage\SubheaderController;
+
 use App\Http\Controllers\Organization\Blog\FetchBlogCategoryController;
 
 use App\Http\Controllers\Organization\Relation\FetchRelationController;
-
 use App\Http\Controllers\Organization\Competition\CompetitionController;
 use App\Http\Controllers\Organization\BloodType\FetchBloodTypeController;
 use App\Http\Controllers\Organization\QuestionBank\QuestionBankController;
@@ -279,7 +280,10 @@ Route::middleware('auth:organization')->group(function () {
         Route::post('edit_rate', 'edit_rate');
         Route::post('delete_rate', 'delete_rate');
     });
-
+    //REPORTS
+    Route::controller(ReportsController::class)->group(function () {
+        Route::post('organization_fetch_competiton_report', 'competitionReport');
+    });
     /**
      * END POINT START
      */
