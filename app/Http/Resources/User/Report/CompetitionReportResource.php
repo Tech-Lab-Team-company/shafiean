@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Resources\User\Report;
 
 
@@ -11,20 +12,37 @@ class CompetitionReportResource extends JsonResource
 
     public function toArray(Request $request): array
     {
-        $startDate = $this->start_date ? Carbon::parse($this->start_date) : null;
-        $endDate = $this->end_date ? Carbon::parse($this->end_date) : null;
-        $duration = "0 يوم";
-        if ($startDate && $endDate) {
-            $diff = $startDate->diff($endDate);
-            $months = $diff->m;
-            $days = $diff->d;
-            if ($months > 0) {
-                $duration = "{$months} شهر" . ($months > 1 ? "" : "");
-            }
-            elseif ($days > 0) {
-                $duration = "{$days} يوم" . ($days > 1 ? "" : "");
-            }
+        $startDate = Carbon::parse($this->start_date ?? '');
+        $endDate = Carbon::parse($this->end_date ?? '');
+        $duration = '0';
+
+        $diff = $startDate->diff($endDate);
+        $months = $diff->m;
+        $days = $diff->d;
+        $arabicNumbers = [
+            1 => '١',
+            2 => '٢',
+            3 => '٣',
+            4 => '٤',
+            5 => '٥',
+            6 => '٦',
+            7 => '٧',
+            8 => '٨',
+            9 => '٩',
+            10 => '١٠',
+            11 => '١١',
+            12 => '١٢',
+        ];
+
+        if ($months > 0) {
+            $arabicMonths = $this->convertToArabicNumbers($months, $arabicNumbers);
+            $duration = "{$arabicMonths} شهر";
+        } elseif ($days > 0) {
+            $arabicDays = $this->convertToArabicNumbers($days, $arabicNumbers);
+            $duration = "{$arabicDays} يوم";
         }
+
+
         $status = $endDate && Carbon::today()->gt($endDate) ? 0 : 1;
         return [
             'id' => $this->id ?? 0,
@@ -33,7 +51,11 @@ class CompetitionReportResource extends JsonResource
             'end_date' => $this->end_date ?? "",
             'duration' => $duration ?? "",
             'subscription_count' => 10 ?? "",
-            'status'=>$status
+            'status' => $status
         ];
+    }
+    function convertToArabicNumbers($number, $mapping)
+    {
+        return strtr((string)$number, $mapping);
     }
 }
