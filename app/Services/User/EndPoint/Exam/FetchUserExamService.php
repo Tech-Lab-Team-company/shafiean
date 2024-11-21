@@ -28,12 +28,13 @@ class FetchUserExamService
             $completedExams = ExamResult::where('user_id', $user->id)
                 ->pluck('exam_id')
                 ->toArray();
-
+            // dd($completedExams , 'examresult');
             if ($dataRequest->group_id) {
                 $examGroups = ExamGroup::where('group_id', $dataRequest->group_id)->pluck('exam_id')->toArray();
             } else {
                 $groups =   $user->subscripe_groups()->pluck('group_id')->toArray();
                 $examGroups = ExamGroup::whereIn('group_id', $groups)->pluck('exam_id')->toArray();
+                // dd($examGroups , 'exam groups');
             }
             $exams = Exam::whereIn('id', $examGroups)
                 ->whereNotIn('id', $completedExams)
