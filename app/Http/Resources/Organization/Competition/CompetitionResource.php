@@ -15,15 +15,25 @@ class CompetitionResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return [
+        if (auth()->guard('user')->check()) {
+
+            $is_joined = $this->users()->where('user_id', auth()->guard('user')->user()->id)->exists();
+        }
+        $response = [
             'id' => $this->id ?? 0,
-            'name' => $this->name ?? "",
-            'description' => $this->description ?? "",
-            'start_date' => $this->start_date ?? "",
-            'end_date' => $this->end_date ?? "",
-            'image' => $this->image_link ?? "",
-            'is_joined' => $this->users()->where('user_id', auth()->guard('user')->user()->id)->exists() ,
-            "rewards" => CompetitionRewardResource::collection($this->competitionRewards) ?? []
+            'name' => $this->name ?? '',
+            'description' => $this->description ?? '',
+            'start_date' => $this->start_date ?? '',
+            'end_date' => $this->end_date ?? '',
+            'image' => $this->image_link ?? '',
+            'rewards' => CompetitionRewardResource::collection($this->competitionRewards) ?? [],
         ];
+
+        if (auth()->guard('user')->check()) {
+            $isJoined = $this->users()->where('user_id', auth()->guard('user')->user()->id)->exists();
+            $response['is_joined'] = $isJoined;
+        }
+
+        return $response;
     }
 }

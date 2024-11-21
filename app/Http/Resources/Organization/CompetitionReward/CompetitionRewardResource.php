@@ -16,7 +16,7 @@ class CompetitionRewardResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id' => $this->id ?? 0,
+            'id' => $this?->id ?? 0,
             'stage' => (int) $this->stage ?? "",
             'reward' => (int) $this->reward ?? "",
             // 'competition' => new CompetitionResource($this->competition ?? "") ?? "",
