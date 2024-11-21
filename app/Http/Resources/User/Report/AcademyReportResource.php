@@ -19,8 +19,6 @@ class AcademyReportResource extends JsonResource
             'last_rating_date' => Carbon::parse($this->updated_at)->locale('ar')->translatedFormat('F j ,Y - g:i A') ?? "",
             'degree' => (float)$this->grade ?? 0,
             'total_degree' => (float)$this->exam->degree ?? 0,
-            // 'last_rating_date' => Carbon::parse($this->updated_at)->format('Y-m-d') ?? "",
-            // 'is_done' => $examResult ? 1 : 0
         ];
     }
 }
