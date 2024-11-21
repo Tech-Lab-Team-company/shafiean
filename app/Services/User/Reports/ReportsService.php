@@ -12,6 +12,7 @@ use App\Helpers\Response\DataSuccess;
 use App\Models\Organization\Exam\Exam;
 use App\Models\Organization\Exam\ExamGroup;
 use App\Http\Resources\User\Report\ExamReportResource;
+use App\Http\Resources\User\Report\AcademyReportResource;
 use App\Http\Resources\User\Report\CompetitionReportResource;
 use App\Http\Resources\User\Report\AttendanceAndDepartureReportResource;
 
@@ -62,6 +63,24 @@ class ReportsService
             $exam = Exam::whereIn('id', $examIds)->paginate(5);
             return new DataSuccess(
                 data: ExamReportResource::collection($exam)->response()->getData(true),
+                status: true,
+                message: 'Exam Report'
+            );
+        } catch (\Exception $e) {
+            return new DataFailed(
+                status: false,
+                message: $e->getMessage()
+            );
+        }
+    }
+
+    public function academyReport()
+    {
+        try {
+            $user = Auth::guard('user')->user();
+            $examResult = $user->examResults;
+            return new DataSuccess(
+                data: AcademyReportResource::collection($examResult)->response()->getData(true),
                 status: true,
                 message: 'Exam Report'
             );
