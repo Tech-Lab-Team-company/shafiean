@@ -77,8 +77,11 @@ class ReportsService
     public function academyReport()
     {
         try {
+            /**
+             * @var User
+             */
             $user = Auth::guard('user')->user();
-            $examResult = $user->examResults;
+            $examResult = $user->examResults()->paginate(5);
             return new DataSuccess(
                 data: AcademyReportResource::collection($examResult)->response()->getData(true),
                 status: true,
