@@ -14,7 +14,7 @@ class SessionController extends Controller
         $this->session_service = $session_service;
     }
 
-    public function fetch_sessions(Request $request)
+    public function fetch_child_sessions(Request $request)
     {
 
         return $this->session_service->fetch_sessions($request, auth()->guard('user')->user()->id)->response();
