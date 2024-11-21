@@ -2,9 +2,10 @@
 
 namespace App\Http\Requests\Admin;
 
+use App\Helpers\Response\ApiRequest;
 use Illuminate\Foundation\Http\FormRequest;
 
-class AdminLoginRequest extends FormRequest
+class AdminLoginRequest extends ApiRequest
 {
 
     public function authorize(): bool

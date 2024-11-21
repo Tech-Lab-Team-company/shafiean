@@ -2,9 +2,10 @@
 
 namespace App\Http\Requests\Admin;
 
+use App\Helpers\Response\ApiRequest;
 use Illuminate\Foundation\Http\FormRequest;
 
-class AdminHistoryRequest extends FormRequest
+class AdminHistoryRequest extends ApiRequest
 {
     public function authorize()
     {
