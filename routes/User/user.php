@@ -90,6 +90,7 @@ Route::middleware('auth:user')->group(function () {
         Route::post('user_fetch_competiton_report', 'competitionReport');
         Route::post('user_fetch_attendance_and_departure_report', 'attendanceAndDepartureReport');
         Route::post('user_fetch_exam_report', 'examReport');
+        Route::post('user_fetch_academy_report', 'academyReport');
     });
     /**
      * END POINT START

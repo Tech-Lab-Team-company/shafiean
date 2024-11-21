@@ -22,4 +22,8 @@ class ReportsController extends Controller
     {
         return $this->reportsService->examReport()->response();
     }
+    public function academyReport(Request $request)
+    {
+        return $this->reportsService->academyReport()->response();
+    }
 }
