@@ -62,7 +62,7 @@ class ReportsService
             $user = Auth::guard('user')->user();
             $subscriptions = Subscription::where('user_id', $user->id)->pluck('group_id')->toArray();
             $examGroup = ExamGroup::whereIn('group_id', $subscriptions)->pluck('exam_id')->toArray();
-            $exam = Exam::whereIn('id', $examGroup)->get();
+            $exam = Exam::whereIn('id', $examGroup)->paginate(5);
             return new DataSuccess(
                 data: ExamReportResource::collection($exam)->response()->getData(true),
                 status: true,
