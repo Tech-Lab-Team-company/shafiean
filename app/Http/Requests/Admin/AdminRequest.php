@@ -2,10 +2,11 @@
 
 namespace App\Http\Requests\Admin;
 
+use App\Helpers\Response\ApiRequest;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class AdminRequest extends FormRequest
+class AdminRequest extends ApiRequest
 {
     public function authorize()
     {
