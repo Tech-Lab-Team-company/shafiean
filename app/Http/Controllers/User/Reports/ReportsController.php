@@ -12,18 +12,19 @@ class ReportsController extends Controller
     public function __construct(protected ReportsService $reportsService) {}
     public function competitionReport(Request $request)
     {
-        return $this->reportsService->competitionReport()->response();
+        return $this->reportsService->competitionReport($request)->response();
     }
+
     public function attendanceAndDepartureReport(Request $request)
     {
-        return $this->reportsService->AttendanceAndDepartureReport()->response();
+        return $this->reportsService->AttendanceAndDepartureReport($request)->response();
     }
     public function examReport(Request $request)
     {
-        return $this->reportsService->examReport()->response();
+        return $this->reportsService->examReport($request)->response();
     }
     public function academyReport(Request $request)
     {
-        return $this->reportsService->academyReport()->response();
+        return $this->reportsService->academyReport($request)->response();
     }
 }

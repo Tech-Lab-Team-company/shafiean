@@ -18,16 +18,20 @@ use App\Http\Resources\User\Report\AttendanceAndDepartureReportResource;
 
 class ReportsService
 {
-    public function competitionReport()
+    public function competitionReport($dataRequest)
     {
         try {
             /**
              * @var User
              */
             $user = Auth::guard('user')->user();
-            $competitions = $user->competitions()->paginate(5);
+            $competitions = $user->competitions();
+            $competitions->when($dataRequest->word, function ($query) use ($dataRequest) {
+                $query->where('name', 'like', '%' . $dataRequest->word . '%');
+            });
+            $data = $competitions->paginate(5);
             return new DataSuccess(
-                data: CompetitionReportResource::collection($competitions)->response()->getData(true),
+                data: CompetitionReportResource::collection($data)->response()->getData(true),
                 status: true,
                 message: 'Competition Report'
             );
@@ -38,12 +42,20 @@ class ReportsService
             );
         }
     }
-    public function AttendanceAndDepartureReport()
+    public function AttendanceAndDepartureReport($dataRequest)
     {
         try {
-            $groupStageSessions = GroupStageSession::paginate(5);
+            $groupStageSessions = GroupStageSession::query();
+            $groupStageSessions->when($dataRequest->word, function ($query) use ($dataRequest) {
+                $query->whereHas('session', function ($q) use ($dataRequest) {
+                    $q->where('title', 'like', '%' . $dataRequest->word . '%');
+                })->orWhereHas('group.teacher', function ($q) use ($dataRequest) {
+                    $q->where('name', 'like', '%' . $dataRequest->word . '%');
+                });
+            });
+            $data = $groupStageSessions->paginate(5);
             return new DataSuccess(
-                data: AttendanceAndDepartureReportResource::collection($groupStageSessions)->response()->getData(true),
+                data: AttendanceAndDepartureReportResource::collection($data)->response()->getData(true),
                 status: true,
                 message: 'Attendance And Departure Report'
             );
@@ -54,15 +66,19 @@ class ReportsService
             );
         }
     }
-    public function examReport()
+    public function examReport($dataRequest)
     {
         try {
             $user = Auth::guard('user')->user();
             $groupIds = Subscription::where('user_id', $user->id)->pluck('group_id')->toArray();
             $examIds = ExamGroup::whereIn('group_id', $groupIds)->pluck('exam_id')->toArray();
-            $exam = Exam::whereIn('id', $examIds)->paginate(5);
+            $exam = Exam::whereIn('id', $examIds);
+            $exam->when($dataRequest->word, function ($query) use ($dataRequest) {
+                $query->where('name', 'like', '%' . $dataRequest->word . '%');
+            });
+            $data = $exam->paginate(5);
             return new DataSuccess(
-                data: ExamReportResource::collection($exam)->response()->getData(true),
+                data: ExamReportResource::collection($data)->response()->getData(true),
                 status: true,
                 message: 'Exam Report'
             );
@@ -74,16 +90,22 @@ class ReportsService
         }
     }
 
-    public function academyReport()
+    public function academyReport($dataRequest)
     {
         try {
             /**
              * @var User
              */
             $user = Auth::guard('user')->user();
-            $examResult = $user->examResults()->paginate(5);
+            $examResult = $user->examResults();
+            $examResult->when($dataRequest->word, function ($query) use ($dataRequest) {
+                $query->whereHas('exam', function ($q) use ($dataRequest) {
+                    $q->where('name', 'like', '%' . $dataRequest->word . '%');
+                });
+            });
+            $data = $examResult->paginate(5);
             return new DataSuccess(
-                data: AcademyReportResource::collection($examResult)->response()->getData(true),
+                data: AcademyReportResource::collection($data)->response()->getData(true),
                 status: true,
                 message: 'Exam Report'
             );
