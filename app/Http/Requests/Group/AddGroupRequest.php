@@ -31,7 +31,7 @@ class AddGroupRequest extends ApiRequest
             'with_all_disability' => 'required|integer',
             'with_all_course_content' => 'required|integer',
             'disabilities' => 'required_if:with_all_disability,1|array',
-            'disabilities.*' => 'required_if:with_all_disability,1|exists:disability_types,id',
+            'disabilities.*' => 'required_if:with_all_disability,0|exists:disability_types,id',
             'days' =>  'required|array',
             'days.*.day_id' => 'required|exists:days,id',
             'days.*.start_time' => 'required|date_format:H:i',
