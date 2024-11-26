@@ -20,7 +20,7 @@ class EmployeeService
     public function fetch_employees($request): DataStatus
     {
         try {
-            $query = Teacher::where('organization_id', get_organization_id(auth()->guard('organization')->user()));
+            $query = Teacher::where('organization_id', get_organization_id(auth()->guard('organization')->user()))->where('is_employed', 0);
             $filter_service = new FilterService();
             if (isset($request)) {
                 $filter_service->filterTeachers($query, $request);
