@@ -52,15 +52,15 @@ class EmployeeService
             $data['email'] = $request->email;
             $data['phone'] = $request->phone;
             $data['password'] = $request->password;
-            $data['gender'] = $request->gender;
-            $data['age'] = $request->age;
+            $data['gender'] = array_key_exists('gender', $request->all()) ? $request->gender : null;
+            $data['age'] = array_key_exists('age', $request->all()) ? $request->age : null;
             $data['is_employed'] = $request->is_employed;
-            $data['marital_status'] = $request->marital_status;
-            $data['identity_type'] = $request->identity_type;
-            $data['identity_number'] = $request->identity_number;
-            $data['date_of_birth'] = Carbon::createFromFormat('Y-m-d', $request->date_of_birth)->format('Y-m-d');;
+            $data['marital_status'] = array_key_exists('marital_status', $request->all()) ? $request->marital_status : null;
+            $data['identity_type'] = array_key_exists('identity_type', $request->all()) ? $request->identity_type : null;
+            $data['identity_number'] = array_key_exists('identity_number', $request->all()) ? $request->identity_number : null;
+            $data['date_of_birth'] = array_key_exists('date_of_birth', $request->all()) ? Carbon::parse($request->date_of_birth)->format('Y-m-d') : null;
             $data['organization_id'] = get_organization_id(auth()->guard('organization')->user());
-            $data['job_type_id'] = $request->job_type_id;
+            $data['job_type_id'] = array_key_exists('job_type_id', $request->all()) ? $request->job_type_id : null;
             $employee = Teacher::create($data);
 
             if ($request->certificate_images) (new EmployeeImageService())->storeCertificateImage(null, $employee, $request);
