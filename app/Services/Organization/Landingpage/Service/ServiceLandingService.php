@@ -18,7 +18,7 @@ class ServiceLandingService
     {
         try {
             $query = Service::query();
-            if (isset($request)) {
+            if (isset($dataRequest)) {
                 $filter_service = new FilterService();
                 $filter_service->filterServices($query, $dataRequest);
             }
