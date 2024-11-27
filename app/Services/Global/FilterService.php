@@ -325,7 +325,7 @@ class FilterService
     {
         $query->when($request->has('word') && !empty($request->word), function ($q) use ($request) {
             $q->where('title', 'like', '%' . $request->word . '%')
-                ->orWhere('sub_title', 'like', '%' . $request->word . '%')
+                ->orWhere('subtitle', 'like', '%' . $request->word . '%')
                 ->orWhere('description', 'like', '%' . $request->word . '%');
         });
     }
