@@ -32,7 +32,7 @@ class EditEmployeeRequest extends ApiRequest
             'is_employed' => 'nullable|max:191',
             'image' => 'nullable|image|mimes:jpg,jpeg,png',
             'curriculum_ids' => 'nullable|array|exists:curriculums,id',
-            'job_type_id' => 'required|exists:job_types,id',
+            'job_type_id' => 'nullable|exists:job_types,id',
         ];
     }
 }
