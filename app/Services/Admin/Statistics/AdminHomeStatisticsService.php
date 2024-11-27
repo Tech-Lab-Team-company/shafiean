@@ -46,7 +46,7 @@ class AdminHomeStatisticsService
     public function fetchLatestStudents()
     {
         try {
-            $latestStudents = User::latest()->take(3)->get();
+            $latestStudents = User::latest()->take(3)->orderBy('id', 'desc')->get();
             return new DataSuccess(
                 data: LatestStudentStatisticResource::collection($latestStudents),
                 status: true,
@@ -62,7 +62,7 @@ class AdminHomeStatisticsService
     public function fetchMostActiveOrganizations()
     {
         try {
-            $mostActiveOrganizations = Organization::withCount('users')->orderBy('users_count', 'desc')->take(3)->get();
+            $mostActiveOrganizations = Organization::withCount('users')->orderBy('users_count', 'desc')->take(3)->orderBy('id', 'desc')->get();
             return new DataSuccess(
                 data: MostActiveOrganizationStatisticResource::collection($mostActiveOrganizations),
                 status: true,

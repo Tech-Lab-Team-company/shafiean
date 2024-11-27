@@ -55,7 +55,7 @@ class AttendanceService
                 $filter_service->parentStudentAttendance($query, $request);
             }
 
-            $user_sessions = $query->get();
+            $user_sessions = $query->orderBy('id', 'desc')->get();
             return new DataSuccess(
                 status: true,
                 data: AttendanceResource::collection($user_sessions),

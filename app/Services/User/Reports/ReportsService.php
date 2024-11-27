@@ -29,7 +29,7 @@ class ReportsService
             $competitions->when($dataRequest->word, function ($query) use ($dataRequest) {
                 $query->where('name', 'like', '%' . $dataRequest->word . '%');
             });
-            $data = $competitions->paginate(5);
+            $data = $competitions->orderBy('id', 'desc')->paginate(5);
             return new DataSuccess(
                 data: CompetitionReportResource::collection($data)->response()->getData(true),
                 status: true,
@@ -53,7 +53,7 @@ class ReportsService
                     $q->where('name', 'like', '%' . $dataRequest->word . '%');
                 });
             });
-            $data = $groupStageSessions->paginate(5);
+            $data = $groupStageSessions->orderBy('id', 'desc')->paginate(5);
             return new DataSuccess(
                 data: AttendanceAndDepartureReportResource::collection($data)->response()->getData(true),
                 status: true,
@@ -76,7 +76,7 @@ class ReportsService
             $exam->when($dataRequest->word, function ($query) use ($dataRequest) {
                 $query->where('name', 'like', '%' . $dataRequest->word . '%');
             });
-            $data = $exam->paginate(5);
+            $data = $exam->orderBy('id', 'desc')->paginate(5);
             return new DataSuccess(
                 data: ExamReportResource::collection($data)->response()->getData(true),
                 status: true,
@@ -103,7 +103,7 @@ class ReportsService
                     $q->where('name', 'like', '%' . $dataRequest->word . '%');
                 });
             });
-            $data = $examResult->paginate(5);
+            $data = $examResult->orderBy('id', 'desc')->paginate(5);
             return new DataSuccess(
                 data: AcademyReportResource::collection($data)->response()->getData(true),
                 status: true,

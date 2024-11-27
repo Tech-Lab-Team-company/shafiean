@@ -16,7 +16,7 @@ class FetchStudentService
     public function fetchUsers()
     {
         try {
-            $students = User::whereType(UserTypeEnum::STUDENT->value)->get();
+            $students = User::whereType(UserTypeEnum::STUDENT->value)->orderBy('id', 'desc')->get();
             return new DataSuccess(
                 data: FetchStudentResource::collection($students),
                 status: true,

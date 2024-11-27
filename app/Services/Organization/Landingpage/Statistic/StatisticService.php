@@ -23,7 +23,7 @@ class StatisticService
                 $filter_service = new FilterService();
                 $filter_service->filterStatistics($query, $dataRequest);
             }
-            $statistics = $query->get();
+            $statistics = $query->orderBy('id', 'desc')->get();
             return new DataSuccess(
                 data: StatisticResource::collection($statistics),
                 status: true,

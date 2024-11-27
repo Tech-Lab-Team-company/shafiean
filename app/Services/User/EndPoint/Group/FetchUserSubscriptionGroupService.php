@@ -16,7 +16,7 @@ class FetchUserSubscriptionGroupService
     {
         try {
             $subscriptions = Subscription::whereUserId($userId)->whereNotNull('group_id')->get()->pluck('group_id')->toArray();
-            $groups = Group::whereIn('id', $subscriptions)->get();
+            $groups = Group::whereIn('id', $subscriptions)->orderBy('id', 'desc')->get();
             return new DataSuccess(
                 status: true,
                 message: 'Groups retrieved successfully',

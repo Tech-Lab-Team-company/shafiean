@@ -26,7 +26,7 @@ class GlobalService
                 $filter_service = new FilterService();
                 $filter_service->filterDay($request, $days);
             }
-            $days = $days->get();
+            $days = $days->orderBy('id', 'desc')->get();
             return new DataSuccess(
                 data: DayResource::collection($days),
                 status: true,
@@ -42,7 +42,7 @@ class GlobalService
     public function fetch_exam_students($request): DataStatus
     {
         try {
-            $examStudents = ExamStudent::whereExamId($request->exam_id)->get();
+            $examStudents = ExamStudent::whereExamId($request->exam_id)->orderBy('id', 'desc')->get();
             return new DataSuccess(
                 data: FetchExamStudentResource::collection($examStudents),
                 status: true,
