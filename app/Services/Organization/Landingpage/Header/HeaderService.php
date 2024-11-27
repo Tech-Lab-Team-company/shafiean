@@ -20,7 +20,7 @@ class HeaderService
                 $filter_service = new FilterService();
                 $filter_service->filterHeaders($query, $dataRequest);
             }
-            $headers = $query->get();
+            $headers = $query->orderBy('id', 'desc')->get();
             return new DataSuccess(
                 status: true,
                 data: HeaderResource::collection($headers),

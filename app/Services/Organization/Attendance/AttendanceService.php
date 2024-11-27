@@ -66,7 +66,7 @@ class AttendanceService
     {
         try {
 
-            $user_session = UserSession::where('session_id', $request->session_id)->get();
+            $user_session = UserSession::where('session_id', $request->session_id)->orderBy('id', 'desc')->get();
             return new DataSuccess(
                 status: true,
                 data: AttendanceResource::collection($user_session),

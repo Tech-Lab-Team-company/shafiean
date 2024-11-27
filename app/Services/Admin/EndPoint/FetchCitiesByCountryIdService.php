@@ -25,7 +25,7 @@ class FetchCitiesByCountryIdService
     public function fetchCities($dataRequest)
     {
         try {
-            $cities  = City::Where('country_id',$dataRequest->country_id)->get();
+            $cities  = City::Where('country_id',$dataRequest->country_id)->orderBy('id', 'desc')->get();
             return new DataSuccess(
                 data: SimpleCityResource::collection($cities),
                 status: true,

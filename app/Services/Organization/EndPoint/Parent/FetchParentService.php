@@ -18,7 +18,7 @@ class FetchParentService
     public function fetchParents()
     {
         try {
-            $users = User::whereType(UserTypeEnum::PARENT->value)->get();
+            $users = User::whereType(UserTypeEnum::PARENT->value)->orderBy('id', 'desc')->get();
             return new DataSuccess(
                 data: FetchStudentResource::collection($users),
                 status: true,

@@ -15,7 +15,7 @@ class FetchUserSubscriptionCourseService
     {
         try {
             $subscriptions = Subscription::whereUserId($userId)->whereNotNull('course_id')->get()->pluck('course_id')->toArray();
-            $courses = Course::whereIn('id', $subscriptions)->get();
+            $courses = Course::whereIn('id', $subscriptions)->orderBy('id', 'desc')->get();
             return new DataSuccess(
                 status: true,
                 message: 'Courses retrieved successfully',

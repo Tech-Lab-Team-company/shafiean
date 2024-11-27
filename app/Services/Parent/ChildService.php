@@ -41,7 +41,7 @@ class ChildService
              */
             $parent = auth()->guard('user')->user();
             if (isset($request->student_id)) {
-                $children = $parent->childs()->where('users.id', $request->student_id)->get();
+                $children = $parent->childs()->where('users.id', $request->student_id)->orderBy('id', 'desc')->get();
             } else {
                 $children = $parent->childs;
             }
@@ -67,7 +67,7 @@ class ChildService
             $groups = $children->map(function ($child) {
                 return  $child->subscripe_groups()->pluck('group_id')->toArray();
             })->flatten();
-            $sessions = GroupStageSession::whereIn('group_id', $groups)->get();
+            $sessions = GroupStageSession::whereIn('group_id', $groups)->orderBy('id', 'desc')->get();
             // dd($sessions);
             // dd($children);
             return new DataSuccess(

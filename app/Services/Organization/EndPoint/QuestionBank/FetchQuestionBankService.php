@@ -14,7 +14,7 @@ class FetchQuestionBankService
     public function fetchQuestionBanks()
     {
         try {
-            $questions = Question::where('is_private', 0)->get();
+            $questions = Question::where('is_private', 0)->orderBy('id', 'desc')->get();
             return new DataSuccess(
                 data: FetchQuestionBankResource::collection($questions),
                 status: true,

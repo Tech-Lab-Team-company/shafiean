@@ -18,7 +18,7 @@ class FetchCurriculumStageService
     public function fetchCurriculumStage($request)
     {
         try {
-            $stages = Stage::whereCurriculumId($request->curriculum_id)->get();
+            $stages = Stage::whereCurriculumId($request->curriculum_id)->orderBy('id', 'desc')->get();
             return new DataSuccess(
                 data: FetchCurriculumStageResource::collection($stages),
                 status: true,
