@@ -39,7 +39,7 @@ class AddEmployeeRequest extends ApiRequest
             'identity_type' => 'nullable|integer',
             'identity_number' => 'nullable|string|max:191',
             'date_of_birth' => 'nullable',
-            'curriculum_ids' => 'required:is_employed,1|array|exists:curriculums,id', // Moved here
+            'curriculum_ids' => 'nullable|array|exists:curriculums,id', // Moved here
             'job_type_id' => 'nullable|exists:job_types,id',
         ];
     }
