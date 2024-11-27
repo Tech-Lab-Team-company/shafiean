@@ -147,12 +147,17 @@ class GroupService
                 }
                 $group->days()->sync($days);
             }
-            if ($request->with_all_disability == HasDisabilityEnum::HAS_DISABILITY->value && $request->disabilities) {
+            if ($request->with_all_disability == HasDisabilityEnum::NOT_HAS_DISABILITY->value && $request->disabilities) {
                 $disabilitiesWithCourseId = [];
                 foreach ($request->disabilities as $disabilityId) {
                     $disabilitiesWithCourseId[$disabilityId] = ['course_id' => $request->course_id];
                 }
                 $group->disabilities()->sync($disabilitiesWithCourseId);
+            }
+
+            if ($request->with_all_disability == HasDisabilityEnum::HAS_DISABILITY->value) {
+                $course_disapility_ids = Course::find($request->course_id)->disability_types->pluck('id')->toArray();
+                $group->disabilities()->sync($course_disapility_ids);
             }
 
             if ($request->with_all_course_content == HasCourseEnum::HAS_COURSE->value) {
