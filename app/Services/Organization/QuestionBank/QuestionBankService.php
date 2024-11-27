@@ -23,7 +23,7 @@ class QuestionBankService
             if (isset($dataRequest)) {
                 $filter_service->filterQuestions($query, $dataRequest);
             }
-            $questions = $query->paginate(10);
+            $questions = $query->orderBy('id', 'desc')->paginate(10);
             return new DataSuccess(
                 data: QuestionBankResource::collection($questions)->response()->getData(true),
                 status: true,

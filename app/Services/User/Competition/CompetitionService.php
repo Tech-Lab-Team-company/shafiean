@@ -25,7 +25,7 @@ class CompetitionService
                     $query->where('start_date', '>', $now->format('Y-m-d'));
                 }
             });
-            $competitions = $competitions->paginate(10);
+            $competitions = $competitions->orderBy('id', 'desc')->paginate(10);
             return new DataSuccess(
                 status: true,
                 data: CompetitionResource::collection($competitions)->response()->getData(true),
