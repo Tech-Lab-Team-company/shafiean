@@ -5,8 +5,9 @@ namespace App\Services\Organization\Landingpage\ServiceFeature;
 use App\Helpers\Response\DataFailed;
 use App\Helpers\Response\DataStatus;
 use App\Helpers\Response\DataSuccess;
-use App\Http\Resources\Organization\Landingpage\ServiceFeature\ServiceFeatureResource;
+use App\Services\Global\FilterService;
 use App\Models\Organization\Landingpage\ServiceFeature;
+use App\Http\Resources\Organization\Landingpage\ServiceFeature\ServiceFeatureResource;
 
 class ServiceFeatureService
 {
@@ -15,11 +16,15 @@ class ServiceFeatureService
     {
         try {
 
-            $service_features = ServiceFeature::get();
-
+            $query = ServiceFeature::query();
+            if (isset($request)) {
+                $filter_service = new FilterService();
+                $filter_service->filterServiceFeatures($query, $request);
+            }
+            $service_features = $query->paginate(10);
             return new DataSuccess(
                 status: true,
-                data: ServiceFeatureResource::collection($service_features),
+                data: ServiceFeatureResource::collection($service_features)->response()->getData(true),
                 message: 'Get Service Feature Success'
             );
         } catch (\Exception $e) {

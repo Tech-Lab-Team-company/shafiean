@@ -320,4 +320,13 @@ class FilterService
             $query->where('user_id', auth()->guard('user')->user()->id);
         }
     }
+
+    public function filterServiceFeatures($query, $request)
+    {
+        $query->when($request->has('word') && !empty($request->word), function ($q) use ($request) {
+            $q->where('title', 'like', '%' . $request->word . '%')
+                ->orWhere('sub_title', 'like', '%' . $request->word . '%')
+                ->orWhere('description', 'like', '%' . $request->word . '%');
+        });
+    }
 }
