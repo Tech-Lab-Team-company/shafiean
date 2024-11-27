@@ -22,7 +22,7 @@ class ServiceLandingService
                 $filter_service = new FilterService();
                 $filter_service->filterServices($query, $dataRequest);
             }
-            $services = $query->paginate(10);
+            $services = $query->orderBy('id', 'desc')->paginate(10);
             return new DataSuccess(
                 data: ServiceResource::collection($services)->response()->getData(true),
                 status: true,

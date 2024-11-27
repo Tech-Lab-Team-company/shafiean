@@ -21,7 +21,7 @@ class ServiceFeatureService
                 $filter_service = new FilterService();
                 $filter_service->filterServiceFeatures($query, $request);
             }
-            $service_features = $query->paginate(10);
+            $service_features = $query->orderBy('id', 'desc')->paginate(10);
             return new DataSuccess(
                 status: true,
                 data: ServiceFeatureResource::collection($service_features)->response()->getData(true),
