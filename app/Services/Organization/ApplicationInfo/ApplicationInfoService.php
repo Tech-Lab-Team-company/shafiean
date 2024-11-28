@@ -20,9 +20,10 @@ class ApplicationInfoService
 
     public function show($request)
     {
-        $appInfo = ApplicationInfo::whereId($request->id)->whereType($request->type)->first();
+
+        $appInfo = ApplicationInfo::whereType($request->type)->firstOrNew();
         return new DataSuccess(
-            data: new ApplicationInfoResource($appInfo),
+            data: ApplicationInfoResource::make($appInfo),
             statusCode: 200,
             message: 'Fetch Application info successfully'
         );

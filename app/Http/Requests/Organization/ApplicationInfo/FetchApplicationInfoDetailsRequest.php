@@ -24,7 +24,7 @@ class FetchApplicationInfoDetailsRequest extends ApiRequest
     public function rules(): array
     {
         return [
-            'id' => 'required|exists:application_infos,id',
+            // 'id' => 'required',
             'type' => 'required|numeric|in:' . enumCaseValue(ApplicationInfoTypeEnum::class),
         ];
     }
