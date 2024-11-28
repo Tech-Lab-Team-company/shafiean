@@ -38,14 +38,14 @@ class ExamResult extends Model
     {
         return $this->belongsToMany(Question::class, "exam_result_answers", "exam_result_id", "question_id");
     }
-    protected static function booted(): void
-    {
-        if (Auth::check()) {
-            static::addGlobalScope(new PerOrganizationScope);
-        } else {
-            static::addGlobalScope(new PerOrganizationWebsiteScope);
-        }
-    }
+    // protected static function booted(): void
+    // {
+    //     if (Auth::check()) {
+    //         static::addGlobalScope(new PerOrganizationScope);
+    //     } else {
+    //         static::addGlobalScope(new PerOrganizationWebsiteScope);
+    //     }
+    // }
     protected static function boot()
     {
         parent::boot();

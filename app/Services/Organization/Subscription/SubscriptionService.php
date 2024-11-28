@@ -16,13 +16,17 @@ class SubscriptionService
     public function  index(): DataStatus
     {
         try {
-            $subscriptions = Subscription::orderBy('id', 'desc')->paginate(10);
+            // $subscriptions = Subscription::orderBy('id', 'desc')->paginate(10);
+            $subscriptions = Subscription::whereHas('group', function ($query): void {})
+                ->with('group')
+                ->orderBy('id', 'desc')
+                ->paginate(10);
             return new DataSuccess(
                 data: SubscriptionResource::collection($subscriptions)->response()->getData(true),
                 status: true,
                 message: 'Subscription fetched successfully'
             );
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return new DataFailed(
                 status: false,
                 message: $e->getMessage()
