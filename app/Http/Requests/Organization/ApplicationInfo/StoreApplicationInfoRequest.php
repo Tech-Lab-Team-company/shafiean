@@ -27,7 +27,7 @@ class StoreApplicationInfoRequest extends ApiRequest
             'description' => 'required|string',
             'android_url' => 'required|url',
             'ios_url' => 'required|url',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif',
             'type' => 'required|numeric|in:' . enumCaseValue(ApplicationInfoTypeEnum::class),
         ];
     }
