@@ -31,13 +31,14 @@ class ApplicationInfoService
     public function store($dataRequest): DataStatus
     {
         try {
-            $appInfo = ApplicationInfo::updateOrCreate(['type' => $dataRequest->type], [
-                'description' => $dataRequest->description,
-                'android_url' => $dataRequest->android_url,
-                'ios_url' => $dataRequest->ios_url,
-                'image' => upload_image($dataRequest->image, 'appinfo'),
-                'type' => $dataRequest->type
-            ]);
+            $data['description'] = $dataRequest->description;
+            $data['android_url'] = $dataRequest->android_url;
+            $data['ios_url'] = $dataRequest->ios_url;
+            $data['type'] = $dataRequest->type;
+            if ($dataRequest->image) {
+                $data['image'] = upload_image($dataRequest->image, 'appinfo');
+            }
+            $appInfo = ApplicationInfo::updateOrCreate(['type' => $dataRequest->type], $data);
             return new DataSuccess(
                 data: new ApplicationInfoResource($appInfo),
                 status: true,
