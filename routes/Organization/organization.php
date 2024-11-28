@@ -62,6 +62,7 @@ use App\Http\Controllers\Organization\Landingpage\ServiceFeatureController;
 use App\Http\Controllers\Organization\MainSession\FetchMainSessionController;
 use App\Http\Controllers\Organization\Competition\CompetitionRewardController;
 use App\Http\Controllers\Organization\QuestionBank\FetchQuestionBankContoller;
+use App\Http\Controllers\Organization\ApplicationInfo\ApplicationInfoController;
 use App\Http\Controllers\Organization\Curriculum\FetchCurriculumStageController;
 use App\Http\Controllers\Organization\LibraryCategory\LibraryCategoryController;
 use App\Http\Controllers\Organization\Competition\AssignCompetitionRewardController;
@@ -259,6 +260,11 @@ Route::middleware('auth:organization')->group(function () {
     Route::controller(ExamResultController::class)->group(function () {
         Route::post('fetch_exam_results', 'index');
         Route::post('show_exam_result_answers', 'show');
+    });
+    //APPLICATION INFO
+    Route::controller(ApplicationInfoController::class)->group(function () {
+        Route::post('fetch_application_info', 'show');
+        Route::post('store_application_info', 'store');
     });
 
 
