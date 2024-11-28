@@ -22,7 +22,11 @@ class ExamResultService
     public function index()
     {
         try {
-            $examResults = ExamResult::orderBy('id', 'desc')->paginate(10);
+            // $examResults = ExamResult::orderBy('id', 'desc')->paginate(10);
+            $examResults = ExamResult::whereHas('exam', function ($query): void {})
+                ->with('exam')
+                ->orderBy('id', 'desc')
+                ->paginate(10);
             return new DataSuccess(
                 data: ExamResultResource::collection($examResults)->response()->getData(true),
                 status: true,
