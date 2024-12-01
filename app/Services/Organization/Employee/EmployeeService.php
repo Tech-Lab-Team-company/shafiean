@@ -26,7 +26,7 @@ class EmployeeService
                 $filter_service->filterTeachers($query, $request);
             }
 
-            $employees = $query->paginate(10);
+            $employees = $query->orderBy('id', 'desc')->paginate(10);
             return new DataSuccess(
                 data: OrganizationEmployeeResource::collection($employees)->response()->getData(true),
                 status: true,
