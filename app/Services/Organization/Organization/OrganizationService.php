@@ -139,6 +139,14 @@ class OrganizationService
             // dd($data);
             $organization->update($data);
             $organization->disability_types()->sync($request->disability_ids);
+
+            $masterManager = Teacher::where('organization_id', $organization->id)->where('is_master', 1)->first();
+            if ($masterManager) {
+                $masterManager->update([
+                    'phone' => $request->manager_phone ?? $organization->manager_phone,
+                    'email' => $request->manager_email ?? $organization->manager_email
+                ]);
+            }
             return new DataSuccess(
                 data: new OrganizationResource($organization),
                 status: true,
