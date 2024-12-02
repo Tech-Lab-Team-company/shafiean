@@ -25,7 +25,7 @@ class DatabaseSeeder extends Seeder
             // CurriculumDisabilityTypeSeeder::class,
             // QuraanSeeder::class,
             // // AyatSeeder::class,
-            // DaySeeder::class,
+            DaySeeder::class,
             BloodTypeTableSeeder::class,
         ]);
     }
