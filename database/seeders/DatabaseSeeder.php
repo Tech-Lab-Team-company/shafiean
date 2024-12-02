@@ -10,7 +10,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call([
-            AdminSeeder::class,
+            // AdminSeeder::class,
             // UserSeeder::class,
             // CountrySeeder::class,
             // CitySeeder::class,
@@ -26,7 +26,7 @@ class DatabaseSeeder extends Seeder
             // QuraanSeeder::class,
             // // AyatSeeder::class,
             // DaySeeder::class,
-            // BloodTypeTableSeeder::class,
+            BloodTypeTableSeeder::class,
         ]);
     }
 }
