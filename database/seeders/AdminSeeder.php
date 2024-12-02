@@ -17,7 +17,7 @@ class AdminSeeder extends Seeder
                 'is_master' => 1
             ]
         );
-        Admin::factory()->count(10)->create();
+        // Admin::factory()->count(10)->create();
     }
 }
 
