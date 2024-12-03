@@ -76,8 +76,8 @@ class ScreenService
                     delete_image(old_image_path: $screen->image, disk: 'public');
                 }
                 $data['image'] = upload_image(image: $dataRequest->image, folder: 'screen');
+                $screen->update($data);
             }
-            $screen->update($data);
             return new DataSuccess(
                 data: new ScreenResource($screen),
                 status: true,
