@@ -87,6 +87,9 @@ class Live100MSIntegrationService
 
             // dd($live);
             $live_info = $live->live_info;
+            $live->update([
+                'leave_date' => null
+            ]);
             return new DataSuccess(
                 status: true,
                 message: 'Room joined successfully',
