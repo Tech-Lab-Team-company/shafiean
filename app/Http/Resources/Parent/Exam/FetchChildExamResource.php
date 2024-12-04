@@ -22,10 +22,12 @@ class FetchChildExamResource extends JsonResource
 
         $groupIds = $this->subscripe_groups()->pluck('group_id')->toArray();
         $examCount = ExamGroup::whereIn('group_id', $groupIds)->get()->count();
-
+        $examGroup = ExamGroup::whereIn('group_id', $groupIds)->first();
+        $teacherName = $examGroup->group->teacher->name;
         return [
             'id' => $this->id,
             'name' => $this->name,
+            'teacher_name' => $teacherName,
             'exam_count' => $examCount,
             'done_exam_count' => $this->exams()->whereHas('exam_results', function ($q) {
                 $q->where('user_id', $this->id);
