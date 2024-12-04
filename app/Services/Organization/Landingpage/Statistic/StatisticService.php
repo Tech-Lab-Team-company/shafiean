@@ -51,7 +51,7 @@ class StatisticService
             $data = [
                 'title' => $dataRequest->title,
                 'sub_title' => $dataRequest->sub_title,
-                'image' => upload_image(image: $dataRequest->image, folder: 'statistic'),
+                // 'image' => upload_image(image: $dataRequest->image, folder: 'statistic'),
             ];
             $statistic = Statistic::create($data);
             return new DataSuccess(
@@ -73,12 +73,12 @@ class StatisticService
             unset($dataRequest['id']);
             $data['title'] = $dataRequest->title;
             $data['sub_title'] = $dataRequest->sub_title;
-            if ($dataRequest->image) {
-                if ($statistic->image) {
-                    delete_image(old_image_path: $statistic->image, disk: 'public');
-                }
-                $data['image'] = upload_image(image: $dataRequest->image, folder: 'statistic');
-            }
+            // if ($dataRequest->image) {
+            //     if ($statistic->image) {
+            //         delete_image(old_image_path: $statistic->image, disk: 'public');
+            //     }
+            //     $data['image'] = upload_image(image: $dataRequest->image, folder: 'statistic');
+            // }
             $statistic->update($data);
             return new DataSuccess(
                 data: new StatisticResource($statistic),

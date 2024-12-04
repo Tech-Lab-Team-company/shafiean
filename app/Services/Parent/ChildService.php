@@ -68,14 +68,23 @@ class ChildService
             $children = $parent->childs()->paginate(10);
             // dd($children);
             $groups = $children->map(function ($child) {
-                return  $child->subscripe_groups()->pluck('group_id')->toArray();
-            })->flatten();
-            $sessions = GroupStageSession::whereIn('group_id', $groups)->orderBy('id', 'desc')->get();
-            // dd($sessions);
+                return [
+                    'child_id' => $child->id,
+                    'group_ids' => $child->subscripe_groups()->pluck('group_id')->toArray(),
+                ];
+                // return  $child->subscripe_groups()->pluck('group_id')->toArray();
+            });
+            $sessions = GroupStageSession::whereIn('group_id', $groups[0]['group_ids'])->orderBy('id', 'desc')->get();
             // dd($children);
+            $childId = $groups[0]['child_id'];
+            // dd($childId);
             return new DataSuccess(
                 // data: ChildAttendanceResource::collection($children),
-                data: ChildSessionAttendanceResource::collection($sessions)->response()->getData(true),
+                data: ChildSessionAttendanceResource::collection($sessions)->map(function ($session) use ($childId) {
+                    return (new ChildSessionAttendanceResource($session))->additional([
+                        'child_id' => $childId
+                    ]);
+                }),
                 status: true,
                 message: 'success',
             );

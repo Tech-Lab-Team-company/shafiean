@@ -18,7 +18,7 @@ class StatisticResource extends JsonResource
             'id' => $this->id ?? 0,
             'title' => $this->title ?? "",
             'sub_title' => $this->sub_title ?? "",
-            'image' => $this->image_link ?? "",
+            // 'image' => $this->image_link ?? "",
         ];
     }
 }
