@@ -3,15 +3,18 @@
 
 namespace App\Services\Parent;
 
+use App\Models\User;
 use App\Models\GroupStageSession;
 use App\Helpers\Response\DataFailed;
 use App\Helpers\Response\DataStatus;
+use Illuminate\Support\Facades\Auth;
 use App\Helpers\Response\DataSuccess;
+use App\Http\Resources\UserNameResource;
 use App\Http\Resources\Parent\Child\ChildResource;
+use App\Http\Resources\Parent\Exam\ChildExamResource;
 use App\Http\Resources\Parent\Exam\FetchChildExamResource;
 use App\Http\Resources\Parent\Child\ChildAttendanceResource;
 use App\Http\Resources\Parent\Session\ChildSessionAttendanceResource;
-use App\Models\User;
 
 class ChildService
 {
@@ -39,15 +42,25 @@ class ChildService
             /**
              * @var User
              */
-            $parent = auth()->guard('user')->user();
-            if (isset($request->student_id)) {
-                $children = $parent->childs()->where('users.id', $request->student_id)->orderBy('id', 'desc')->get();
-            } else {
-                $children = $parent->childs;
-            }
-            // dd($children);
+            $parent = Auth::guard('user')->user();
+            // if (isset($request->student_id)) {
+            $children = $parent->childs()->where('users.id', $request->student_id)->orderBy('id', 'desc')->first();
+            // } else {
+            // $children = $parent->childs;
+            // }
+            // $parent = auth()->guard('user')->user();
+            // // if (isset($request->student_id)) {
+            // $children = $parent->childs()->where('users.id', $request->student_id)->orderBy('id', 'desc')->get();
+            // // } else {
+            // // $children = $parent->childs;
+            // // }
+            $childId = $children->id;
+            $exams = $children->exams;
             return new DataSuccess(
-                data: FetchChildExamResource::collection($children),
+                // data: FetchChildExamResource::collection($children),
+                data: ChildExamResource::collection($exams)->map(function ($exam) use ($childId) {
+                    return (new ChildExamResource($exam))->additional(['child_id' => $childId]);
+                }),
                 status: true,
                 message: 'success',
             );
@@ -85,6 +98,23 @@ class ChildService
                         'child_id' => $childId
                     ]);
                 }),
+                status: true,
+                message: 'success',
+            );
+        } catch (\Exception $e) {
+            return new DataFailed(
+                status: false,
+                message: $e->getMessage()
+            );
+        }
+    }
+    public function parentChildren(): DataStatus
+    {
+        try {
+            $parent = Auth::guard('user')->user();
+            $children = $parent->childs;
+            return new DataSuccess(
+                data: UserNameResource::collection($children),
                 status: true,
                 message: 'success',
             );

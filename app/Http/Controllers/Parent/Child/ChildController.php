@@ -10,7 +10,8 @@ class ChildController extends Controller
 {
     protected $childService;
 
-    public function __construct(ChildService $childService){
+    public function __construct(ChildService $childService)
+    {
         $this->childService = $childService;
     }
     public function academic_report(Request $request)
@@ -25,5 +26,9 @@ class ChildController extends Controller
     public function session_attendance_report(Request $request)
     {
         return $this->childService->session_attendance_report($request)->response();
+    }
+    public function parentChildren()
+    {
+        return $this->childService->parentChildren()->response();
     }
 }
