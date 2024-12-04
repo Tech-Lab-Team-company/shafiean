@@ -29,12 +29,22 @@ class AttendanceService
                     message: 'Live not found'
                 );
             }
-            $user_session = UserSession::create([
-                'user_id' => auth()->guard('user')->user()->id,
-                'group_id' => $session->group->id,
-                'session_id' => $request->session_id,
-                'live_id' => $live->id,
+            $userId = auth()->guard('user')->user()->id;
+            $groupId = $session->group->id;
+            $sessionId = $request->session_id;
+            $liveId = $live->id;
+            $user_session = UserSession::updateOrCreate([
+                'user_id' => $userId,
+                'group_id' => $groupId,
+                'session_id' => $sessionId,
+                'live_id' => $live->id
+            ], [
+                'user_id' => $userId,
+                'group_id' => $groupId,
+                'session_id' => $sessionId,
+                'live_id' => $liveId,
                 'from' => now(),
+                'is_attendan' => UserSessionAttendanEnum::ATTENDAN->value
             ]);
             return new DataSuccess(
                 status: true,
