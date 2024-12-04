@@ -43,21 +43,10 @@ class ChildService
              * @var User
              */
             $parent = Auth::guard('user')->user();
-            // if (isset($request->student_id)) {
             $children = $parent->childs()->where('users.id', $request->student_id)->orderBy('id', 'desc')->first();
-            // } else {
-            // $children = $parent->childs;
-            // }
-            // $parent = auth()->guard('user')->user();
-            // // if (isset($request->student_id)) {
-            // $children = $parent->childs()->where('users.id', $request->student_id)->orderBy('id', 'desc')->get();
-            // // } else {
-            // // $children = $parent->childs;
-            // // }
             $childId = $children->id;
             $exams = $children->exams;
             return new DataSuccess(
-                // data: FetchChildExamResource::collection($children),
                 data: ChildExamResource::collection($exams)->map(function ($exam) use ($childId) {
                     return (new ChildExamResource($exam))->additional(['child_id' => $childId]);
                 }),
@@ -71,6 +60,31 @@ class ChildService
             );
         }
     }
+    // public function exam_report($request): DataStatus
+    // {
+    //     try {
+    //         /**
+    //          * @var User
+    //          */
+    //         $parent = auth()->guard('user')->user();
+    //         if (isset($request->student_id)) {
+    //             $children = $parent->childs()->where('users.id', $request->student_id)->get();
+    //         } else {
+    //             $children = $parent->childs;
+    //         }
+    //         // dd($children);
+    //         return new DataSuccess(
+    //             data: FetchChildExamResource::collection($children),
+    //             status: true,
+    //             message: 'success',
+    //         );
+    //     } catch (\Exception $e) {
+    //         return new DataFailed(
+    //             status: false,
+    //             message: $e->getMessage()
+    //         );
+    //     }
+    // }
     public function session_attendance_report($request): DataStatus
     {
         try {
