@@ -4,13 +4,14 @@ namespace App\Services\User\Attendance;
 
 
 use App\Models\User;
+use App\Models\UserSession;
 use App\Models\GroupStageSession;
 use App\Helpers\Response\DataFailed;
 use App\Helpers\Response\DataStatus;
+use App\Enum\UserSessionAttendanEnum;
 use App\Helpers\Response\DataSuccess;
-use App\Http\Resources\User\Attendance\AttendanceResource;
-use App\Models\UserSession;
 use App\Services\Global\FilterService;
+use App\Http\Resources\User\Attendance\AttendanceResource;
 
 class AttendanceService
 {
@@ -75,6 +76,7 @@ class AttendanceService
             $user_session = UserSession::where('user_id', auth()->guard('user')->user()->id)->where('session_id', $request->session_id)->first();
             $user_session->update([
                 'to' => now(),
+                'is_attendan' => UserSessionAttendanEnum::NOT_ATTENDAN->value
             ]);
             return new DataSuccess(
                 status: true,

@@ -131,7 +131,6 @@ class User extends Authenticatable
 
     public function parent()
     {
-
         return $this->belongsToMany(User::class, 'user_relations', 'child_id', 'parent_id')->withTimestamps();
     }
 

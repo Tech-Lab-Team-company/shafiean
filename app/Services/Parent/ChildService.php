@@ -19,10 +19,10 @@ class ChildService
     {
         try {
             $parent = auth()->guard('user')->user();
-            $children = $parent->childs;
+            $children = $parent->childs()->paginate(10);
             // dd($children);
             return new DataSuccess(
-                data: ChildResource::collection($children),
+                data: ChildResource::collection($children)->response()->getData(true),
                 status: true,
                 message: 'success',
             );
@@ -61,8 +61,11 @@ class ChildService
     public function session_attendance_report($request): DataStatus
     {
         try {
+            // /**
+            //  * @var User
+            //  */
             $parent = auth()->guard('user')->user();
-            $children = $parent->childs;
+            $children = $parent->childs()->paginate(10);
             // dd($children);
             $groups = $children->map(function ($child) {
                 return  $child->subscripe_groups()->pluck('group_id')->toArray();
@@ -72,7 +75,7 @@ class ChildService
             // dd($children);
             return new DataSuccess(
                 // data: ChildAttendanceResource::collection($children),
-                data: ChildSessionAttendanceResource::collection($sessions),
+                data: ChildSessionAttendanceResource::collection($sessions)->response()->getData(true),
                 status: true,
                 message: 'success',
             );

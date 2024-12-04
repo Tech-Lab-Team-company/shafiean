@@ -3,13 +3,14 @@
 namespace App\Services\Organization\Attendance;
 
 use App\Models\User;
+use App\Models\UserSession;
 use App\Models\GroupStageSession;
 use App\Helpers\Response\DataFailed;
 use App\Helpers\Response\DataStatus;
+use App\Enum\UserSessionAttendanEnum;
 use App\Helpers\Response\DataSuccess;
-use App\Http\Resources\Organization\Attendance\AttendanceResource;
-use App\Models\UserSession;
 use App\Services\Global\FilterService;
+use App\Http\Resources\Organization\Attendance\AttendanceResource;
 
 class AttendanceService
 {
@@ -66,7 +67,10 @@ class AttendanceService
     {
         try {
 
-            $user_session = UserSession::where('session_id', $request->session_id)->orderBy('id', 'desc')->get();
+            $user_session = UserSession::where('session_id', $request->session_id)
+                ->whereIsAttendan(UserSessionAttendanEnum::ATTENDAN->value)
+                ->orderBy('id', 'desc')
+                ->get();
             return new DataSuccess(
                 status: true,
                 data: AttendanceResource::collection($user_session),
