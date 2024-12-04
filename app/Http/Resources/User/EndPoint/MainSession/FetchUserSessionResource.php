@@ -18,7 +18,7 @@ class FetchUserSessionResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        $isLive = $this->lives()->count() > 0 ? true : false;
+        $isLive = $this->lives()->whereLeaveDate(null)->count() > 0 ? true : false;
         return [
             'id' => $this->id ?? 0,
             'title' => $this->session->title ?? "",
