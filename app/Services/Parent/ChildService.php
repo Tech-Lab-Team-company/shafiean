@@ -42,6 +42,7 @@ class ChildService
             /**
              * @var User
              */
+            dd( $request->student_id);
             $parent = Auth::guard('user')->user();
             $children = $parent->childs()->where('users.id', $request->student_id)->orderBy('id', 'desc')->first();
             $childId = $children->id;
