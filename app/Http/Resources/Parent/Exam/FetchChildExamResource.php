@@ -17,6 +17,7 @@ class FetchChildExamResource extends JsonResource
     {
         $exams = $this->exams()->get();
         $exams->each(function ($exam) {
+            // dd($exam->questions()->count());
             $exam->child_id = $this->id;
         });
 
@@ -29,6 +30,7 @@ class FetchChildExamResource extends JsonResource
             'name' => $this->name,
             'teacher_name' => $teacherName,
             'exam_count' => $examCount,
+            // 'question_count' => $exams->questions()->count(),
             'done_exam_count' => $this->exams()->whereHas('exam_results', function ($q) {
                 $q->where('user_id', $this->id);
             })->count(),
