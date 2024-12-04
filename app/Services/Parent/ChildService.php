@@ -38,7 +38,7 @@ class ChildService
     }
     public function exam_report($request): DataStatus
     {
-        try {
+        // try {
             /**
              * @var User
              */
@@ -53,12 +53,12 @@ class ChildService
                 status: true,
                 message: 'success',
             );
-        } catch (\Exception $e) {
-            return new DataFailed(
-                status: false,
-                message: $e->getMessage()
-            );
-        }
+        // } catch (\Exception $e) {
+        //     return new DataFailed(
+        //         status: false,
+        //         message: $e->getMessage()
+        //     );
+        // }
     }
     // public function exam_report($request): DataStatus
     // {
