@@ -15,9 +15,14 @@ class ChildExamResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        // dd($this);
         $examGroup = ExamGroup::whereExamId($this->id)->first();
         $teacher = $examGroup->group->teacher;
-        $exam_result = $this->exam_results()->where('user_id', $this->additional['child_id'])->first();
+        if (isset($this->additional['child_id'])) {
+            $exam_result = $this->exam_results()->where('user_id', $this->additional['child_id'])->first();
+        } else {
+            $exam_result = $this->exam_results()->whereIn('user_id', $this->additional['children_ids'])->first();
+        }
         return [
             'id' => $this->id,
             'name' => $this->name,
