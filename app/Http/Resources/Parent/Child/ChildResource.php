@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Parent\Child;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -18,7 +19,7 @@ class ChildResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'last_rate_date' => $last_rate?->created_at->format('Y-m-d') ?? '',
+            'last_rate_date' =>  $last_rate ? Carbon::parse($last_rate->created_at)->format('Y-m-d') : "",
             'total_degree' => $this->examResults()->sum('grade'),
         ];
     }

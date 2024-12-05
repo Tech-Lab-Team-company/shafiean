@@ -14,6 +14,7 @@ use App\Http\Resources\ParentChildrenResource;
 use App\Http\Resources\Parent\Child\ChildResource;
 use App\Http\Resources\Parent\Exam\ChildExamResource;
 use App\Http\Resources\Parent\Exam\LittleChildExamResource;
+use App\Http\Resources\Parent\Child\ChildSessionTeacherReateResource;
 use App\Http\Resources\Parent\Session\ChildSessionAttendanceResource;
 
 class ChildService
@@ -26,12 +27,12 @@ class ChildService
              */
             $parent = Auth::guard('user')->user();
             if (isset($request->child_id)) {
-                $child = $parent->childs()->where('users.id', $request->child_id)->first();
+                $child = $parent->childs()->where('users.id', $request->child_id)->first()->received_rates;
             } else {
-                $children = $parent->childs()->paginate(10);
+                $children = $parent->childs()->get();
             }
             return new DataSuccess(
-                data: isset($children)  ? ChildResource::collection($children)->response()->getData(true) : new ChildResource($child),
+                data: isset($children)  ? ChildResource::collection($children)->response()->getData(true) :  ChildSessionTeacherReateResource::collection($child),
                 status: true,
                 message: 'success',
             );
