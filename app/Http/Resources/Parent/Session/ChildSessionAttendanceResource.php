@@ -9,7 +9,6 @@ class ChildSessionAttendanceResource extends JsonResource
 {
     public function toArray(Request $request): array
     {
-
         $is_attend = $this->users()->where('user_id', $this->additional['child_id'])->exists() ? 1 : 0;
         $user_session = $this->users()->where('user_id', $this->additional['child_id'])->first();
         return [
