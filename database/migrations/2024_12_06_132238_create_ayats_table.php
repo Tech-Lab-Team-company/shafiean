@@ -12,10 +12,10 @@ class CreateAyatsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('surah_id')->nullable();
             $table->text('text')->nullable();
-            $table->tinyInteger('number')->nullable();
-            $table->tinyInteger('juz')->nullable();
-            $table->tinyInteger('page')->nullable();
-            $table->tinyInteger('number_in_surah')->nullable();
+            $table->integer('number')->nullable();
+            $table->integer('juz')->nullable();
+            $table->integer('page')->nullable();
+            $table->integer('number_in_surah')->nullable();
             $table->string('audio')->nullable();
             $table->foreign('surah_id')->references('id')->on('surahs')->onDelete('set null');
             $table->softDeletes();

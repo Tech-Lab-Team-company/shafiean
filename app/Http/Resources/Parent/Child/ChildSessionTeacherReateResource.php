@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Parent\Child;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -14,12 +15,15 @@ class ChildSessionTeacherReateResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        $last_rate = $this->received_rates()->latest()->first();
         return [
-            'id' => $this->id,
-            'name' => $this->name,
-            'last_rate_date' => $last_rate?->created_at->format('Y-m-d') ?? '',
-            'total_degree' => $this->examResults()->sum('grade'),
+            'id' => $this->id ?? 0,
+            'session_name' => $this->session->title ?? "",
+            'teacher_name' => $this->teacher->name ?? "",
+            'student_understanding' => $this->student_understanding ?? 0,
+            's_understanding_comment' => $this->s_understanding_comment ?? "",
+            'student_performance' => $this->student_performance ?? 0,
+            's_performance_comment' => $this->s_performance_comment ?? "",
+            'rate_date' => Carbon::parse($this->created_at)->format('Y-m-d'),
         ];
     }
 }

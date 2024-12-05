@@ -19,9 +19,7 @@ class SurahApiProviderController extends Controller
         ];
         $apiService = new ApiMethodsService();
         $response = $apiService->withHeaders($headers)/*->withQuery($currency->toMap())*/->getApiData($apiURL);
-        return $response;
         foreach ($response['data']['surahs'] as $surah) {
-            // dd(collect($surah['ayahs']));
             $databaseSurah = Surah::firstOrCreate([
                 'name' => $surah['name'],
                 'number' => $surah['number'],
@@ -29,8 +27,6 @@ class SurahApiProviderController extends Controller
             ]);
             $ayahs = collect($surah['ayahs']);
             foreach ($ayahs as $ayah) {
-
-                // dd($ayah);
                 Ayat::firstOrCreate([
                     'surah_id' => $databaseSurah->id,
                     'text' => $ayah['text'],
