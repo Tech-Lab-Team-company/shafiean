@@ -8,7 +8,7 @@ use App\Http\Resources\Organization\User\UserGroupResource;
 use App\Http\Resources\Organization\UserRelation\UserRelationResource;
 use App\Models\Organization\UserRelation\UserRelation;
 
-class UserNameResource extends JsonResource
+class ParentChildrenResource extends JsonResource
 {
 
     public function toArray($request)
@@ -16,6 +16,7 @@ class UserNameResource extends JsonResource
         return [
             'id' => $this->id ?? 0,
             'name' => $this->name ?? "",
+            'image' => $this->image_link ?? "",
         ];
     }
 }
