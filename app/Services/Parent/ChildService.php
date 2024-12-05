@@ -83,9 +83,9 @@ class ChildService
              */
             $parent = Auth::guard('user')->user();
             $children = $parent->childs()->where('users.id', $request->child_id)->orderBy('id', 'desc')->first();
-            $exams = $children->exams()->paginate(10);
+            $exams = $children->exams()->get();
             return new DataSuccess(
-                data: LittleChildExamResource::collection($exams)->response()->getData(true),
+                data: LittleChildExamResource::collection($exams),
                 status: true,
                 message: 'success',
             );

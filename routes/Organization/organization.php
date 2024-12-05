@@ -52,6 +52,7 @@ use App\Http\Controllers\Organization\Landingpage\SubheaderController;
 use App\Http\Controllers\Organization\Blog\FetchBlogCategoryController;
 
 use App\Http\Controllers\Organization\Relation\FetchRelationController;
+use App\Http\Controllers\Organization\Surah\SurahApiProviderController;
 use App\Http\Controllers\Organization\Competition\CompetitionController;
 use App\Http\Controllers\Organization\BloodType\FetchBloodTypeController;
 use App\Http\Controllers\Organization\QuestionBank\QuestionBankController;
@@ -77,7 +78,7 @@ Route::controller(AuthController::class)->group(function () {
 });
 
 Route::middleware('auth:organization')->group(function () {
-
+    Route::get('fetch_surah', [SurahApiProviderController::class, 'fetchSurah']);
     //EXAM STUDENT
     // Route::controller(ExamStudentController::class)->group(function () {
     //     Route::post('fetch_exam_students', 'index');
