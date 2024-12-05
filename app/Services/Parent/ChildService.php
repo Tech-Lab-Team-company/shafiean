@@ -9,11 +9,12 @@ use App\Helpers\Response\DataFailed;
 use App\Helpers\Response\DataStatus;
 use Illuminate\Support\Facades\Auth;
 use App\Helpers\Response\DataSuccess;
+use App\Models\Organization\Exam\ExamResult;
 use App\Http\Resources\ParentChildrenResource;
 use App\Http\Resources\Parent\Child\ChildResource;
 use App\Http\Resources\Parent\Exam\ChildExamResource;
+use App\Http\Resources\Parent\Exam\LittleChildExamResource;
 use App\Http\Resources\Parent\Session\ChildSessionAttendanceResource;
-use App\Models\Organization\Exam\ExamResult;
 
 class ChildService
 {
@@ -64,6 +65,27 @@ class ChildService
                 data: ChildExamResource::collection($exams)->map(function ($exam) use ($childId, $childrenIds) {
                     return (new ChildExamResource($exam))->additional(['child_id' => $childId, 'children_ids' => $childrenIds]);
                 }),
+                status: true,
+                message: 'success',
+            );
+        } catch (\Exception $e) {
+            return new DataFailed(
+                status: false,
+                message: $e->getMessage()
+            );
+        }
+    }
+    public function littleExamReport($request): DataStatus
+    {
+        try {
+            /**
+             * @var User
+             */
+            $parent = Auth::guard('user')->user();
+            $children = $parent->childs()->where('users.id', $request->child_id)->orderBy('id', 'desc')->first();
+            $exams = $children->exams()->paginate(10);
+            return new DataSuccess(
+                data: LittleChildExamResource::collection($exams)->response()->getData(true),
                 status: true,
                 message: 'success',
             );

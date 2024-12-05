@@ -22,6 +22,10 @@ class ChildController extends Controller
     {
         return $this->childService->exam_report($request)->response();
     }
+    public function littleExamReport(Request $request)
+    {
+        return $this->childService->littleExamReport($request)->response();
+    }
 
     public function session_attendance_report(Request $request)
     {
