@@ -44,8 +44,8 @@ class ChildService
          */
         $parent = Auth::guard('user')->user();
         $children = $parent->childs()->where('users.id', $request->student_id)->orderBy('id', 'desc')->first();
-        $childId = $children->id ?? null;
-        $exams = $children->exams ?? [];
+        $childId = $children->id;
+        $exams = $children->exams;
         return new DataSuccess(
             data: ChildExamResource::collection($exams)->map(function ($exam) use ($childId, $children) {
                 return (new ChildExamResource($exam))->additional(['child_id' => $childId]);
