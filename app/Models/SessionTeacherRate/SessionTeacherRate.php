@@ -2,6 +2,7 @@
 
 namespace App\Models\SessionTeacherRate;
 
+use App\Models\GroupStageSession;
 use App\Models\User;
 use App\Models\Teacher;
 use App\Models\MainSession;
@@ -26,8 +27,8 @@ class SessionTeacherRate extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
-    public function session(): BelongsTo
+    public function groupStageSession(): BelongsTo
     {
-        return $this->belongsTo(MainSession::class, 'session_id');
+        return $this->belongsTo(GroupStageSession::class, 'session_id');
     }
 }

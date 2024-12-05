@@ -17,7 +17,7 @@ class ChildSessionTeacherReateResource extends JsonResource
     {
         return [
             'id' => $this->id ?? 0,
-            'session_name' => $this->session->title ?? "",
+            'session_name' => $this->groupStageSession->session->title ?? "",
             'teacher_name' => $this->teacher->name ?? "",
             'student_understanding' => $this->student_understanding ?? 0,
             's_understanding_comment' => $this->s_understanding_comment ?? "",
