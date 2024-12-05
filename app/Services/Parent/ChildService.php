@@ -9,11 +9,9 @@ use App\Helpers\Response\DataFailed;
 use App\Helpers\Response\DataStatus;
 use Illuminate\Support\Facades\Auth;
 use App\Helpers\Response\DataSuccess;
-use App\Http\Resources\UserNameResource;
+use App\Http\Resources\ParentChildrenResource;
 use App\Http\Resources\Parent\Child\ChildResource;
 use App\Http\Resources\Parent\Exam\ChildExamResource;
-use App\Http\Resources\Parent\Exam\FetchChildExamResource;
-use App\Http\Resources\Parent\Child\ChildAttendanceResource;
 use App\Http\Resources\Parent\Session\ChildSessionAttendanceResource;
 
 class ChildService
@@ -128,7 +126,7 @@ class ChildService
             $parent = Auth::guard('user')->user();
             $children = $parent->childs;
             return new DataSuccess(
-                data: UserNameResource::collection($children),
+                data: ParentChildrenResource::collection($children),
                 status: true,
                 message: 'success',
             );
