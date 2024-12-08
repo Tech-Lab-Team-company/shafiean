@@ -25,11 +25,11 @@ class AddSessionRequest extends ApiRequest
         return [
             "title" => "required|string",
             "stage_id" => "required|exists:stages,id",
-            "quraan_id" => "required|exists:quraan,id",
+            "surah_id" => "required|exists:surahs,id",
             // "session_type_id" => "required|exists:session_types,id",
             "organization_id" => "nullable|exists:organizations,id",
-            "start_verse" => "nullable|numeric",
-            "end_verse" => "nullable|numeric",
+            'start_ayah_id' => 'required|exists:ayahs,id',
+            'end_ayah_id' => 'required|exists:ayahs,id',
         ];
     }
 }
