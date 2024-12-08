@@ -13,6 +13,7 @@ use App\Http\Controllers\Organization\Exam\ExamController;
 use App\Http\Controllers\Organization\Rate\RateController;
 use App\Http\Controllers\Organization\User\UserController;
 use App\Http\Controllers\Organization\Group\GroupController;
+use App\Http\Controllers\Organization\Surah\SurahController;
 use App\Http\Controllers\Organization\Answer\AnswerController;
 use App\Http\Controllers\Organization\Course\CourseController;
 use App\Http\Controllers\Global\Live100MSIntegrationController;
@@ -47,10 +48,10 @@ use App\Http\Controllers\Organization\Attendance\AttendanceController;
 use App\Http\Controllers\Organization\Blog\FetchBlogHashtagController;
 use App\Http\Controllers\Organization\ExamResult\ExamResultController;
 use App\Http\Controllers\Organization\Landingpage\StatisticController;
+
 use App\Http\Controllers\Organization\Landingpage\SubheaderController;
 
 use App\Http\Controllers\Organization\Blog\FetchBlogCategoryController;
-
 use App\Http\Controllers\Organization\Relation\FetchRelationController;
 use App\Http\Controllers\Organization\Surah\SurahApiProviderController;
 use App\Http\Controllers\Organization\Competition\CompetitionController;
@@ -336,6 +337,10 @@ Route::middleware('auth:organization')->group(function () {
     Route::post('organization_fetch_parents', FetchParentController::class);
     //RELATION
     Route::post('organization_fetch_relations', FetchRelationController::class);
+    //RELATION
+    Route::post('organization_fetch_relations', FetchRelationController::class);
+    //SURAH
+    Route::post('organization_fetch_surahs', [SurahController::class, 'fetchSurahs']);
 
 
     /**
