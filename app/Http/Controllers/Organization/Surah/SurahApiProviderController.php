@@ -13,7 +13,7 @@ use App\Services\Admin\SurahApiProvider\SurahApiProviderService;
 class SurahApiProviderController extends Controller
 {
     public function __construct(protected SurahApiProviderService $surahApiProviderService) {}
-    public function fetchSurah()
+    public function fetchSurahApiProvider()
     {
         return $this->surahApiProviderService->store()->response();
         // $apiURL = 'https://api.alquran.cloud/v1/quran/ar.alafasy';

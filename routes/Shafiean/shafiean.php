@@ -136,7 +136,7 @@ Route::middleware('auth:admin')->group(function () {
         }
     );
     //API PROVIDER SURAH
-    Route::get('fetch_surah', [SurahApiProviderController::class, 'fetchSurah']);
+    Route::get('fetch_surah_api_provider', [SurahApiProviderController::class, 'fetchSurahApiProvider']);
 
     /**
      * END POINT START
