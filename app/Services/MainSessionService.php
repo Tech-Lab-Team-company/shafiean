@@ -39,10 +39,10 @@ class MainSessionService
         try {
             $data['title'] = $request->title;
             $data['stage_id'] = $request->stage_id;
-            $data['quraan_id'] = $request->quraan_id;
+            $data['surah_id'] = $request->surah_id;
             $data['session_type_id'] = $request->session_type_id;
-            $data['start_verse'] = $request->start_verse;
-            $data['end_verse'] = $request->end_verse;
+            $data['start_ayah_id'] = $request->start_ayah_id;
+            $data['end_ayah_id'] = $request->end_ayah_id;
             $mainSession = MainSession::create($data);
             return new DataSuccess(
                 data: new MainSessionResource($mainSession),
