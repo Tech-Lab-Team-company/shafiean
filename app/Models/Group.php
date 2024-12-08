@@ -32,7 +32,10 @@ class Group extends Model
 
         return $this->belongsToMany(User::class, 'subscriptions', 'group_id', 'user_id')->withTimestamps();
     }
-
+    public function subscriptions()
+    {
+        return $this->hasMany(Subscription::class, 'group_id');
+    }
     public function days()
     {
         return $this->belongsToMany(Day::class, 'group_days', 'group_id', 'day_id')->withPivot('start_time', 'end_time')->withTimestamps();
