@@ -14,8 +14,11 @@ use App\Http\Resources\ParentChildrenResource;
 use App\Http\Resources\Parent\Child\ChildResource;
 use App\Http\Resources\Parent\Exam\ChildExamResource;
 use App\Http\Resources\Parent\Exam\LittleChildExamResource;
+use App\Http\Resources\User\Report\CompetitionReportResource;
+use App\Http\Resources\Organization\Competition\CompetitionResource;
 use App\Http\Resources\Parent\Child\ChildSessionTeacherReateResource;
 use App\Http\Resources\Parent\Session\ChildSessionAttendanceResource;
+use App\Http\Resources\Parent\CompetitionReport\ChildCompetitionReportResource;
 
 class ChildService
 {
@@ -132,6 +135,27 @@ class ChildService
                         'child_id' => $childId
                     ]);
                 }),
+                status: true,
+                message: 'success',
+            );
+        } catch (\Exception $e) {
+            return new DataFailed(
+                status: false,
+                message: $e->getMessage()
+            );
+        }
+    }
+    public function competitionReport($dataRequest): DataStatus
+    {
+        try {
+            /**
+             * @var User
+             */
+            $parent = Auth::guard('user')->user();
+            $child = $parent->childs()->where('users.id', $dataRequest->child_id)->first();
+            $competitions = $child->competitions;
+            return new DataSuccess(
+                data: ChildCompetitionReportResource::collection($competitions),
                 status: true,
                 message: 'success',
             );
