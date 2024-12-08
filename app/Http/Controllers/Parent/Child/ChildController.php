@@ -32,6 +32,10 @@ class ChildController extends Controller
     {
         return $this->childService->session_attendance_report($request)->response();
     }
+    public function competitionReport(ParentChildDetailsRequest $request)
+    {
+        return $this->childService->competitionReport($request)->response();
+    }
     public function parentChildren()
     {
         return $this->childService->parentChildren()->response();
