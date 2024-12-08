@@ -15,5 +15,6 @@ Route::middleware('auth:user')->group(function () {
         Route::post('little_exam_report', 'littleExamReport');
         Route::post('session_attendance_report', 'session_attendance_report');
         Route::post('parent_children', 'parentChildren');
+        Route::post('parent_child_details', 'parentChildDetails');
     });
 });

@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Parent\Child;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Services\Parent\ChildService;
-use Illuminate\Http\Request;
+use App\Http\Requests\Parent\ParentChildDetailsRequest;
 
 class ChildController extends Controller
 {
@@ -34,5 +35,9 @@ class ChildController extends Controller
     public function parentChildren()
     {
         return $this->childService->parentChildren()->response();
+    }
+    public function parentChildDetails(ParentChildDetailsRequest $request)
+    {
+        return $this->childService->parentChildDetails($request)->response();
     }
 }
