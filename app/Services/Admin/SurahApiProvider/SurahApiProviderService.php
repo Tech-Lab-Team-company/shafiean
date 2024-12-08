@@ -21,13 +21,14 @@ class SurahApiProviderService
     {
         try {
             $apiData = $this->getApiData();
+            $surahs = [];
             foreach ($apiData['data']['surahs'] as $surah) {
-
                 $databaseSurah = Surah::firstOrCreate([
                     'name' => $surah['name'],
                     'number' => $surah['number'],
                     'revelation_type' => $surah['revelationType'],
                 ]);
+                $surahs[] = $databaseSurah;
                 $ayahs = collect($surah['ayahs']);
                 foreach ($ayahs as $ayah) {
                     Ayah::firstOrCreate([
@@ -42,9 +43,9 @@ class SurahApiProviderService
                 }
             }
             return new DataSuccess(
-                data: SurahResource::collection($databaseSurah)->response()->getData(true),
+                data: SurahResource::collection($surahs),
                 status: true,
-                message: 'Surahs fetched successfully'
+                message: 'Surahs fetched and store in DB successfully'
             );
         } catch (Exception $e) {
             return new DataFailed(

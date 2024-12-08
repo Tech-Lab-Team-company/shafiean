@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Ayah extends Model
 {
     use HasFactory;
-    protected $table = 'ayah';
+    protected $table = 'ayahs';
 
     protected $guarded = [];
 

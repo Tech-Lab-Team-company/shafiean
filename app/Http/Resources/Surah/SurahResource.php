@@ -18,9 +18,9 @@ class SurahResource extends JsonResource
         return [
             'id' => $this->id ?? 0,
             'name' => $this->name ?? '',
-            'number' => $this->number ?? '',
+            'number' => (int) $this->number ?? '',
             'revelation_type' => $this->revelation_type ?? '',
-            'ayahs' => AyahResource::collection($this->ayahs)
+            'ayahs' => AyahResource::collection($this->ayahs) ?? [],
         ];
     }
 }
