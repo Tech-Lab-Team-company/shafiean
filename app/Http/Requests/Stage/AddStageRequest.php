@@ -27,7 +27,7 @@ class AddStageRequest extends ApiRequest
             'description' => 'required|string|max:191',
             'curriculum_id' => 'required|exists:curriculums,id',
             'disability_ids' => 'required|exists:disability_types,id',
-            'quraan_ids' => 'nullable|array|exists:quraan,id',
+            'surah_ids' => 'nullable|array|exists:surahs,id',
         ];
     }
 }

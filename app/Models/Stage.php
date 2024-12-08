@@ -2,6 +2,12 @@
 
 namespace App\Models;
 
+use App\Models\Course;
+use App\Models\Curriculum;
+use App\Models\MainSession;
+use App\Models\Surah\Surah;
+use App\Models\Organization;
+use App\Models\DisabilityType;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -31,10 +37,10 @@ class Stage extends Model
         return $this->belongsToMany(DisabilityType::class, 'stage_disability_types', 'stage_id', 'disability_type_id')->withTimestamps();
     }
 
-    public function quraan()
+    public function surahs()
     {
 
-        return $this->belongsToMany(Quraan::class, 'stage_quraan', 'stage_id', 'quraan_id')->withTimestamps();
+        return $this->belongsToMany(Surah::class, 'stage_surahs', 'stage_id', 'surah_id')->withTimestamps();
     }
 
     public function courses()
