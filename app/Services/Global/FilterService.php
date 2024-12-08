@@ -271,6 +271,13 @@ class FilterService
                     });
                 });
             })
+            ->when($request->has('student_id') && !empty($request->student_id), function ($group_q) use ($request, $student_id) {
+                return $group_q->whereHas('group', function ($subscripe_users_q) use ($request, $student_id) {
+                    $subscripe_users_q->whereHas('subscripe_users', function ($user_q) use ($request, $student_id) {
+                        return $user_q->where('user_id', $student_id);
+                    });
+                });
+            })
             ->when($request->has('with_parent') && !empty($request->with_parent) && $request->with_parent == 1, function ($group_q) use ($request, $student_id) {
                 $user = auth()->guard('user')->user();
                 $childs = $user->childs;
