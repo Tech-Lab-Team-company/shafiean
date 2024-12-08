@@ -159,4 +159,24 @@ class ChildService
             );
         }
     }
+    public function parentChildDetails($dataRequest): DataStatus
+    {
+        try {
+            /**
+             * @var User
+             * */
+            $parent = Auth::guard('user')->user();
+            $children = $parent->childs()->where('users.id', $dataRequest->child_id)->first();
+            return new DataSuccess(
+                data: new  ParentChildrenResource($children),
+                status: true,
+                message: 'success',
+            );
+        } catch (\Exception $e) {
+            return new DataFailed(
+                status: false,
+                message: $e->getMessage()
+            );
+        }
+    }
 }

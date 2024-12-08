@@ -14,8 +14,9 @@ use App\Http\Controllers\Admin\SessionTypeController;
 use App\Http\Controllers\Admin\AdminHistoryController;
 use App\Http\Controllers\Admin\DisabilityTypeController;
 use App\Http\Controllers\Admin\AdminHomeStatisticController;
-use App\Http\Controllers\Admin\EndPoint\FetchCitiesByCountryIdController;
 use App\Http\Controllers\Admin\FetchAdminHomeStatisticController;
+use App\Http\Controllers\Organization\Surah\SurahApiProviderController;
+use App\Http\Controllers\Admin\EndPoint\FetchCitiesByCountryIdController;
 use App\Http\Controllers\Organization\Organization\OrganizationController;
 
 Route::prefix('admin')->group(function () {
@@ -134,6 +135,8 @@ Route::middleware('auth:admin')->group(function () {
             Route::post('fetch_interacted_rate_with_organization_statistics', 'fetchInteractedRateWithOrganization');
         }
     );
+    //API PROVIDER SURAH
+    Route::get('fetch_surah', [SurahApiProviderController::class, 'fetchSurah']);
 
     /**
      * END POINT START

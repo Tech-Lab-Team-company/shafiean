@@ -78,7 +78,7 @@ Route::controller(AuthController::class)->group(function () {
 });
 
 Route::middleware('auth:organization')->group(function () {
-    Route::get('fetch_surah', [SurahApiProviderController::class, 'fetchSurah']);
+    // Route::get('fetch_surah', [SurahApiProviderController::class, 'fetchSurah']);
     //EXAM STUDENT
     // Route::controller(ExamStudentController::class)->group(function () {
     //     Route::post('fetch_exam_students', 'index');
