@@ -17,10 +17,10 @@ class AyahResource extends JsonResource
         return [
             'id' => $this->id ?? 0,
             'text' => $this->text ?? '',
-            'number' => $this->number ?? 0,
-            'juz' => $this->juz ?? 0,
-            'page' => $this->page ?? 0,
-            'number_in_surah' => $this->number_in_surah ?? 0,
+            'number' => (int)$this->number ?? 0,
+            'juz' => (int)$this->juz ?? 0,
+            'page' => (int)$this->page ?? 0,
+            'number_in_surah' => (int)$this->number_in_surah ?? 0,
             'audio' => $this->audio ?? 0,
         ];
     }
