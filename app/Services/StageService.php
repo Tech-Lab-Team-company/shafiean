@@ -59,7 +59,7 @@ class StageService
             $data['curriculum_id'] = $request->curriculum_id;
             $stage = Stage::create($data);
             $stage->disabilityTypes()->attach($request->disability_ids);
-            $stage->quraan()->attach($request->quraan_ids);
+            $stage->surahs()->attach($request->surah_ids);
             return new DataSuccess(
                 data: new StageResource($stage),
                 statusCode: 200,

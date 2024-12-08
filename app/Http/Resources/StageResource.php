@@ -2,6 +2,9 @@
 
 namespace App\Http\Resources;
 
+use App\Http\Resources\CurriculumResource;
+use App\Http\Resources\Surah\SurahResource;
+use App\Http\Resources\DisabilityTypeResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class StageResource extends JsonResource
@@ -15,6 +18,7 @@ class StageResource extends JsonResource
             'curriculum' => new CurriculumResource($this->curriculum),
             'status' => $this->status,
             'disability' => DisabilityTypeResource::collection($this->disabilityTypes),
+            'surahs' => SurahResource::collection($this->surahs),
             // 'type' => $this->type,
         ];
     }

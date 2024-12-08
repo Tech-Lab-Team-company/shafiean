@@ -23,9 +23,9 @@ class SessionService
                 $filter_service->filterSessions($request, $query, $student_id);
             }
 
-            $sessions = $query->orderBy('id', 'desc')->paginate(10);
+            $sessions = $query->orderBy('id', 'desc')->get();
             return new DataSuccess(
-                data: isset($request->with_parent) ? FetchChildSessionResource::collection($sessions)->response()->getData(true) : FetchUserSessionResource::collection($sessions)->response()->getData(true),
+                data: isset($request->with_parent) ? FetchChildSessionResource::collection($sessions) : FetchUserSessionResource::collection($sessions),
                 status: true,
                 message: 'Sessions fetched successfully'
             );
