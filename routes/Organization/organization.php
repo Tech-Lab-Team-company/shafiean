@@ -12,6 +12,7 @@ use App\Http\Controllers\Organization\Blog\BlogController;
 use App\Http\Controllers\Organization\Exam\ExamController;
 use App\Http\Controllers\Organization\Rate\RateController;
 use App\Http\Controllers\Organization\User\UserController;
+use App\Http\Controllers\Admin\AdminHomeStatisticController;
 use App\Http\Controllers\Organization\Group\GroupController;
 use App\Http\Controllers\Organization\Surah\SurahController;
 use App\Http\Controllers\Organization\Answer\AnswerController;
@@ -46,11 +47,11 @@ use App\Http\Controllers\Organization\JobType\FetchJobTypeController;
 use App\Http\Controllers\Organization\Student\FetchStudentController;
 use App\Http\Controllers\Organization\Attendance\AttendanceController;
 use App\Http\Controllers\Organization\Blog\FetchBlogHashtagController;
+
 use App\Http\Controllers\Organization\ExamResult\ExamResultController;
+
 use App\Http\Controllers\Organization\Landingpage\StatisticController;
-
 use App\Http\Controllers\Organization\Landingpage\SubheaderController;
-
 use App\Http\Controllers\Organization\Blog\FetchBlogCategoryController;
 use App\Http\Controllers\Organization\Relation\FetchRelationController;
 use App\Http\Controllers\Organization\Surah\SurahApiProviderController;
@@ -64,6 +65,7 @@ use App\Http\Controllers\Organization\Landingpage\ServiceFeatureController;
 use App\Http\Controllers\Organization\MainSession\FetchMainSessionController;
 use App\Http\Controllers\Organization\Competition\CompetitionRewardController;
 use App\Http\Controllers\Organization\QuestionBank\FetchQuestionBankContoller;
+use App\Http\Controllers\Organization\Home\OrganizationHomeStatisticController;
 use App\Http\Controllers\Organization\ApplicationInfo\ApplicationInfoController;
 use App\Http\Controllers\Organization\Curriculum\FetchCurriculumStageController;
 use App\Http\Controllers\Organization\LibraryCategory\LibraryCategoryController;
@@ -288,7 +290,16 @@ Route::middleware('auth:organization')->group(function () {
         Route::post('edit_rate', 'edit_rate');
         Route::post('delete_rate', 'delete_rate');
     });
-
+    //STATISTIC
+    Route::controller(OrganizationHomeStatisticController::class)->group(
+        function () {
+            Route::post('organization_fetch_count_statistics', 'fetchCounts');
+            Route::post('organization_fetch_latest_students_statistics', 'fetchLatestStudents');
+            Route::post('organization_fetch_most_active_groups_statistics', 'fetchMostActiveGroups');
+            Route::post('organization_fetch_best_places_interacted_with_organization_statistics', 'fetchBestPlacesInteractedWithOrganization');
+            Route::post('organization_fetch_interacted_rate_with_organization_statistics', 'fetchInteractedRateWithOrganization');
+        }
+    );
     /**
      * END POINT START
      */

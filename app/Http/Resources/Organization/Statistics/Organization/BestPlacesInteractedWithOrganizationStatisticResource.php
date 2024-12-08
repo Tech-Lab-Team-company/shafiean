@@ -1,6 +1,6 @@
 <?php
+namespace App\Http\Resources\Organization\Statistics\Organization;
 
-namespace App\Http\Resources\Admin\Statistics\Organization;
 
 
 
@@ -10,7 +10,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\Admin\Statistics\Student\StatisticLatestStudentGroupResource;
 use App\Http\Resources\Admin\Statistics\Student\StatisticLatestStudentDisabilityTypeResource;
 
-class MostActiveOrganizationStatisticResource  extends JsonResource
+class BestPlacesInteractedWithOrganizationStatisticResource  extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -20,10 +20,6 @@ class MostActiveOrganizationStatisticResource  extends JsonResource
     public function toArray(Request $request): array
     {
 
-        return [
-            'id' => $this->id ?? 0,
-            'name' => $this->name ?? "",
-            'user_count' => $this->users_count ?? 0,
-        ];
+        return parent::toArray($request);
     }
 }
