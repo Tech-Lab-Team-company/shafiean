@@ -15,7 +15,8 @@ use App\Helpers\Response\DataSuccess;
 use App\Http\Resources\Admin\Statistics\Count\AdminHomeCountStatisticResource;
 use App\Http\Resources\Admin\Statistics\Student\LatestStudentStatisticResource;
 use App\Http\Resources\Admin\Statistics\Organization\InteractedRateWithOrganizationResource;
-use App\Http\Resources\Admin\Statistics\Organization\MostActiveOrganizationStatisticResource;
+// use App\Http\Resources\Admin\Statistics\Organization\MostActiveOrganizationStatisticResource;
+use App\Http\Resources\Organization\Statistics\Organization\MostActiveOrganizationStatisticResource;
 use App\Http\Resources\Admin\Statistics\Organization\BestPlacesInteractedWithOrganizationStatisticResource;
 
 class AdminHomeStatisticsService
