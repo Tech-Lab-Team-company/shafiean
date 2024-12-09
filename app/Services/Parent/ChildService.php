@@ -69,6 +69,7 @@ class ChildService
                     return $exam->exam;
                 });
             }
+            // dd('children', $childrenIds, 'exams', $exams);
             return new DataSuccess(
                 data: ChildExamResource::collection($exams)->map(function ($exam) use ($childId, $childrenIds) {
                     return (new ChildExamResource($exam))->additional(['child_id' => $childId, 'children_ids' => $childrenIds]);
@@ -91,7 +92,7 @@ class ChildService
              */
             $parent = Auth::guard('user')->user();
             $children = $parent->childs()->where('users.id', $request->child_id)->orderBy('id', 'desc')->first();
-            $exams = $children->exams()->get();
+            $exams = $children->exams;
             return new DataSuccess(
                 data: LittleChildExamResource::collection($exams),
                 status: true,

@@ -21,8 +21,8 @@ class FetchChildSessionResource extends JsonResource
             "curriculum_name" => $this->group->course->curriculum->title ?? "",
             "teacher_name" => $this->group->teacher->name ?? "",
             "teacher_image" => $this->group->teacher->image_link ?? "",
-            'start_time' => (int) $this->session->start_time ?? "",
-            'end_time' => (int) $this->session->end_time ?? "",
+            'start_time' => $this->session->start_time ?? "",
+            'end_time' =>$this->session->end_time ?? "",
         ];
     }
 }

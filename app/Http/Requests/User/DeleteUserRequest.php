@@ -2,8 +2,6 @@
 
 namespace App\Http\Requests\User;
 
-use App\Enum\UserTypeEnum;
-use App\Enum\IdentityTypeEnum;
 use App\Helpers\Response\ApiRequest;
 use Illuminate\Foundation\Http\FormRequest;
 
