@@ -4,21 +4,13 @@ namespace App\Services\Admin\EndPoint;
 
 
 use Exception;
-use Carbon\Carbon;
 use App\Models\City;
-use App\Models\User;
-use App\Models\Teacher;
+use Carbon\Carbon;
 use Carbon\CarbonPeriod;
-use App\Models\Organization;
 use Illuminate\Support\Facades\DB;
 use App\Helpers\Response\DataFailed;
 use App\Helpers\Response\DataSuccess;
 use App\Http\Resources\SimpleCityResource;
-use App\Http\Resources\Admin\Statistics\Count\AdminHomeCountStatisticResource;
-use App\Http\Resources\Admin\Statistics\Student\LatestStudentStatisticResource;
-use App\Http\Resources\Admin\Statistics\Organization\InteractedRateWithOrganizationResource;
-use App\Http\Resources\Admin\Statistics\Organization\MostActiveOrganizationStatisticResource;
-use App\Http\Resources\Admin\Statistics\Organization\BestPlacesInteractedWithOrganizationStatisticResource;
 
 class FetchCitiesByCountryIdService
 {
