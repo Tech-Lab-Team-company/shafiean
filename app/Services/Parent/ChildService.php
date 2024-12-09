@@ -58,10 +58,14 @@ class ChildService
             if (isset($request->child_id)) {
                 $children = $parent->childs()->where('users.id', $request->child_id)->orderBy('id', 'desc')->first();
                 $childId = $children->id;
-                $exams = $children->exams;
+                $exams = $children->exams()->when(filled($request->exam_id), function ($q) use ($request) {
+                    $q->where('exams.id', $request->exam_id);
+                })->get();
             } else {
                 $childrenIds = $parent->childs()->pluck('users.id')->toArray();
-                $exams = ExamResult::whereIn('user_id', $childrenIds)->get()->map(function ($exam) {
+                $exams = ExamResult::when(filled($request->exam_id), function ($q) use ($request) {
+                    $q->where('exam_id', $request->exam_id);
+                })->whereIn('user_id', $childrenIds)->get()->map(function ($exam) {
                     return $exam->exam;
                 });
             }
