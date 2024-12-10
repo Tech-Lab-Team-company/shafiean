@@ -2,8 +2,17 @@
 
 namespace App\Models;
 
+use App\Models\Group;
+use App\Models\Stage;
+use App\Models\Course;
+use App\Models\Quraan;
+use App\Models\CourseStage;
+use App\Models\SessionType;
+use App\Models\Surah\Surah;
+use App\Models\Organization;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class MainSession extends Model
@@ -39,13 +48,27 @@ class MainSession extends Model
         return $this->belongsToMany(CourseStage::class, 'course_stage_sessions', 'session_id', 'course_stage_id')->withTimestamps();
     }
 
-    public function courses() {
+    public function courses()
+    {
 
         return $this->belongsToMany(Course::class, 'course_stage_sessions', 'session_id', 'course_id')->withTimestamps();
     }
 
-    public function groups(){
+    public function groups()
+    {
 
         return $this->belongsToMany(Group::class, 'group_stage_sessions', 'session_id', 'group_id')->withTimestamps();
+    }
+    public function surah(): BelongsTo
+    {
+        return $this->belongsTo(Surah::class, 'surah_id');
+    }
+    public function startAyah(): BelongsTo
+    {
+        return $this->belongsTo(Ayah::class, 'start_ayah_id');
+    }
+    public function endAyah(): BelongsTo
+    {
+        return $this->belongsTo(Ayah::class, 'end_ayah_id');
     }
 }
