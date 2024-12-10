@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\SessionTypeController;
 use App\Http\Controllers\Admin\AdminHistoryController;
 use App\Http\Controllers\Admin\DisabilityTypeController;
 use App\Http\Controllers\Admin\AdminHomeStatisticController;
+use App\Http\Controllers\Organization\Surah\SurahController;
 use App\Http\Controllers\Admin\FetchAdminHomeStatisticController;
 use App\Http\Controllers\Organization\Surah\SurahApiProviderController;
 use App\Http\Controllers\Admin\EndPoint\FetchCitiesByCountryIdController;
@@ -142,7 +143,10 @@ Route::middleware('auth:admin')->group(function () {
      * END POINT START
      */
     Route::post('fetch_cities_by_country_id', FetchCitiesByCountryIdController::class);
-
+    //SURAH
+    Route::post('fetch_surahs', [SurahController::class, 'fetchSurahs']);
+    //AYAH
+    Route::post('fetch_surah_ayahs ', [SurahController::class, 'fetchSurahAyahs']);
     /**
      * END POINT END
      */
