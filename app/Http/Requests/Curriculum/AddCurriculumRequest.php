@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Curriculum;
 
+use App\Enum\CurriculumTypeEnum;
 use App\Helpers\Response\ApiRequest;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -24,7 +25,7 @@ class AddCurriculumRequest extends ApiRequest
     {
         return [
             'title' => 'required|string|max:191',
-            'type' => 'required|integer',
+            'type' => 'required|numeric|in:' . enumCaseValue(CurriculumTypeEnum::class),
         ];
     }
 }

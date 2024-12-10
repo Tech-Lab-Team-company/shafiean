@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Curriculum;
 
+use App\Enum\CurriculumTypeEnum;
 use App\Helpers\Response\ApiRequest;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -25,7 +26,7 @@ class EditCurriculumRequest extends ApiRequest
         return [
             'id' => 'required|exists:curriculums,id',
             'title' => 'nullable|string|max:191',
-            'type' => 'nullable|integer',
+            'type' => 'required|numeric|in:' . enumCaseValue(CurriculumTypeEnum::class),
         ];
     }
 }
