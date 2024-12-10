@@ -28,7 +28,7 @@ class EditStageRequest extends ApiRequest
             "description" => "nullable|string|max:255",
             "currculum_id" => "nullable|exists:curriculums,id",
             "disability_ids" => "nullable|array|exists:disability_types,id",
-            "quraan_ids" => "nullable|array|exists:quraan,id",
+            'surah_ids' => 'nullable|array|exists:surahs,id',
         ];
     }
 }
