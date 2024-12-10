@@ -144,9 +144,9 @@ Route::middleware('auth:admin')->group(function () {
      */
     Route::post('fetch_cities_by_country_id', FetchCitiesByCountryIdController::class);
     //SURAH
-    Route::post('organization_fetch_surahs', [SurahController::class, 'fetchSurahs']);
+    Route::post('fetch_surahs', [SurahController::class, 'fetchSurahs']);
     //AYAH
-    Route::post('organization_fetch_surah_ayahs ', [SurahController::class, 'fetchSurahAyahs']);
+    Route::post('fetch_surah_ayahs ', [SurahController::class, 'fetchSurahAyahs']);
     /**
      * END POINT END
      */
