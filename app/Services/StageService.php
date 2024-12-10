@@ -87,7 +87,7 @@ class StageService
             $data['curriculum_id'] = $request->curriculum_id ?? $stage->curriculum_id;
             $stage->update($data);
             $stage->disabilityTypes()->sync($request->disability_ids);
-            $stage->quraan()->sync($request->quraan_ids);
+            $stage->surahs()->sync($request->surah_ids);
             return new DataSuccess(
                 data: new StageResource($stage),
                 status: true,
