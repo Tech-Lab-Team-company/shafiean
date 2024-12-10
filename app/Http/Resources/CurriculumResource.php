@@ -15,10 +15,10 @@ class CurriculumResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id' => $this->id,
-            'title' => $this->title,
-            'type' => $this->type,
-            'status' => $this->status,
+            'id' => $this->id ?? 0,
+            'title' => $this->title ?? "",
+            'type' => (int)$this->type ?? 0,
+            'status' => (int)$this->status ?? 0,
         ];
     }
 }
