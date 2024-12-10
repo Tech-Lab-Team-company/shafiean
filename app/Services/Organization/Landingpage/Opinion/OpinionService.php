@@ -42,7 +42,6 @@ class OpinionService
     {
         try {
             if (isset($dataRequest['image'])) {
-
                 $data['image'] = upload_image($dataRequest['image'], 'opinion');
             }
             $data = [
