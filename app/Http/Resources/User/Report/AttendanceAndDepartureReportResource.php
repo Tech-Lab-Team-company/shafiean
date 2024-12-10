@@ -19,7 +19,7 @@ class AttendanceAndDepartureReportResource extends JsonResource
             'id' => $this->id ?? 0,
             'title' => $this->session->title ?? "",
             'teacher_name' => $this->group->teacher->name ?? "",
-            'date' => $this->start_date ?? "",
+            'date' => filled($this->start_date) ? $this->start_date : "",
             'from' => Carbon::parse($userSessions->from ?? "")->format('Y-m-d') ?? "",
             'to' => Carbon::parse($userSessions->to ?? "")->format('Y-m-d') ?? "",
             'is_attendance' => $userSessions ? 1 : 0

@@ -17,7 +17,7 @@ class ExamReportResource extends JsonResource
         return [
             'id' => $this->id ?? 0,
             'name' => $this->name ?? "",
-            'start_date' => $this->start_date ?? "",
+            'start_date' => filled($this->start_date) ? $this->start_date : "",
             'is_done' => $examResult ? 1 : 0
         ];
     }
