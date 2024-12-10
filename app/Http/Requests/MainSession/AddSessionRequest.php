@@ -30,6 +30,15 @@ class AddSessionRequest extends ApiRequest
             "organization_id" => "nullable|exists:organizations,id",
             'start_ayah_id' => 'required|exists:ayahs,id',
             'end_ayah_id' => 'required|exists:ayahs,id',
+
         ];
+    }
+    public function withValidator($validator)
+    {
+        $validator->after(function ($validator) {
+            if ($this->start_ayah_id && $this->end_ayah_id && $this->start_ayah_id == $this->end_ayah_id) {
+                $validator->errors()->add('start_ayah_id', 'بدايه الايه يجب ان لا يتطابق مع نهاية الايه');
+            }
+        });
     }
 }
