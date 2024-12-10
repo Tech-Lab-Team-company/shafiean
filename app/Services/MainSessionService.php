@@ -78,12 +78,12 @@ class MainSessionService
     {
         try {
             $mainSession = MainSession::find($request->id);
-            $data['title'] = $request->title ?? $mainSession->title;
-            $data['stage_id'] = $request->stage_id ?? $mainSession->stage_id;
-            $data['quraan_id'] = $request->quraan_id ?? $mainSession->quraan_id;
-            $data['session_type_id'] = $request->session_type_id ?? $mainSession->session_type_id;
-            $data['start_verse'] = $request->start_verse ?? $mainSession->start_verse;
-            $data['end_verse'] = $request->end_verse ?? $mainSession->end_verse;
+            $data['title'] = $request->title;
+            $data['stage_id'] = $request->stage_id;
+            $data['surah_id'] = $request->surah_id;
+            $data['session_type_id'] = $request->session_type_id;
+            $data['start_ayah_id'] = $request->start_ayah_id;
+            $data['end_ayah_id'] = $request->end_ayah_id;
             $mainSession->update($data);
             return new DataSuccess(
                 data: new MainSessionResource($mainSession),

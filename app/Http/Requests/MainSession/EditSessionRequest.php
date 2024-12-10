@@ -24,13 +24,13 @@ class EditSessionRequest extends ApiRequest
     {
         return [
             "id" => "required|exists:main_sessions,id",
-            "title" => "nullable|string|max:255",
-            "stage_id" => "nullable|exists:stages,id",
-            "quraan_id" => "nullable|exists:quraan,id",
-            "session_type_id" => "nullable|exists:session_types,id",
+            "title" => "required|string",
+            "stage_id" => "required|exists:stages,id",
+            "surah_id" => "required|exists:surahs,id",
+            // "session_type_id" => "required|exists:session_types,id",
             "organization_id" => "nullable|exists:organizations,id",
-            "start_verse" => "nullable",
-            "end_verse" => "nullable",
+            'start_ayah_id' => 'required|exists:ayahs,id',
+            'end_ayah_id' => 'required|exists:ayahs,id',
         ];
     }
 
