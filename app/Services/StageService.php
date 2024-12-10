@@ -59,7 +59,12 @@ class StageService
             $data['curriculum_id'] = $request->curriculum_id;
             $stage = Stage::create($data);
             $stage->disabilityTypes()->attach($request->disability_ids);
-            $stage->surahs()->attach($request->surah_ids);
+            $ifFull = isset($request->is_full) ? $request->is_full : true;
+            $stage->surahs()->attach(
+                collect($request->surah_ids)->mapWithKeys(function ($surahId) use ($request, $ifFull) {
+                    return [$surahId => ['is_full' => $ifFull]];
+                })->toArray()
+            );
             return new DataSuccess(
                 data: new StageResource($stage),
                 statusCode: 200,
