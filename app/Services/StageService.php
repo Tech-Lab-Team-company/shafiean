@@ -85,9 +85,14 @@ class StageService
             $data['title'] = $request->title ?? $stage->title;
             $data['description'] = $request->description ?? $stage->description;
             $data['curriculum_id'] = $request->curriculum_id ?? $stage->curriculum_id;
+            $ifFull = isset($request->is_full) ? $request->is_full : true;
             $stage->update($data);
             $stage->disabilityTypes()->sync($request->disability_ids);
-            $stage->surahs()->sync($request->surah_ids);
+            $stage->surahs()->sync(
+                collect($request->surah_ids)->mapWithKeys(function ($surahId) use ($request, $ifFull) {
+                    return [$surahId => ['is_full' => $ifFull]];
+                })->toArray()
+            );
             return new DataSuccess(
                 data: new StageResource($stage),
                 status: true,
