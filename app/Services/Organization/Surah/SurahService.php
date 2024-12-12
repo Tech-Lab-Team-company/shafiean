@@ -3,6 +3,7 @@
 namespace App\Services\Organization\Surah;
 
 use Exception;
+use App\Models\Stage;
 use App\Models\Surah\Surah;
 use App\Helpers\Response\DataFailed;
 use App\Helpers\Response\DataSuccess;
@@ -37,6 +38,23 @@ class SurahService
                 data: AyahTitleResource::collection($ayahs),
                 statusCode: 200,
                 message: 'ayah retrieved successfully'
+            );
+        } catch (Exception $e) {
+            return new DataFailed(
+                statusCode: 500,
+                message: 'Failed to retrieve ayah: ' . $e->getMessage()
+            );
+        }
+    }
+    public function fetchStageSurahs($dataRequest)
+    {
+        try {
+            $stage = Stage::whereId($dataRequest->stage_id)?->first();
+            $surahs = $stage?->surahs()?->get() ?? [];
+            return new DataSuccess(
+                data: SurahTitleResource::collection($surahs),
+                statusCode: 200,
+                message: 'surah retrieved successfully'
             );
         } catch (Exception $e) {
             return new DataFailed(
