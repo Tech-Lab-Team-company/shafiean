@@ -32,7 +32,7 @@ class Live100MSIntegrationService
             if ($room_data == false) {
                 return new DataSuccess(
                     status: false,
-                    message: 'اللايف موجود بالفعل',
+                    message: 'تم تجهيز اللايف بالفعل',
                 );
                 // return $room_data['data']['live'];
             }
@@ -90,10 +90,7 @@ class Live100MSIntegrationService
                 if ($check_live instanceof DataSuccess) {
                     $live =   $check_live->getData();
                 }
-            }
-
-            // dd($live);
-            $live_info = $live->live_info;
+            }                     $live_info = $live->live_info;
             $live->update([
                 'leave_date' => null
             ]);
