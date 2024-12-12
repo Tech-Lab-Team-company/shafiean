@@ -123,6 +123,15 @@ class Live100MSIntegrationService
     public function store_live($session)
     {
         $live_data =  $this->live100MSIntegrationParam->handel_live_data($session);
+        // dd($live_data);
+        $hasLive = Live::where('session_id', $live_data['session_id'])
+            ->where('course_id', $live_data['course_id'])
+            ->where('group_id', $live_data['group_id'])
+            ->where('leave_date', null)
+            ->latest()->first();
+        if ($hasLive) {
+            throw new \Exception('هذا اللايف موجود بالفعل');
+        }
         $live = Live::create($live_data);
         return $live;
     }

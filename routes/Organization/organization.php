@@ -352,6 +352,7 @@ Route::middleware('auth:organization')->group(function () {
     Route::post('organization_fetch_relations', FetchRelationController::class);
     //SURAH
     Route::post('organization_fetch_surahs', [SurahController::class, 'fetchSurahs']);
+    Route::post('organization_fetch_stage_surahs', [SurahController::class, 'fetchStageSurahs']);
     //AYAH
     Route::post('organization_fetch_surah_ayahs ', [SurahController::class, 'fetchSurahAyahs']);
 

@@ -18,4 +18,8 @@ class SurahController extends Controller
     {
         return $this->surahService->fetchSurahAyahs($request)->response();
     }
+    public function fetchStageSurahs(Request $request)
+    {
+        return $this->surahService->fetchStageSurahs($request)->response();
+    }
 }
