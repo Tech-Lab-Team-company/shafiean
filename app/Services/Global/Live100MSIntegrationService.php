@@ -29,6 +29,13 @@ class Live100MSIntegrationService
     {
         try {
             $room_data = $this->handle_live_room_body($request);
+            if ($room_data == false) {
+                return new DataSuccess(
+                    status: false,
+                    message: 'اللايف موجود بالفعل',
+                );
+                // return $room_data['data']['live'];
+            }
             $headers = [
                 'Authorization' => 'Bearer ' . $room_data['data']['token'],
                 'Content-Type' => 'application/json'
@@ -109,6 +116,9 @@ class Live100MSIntegrationService
         $this->live100MSIntegrationParam = new Live100MSIntegrationParam($session, $request->enable_recording);
         $body = $this->live100MSIntegrationParam->prepare_body();
         $live = $this->store_live($session);
+        if ($live == false) {
+            return false;
+        }
         $token = $this->generate_token();
         $response = [
             'data' => [
@@ -130,7 +140,7 @@ class Live100MSIntegrationService
             ->where('leave_date', null)
             ->latest()->first();
         if ($hasLive) {
-            throw new \Exception('هذا اللايف موجود بالفعل');
+            return false;
         }
         $live = Live::create($live_data);
         return $live;
