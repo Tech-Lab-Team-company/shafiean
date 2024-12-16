@@ -122,6 +122,7 @@ class CourseService
                 $image = upload_image($request->file('image'), 'courses');
                 $data['image'] = $image;
             }
+            $data['season_id'] = $request->season_id;
             $data['name'] = $request->name ?? $course->name;
             $data['year_id'] = $request->year_id ?? $course->year_id;
             $data['curriculum_id'] = $request->curriculum_id ?? $course->curriculum_id;
@@ -129,6 +130,17 @@ class CourseService
             if (isset($request->disability_ids)) {
                 $course->disability_types()->sync($request->disability_ids);
             }
+            if ($request->all_curriculum == HasCurriculumEnum::HAS_CURRICULUM->value) {
+                $curriclumStages = Curriculum::find($request->curriculum_id)->stages;
+                $stageIds = $curriclumStages->pluck('id')->toArray();
+                $mainSessions = MainSession::whereIn('stage_id', $stageIds)->get();
+                $course->stages()->sync($stageIds);
+            } else {
+                $mainSessions = MainSession::whereIn('stage_id', $request->stage_ids)->get();
+                $course->stages()->sync($request->stage_ids);
+            }
+            $courseStages = CourseStage::where('course_id', $course->id)->get();
+            $this->storeCourseStageSession($courseStages, $mainSessions, $course);
             return new DataSuccess(
                 status: true,
                 data: new CourseResource($course),
