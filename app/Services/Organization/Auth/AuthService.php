@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Services\Organization\Auth;
 
 
@@ -102,6 +103,31 @@ class AuthService
             $employee = Teacher::where('email', $request->email)->first();
             $code_service = new CodeService();
             $response = $code_service->checkCode($request, $employee)->response()->getData();
+            if (!$response->status) {
+                return new DataSuccess(
+                    status: false,
+                    data: false,
+                    message: $response->message
+                );
+            }
+            return new DataSuccess(
+                status: true,
+                data: true,
+                message: $response->message
+            );
+        } catch (Exception $exception) {
+            return new DataFailed(
+                status: false,
+                message: $exception->getMessage()
+            );
+        }
+    }
+    public function resetPasswordcheckCode($request): DataStatus
+    {
+        try {
+            $employee = Teacher::where('email', $request->email)->first();
+            $code_service = new CodeService();
+            $response = $code_service->resetPasswordcheckCode($request, $employee)->response()->getData();
             if (!$response->status) {
                 return new DataSuccess(
                     status: false,
