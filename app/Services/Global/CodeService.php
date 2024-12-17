@@ -49,17 +49,15 @@ class CodeService
     }
     public function resetPasswordcheckCode($request, $user): DataStatus
     {
-        $otp = $this->otp->validate($request->email, $request->code);
         $verefied = $user->email_verified_at;
-        // dd($verefied);
         if ($verefied == null) {
-            // dd($verefied);
             return new DataSuccess(
                 status: false,
                 data: false,
                 message: 'Email not verified'
             );
         }
+        $otp = $this->otp->validate($request->email, $request->code);
         if (!$otp->status) {
             return new DataFailed(
                 status: false,
