@@ -77,6 +77,7 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('organization-login', 'login');
     Route::post('organization-check-email', 'checkEmail');
     Route::post('organization-check-code', 'checkCode');
+    Route::post('organization-reset-password-check-code', 'resetPasswordcheckCode');
     Route::post('organization-reset-password', 'resetPassword');
 });
 

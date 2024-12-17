@@ -47,4 +47,20 @@ class CodeService
             );
         }
     }
+    public function resetPasswordcheckCode($request, $user): DataStatus
+    {
+        $otp = $this->otp->validate($request->email, $request->code);
+        if (!$otp->status) {
+            return new DataFailed(
+                status: false,
+                message: $otp->message,
+            );
+        } else {
+            $msg = 'تم التحقق من الكود بنجاح';
+            return new DataSuccess(
+                status: true,
+                message: $msg
+            );
+        }
+    }
 }

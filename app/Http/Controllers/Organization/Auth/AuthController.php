@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers\Organization\Auth;
 
 
@@ -38,13 +39,19 @@ class AuthController extends Controller
     {
         return $this->auth_service->checkCode($request)->response();
     }
+    public function resetPasswordcheckCode(CheckCodeRequest $request)
+    {
+        return $this->auth_service->resetPasswordcheckCode($request)->response();
+    }
 
-    public function resetPassword(ResetPasswordRequest $request){
+    public function resetPassword(ResetPasswordRequest $request)
+    {
 
         return $this->auth_service->resetPassword($request)->response();
     }
 
-    public function changePassword(ChangePasswordRequest $request){
+    public function changePassword(ChangePasswordRequest $request)
+    {
 
         return $this->auth_service->changePassword($request)->response();
     }
