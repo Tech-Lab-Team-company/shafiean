@@ -57,6 +57,7 @@ use App\Http\Controllers\Organization\Relation\FetchRelationController;
 use App\Http\Controllers\Organization\Surah\SurahApiProviderController;
 use App\Http\Controllers\Organization\Competition\CompetitionController;
 use App\Http\Controllers\Organization\BloodType\FetchBloodTypeController;
+use App\Http\Controllers\Organization\Teacher\TeacherStatisticController;
 use App\Http\Controllers\Organization\QuestionBank\QuestionBankController;
 use App\Http\Controllers\Organization\UserRelation\UserRelationController;
 use App\Http\Controllers\Organization\Curriculum\FetchCurriculumController;
@@ -291,7 +292,7 @@ Route::middleware('auth:organization')->group(function () {
         Route::post('edit_rate', 'edit_rate');
         Route::post('delete_rate', 'delete_rate');
     });
-    //STATISTIC
+    //ORGANIZATION STATISTIC
     Route::controller(OrganizationHomeStatisticController::class)->group(
         function () {
             Route::post('organization_fetch_count_statistics', 'fetchCounts');
@@ -299,6 +300,18 @@ Route::middleware('auth:organization')->group(function () {
             Route::post('organization_fetch_most_active_groups_statistics', 'fetchMostActiveGroups');
             Route::post('organization_fetch_best_places_interacted_with_organization_statistics', 'fetchBestPlacesInteractedWithOrganization');
             Route::post('organization_fetch_interacted_rate_with_organization_statistics', 'fetchInteractedRateWithOrganization');
+        }
+    );
+    //TEACHER STATISTIC
+    Route::controller(TeacherStatisticController::class)->group(
+        function () {
+            Route::post('teacher_fetch_count_statistics', 'fetchCounts');
+            Route::post('teacher_group', 'teacherGroup');
+            Route::post('teacher_fetch_main_sessions', 'fetchMainsessions');
+            // Route::post('teacher_fetch_latest_students_statistics', 'fetchLatestStudents');
+            // Route::post('teacher_fetch_most_active_groups_statistics', 'fetchMostActiveGroups');
+            // Route::post('teacher_fetch_best_places_interacted_with_teacher_statistics', 'fetchBestPlacesInteractedWithteacher');
+            // Route::post('teacher_fetch_interacted_rate_with_teacher_statistics', 'fetchInteractedRateWithteacher');
         }
     );
     /**
