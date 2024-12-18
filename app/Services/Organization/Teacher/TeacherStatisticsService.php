@@ -70,9 +70,9 @@ class TeacherStatisticsService
     public function fetchMainSessions($dataRequest)
     {
         try {
-            $groupStageSessions =  Group::whereId($dataRequest->group_id)->first()->groupStageSessions()->orderBy('id', 'desc')->get();
+            $groupStageSessions =  Group::whereId($dataRequest->group_id)->first()->groupStageSessions()->orderBy('id', 'desc')->paginate(10);
             return new DataSuccess(
-                data: FetchMainSessionResource::collection($groupStageSessions),
+                data: FetchMainSessionResource::collection($groupStageSessions)->response()->getData(true),
                 status: true,
                 message: 'Main Session fetched successfully'
             );
