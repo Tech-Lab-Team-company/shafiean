@@ -54,9 +54,9 @@ class TeacherStatisticsService
     {
         try {
 
-            $groups = Group::whereTeacherId(Auth::guard('organization')->user()->id)->get();
+            $groups = Group::whereTeacherId(Auth::guard('organization')->user()->id)->paginate(10);
             return new DataSuccess(
-                data: GroupTitleResource::collection($groups),
+                data: GroupTitleResource::collection($groups)->response()->getData(true),
                 status: true,
                 message: 'fetch teacher group successfully'
             );
