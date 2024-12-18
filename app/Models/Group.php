@@ -2,11 +2,13 @@
 
 namespace App\Models;
 
-use App\Models\Scopes\PerOrganizationScope;
-use App\Observers\OrganizationIdObserver;
+use App\Models\Organization\Exam\Exam;
 use Illuminate\Database\Eloquent\Model;
+use App\Observers\OrganizationIdObserver;
+use App\Models\Scopes\PerOrganizationScope;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Group extends Model
 {
@@ -57,8 +59,15 @@ class Group extends Model
 
     public function groupStageSessions()
     {
-
         return $this->hasMany(GroupStageSession::class, 'group_id');
+    }
+    public function users(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'user_groups', 'group_id', 'user_id')->withTimestamps();
+    }
+    public function exams(): BelongsToMany
+    {
+        return $this->belongsToMany(Exam::class, 'exam_groups', 'group_id', 'exam_id')->withTimestamps();
     }
     protected static function booted(): void
     {
