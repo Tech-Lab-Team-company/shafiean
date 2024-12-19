@@ -308,10 +308,7 @@ Route::middleware('auth:organization')->group(function () {
             Route::post('teacher_fetch_count_statistics', 'fetchCounts');
             Route::post('teacher_group', 'teacherGroup');
             Route::post('teacher_fetch_main_sessions', 'fetchMainsessions');
-            // Route::post('teacher_fetch_latest_students_statistics', 'fetchLatestStudents');
-            // Route::post('teacher_fetch_most_active_groups_statistics', 'fetchMostActiveGroups');
-            // Route::post('teacher_fetch_best_places_interacted_with_teacher_statistics', 'fetchBestPlacesInteractedWithteacher');
-            // Route::post('teacher_fetch_interacted_rate_with_teacher_statistics', 'fetchInteractedRateWithteacher');
+            Route::post('teacher_exams', 'fetchExams');
         }
     );
     /**

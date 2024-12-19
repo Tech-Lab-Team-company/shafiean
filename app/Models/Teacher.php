@@ -9,12 +9,13 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use App\Models\Organization\JobType\JobType;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\SessionStudentRate\SessionStudentRate;
 use App\Models\SessionTeacherRate\SessionTeacherRate;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Teacher extends Authenticatable
 {
@@ -69,5 +70,9 @@ class Teacher extends Authenticatable
     public function received_rates()
     {
         return $this->hasMany(SessionStudentRate::class, 'teacher_id', 'id');
+    }
+    public function groups(): BelongsToMany
+    {
+        return $this->belongsToMany(Group::class, 'user_groups', 'user_id', 'group_id')->withTimestamps();
     }
 }

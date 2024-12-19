@@ -25,4 +25,8 @@ class TeacherStatisticController extends Controller
     {
         return $this->teacherStatisticsService->fetchMainSessions($request)->response();
     }
+    public function fetchExams()
+    {
+        return $this->teacherStatisticsService->fetchExams()->response();
+    }
 }
