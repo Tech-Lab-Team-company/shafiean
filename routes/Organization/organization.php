@@ -350,7 +350,9 @@ Route::middleware('auth:organization')->group(function () {
     //STUDENT
     Route::post('organization_fetch_students', FetchStudentController::class);
     //MAIN SESSION
-    Route::post('organization_fetch_main_sessions', FetchMainSessionController::class);
+    Route::post('organization_fetch_main_sessions', [FetchMainSessionController::class , 'fetch_session']  );
+    Route::post('organization_fetch_admin_sessions', [FetchMainSessionController::class , 'fetch_main_session']);
+    Route::post('organization_fetch_admin_sessions_detail', [FetchMainSessionController::class , 'fetch_main_session_detail']);
     //COMPETITON REWARD
     Route::post('assign_competition_reward', [AssignCompetitionRewardController::class, 'assignUser']);
     //USER
