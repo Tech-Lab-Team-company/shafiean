@@ -31,4 +31,20 @@ class FetchCurriculumStageService
             );
         }
     }
+    public function fetchCurriculumsStages($request)
+    {
+        try {
+            $stages = Stage::whereIn('curriculum_id', $request->curriculum_ids)->orderBy('id', 'desc')->get();
+            return new DataSuccess(
+                data: FetchCurriculumStageResource::collection($stages),
+                status: true,
+                message: 'CurriculumStage Fetched Successfully ^_^'
+            );
+        } catch (Exception $e) {
+            return new DataFailed(
+                status: false,
+                message: $e->getMessage()
+            );
+        }
+    }
 }

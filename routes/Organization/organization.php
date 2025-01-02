@@ -346,7 +346,8 @@ Route::middleware('auth:organization')->group(function () {
     //YEAR
     Route::get('organization_fetch_years', [GlobalController::class, "fetch_years"]);
     //COURSE
-    Route::post('organization_fetch_curriculum_stages', FetchCurriculumStageController::class);
+    Route::post('organization_fetch_curriculum_stages', [FetchCurriculumStageController::class , 'fetch_curriculum_stages']);
+    Route::post('organization_fetch_curriculums_stages', [FetchCurriculumStageController::class , 'fetch_curriculums_stages']);
     //STUDENT
     Route::post('organization_fetch_students', FetchStudentController::class);
     //MAIN SESSION
