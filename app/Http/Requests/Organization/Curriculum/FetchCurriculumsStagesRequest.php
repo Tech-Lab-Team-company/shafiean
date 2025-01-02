@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests\Organization\MainSession;
+namespace App\Http\Requests\Organization\Curriculum;
 
 use App\Helpers\Response\ApiRequest;
 use Illuminate\Foundation\Http\FormRequest;
 
-class FetchAdminSessionRequest extends ApiRequest
+class FetchCurriculumsStagesRequest extends ApiRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,12 +23,8 @@ class FetchAdminSessionRequest extends ApiRequest
     public function rules(): array
     {
         return [
-            'stage_ids' => 'nullable|array',
-            'stage_ids.*' => 'integer|exists:stages,id',
-            'curriculum_ids' => 'nullable|array',
+            'curriculum_ids' => 'required|array',
             'curriculum_ids.*' => 'integer|exists:curriculums,id',
-            'disability_ids' => 'nullable|array',
-            'disability_ids.*' => 'integer|exists:disability_types,id',
         ];
     }
 }
