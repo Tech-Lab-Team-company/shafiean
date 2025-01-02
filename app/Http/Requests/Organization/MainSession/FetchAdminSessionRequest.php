@@ -23,11 +23,11 @@ class FetchAdminSessionRequest extends ApiRequest
     public function rules(): array
     {
         return [
-            'stage_ids' => 'required|array',
+            'stage_ids' => 'nullable|array',
             'stage_ids.*' => 'integer|exists:stages,id',
-            'curriculum_ids' => 'required|array',
+            'curriculum_ids' => 'nullable|array',
             'curriculum_ids.*' => 'integer|exists:curriculums,id',
-            'disability_ids' => 'required|array',
+            'disability_ids' => 'nullable|array',
             'disability_ids.*' => 'integer|exists:disability_types,id',
         ];
     }
