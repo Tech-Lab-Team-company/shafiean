@@ -57,6 +57,7 @@ class StageService
             $data['title'] = $request->title;
             $data['description'] = $request->description;
             $data['curriculum_id'] = $request->curriculum_id;
+            $data['type'] = $request->type;
             $stage = Stage::create($data);
             $stage->disabilityTypes()->attach($request->disability_ids);
             $ifFull = isset($request->is_full) ? $request->is_full : true;
@@ -85,6 +86,7 @@ class StageService
             $data['title'] = $request->title ?? $stage->title;
             $data['description'] = $request->description ?? $stage->description;
             $data['curriculum_id'] = $request->curriculum_id ?? $stage->curriculum_id;
+            $data['type'] = $request->type ?? $stage->type;
             $ifFull = isset($request->is_full) ? $request->is_full : true;
             $stage->update($data);
             $stage->disabilityTypes()->sync($request->disability_ids);
