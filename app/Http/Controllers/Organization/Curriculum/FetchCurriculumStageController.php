@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Organization\Curriculum;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Organization\Curriculum\FetchCurriculumStageRequest;
+use App\Http\Requests\Organization\Curriculum\FetchCurriculumsStagesRequest;
 use App\Services\Organization\EndPoint\Curriculum\FetchCurriculumStageService;
 
 class FetchCurriculumStageController extends Controller
@@ -15,7 +16,7 @@ class FetchCurriculumStageController extends Controller
     {
         return $this->fetchCurriculumStageService->fetchCurriculumStage($request)->response();
     }
-    public function fetch_curriculums_stages(FetchCurriculumStageRequest $request)
+    public function fetch_curriculums_stages(FetchCurriculumsStagesRequest $request)
     {
         return $this->fetchCurriculumStageService->fetchCurriculumsStages($request)->response();
     }
