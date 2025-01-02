@@ -142,7 +142,24 @@ class FilterService
         })
             ->when($request->has('stage_id'), function ($q) use ($request) {
                 $q->where('stage_id', $request->stage_id);
-            });
+            })
+            ->when($request->has('stage_ids'), function ($q) use ($request) {
+                $q->whereIn('stage_id', $request->stage_ids);
+            })
+            ->when($request->has('curriculum_ids'), function ($q) use ($request) {
+                $q->whereHas('stage', function ($stage_q) use ($request) {
+                    $stage_q->whereIn('curriculum_id', $request->curriculum_ids);
+                });
+            })
+            ->when($request->has('disability_ids'), function ($q) use ($request) {
+                $q->whereHas('stage', function ($stage_q) use ($request) {
+                    $stage_q->whereHas('disabilityTypes', function ($disability_q) use ($request) {
+                        $disability_q->whereIn('disability_type_id', $request->disability_ids);
+                    });
+                });
+            })
+
+        ;
     }
     public function filterGroup($request, $query)
     {
