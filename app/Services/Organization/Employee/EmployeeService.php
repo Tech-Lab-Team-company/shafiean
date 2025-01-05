@@ -91,7 +91,7 @@ class EmployeeService
             $data['phone'] = $request->phone ?? $employee->phone;
             $data['gender'] = $request->gender ?? $employee->gender;
             $data['age'] = $request->age ?? $employee->age;
-            $data['is_employed'] = $request->is_employed ?? $employee->is_employed;
+            $data['is_employed'] = ((isset($request->make_employee) && $request->make_employee == 1) ? 0 : $request->is_employed) ?? $employee->is_employed;
             $data['marital_status'] = $request->marital_status ?? $employee->marital_status;
             $data['identity_type'] = $request->identity_type ?? $employee->identity_type;
             $data['identity_number'] = $request->identity_number ?? $employee->identity_number;
