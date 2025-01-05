@@ -27,7 +27,7 @@ class EditCourseRequest extends ApiRequest
             'name' => 'nullable|string|max:191',
             'year_id' => 'nullable|exists:years,id',
             'curriculum_id' => 'nullable|exists:curriculums,id',
-            'disability_ids' => 'nullable|array|exists:disability_types,id',
+            // 'disability_ids' => 'nullable|array|exists:disability_types,id',
         ];
     }
 }
