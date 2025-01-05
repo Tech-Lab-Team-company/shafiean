@@ -24,7 +24,7 @@ class SurahApiProviderService
     {
         try {
             $apiData = $this->getApiData();
-            if (!isset($apiData['status']) || $apiData['status'] !== 200) {
+            if ($apiData['status'] == "SERVER_ERROR" || $apiData['code'] !== 200) {
                 return new DataSuccess(
                     status: false,
                     message: "No connection to server | لايوجد اتصال بالخادم",
