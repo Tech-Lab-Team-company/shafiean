@@ -13,6 +13,7 @@ use App\Http\Resources\Surah\SurahResource;
 class SurahApiProviderService
 {
     /**
+     * GITHUB=https://github.com/islamic-network
      * PROVIDER=https://alquran.cloud/api
      */
     private string $apiURL = 'https://api.alquran.cloud/v1/quran/ar.alafasy';
