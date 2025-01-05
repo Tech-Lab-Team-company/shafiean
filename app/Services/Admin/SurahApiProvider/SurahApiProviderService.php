@@ -12,6 +12,9 @@ use App\Http\Resources\Surah\SurahResource;
 
 class SurahApiProviderService
 {
+    /**
+     * PROVIDER=https://alquran.cloud/api
+     */
     private string $apiURL = 'https://api.alquran.cloud/v1/quran/ar.alafasy';
     private  $headers = [
         'Content-Type' => 'application/json',
