@@ -70,7 +70,7 @@ class GroupService
                 'teacher_id' => $request->teacher_id,
                 'start_date' => $request->start_date,
                 'end_date' => $request->end_date,
-                'with_all_disability' => $request->with_all_disability,
+                // 'with_all_disability' => $request->with_all_disability,
                 'with_all_course_content' => $request->with_all_course_content,
             ]);
             if ($request->days) {
@@ -78,13 +78,13 @@ class GroupService
                     $group->days()->attach($day['day_id'], ['start_time' => $day['start_time'], 'end_time' => $day['end_time']]);
                 }
             }
-            if ($request->with_all_disability == HasDisabilityEnum::NOT_HAS_DISABILITY->value && $request->disabilities) {
-                $group->disabilities()->attach($request->disabilities, ['course_id' => $request->course_id]);
-            }
-            if ($request->with_all_disability == HasDisabilityEnum::HAS_DISABILITY->value) {
-                $course_disapility_ids = Course::find($request->course_id)->disability_types->pluck('id')->toArray();
-                $group->disabilities()->attach($course_disapility_ids, ['course_id' => $request->course_id]);
-            }
+            // if ($request->with_all_disability == HasDisabilityEnum::NOT_HAS_DISABILITY->value && $request->disabilities) {
+            //     $group->disabilities()->attach($request->disabilities, ['course_id' => $request->course_id]);
+            // }
+            // if ($request->with_all_disability == HasDisabilityEnum::HAS_DISABILITY->value) {
+            //     $course_disapility_ids = Course::find($request->course_id)->disability_types->pluck('id')->toArray();
+            //     $group->disabilities()->attach($course_disapility_ids, ['course_id' => $request->course_id]);
+            // }
             if ($request->with_all_course_content == HasCourseEnum::HAS_COURSE->value) {
                 $courseStages = Course::find($request->course_id)->stages;
                 $stageIds = $courseStages->pluck('id')->toArray();
@@ -137,7 +137,7 @@ class GroupService
                 'teacher_id' => $request->teacher_id,
                 'start_date' => $request->start_date,
                 'end_date' => $request->end_date,
-                'with_all_disability' => $request->with_all_disability,
+                // 'with_all_disability' => $request->with_all_disability,
                 'with_all_course_content' => $request->with_all_course_content,
             ]);
             if ($request->days) {
@@ -147,18 +147,18 @@ class GroupService
                 }
                 $group->days()->sync($days);
             }
-            if ($request->with_all_disability == HasDisabilityEnum::NOT_HAS_DISABILITY->value && $request->disabilities) {
-                $disabilitiesWithCourseId = [];
-                foreach ($request->disabilities as $disabilityId) {
-                    $disabilitiesWithCourseId[$disabilityId] = ['course_id' => $request->course_id];
-                }
-                $group->disabilities()->sync($disabilitiesWithCourseId);
-            }
+            // if ($request->with_all_disability == HasDisabilityEnum::NOT_HAS_DISABILITY->value && $request->disabilities) {
+            //     $disabilitiesWithCourseId = [];
+            //     foreach ($request->disabilities as $disabilityId) {
+            //         $disabilitiesWithCourseId[$disabilityId] = ['course_id' => $request->course_id];
+            //     }
+            //     $group->disabilities()->sync($disabilitiesWithCourseId);
+            // }
 
-            if ($request->with_all_disability == HasDisabilityEnum::HAS_DISABILITY->value) {
-                $course_disapility_ids = Course::find($request->course_id)->disability_types->pluck('id')->toArray();
-                $group->disabilities()->sync($course_disapility_ids);
-            }
+            // if ($request->with_all_disability == HasDisabilityEnum::HAS_DISABILITY->value) {
+            //     $course_disapility_ids = Course::find($request->course_id)->disability_types->pluck('id')->toArray();
+            //     $group->disabilities()->sync($course_disapility_ids);
+            // }
 
             if ($request->with_all_course_content == HasCourseEnum::HAS_COURSE->value) {
                 $courseStages = Course::find($request->course_id)->stages;
