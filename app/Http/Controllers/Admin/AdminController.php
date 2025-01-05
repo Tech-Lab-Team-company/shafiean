@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Illuminate\Http\Request;
+use App\Services\AdminService;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\DeleteRequest;
+use App\Http\Requests\Admin\AdminShowRequest;
 use App\Http\Requests\Admin\AdminStoreRequest;
 use App\Http\Requests\Admin\AdminUpdateRequest;
-use App\Http\Requests\Admin\DeleteRequest;
 use App\Http\Requests\Admin\EditPasswordRequest;
-use App\Services\AdminService;
-use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
@@ -30,7 +31,7 @@ class AdminController extends Controller
         return $this->adminService->create($request)->response();
     }
 
-    public function show(Request $request)
+    public function show(AdminShowRequest $request)
     {
         return $this->adminService->getById($request)->response();
     }

@@ -25,7 +25,7 @@ class OrganizationRequest extends ApiRequest
             'email' => 'nullable|string|email|max:191',
             'address' => 'nullable|string|max:191',
             'country_id' => 'required|exists:countries,id',
-            'city_id' => ['required', new CityBelongsToCountry($this->input('country_id'))],
+            'city_id' => ['nullable', new CityBelongsToCountry($this->input('country_id'))],
             'manager_name' => 'required|string|max:191',
             'manager_phone' => 'required|string|max:191',
             'manager_email' => 'nullable|string|email|max:191|unique:organizations,manager_email',
