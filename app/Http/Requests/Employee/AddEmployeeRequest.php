@@ -30,7 +30,7 @@ class AddEmployeeRequest extends ApiRequest
             'phone' => 'required|string|max:191|unique:teachers,phone',
             'password' => 'required|string|max:191',
             'gender' => 'nullable|string|in:' . enumCaseValue(GenderEnum::class),
-            'age' => 'nullable|string|min:14|max:100',
+            'age' => 'nullable|integer|min:14|max:100',
             'is_employed' => 'nullable|max:191',
             // 'image' => 'nullable|image|mimes:jpg,jpeg,png',
             'certificate_images' => 'nullable|array',
