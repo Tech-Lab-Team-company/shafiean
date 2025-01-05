@@ -28,7 +28,7 @@ class EditEmployeeRequest extends ApiRequest
             'email' => 'nullable|email|max:191|unique:teachers,email,' . $this->id,
             'phone' => 'nullable|string|max:191|unique:teachers,phone,' . $this->id,
             'gender' => 'nullable|string|max:191',
-            'age' => 'nullable|string|max:191',
+            'age' => 'nullable|string|max:100|min:14',
             'is_employed' => 'nullable|max:191',
             'image' => 'nullable|image|mimes:jpg,jpeg,png',
             'curriculum_ids' => 'nullable|array|exists:curriculums,id',
