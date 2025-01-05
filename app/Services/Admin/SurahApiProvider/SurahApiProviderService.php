@@ -21,6 +21,12 @@ class SurahApiProviderService
     {
         try {
             $apiData = $this->getApiData();
+            if (!isset($apiData['status']) || $apiData['status'] !== 200) {
+                return new DataSuccess(
+                    status: false,
+                    message: "No connection to server | لايوجد اتصال بالخادم",
+                );
+            }
             $surahs = [];
             foreach ($apiData['data']['surahs'] as $surah) {
                 $databaseSurah = Surah::firstOrCreate([
