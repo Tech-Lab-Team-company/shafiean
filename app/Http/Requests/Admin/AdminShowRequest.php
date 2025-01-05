@@ -2,16 +2,17 @@
 
 namespace App\Http\Requests\Admin;
 
+use App\Helpers\Response\ApiRequest;
 use Illuminate\Foundation\Http\FormRequest;
 
-class AdminShowRequest extends FormRequest
+class AdminShowRequest extends ApiRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
