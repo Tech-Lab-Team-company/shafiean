@@ -54,7 +54,7 @@ class EmployeeService
             $data['password'] = $request->password;
             $data['gender'] = array_key_exists('gender', $request->all()) ? $request->gender : null;
             $data['age'] = array_key_exists('age', $request->all()) ? $request->age : null;
-            $data['is_employed'] = array_key_exists('make_employee', $request->all()) && $request->make_employee == 1 ? 0 :  $request->is_employed;
+            $data['is_employed'] = (isset($request->make_employee) && $request->make_employee == 1) ? 0 :  $request->is_employed;
             $data['marital_status'] = array_key_exists('marital_status', $request->all()) ? $request->marital_status : null;
             $data['identity_type'] = array_key_exists('identity_type', $request->all()) ? $request->identity_type : null;
             $data['identity_number'] = array_key_exists('identity_number', $request->all()) ? $request->identity_number : null;
