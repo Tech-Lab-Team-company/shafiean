@@ -33,7 +33,6 @@ class AdminController extends Controller
 
     public function show(AdminShowRequest $request)
     {
-        dd($request->all());
         return $this->adminService->getById($request)->response();
     }
 
