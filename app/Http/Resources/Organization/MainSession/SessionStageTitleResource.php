@@ -14,8 +14,8 @@ class SessionStageTitleResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id' => $this->id ?? 0,
-            'stage' => new StageTitleResource($this->stage),
+            'id' => $this->stage->id ?? 0,
+            'title' => $this->stage->title ?? "",
         ];
     }
 }
