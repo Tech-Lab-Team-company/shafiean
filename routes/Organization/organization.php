@@ -321,6 +321,7 @@ Route::middleware('auth:organization')->group(function () {
     });
     //DISABILITY
     Route::post('organization_fetch_disabilities', [DisabilityController::class, 'fetch_disabilities']);
+    Route::post('organization_fetch_disability_by_stage', [DisabilityController::class, 'fetchDisabilityByStage']);
     //STAGE
     Route::post('organization_fetch_stages', [StageController::class, 'index']);
     //EXAM STUDENT
