@@ -4,6 +4,7 @@ namespace App\Services\Organization\EndPoint\MainSession;
 
 use Exception;
 use App\Models\Ayah;
+use App\Models\Course;
 use App\Models\MainSession;
 use App\Models\Surah\Surah;
 use App\Enum\SessionIsNewEnum;
@@ -15,6 +16,7 @@ use Illuminate\Support\Facades\File;
 use App\Helpers\Response\DataSuccess;
 use App\Services\Global\FilterService;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Resources\StageTitleResource;
 use App\Models\Organization\Library\Library;
 use App\Http\Resources\Surah\AyahTitleResource;
 use App\Http\Resources\Surah\SurahTitleResource;
@@ -23,35 +25,18 @@ use App\Models\Organization\LibraryCategory\LibraryCategory;
 use App\Http\Resources\Organization\MainSession\SessionAyahResource;
 use App\Http\Resources\Organization\MainSession\FetchMainSessionResource;
 use App\Http\Resources\Organization\MainSession\FetchAdminSessionResource;
+use App\Http\Resources\Organization\MainSession\SessionStageTitleResource;
 use App\Http\Resources\Organization\LibraryCategory\LibraryCategoryResource;
 
-class FetchMainSessionSurahAndAyahService
+class FetchMainSessionStageService
 {
-    public function fetchSurahBySession($dataRequest)
-    {
-        try {
-            $surah = MainSession::whereId($dataRequest->session_id)->first()->surah;
-            return new DataSuccess(
-                data: new SurahTitleResource($surah),
-                status: true,
-                message: 'Surah Session fetched successfully'
-            );
-        } catch (Exception $e) {
-            return new DataFailed(
-                status: false,
-                message: $e->getMessage()
-            );
-        }
-    }
-    public function fetchAyahBySurah($dataRequest)
+    public function fetchMainSessionStage($dataRequest)
     {
         try {
             $isNew = $dataRequest->is_new == SessionIsNewEnum::NEW->value;
-            $ayah =  $isNew ?
-                Surah::whereId($dataRequest->surah_id)->first()->ayahs
-                : MainSession::whereId($dataRequest->session_id)->first();
+            $stage = $isNew ? Course::whereId($dataRequest->course_id)->first()->stages : MainSession::whereId($dataRequest->session_id)->first();
             return new DataSuccess(
-                data: $isNew ? AyahTitleResource::collection($ayah) : new SessionAyahResource($ayah),
+                data: $isNew ? StageTitleResource::collection($stage) : new SessionStageTitleResource($stage),
                 status: true,
                 message: 'Surah Session fetched successfully'
             );
