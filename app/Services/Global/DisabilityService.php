@@ -31,10 +31,13 @@ class DisabilityService
             );
         }
     }
-    public function fetchDisabilityByStage($dataRequest): DataStatus
+    public function fetchDisabilityByStageIds($dataRequest): DataStatus
     {
         try {
-            $disabilities = Stage::whereId($dataRequest->stage_id)->first()->disabilityTypes()->get();
+            $stages = Stage::whereIn('id', $dataRequest->stage_ids)->with('disabilityTypes')->get();
+            $disabilities = $stages->flatMap(function ($stage) {
+                return $stage->disabilityTypes;
+            })->unique('id');
             return new DataSuccess(
                 status: true,
                 data: DisabilityTypeTitleResource::collection($disabilities),

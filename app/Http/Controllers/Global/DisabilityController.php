@@ -20,8 +20,8 @@ class DisabilityController extends Controller
     {
         return $this->disability_service->fetach_disabilities()->response();
     }
-    public function fetchDisabilityByStage(FetchDisabilityByStageRequest $request)
+    public function fetchDisabilityByStageIds(FetchDisabilityByStageRequest $request)
     {
-        return $this->disability_service->fetchDisabilityByStage($request)->response();
+        return $this->disability_service->fetchDisabilityByStageIds($request)->response();
     }
 }

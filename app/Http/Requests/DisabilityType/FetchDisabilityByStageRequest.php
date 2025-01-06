@@ -23,7 +23,7 @@ class FetchDisabilityByStageRequest extends ApiRequest
     public function rules(): array
     {
         return [
-            'stage_id' => 'required|exists:disability_types,id',
+            'stage_ids' => 'array|exists:stages,id'
         ];
     }
 }
