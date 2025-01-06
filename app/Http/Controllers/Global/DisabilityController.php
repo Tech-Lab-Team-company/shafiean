@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Global;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Services\Global\DisabilityService;
-use Illuminate\Http\Request;
+use App\Http\Requests\DisabilityType\FetchDisabilityByStageRequest;
 
 class DisabilityController extends Controller
 {
@@ -18,5 +19,9 @@ class DisabilityController extends Controller
     public function fetch_disabilities()
     {
         return $this->disability_service->fetach_disabilities()->response();
+    }
+    public function fetchDisabilityByStage(FetchDisabilityByStageRequest $request)
+    {
+        return $this->disability_service->fetchDisabilityByStage($request)->response();
     }
 }

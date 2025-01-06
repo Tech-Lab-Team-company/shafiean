@@ -2,12 +2,14 @@
 
 namespace App\Services\Global;
 
+use Exception;
+use App\Models\Stage;
+use App\Models\DisabilityType;
 use App\Helpers\Response\DataFailed;
 use App\Helpers\Response\DataStatus;
 use App\Helpers\Response\DataSuccess;
 use App\Http\Resources\DisabilityTypeResource;
-use App\Models\DisabilityType;
-use Exception;
+use App\Http\Resources\DisabilityTypeTitleResource;
 
 class DisabilityService
 {
@@ -20,6 +22,22 @@ class DisabilityService
             return new DataSuccess(
                 status: true,
                 data: DisabilityTypeResource::collection($disabilities),
+                message: 'disabilities fetched successfully'
+            );
+        } catch (Exception $exception) {
+            return new DataFailed(
+                status: false,
+                message: $exception->getMessage()
+            );
+        }
+    }
+    public function fetchDisabilityByStage($dataRequest): DataStatus
+    {
+        try {
+            $disabilities = Stage::whereId($dataRequest->stage_id)->first()->disabilityTypes()->get();
+            return new DataSuccess(
+                status: true,
+                data: DisabilityTypeTitleResource::collection($disabilities),
                 message: 'disabilities fetched successfully'
             );
         } catch (Exception $exception) {
