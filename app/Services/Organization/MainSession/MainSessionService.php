@@ -3,13 +3,18 @@
 namespace App\Services\Organization\MainSession;
 
 
+use Exception;
+use App\Models\Group;
+use App\Models\Course;
+use App\Models\GroupStage;
+use App\Models\MainSession;
+use App\Enum\SessionIsNewEnum;
+use App\Models\GroupStageSession;
 use App\Helpers\Response\DataFailed;
 use App\Helpers\Response\DataStatus;
 use App\Helpers\Response\DataSuccess;
-use App\Http\Resources\MainSessionResource;
-use App\Models\MainSession;
 use App\Services\Global\FilterService;
-use Exception;
+use App\Http\Resources\MainSessionResource;
 
 class MainSessionService
 {
@@ -34,17 +39,41 @@ class MainSessionService
             );
         }
     }
-
-    public function create($request): DataStatus
+    private function storeGroupStage($groupId, $stageId)
+    {
+        return GroupStage::create([
+            'group_id' => $groupId,
+            'stage_id' => $stageId,
+        ]);
+    }
+    private function storeGroupStageSessions($session, $groupId, $stageId, $sessionTypeId)
+    {
+        $groupStage = $this->storeGroupStage($groupId, $stageId);
+        GroupStageSession::create([
+            'group_stage_id' => $groupStage->id,
+            'session_id' => $session->id,
+            'group_id' => $groupId,
+            'stage_id' => $stageId,
+            'session_type_id' => $sessionTypeId,
+            'start_verse' => (int) $session->start_verse,
+            'end_verse' => (int) $session->end_verse,
+        ]);
+    }
+    public function create($dataRequest): DataStatus
     {
         try {
-            $data['title'] = $request->title;
-            $data['stage_id'] = $request->stage_id;
-            $data['surah_id'] = $request->surah_id;
-            $data['session_type_id'] = $request->session_type_id;
-            $data['start_ayah_id'] = $request->start_ayah_id;
-            $data['end_ayah_id'] = $request->end_ayah_id;
+            $data['title'] = $dataRequest->is_new == SessionIsNewEnum::NEW->value ? $dataRequest->title : MainSession::find($dataRequest->session_id)?->title;
+            $data['teacher_id'] = $dataRequest->teacher_id;
+            $data['stage_id'] = $dataRequest->stage_id;
+            $data['session_type_id'] = $dataRequest->session_type_id;
+            $data['surah_id'] = $dataRequest->surah_id;
+            $data['start_ayah_id'] = $dataRequest->start_ayah_id;
+            $data['end_ayah_id'] = $dataRequest->end_ayah_id;
+            $data['date'] = $dataRequest->date;
+            $data['start_time'] = $dataRequest->start_time;
+            $data['end_time'] = $dataRequest->end_time;
             $mainSession = MainSession::create($data);
+            $this->storeGroupStageSessions($mainSession, $dataRequest->group_id, $dataRequest->stage_id, $dataRequest->session_type_id);
             return new DataSuccess(
                 data: new MainSessionResource($mainSession),
                 status: true,

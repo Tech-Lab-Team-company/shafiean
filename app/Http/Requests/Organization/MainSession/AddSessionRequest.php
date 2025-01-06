@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Requests\Organization\MainSession;
 
 
@@ -15,16 +16,20 @@ class AddSessionRequest extends ApiRequest
     public function rules(): array
     {
         return [
-            "title" => "required|string",
+            "title" => ['required_if:is_new,1'],
             "stage_id" => "required|exists:stages,id",
+            "teacher_id" => "required|exists:teachers,id",
+            'session_id' => ['required_if:is_new,0', 'nullable', 'exists:main_sessions,id'],
+            "session_type_id" => "required|exists:session_types,id",
             "surah_id" => "required|exists:surahs,id",
-            'session_id' => ['required_if:is_new,0', 'exists:main_sessions,id'],
-            // "session_type_id" => "required|exists:session_types,id",
-            "organization_id" => "nullable|exists:organizations,id",
             'start_ayah_id' => 'required|exists:ayahs,id',
             'end_ayah_id' => 'required|exists:ayahs,id',
-            'is_new' => 'nullable|boolean|in:' . enumCaseValue(SessionIsNewEnum::class),
-
+            'is_new' => 'required|boolean|in:' . enumCaseValue(SessionIsNewEnum::class),
+            'group_id' => 'nullable|exists:groups,id',
+            'duration' => 'numeric',
+            'date' => 'required|date|date_format:Y-m-d',
+            'start_time' => 'required|date_format:H:i',
+            'end_time' => 'required|date_format:H:i|after:start_time',
         ];
     }
     public function withValidator($validator)
