@@ -11,6 +11,8 @@ use App\Models\SessionType;
 use App\Models\Surah\Surah;
 use App\Models\Organization;
 use Illuminate\Database\Eloquent\Model;
+use App\Observers\OrganizationIdObserver;
+use App\Models\Scopes\PerOrganizationScope;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -70,5 +72,15 @@ class MainSession extends Model
     public function endAyah(): BelongsTo
     {
         return $this->belongsTo(Ayah::class, 'end_ayah_id');
+    }
+    //  protected static function booted(): void
+    // {
+    //     static::addGlobalScope(new PerOrganizationScope);
+    // }
+
+    protected static function boot()
+    {
+        parent::boot();
+        static::observe(OrganizationIdObserver::class);/*  */
     }
 }

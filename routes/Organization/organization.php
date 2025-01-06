@@ -56,6 +56,7 @@ use App\Http\Controllers\Organization\Blog\FetchBlogCategoryController;
 use App\Http\Controllers\Organization\Relation\FetchRelationController;
 use App\Http\Controllers\Organization\Surah\SurahApiProviderController;
 use App\Http\Controllers\Organization\Competition\CompetitionController;
+use App\Http\Controllers\Organization\MainSession\MainSessionController;
 use App\Http\Controllers\Organization\BloodType\FetchBloodTypeController;
 use App\Http\Controllers\Organization\Teacher\TeacherStatisticController;
 use App\Http\Controllers\Organization\QuestionBank\QuestionBankController;
@@ -70,7 +71,9 @@ use App\Http\Controllers\Organization\Home\OrganizationHomeStatisticController;
 use App\Http\Controllers\Organization\ApplicationInfo\ApplicationInfoController;
 use App\Http\Controllers\Organization\Curriculum\FetchCurriculumStageController;
 use App\Http\Controllers\Organization\LibraryCategory\LibraryCategoryController;
+use App\Http\Controllers\Organization\MainSession\FetchMainSessionStageController;
 use App\Http\Controllers\Organization\Competition\AssignCompetitionRewardController;
+use App\Http\Controllers\Organization\MainSession\FetchMainSessionSurahAndAyahController;
 
 //AUTH
 Route::controller(AuthController::class)->group(function () {
@@ -302,6 +305,15 @@ Route::middleware('auth:organization')->group(function () {
             Route::post('organization_fetch_interacted_rate_with_organization_statistics', 'fetchInteractedRateWithOrganization');
         }
     );
+    //MAIN SESSION
+    Route::controller(MainSessionController::class)->group(function () {
+        Route::post('organization_fetch_sessions', 'index');
+        Route::post('organization_add_session', 'store');
+        Route::post('organization_fetch_session_details', 'show');
+        Route::post('organization_edit_session', 'update');
+        Route::post('organization_delete_session', 'destroy');
+        Route::post('organization_change_session_active_status', 'changeActiveStatus');
+    });
     //TEACHER STATISTIC
     Route::controller(TeacherStatisticController::class)->group(
         function () {
@@ -347,14 +359,18 @@ Route::middleware('auth:organization')->group(function () {
     //YEAR
     Route::get('organization_fetch_years', [GlobalController::class, "fetch_years"]);
     //COURSE
-    Route::post('organization_fetch_curriculum_stages', [FetchCurriculumStageController::class , 'fetch_curriculum_stages']);
-    Route::post('organization_fetch_curriculums_stages', [FetchCurriculumStageController::class , 'fetch_curriculums_stages']);
+    Route::post('organization_fetch_curriculum_stages', [FetchCurriculumStageController::class, 'fetch_curriculum_stages']);
+    Route::post('organization_fetch_curriculums_stages', [FetchCurriculumStageController::class, 'fetch_curriculums_stages']);
     //STUDENT
     Route::post('organization_fetch_students', FetchStudentController::class);
     //MAIN SESSION
-    Route::post('organization_fetch_main_sessions', [FetchMainSessionController::class , 'fetch_session']  );
-    Route::post('organization_fetch_admin_sessions', [FetchMainSessionController::class , 'fetch_main_session']);
-    Route::post('organization_fetch_admin_sessions_detail', [FetchMainSessionController::class , 'fetch_main_session_detail']);
+    Route::post('organization_fetch_main_sessions', [FetchMainSessionController::class, 'fetch_session']);
+    Route::post('organization_fetch_admin_sessions', [FetchMainSessionController::class, 'fetch_main_session']);
+    Route::post('organization_fetch_admin_sessions_detail', [FetchMainSessionController::class, 'fetch_main_session_detail']);
+    Route::post('organization_fetch_surah_by_session', [FetchMainSessionSurahAndAyahController::class, 'fetchSurahBySession']);
+    Route::post('organization_fetch_ayah_by_surah', [FetchMainSessionSurahAndAyahController::class, 'fetchAyahBySurah']);
+    Route::post('organization_fetch_main_session_stage', [FetchMainSessionStageController::class, 'fetchMainSessionStage']);
+
     //COMPETITON REWARD
     Route::post('assign_competition_reward', [AssignCompetitionRewardController::class, 'assignUser']);
     //USER
