@@ -21,15 +21,15 @@ class GroupResource extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'start_date' => $this->start_date,
-            'end_date' => $this->end_date,
-            'start_time' => $this->start_time,
-            'end_time' => $this->end_time,
-            'status' => $this->status,
-            'with_all_disability' => $this->with_all_disability,
-            'with_all_course_content' => $this->with_all_course_content,
-            'days' => DayResource::collection($this->days),
+            // 'end_date' => $this->end_date,
+            // 'start_time' => $this->start_time,
+            // 'end_time' => $this->end_time,
+            // 'status' => $this->status,
+            // 'with_all_disability' => $this->with_all_disability,
+            // 'with_all_course_content' => $this->with_all_course_content,
+            // 'days' => DayResource::collection($this->days),
             'course' => new CourseResource($this->course),
-            "stages" => GroupStageResource::collection($this->stages ?? []) ?? [],
+            // "stages" => GroupStageResource::collection($this->stages ?? []) ?? [],
 
         ];
     }
