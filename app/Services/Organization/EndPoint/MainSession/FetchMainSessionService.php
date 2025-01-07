@@ -69,7 +69,7 @@ class FetchMainSessionService
         try {
             $mainSessions = MainSession::whereNull('organization_id')->get();
             return new DataSuccess(
-                data: FetchMainSessionForSessionResource::collection($mainSessions)->response()->getData(),
+                data: FetchMainSessionForSessionResource::collection($mainSessions),
                 status: true,
                 message: 'Main Session fetched successfully'
             );
