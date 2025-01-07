@@ -20,7 +20,7 @@ use App\Http\Resources\Organization\Group\FetchGroupDetailsResource;
 
 class GroupService
 {
-    public function efetch_groups($request): DataStatus
+    public function fetch_groups($request): DataStatus
     {
         try {
             $query = Group::query();
@@ -31,7 +31,7 @@ class GroupService
             $groups = $query->orderBy('id', 'desc')->paginate(10);
 
             return new DataSuccess(
-                data: GroupResource::collection($groups)->response()->getData(true),
+                data:  $groups ? GroupResource::collection($groups)->response()->getData(true):[],
                 status: true,
                 message: 'Groups retrieved successfully'
             );
