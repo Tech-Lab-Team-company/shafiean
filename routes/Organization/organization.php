@@ -365,6 +365,7 @@ Route::middleware('auth:organization')->group(function () {
     Route::post('organization_fetch_students', FetchStudentController::class);
     //MAIN SESSION
     Route::post('organization_fetch_main_sessions', [FetchMainSessionController::class, 'fetch_session']);
+    Route::post('organization_fetch_main_sessions_for_session', [FetchMainSessionController::class, 'fetchMainSessionsForSession']);
     Route::post('organization_fetch_admin_sessions', [FetchMainSessionController::class, 'fetch_main_session']);
     Route::post('organization_fetch_admin_sessions_detail', [FetchMainSessionController::class, 'fetch_main_session_detail']);
     Route::post('organization_fetch_surah_by_session', [FetchMainSessionSurahAndAyahController::class, 'fetchSurahBySession']);
