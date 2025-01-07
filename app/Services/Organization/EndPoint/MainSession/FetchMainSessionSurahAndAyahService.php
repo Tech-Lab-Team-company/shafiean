@@ -30,9 +30,9 @@ class FetchMainSessionSurahAndAyahService
     public function fetchSurahBySession($dataRequest)
     {
         try {
-            $surah = MainSession::whereId($dataRequest->session_id)->first()->surah;
+            $surah = $dataRequest->session_id != null ? [MainSession::whereId($dataRequest->session_id)->first()->surah] : Surah::all();
             return new DataSuccess(
-                data: new SurahTitleResource($surah),
+                data: SurahTitleResource::collection($surah),
                 status: true,
                 message: 'Surah Session fetched successfully'
             );
@@ -48,7 +48,7 @@ class FetchMainSessionSurahAndAyahService
         try {
             $surah = Surah::all();
             return new DataSuccess(
-                data:  SurahTitleResource::collection($surah),
+                data: SurahTitleResource::collection($surah),
                 status: true,
                 message: 'Surah Session fetched successfully'
             );
