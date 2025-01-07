@@ -25,7 +25,7 @@ class FetchMainSessionRequest extends ApiRequest
     {
         return [
             'group_id' => 'required|integer|exists:groups,id',
-            'course_id' => 'required|integer|exists:courses,id',
+            // 'course_id' => 'required|integer|exists:courses,id',
         ];
     }
 }
