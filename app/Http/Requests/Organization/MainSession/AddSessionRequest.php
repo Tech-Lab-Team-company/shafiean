@@ -16,15 +16,15 @@ class AddSessionRequest extends ApiRequest
     public function rules(): array
     {
         return [
-            // "title" => ['required_if:is_new,1'],
-            "stage_id" => "nullable|exists:stages,id",
-            "teacher_id" => "nullable|exists:teachers,id",
-            'session_id' => ['nullable', 'nullable', 'exists:main_sessions,id'],
+            "title" => ['required_if:is_new,1'],
+            "stage_id" => "required|exists:stages,id",
+            "teacher_id" => "required|exists:teachers,id",
+            'session_id' => ['required_if:is_new,0', 'nullable', 'exists:main_sessions,id'],
             "session_type_id" => "nullable|exists:session_types,id",
-            "surah_id" => "nullable|exists:surahs,id",
-            'start_ayah_id' => 'nullable|exists:ayahs,id',
-            'end_ayah_id' => 'nullable|exists:ayahs,id',
-            'is_new' => 'nullable|boolean|in:' . enumCaseValue(SessionIsNewEnum::class),
+            "surah_id" => "required|exists:surahs,id",
+            'start_ayah_id' => 'required|exists:ayahs,id',
+            'end_ayah_id' => 'required|exists:ayahs,id',
+            'is_new' => 'required|boolean|in:' . enumCaseValue(SessionIsNewEnum::class),
             'group_id' => 'nullable|exists:groups,id',
             'duration' => 'nullable|numeric',
             'date' => 'nullable|date|date_format:Y-m-d',
