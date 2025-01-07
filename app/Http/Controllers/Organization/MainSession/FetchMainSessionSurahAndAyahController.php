@@ -25,4 +25,8 @@ class FetchMainSessionSurahAndAyahController extends Controller
     {
         return $this->fetchMainSessionSurahAndAyahService->fetchAyahBySurah($request)->response();
     }
+    public function fetchAyahForSession()
+    {
+        return $this->fetchMainSessionSurahAndAyahService->fetchAyahForSession()->response();
+    }
 }

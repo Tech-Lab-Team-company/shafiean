@@ -16,7 +16,7 @@ class AyahTitleResource extends JsonResource
     {
         return [
             'id' => $this->id ?? 0,
-            'text' => $this->text ?? '',
+            'title' => $this->text ?? '',
         ];
     }
 }
