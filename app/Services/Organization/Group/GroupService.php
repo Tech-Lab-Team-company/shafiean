@@ -132,7 +132,7 @@ class GroupService
             $group = Group::find($request->id);
             $group->update([
                 'title' => $request->title,
-                'course_id' => $request->course_id,
+                // 'course_id' => $request->course_id,
                 // 'teacher_id' => $request->teacher_id,
                 'start_date' => $request->start_date,
                 // 'end_date' => $request->end_date,
