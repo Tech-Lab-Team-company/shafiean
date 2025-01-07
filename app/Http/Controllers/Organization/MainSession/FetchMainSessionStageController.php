@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Organization\MainSession;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\MainSession\FetchSessionBySurahRequest;
 use App\Http\Requests\MainSession\FetchMainSessionStageRequest;
 use App\Http\Requests\MainSession\FetchSessionAyahBySurahRequest;

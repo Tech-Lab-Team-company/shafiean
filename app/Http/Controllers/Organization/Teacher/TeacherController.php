@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Organization\Teacher;
 
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Teacher\TeacherRequest;
 use App\Services\Organization\Teacher\TeacherService;
 
@@ -34,5 +35,10 @@ class TeacherController extends Controller
     public function destroy($id)
     {
         return $this->teacherService->deleteTeacher($id)->response();
+    }
+    public function fetchTeachers()
+    {
+        $auth = Auth::guard('organization')->user();
+        return $this->teacherService->fetchTeachers($auth)->response();
     }
 }

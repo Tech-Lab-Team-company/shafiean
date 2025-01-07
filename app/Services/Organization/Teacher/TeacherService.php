@@ -1,14 +1,16 @@
 <?php
+
 namespace App\Services\Organization\Teacher;
 
 
+use Exception;
+use App\Models\Teacher;
 use App\Helpers\Response\DataFailed;
 use App\Helpers\Response\DataStatus;
 use App\Helpers\Response\DataSuccess;
 use App\Http\Resources\TeacherResource;
-use App\Models\Teacher;
-use Exception;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Resources\TeacherNameResource;
 
 class TeacherService
 {
@@ -116,5 +118,21 @@ class TeacherService
             );
         }
     }
-}
+    public function fetchTeachers($auth): DataStatus
+    {
+        try {
+            $teachers = Teacher::whereOrganizationId($auth->organization_id)->get();
 
+            return new DataSuccess(
+                statusCode: 200,
+                message: 'Teacher Fetched successfully',
+                data: TeacherNameResource::collection($teachers)
+            );
+        } catch (Exception $e) {
+            return new DataFailed(
+                statusCode: 500,
+                message: 'Teacher Fetched failed: ' . $e->getMessage()
+            );
+        }
+    }
+}
