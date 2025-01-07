@@ -23,7 +23,7 @@ class FetchSessionSurahBySessionRequest extends ApiRequest
     public function rules(): array
     {
         return [
-            "session_id" => "required|exists:main_sessions,id"
+            "session_id" => "nullable|exists:main_sessions,id"
         ];
     }
 }
