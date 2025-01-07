@@ -25,7 +25,7 @@ class EditGroupRequest extends ApiRequest
         return [
             'id' => 'required|exists:groups,id',
             'title' => 'required|string',
-            // 'course_id' => 'required|exists:courses,id',
+            'course_id' => 'required|exists:courses,id',
             // 'teacher_id' => 'required|exists:teachers,id',
             // 'start_date' => 'required|date|date_format:Y-m-d',
             // 'end_date' => 'required|date|date_format:Y-m-d|after:start_date',
