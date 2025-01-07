@@ -22,9 +22,9 @@ class FetchAdminSessionResource extends JsonResource
             'disability_types' => $this->stage?->disabilityTypes->pluck('title')->implode(', ') ?? "", // This is a collection of disability types
             'curriculum_title' => $this->stage->curriculum->title ?? "",
             'surah_title' => $this->surah->name ?? "",
-            'start_ayah' => $this->startAyah->number_in_surah ?? "",
+            'start_ayah_id' => $this->startAyah->number_in_surah ?? "",
             'start_ayah_title' => $this->startAyah->text ?? "",
-            'end_ayah' => $this->endAyah->number_in_surah ?? "",
+            'end_ayah_id' => $this->endAyah->number_in_surah ?? "",
             'end_ayah_title' => $this->endAyah->text ?? "",
         ];
     }

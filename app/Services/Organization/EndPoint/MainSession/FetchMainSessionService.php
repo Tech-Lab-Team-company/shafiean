@@ -43,7 +43,7 @@ class FetchMainSessionService
     {
         try {
             // $groupStageSessions = GroupStageSession::where('group_id', $dataRequest->group_id)->orderBy('id', 'desc')->get();
-            $query = MainSession::query();
+            $query = MainSession::whereNull('organization_id');
 
             if (isset($dataRequest) && $dataRequest != null) {
                 $filter_servise = new FilterService();
