@@ -5,7 +5,7 @@ namespace App\Http\Resources\Organization\MainSession;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class FetchAdminSessionResource extends JsonResource
+class FetchMainSessionForSessionResource extends JsonResource
 {
     /**
      * Transform the resource into an array.

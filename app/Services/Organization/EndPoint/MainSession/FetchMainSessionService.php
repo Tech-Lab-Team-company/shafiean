@@ -17,8 +17,9 @@ use App\Models\Organization\Library\Library;
 use App\Http\Resources\Organization\Library\LibraryResource;
 use App\Models\Organization\LibraryCategory\LibraryCategory;
 use App\Http\Resources\Organization\MainSession\FetchMainSessionResource;
-use App\Http\Resources\Organization\LibraryCategory\LibraryCategoryResource;
 use App\Http\Resources\Organization\MainSession\FetchAdminSessionResource;
+use App\Http\Resources\Organization\LibraryCategory\LibraryCategoryResource;
+use App\Http\Resources\Organization\MainSession\FetchMainSessionForSessionResource;
 
 class FetchMainSessionService
 {
@@ -53,6 +54,22 @@ class FetchMainSessionService
             // dd($mainSessions);
             return new DataSuccess(
                 data: FetchAdminSessionResource::collection($mainSessions)->response()->getData(),
+                status: true,
+                message: 'Main Session fetched successfully'
+            );
+        } catch (Exception $e) {
+            return new DataFailed(
+                status: false,
+                message: $e->getMessage()
+            );
+        }
+    }
+    public function fetchMainSessionsForSession()
+    {
+        try {
+            $mainSessions = MainSession::whereNull('organization_id')->get();
+            return new DataSuccess(
+                data: FetchMainSessionForSessionResource::collection($mainSessions)->response()->getData(),
                 status: true,
                 message: 'Main Session fetched successfully'
             );
