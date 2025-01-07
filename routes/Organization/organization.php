@@ -58,6 +58,7 @@ use App\Http\Controllers\Organization\Relation\FetchRelationController;
 use App\Http\Controllers\Organization\Surah\SurahApiProviderController;
 use App\Http\Controllers\Organization\Competition\CompetitionController;
 use App\Http\Controllers\Organization\MainSession\MainSessionController;
+use App\Http\Controllers\Organization\SessionType\SessionTypeController;
 use App\Http\Controllers\Organization\BloodType\FetchBloodTypeController;
 use App\Http\Controllers\Organization\Teacher\TeacherStatisticController;
 use App\Http\Controllers\Organization\QuestionBank\QuestionBankController;
@@ -393,6 +394,8 @@ Route::middleware('auth:organization')->group(function () {
     Route::post('organization_fetch_surah_ayahs ', [SurahController::class, 'fetchSurahAyahs']);
     //TEACHER
     Route::post('organization_fetch_teachers ', [TeacherController::class, 'fetchTeachers']);
+    //SESSION TYPE
+    Route::post('organization_fetch_session_types ', [SessionTypeController::class, 'fetchSessionTypes']);
 
     /**
      * END POINT END
