@@ -20,6 +20,7 @@ use App\Http\Resources\Organization\MainSession\FetchMainSessionResource;
 use App\Http\Resources\Organization\MainSession\FetchAdminSessionResource;
 use App\Http\Resources\Organization\LibraryCategory\LibraryCategoryResource;
 use App\Http\Resources\Organization\MainSession\FetchMainSessionForSessionResource;
+use App\Models\Group;
 
 class FetchMainSessionService
 {
@@ -64,10 +65,11 @@ class FetchMainSessionService
             );
         }
     }
-    public function fetchMainSessionsForSession()
+    public function fetchMainSessionsForSession($dataRequest)
     {
         try {
-            $mainSessions = MainSession::whereNull('organization_id')->get();
+            $sessionIds=Group::where('id', $dataRequest->group_id)->first()->groupStageSessions()->pluck('session_id')->toArray();
+            $mainSessions = MainSession::whereNull('organization_id')->whereNotIn("id", $sessionIds)->orderBy('id', 'desc')->get();
             return new DataSuccess(
                 data: FetchMainSessionForSessionResource::collection($mainSessions),
                 status: true,

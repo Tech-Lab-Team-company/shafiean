@@ -22,9 +22,9 @@ class FetchMainSessionController extends Controller
         // dd($request->all());
         return $this->fetchMainSessionService->fetchMainSessions($request)->response();
     }
-    public function fetchMainSessionsForSession()
+    public function fetchMainSessionsForSession(FetchMainSessionRequest $request)
     {
-        return $this->fetchMainSessionService->fetchMainSessionsForSession()->response();
+        return $this->fetchMainSessionService->fetchMainSessionsForSession($request)->response();
     }
     public function fetch_main_session_detail(FetchAdminSessionDetailRequest $request)
     {
