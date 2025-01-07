@@ -376,7 +376,6 @@ Route::middleware('auth:organization')->group(function () {
     Route::post('organization_fetch_ayah_for_session', [FetchMainSessionSurahAndAyahController::class, 'fetchAyahForSession']);
     Route::post('organization_fetch_ayah_from_for_session', [FetchMainSessionSurahAndAyahController::class, 'fetchAyahForSession']);
     Route::post('organization_fetch_main_session_stage', [FetchMainSessionStageController::class, 'fetchMainSessionStage']);
-
     //COMPETITON REWARD
     Route::post('assign_competition_reward', [AssignCompetitionRewardController::class, 'assignUser']);
     //USER
