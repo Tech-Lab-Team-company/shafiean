@@ -78,10 +78,10 @@ class FetchMainSessionSurahAndAyahService
             );
         }
     }
-    public function fetchAyahForSession()
+    public function fetchAyahForSession($dataRequest)
     {
         try {
-            $ayahs = Ayah::all();
+            $ayahs = $dataRequest->ayah_id != null ? [Ayah::whereId($dataRequest->ayah_id)->first()] : Ayah::all();
             return new DataSuccess(
                 data: AyahTitleResource::collection($ayahs),
                 status: true,
