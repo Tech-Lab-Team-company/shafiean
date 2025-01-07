@@ -62,4 +62,20 @@ class FetchMainSessionSurahAndAyahService
             );
         }
     }
+    public function fetchAyahForSession()
+    {
+        try {
+            $ayahs = Ayah::all();
+            return new DataSuccess(
+                data: AyahTitleResource::collection($ayahs) ,
+                status: true,
+                message: 'Ayah fetched successfully'
+            );
+        } catch (Exception $e) {
+            return new DataFailed(
+                status: false,
+                message: $e->getMessage()
+            );
+        }
+    }
 }
