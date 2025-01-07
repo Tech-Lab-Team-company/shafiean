@@ -23,6 +23,7 @@ use App\Http\Controllers\Organization\Contact\ContactController;
 use App\Http\Controllers\Organization\JobType\JobTypeController;
 use App\Http\Controllers\Organization\Library\LibraryController;
 use App\Http\Controllers\Organization\Reports\ReportsController;
+use App\Http\Controllers\Organization\Teacher\TeacherController;
 use App\Http\Controllers\Organization\Blog\BlogHashtagController;
 use App\Http\Controllers\Organization\Exam\ExamStudentController;
 use App\Http\Controllers\Organization\Group\FetchGroupController;
@@ -46,10 +47,10 @@ use App\Http\Controllers\Organization\Country\FetchCountryController;
 use App\Http\Controllers\Organization\JobType\FetchJobTypeController;
 use App\Http\Controllers\Organization\Student\FetchStudentController;
 use App\Http\Controllers\Organization\Attendance\AttendanceController;
+
 use App\Http\Controllers\Organization\Blog\FetchBlogHashtagController;
 
 use App\Http\Controllers\Organization\ExamResult\ExamResultController;
-
 use App\Http\Controllers\Organization\Landingpage\StatisticController;
 use App\Http\Controllers\Organization\Landingpage\SubheaderController;
 use App\Http\Controllers\Organization\Blog\FetchBlogCategoryController;
@@ -390,7 +391,8 @@ Route::middleware('auth:organization')->group(function () {
     Route::post('organization_fetch_stage_surahs', [SurahController::class, 'fetchStageSurahs']);
     //AYAH
     Route::post('organization_fetch_surah_ayahs ', [SurahController::class, 'fetchSurahAyahs']);
-
+    //TEACHER
+    Route::post('organization_fetch_teachers ', [TeacherController::class, 'fetchTeachers']);
 
     /**
      * END POINT END
