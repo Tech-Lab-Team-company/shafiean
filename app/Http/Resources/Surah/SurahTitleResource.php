@@ -17,7 +17,7 @@ class SurahTitleResource extends JsonResource
     {
         return [
             'id' => $this->id ?? 0,
-            'name' => $this->name ?? '',
+            'title' => $this->name ?? '',
         ];
     }
 }
