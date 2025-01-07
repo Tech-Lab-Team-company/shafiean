@@ -20,7 +20,7 @@ use App\Http\Resources\Organization\Group\FetchGroupDetailsResource;
 
 class GroupService
 {
-    public function fetch_groups($request): DataStatus
+    public function efetch_groups($request): DataStatus
     {
         try {
             $query = Group::query();
