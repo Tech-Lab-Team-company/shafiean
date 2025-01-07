@@ -24,12 +24,12 @@ class AddSessionRequest extends ApiRequest
             "surah_id" => "required|exists:surahs,id",
             'start_ayah_id' => 'required|exists:ayahs,id',
             'end_ayah_id' => 'required|exists:ayahs,id',
-            'is_new' => 'required|boolean|in:' . enumCaseValue(SessionIsNewEnum::class),
+            'is_new' => 'nullable|boolean|in:' . enumCaseValue(SessionIsNewEnum::class),
             'group_id' => 'nullable|exists:groups,id',
-            'duration' => 'numeric',
-            'date' => 'required|date|date_format:Y-m-d',
-            'start_time' => 'required|date_format:H:i',
-            'end_time' => 'required|date_format:H:i|after:start_time',
+            'duration' => 'nullable|numeric',
+            'date' => 'nullable|date|date_format:Y-m-d',
+            'start_time' => 'nullable|date_format:H:i',
+            'end_time' => 'nullable|date_format:H:i|after:start_time',
         ];
     }
     public function withValidator($validator)
