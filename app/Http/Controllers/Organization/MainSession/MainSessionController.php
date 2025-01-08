@@ -22,7 +22,8 @@ class MainSessionController extends Controller
 
     public function index(MainSessionIndexForGroupRequest $request)
     {
-        return $this->mainSessionService->index($request)->response();
+        $auth = Auth::guard('organization')->user();
+        return $this->mainSessionService->index($request,  $auth)->response();
     }
 
     public function store(AddSessionRequest $request)
