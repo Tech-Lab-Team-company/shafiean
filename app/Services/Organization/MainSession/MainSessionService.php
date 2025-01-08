@@ -140,8 +140,8 @@ class MainSessionService
     public function delete($request): DataStatus
     {
         try {
-            $mainSession = MainSession::find($request->id);
-            $mainSession->delete();
+            $groupStageSession = GroupStageSession::find($request->id);
+            $groupStageSession->delete();
             return new DataSuccess(
                 status: true,
                 message: 'Main session deleted successfully'
