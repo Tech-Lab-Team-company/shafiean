@@ -18,7 +18,7 @@ class FetchMainSessionForSessionResource extends JsonResource
             'id' => $this->id??0,
             'title' => $this->title??"",
             'stage_title' => $this?->stage?->title ?? "",
-            'stage_type' => $this?->stage?->type ?? "",
+            // 'stage_type' => $this?->stage?->type ?? "",
             'disability_types' => $this?->stage?->disabilityTypes->pluck('title')->implode(', ') ?? "", // This is a collection of disability types
             'curriculum_title' => $this?->stage->curriculum->title ?? "",
             'surah_title' => $this->surah->name ?? "",
