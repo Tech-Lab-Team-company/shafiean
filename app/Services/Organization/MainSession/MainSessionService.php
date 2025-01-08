@@ -22,12 +22,14 @@ class MainSessionService
     public function index($dataRequest): DataStatus
     {
         try {
-            $query = MainSession::query();
-            $filter_service = new FilterService();
-            if ($dataRequest) {
-                $filter_service->filterMainSession($dataRequest, $query);
-            }
-            $mainSessions = $query->orderBy('id', 'desc')->paginate(10);
+            // $query = MainSession::query();
+            // $filter_service = new FilterService();
+            // if ($dataRequest) {
+            //     $filter_service->filterMainSession($dataRequest, $query);
+            // }
+            // $mainSessions = $query->orderBy('id', 'desc')->paginate(10);
+            $mainSessionIds = GroupStageSession::where('group_id', $dataRequest->group_id)->pluck('session_id')->toArray();
+            $mainSessions = MainSession::whereIn("id", $mainSessionIds)->orderBy('id', 'desc')->paginate(10);
             return new DataSuccess(
                 data: FetchMainSessionIndexForGroupResource::collection($mainSessions)->response()->getData(true),
                 status: true,
