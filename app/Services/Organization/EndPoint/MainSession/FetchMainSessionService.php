@@ -21,6 +21,7 @@ use App\Http\Resources\Organization\MainSession\FetchAdminSessionResource;
 use App\Http\Resources\Organization\LibraryCategory\LibraryCategoryResource;
 use App\Http\Resources\Organization\MainSession\FetchMainSessionForSessionResource;
 use App\Models\CourseStage;
+use App\Models\CourseStageSession;
 use App\Models\Group;
 
 class FetchMainSessionService
@@ -69,13 +70,17 @@ class FetchMainSessionService
     public function fetchMainSessionsForSession($dataRequest)
     {
         try {
+            $curriculumId = $dataRequest->curriculum_id;
             // dd($sessionIds);
-            // $courseStage = CourseStage::whereCourseId($dataRequest->course_id)->first()->sessions()->pluck('id')->toArray();
+            $mainSessions = CourseStage::where("course_id", $dataRequest->course_id)->first()->sessions;
             // $mainSessions = MainSession::whereNull('organization_id')->whereNotIn("id", $sessionIds)->orderBy('id', 'desc')->get();
-            $sessionIds = Group::where('id', $dataRequest->group_id)->first()->groupStageSessions()->pluck('session_id')->toArray();
-            $group = Group::find($dataRequest->group_id);
-            $stageIds = $group->stages()->select('stages.id')->pluck('id')->unique()->toArray();
-            $mainSessions = MainSession::whereNull('organization_id')->whereIn('stage_id', $stageIds)/* ->whereNotIn("id", $sessionIds) */->orderBy('id', 'desc')->get();
+            // $sessionIds = Group::where('id', $dataRequest->group_id)->first()->groupStageSessions()->pluck('session_id')->toArray();
+            // $group = Group::find($dataRequest->group_id);+
+            // $stageIds = $group->stages()->select('stages.id')->pluck('id')->unique()->toArray();+
+            // $mainSessions = MainSession::whereNull('organization_id')->whereIn('stage_id', $stageIds+)/* ->whereNotIn("id", $sessionIds) */->orderBy('id', 'desc')->get();
+            // $mainSessions = MainSession::whereNull('organization_id')->whereHas('stage', function ($query) use ($curriculumId) {
+            //     $query->where('curriculum_id', $curriculumId);
+            // })->get();
             return new DataSuccess(
                 data: FetchMainSessionForSessionResource::collection($mainSessions),
                 status: true,
