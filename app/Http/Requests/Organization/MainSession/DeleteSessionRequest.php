@@ -23,7 +23,7 @@ class DeleteSessionRequest extends ApiRequest
     public function rules(): array
     {
         return [
-            "id" => "required|exists:main_sessions,id",
+            "id" => "required|exists:group_stage_sessions,id",
         ];
     }
 }
