@@ -19,7 +19,7 @@ use App\Http\Resources\Organization\MainSession\FetchMainSessionIndexForGroupRes
 
 class MainSessionService
 {
-    public function index($dataRequest): DataStatus
+    public function index($dataRequest, $auth): DataStatus
     {
         try {
             // $query = MainSession::query();
@@ -28,8 +28,9 @@ class MainSessionService
             //     $filter_service->filterMainSession($dataRequest, $query);
             // }
             // $mainSessions = $query->orderBy('id', 'desc')->paginate(10);
+
             $mainSessionIds = GroupStageSession::where('group_id', $dataRequest->group_id)->pluck('session_id')->toArray();
-            $mainSessions = MainSession::whereIn("id", $mainSessionIds)->orderBy('id', 'desc')->paginate(10);
+            $mainSessions = MainSession::whereOrganizationId($auth->organization_id)->whereIn("id", $mainSessionIds)->orderBy('id', 'desc')->paginate(10);
             return new DataSuccess(
                 data: FetchMainSessionIndexForGroupResource::collection($mainSessions)->response()->getData(true),
                 status: true,
