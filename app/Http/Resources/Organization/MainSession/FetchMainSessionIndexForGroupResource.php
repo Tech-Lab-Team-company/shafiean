@@ -26,7 +26,10 @@ class FetchMainSessionIndexForGroupResource extends JsonResource
             'start_ayah_title' => $this->startAyah->text ?? "",
             // 'end_ayah_id' => $this->endAyah->number_in_surah ?? "",
             'end_ayah_title' => $this->endAyah->text ?? "",
-            'teacher_name' => $this->teacher->name ?? ""
+            'teacher_name' => $this->teacher->name ?? "",
+            'date' => $this->date ?? "",
+            'start_time' => $this->start_time ?? "",
+            'end_time' => $this->end_time ?? ""
         ];
     }
 }
