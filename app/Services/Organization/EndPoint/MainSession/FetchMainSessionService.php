@@ -69,10 +69,13 @@ class FetchMainSessionService
     public function fetchMainSessionsForSession($dataRequest)
     {
         try {
-            // $sessionIds = Group::where('id', $dataRequest->group_id)->first()->groupStageSessions()->pluck('session_id')->toArray();
+            // dd($sessionIds);
             // $courseStage = CourseStage::whereCourseId($dataRequest->course_id)->first()->sessions()->pluck('id')->toArray();
             // $mainSessions = MainSession::whereNull('organization_id')->whereNotIn("id", $sessionIds)->orderBy('id', 'desc')->get();
-            $mainSessions = MainSession::whereNull('organization_id')->orderBy('id', 'desc')->get();
+            $sessionIds = Group::where('id', $dataRequest->group_id)->first()->groupStageSessions()->pluck('session_id')->toArray();
+            $group = Group::find($dataRequest->group_id);
+            $stageIds = $group->stages()->select('stages.id')->pluck('id')->unique()->toArray();
+            $mainSessions = MainSession::whereNull('organization_id')->whereIn('stage_id', $stageIds)/* ->whereNotIn("id", $sessionIds) */->orderBy('id', 'desc')->get();
             return new DataSuccess(
                 data: FetchMainSessionForSessionResource::collection($mainSessions),
                 status: true,
