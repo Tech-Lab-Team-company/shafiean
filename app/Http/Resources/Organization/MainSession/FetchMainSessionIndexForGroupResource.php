@@ -15,8 +15,8 @@ class FetchMainSessionIndexForGroupResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id' => $this->id,
-            'title' => $this->title,
+            'id' => $this->id ?? 0,
+            'title' => $this->session_id ? $this->session->title : $this->title,
             'stage_title' => $this->stage->title ?? "",
             'session_type' => $this->session_type->title ?? "",
             'curriculum_title' => $this->stage->curriculum->title ?? "",
