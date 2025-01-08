@@ -70,8 +70,6 @@ class FetchMainSessionService
     public function fetchMainSessionsForSession($dataRequest)
     {
         try {
-            $curriculumId = $dataRequest->curriculum_id;
-            // dd($sessionIds);
             $mainSessions = CourseStage::where("course_id", $dataRequest->course_id)->first()->sessions;
             // $mainSessions = MainSession::whereNull('organization_id')->whereNotIn("id", $sessionIds)->orderBy('id', 'desc')->get();
             // $sessionIds = Group::where('id', $dataRequest->group_id)->first()->groupStageSessions()->pluck('session_id')->toArray();
