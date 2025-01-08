@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Organization\MainSession;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use App\Services\Organization\MainSession\MainSessionService;
 use App\Http\Requests\Organization\MainSession\AddSessionRequest;
 use App\Http\Requests\Organization\MainSession\EditSessionRequest;
@@ -20,7 +21,7 @@ class MainSessionController extends Controller
 
     public function index(FetchSessionsRequest $request)
     {
-        return $this->mainSessionService->getAll($request)->response();
+        return $this->mainSessionService->index($request)->response();
     }
 
     public function store(AddSessionRequest $request)

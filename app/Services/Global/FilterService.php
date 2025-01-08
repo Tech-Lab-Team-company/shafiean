@@ -137,10 +137,10 @@ class FilterService
     public function filterMainSession($request, $query)
     {
 
-        $query->when($request->has('word'), function ($q) use ($request) {
+        $query->when($request->has('word') && $request->word != null, function ($q) use ($request) {
             $q->where('title', 'like', '%' . $request->word . '%');
         })
-            ->when($request->has('stage_id'), function ($q) use ($request) {
+            ->when($request->has('stage_id') && $request->stage_id != null, function ($q) use ($request) {
                 $q->where('stage_id', $request->stage_id);
             })
             ->when($request->has('stage_ids'), function ($q) use ($request) {

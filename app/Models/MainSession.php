@@ -73,10 +73,14 @@ class MainSession extends Model
     {
         return $this->belongsTo(Ayah::class, 'end_ayah_id');
     }
-    //  protected static function booted(): void
-    // {
-    //     static::addGlobalScope(new PerOrganizationScope);
-    // }
+    public function teacher(): BelongsTo
+    {
+        return $this->belongsTo(Teacher::class, 'teacher_id');
+    }
+    protected static function booted(): void
+    {
+        static::addGlobalScope(new PerOrganizationScope);
+    }
 
     protected static function boot()
     {
