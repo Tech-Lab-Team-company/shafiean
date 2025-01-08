@@ -12,6 +12,7 @@ use App\Http\Requests\Organization\MainSession\EditSessionRequest;
 use App\Http\Requests\Organization\MainSession\DeleteSessionRequest;
 use App\Http\Requests\Organization\MainSession\FetchSessionsRequest;
 use App\Http\Requests\Organization\MainSession\FetchSessionDetailsRequest;
+use App\Http\Requests\Organization\MainSession\MainSessionIndexForGroupRequest;
 use App\Http\Requests\Organization\MainSession\ChangeSessionActiveStatusRequest;
 
 class MainSessionController extends Controller
@@ -19,7 +20,7 @@ class MainSessionController extends Controller
 
     public function __construct(protected MainSessionService $mainSessionService) {}
 
-    public function index(FetchSessionsRequest $request)
+    public function index(MainSessionIndexForGroupRequest $request)
     {
         return $this->mainSessionService->index($request)->response();
     }
