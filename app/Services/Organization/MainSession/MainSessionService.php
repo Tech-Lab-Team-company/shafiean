@@ -15,20 +15,21 @@ use App\Helpers\Response\DataStatus;
 use App\Helpers\Response\DataSuccess;
 use App\Services\Global\FilterService;
 use App\Http\Resources\MainSessionResource;
+use App\Http\Resources\Organization\MainSession\FetchMainSessionIndexForGroupResource;
 
 class MainSessionService
 {
-    public function getAll($request): DataStatus
+    public function index($dataRequest): DataStatus
     {
         try {
             $query = MainSession::query();
             $filter_service = new FilterService();
-            if ($request) {
-                $filter_service->filterMainSession($request, $query);
+            if ($dataRequest) {
+                $filter_service->filterMainSession($dataRequest, $query);
             }
             $mainSessions = $query->orderBy('id', 'desc')->paginate(10);
             return new DataSuccess(
-                data: MainSessionResource::collection($mainSessions)->response()->getData(true),
+                data: FetchMainSessionIndexForGroupResource::collection($mainSessions)->response()->getData(true),
                 status: true,
                 message: 'Main sessions retrieved successfully'
             );
