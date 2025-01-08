@@ -65,9 +65,13 @@ class MainSessionService
     public function create($dataRequest): DataStatus
     {
         try {
+            $groupStage = $this->storeGroupStage($dataRequest->group_id,  $dataRequest->stage_id);
             $data['title'] = $dataRequest->is_new == SessionIsNewEnum::NEW->value ? $dataRequest->title : MainSession::find($dataRequest->session_id)?->title;
+            $data['session_id'] = $dataRequest->is_new == SessionIsNewEnum::EXISTS->value ? $dataRequest->session_id : null;
             $data['teacher_id'] = $dataRequest->teacher_id;
+            $data['group_stage_id'] = $groupStage->id;
             $data['stage_id'] = $dataRequest->stage_id;
+            $data['group_id'] = $dataRequest->group_id;
             $data['session_type_id'] = $dataRequest->session_type_id;
             $data['surah_id'] = $dataRequest->surah_id;
             $data['start_ayah_id'] = $dataRequest->start_ayah_id;
@@ -75,10 +79,11 @@ class MainSessionService
             $data['date'] = $dataRequest->date;
             $data['start_time'] = $dataRequest->start_time;
             $data['end_time'] = $dataRequest->end_time;
-            $mainSession = MainSession::create($data);
-            $this->storeGroupStageSessions($mainSession, $dataRequest->group_id, $dataRequest->stage_id, $dataRequest->session_type_id);
+            /* $mainSession = */
+            GroupStageSession::create($data);
+            // $this->storeGroupStageSessions($mainSession, $dataRequest->group_id, $dataRequest->stage_id, $dataRequest->session_type_id);
             return new DataSuccess(
-                data: new MainSessionResource($mainSession),
+                /* data: new MainSessionResource($mainSession), */
                 status: true,
                 message: 'Main session created successfully'
             );
