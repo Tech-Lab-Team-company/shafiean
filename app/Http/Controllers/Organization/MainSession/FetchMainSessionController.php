@@ -13,11 +13,11 @@ class FetchMainSessionController extends Controller
 {
     public function __construct(protected FetchMainSessionService $fetchMainSessionService) {}
 
-    public function fetch_session(FetchMainSessionRequest $request)
+    public function fetchSessions(FetchMainSessionRequest $request)
     {
         return $this->fetchMainSessionService->fetchSessions($request)->response();
     }
-    public function fetch_main_session(FetchAdminSessionRequest $request)
+    public function fetchMainSessions(FetchAdminSessionRequest $request)
     {
         return $this->fetchMainSessionService->fetchMainSessions($request)->response();
     }
@@ -25,7 +25,7 @@ class FetchMainSessionController extends Controller
     {
         return $this->fetchMainSessionService->fetchMainSessionsForSession($request)->response();
     }
-    public function fetch_main_session_detail(FetchAdminSessionDetailRequest $request)
+    public function fetchMainSessionsDetail(FetchAdminSessionDetailRequest $request)
     {
         return $this->fetchMainSessionService->fetchMainSessionsDetail($request)->response();
     }

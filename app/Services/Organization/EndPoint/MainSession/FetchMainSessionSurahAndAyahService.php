@@ -43,22 +43,6 @@ class FetchMainSessionSurahAndAyahService
             );
         }
     }
-    public function fetchSurahForSession()
-    {
-        try {
-            $surah = Surah::all();
-            return new DataSuccess(
-                data: SurahTitleResource::collection($surah),
-                status: true,
-                message: 'Surah Session fetched successfully'
-            );
-        } catch (Exception $e) {
-            return new DataFailed(
-                status: false,
-                message: $e->getMessage()
-            );
-        }
-    }
     public function fetchAyahBySurah($dataRequest)
     {
         try {

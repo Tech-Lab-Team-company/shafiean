@@ -309,8 +309,8 @@ Route::middleware('auth:organization')->group(function () {
     );
     //MAIN SESSION
     Route::controller(MainSessionController::class)->group(function () {
-        Route::post('organization_fetch_sessions', 'index');
-        Route::post('organization_add_session', 'store');
+        Route::post('organization_fetch_sessions', 'index'); // GET SESSION BELONGS TO COURSE AND GROUP
+        Route::post('organization_add_session', 'store');// ADD SESSION FROM ORGANIZATION
         Route::post('organization_fetch_session_details', 'show');
         Route::post('organization_edit_session', 'update');
         Route::post('organization_delete_session', 'destroy');
@@ -366,15 +366,13 @@ Route::middleware('auth:organization')->group(function () {
     //STUDENT
     Route::post('organization_fetch_students', FetchStudentController::class);
     //MAIN SESSION
-    Route::post('organization_fetch_main_sessions', [FetchMainSessionController::class, 'fetch_session']);
+    Route::post('organization_fetch_main_sessions', [FetchMainSessionController::class, 'fetchSessions']);
     Route::post('organization_fetch_main_sessions_for_session', [FetchMainSessionController::class, 'fetchMainSessionsForSession']);
-    Route::post('organization_fetch_admin_sessions', [FetchMainSessionController::class, 'fetch_main_session']);
-    Route::post('organization_fetch_admin_sessions_detail', [FetchMainSessionController::class, 'fetch_main_session_detail']);
+    Route::post('organization_fetch_admin_sessions', [FetchMainSessionController::class, 'fetchMainSessions']);
+    Route::post('organization_fetch_admin_sessions_detail', [FetchMainSessionController::class, 'fetchMainSessionsDetail']);
     Route::post('organization_fetch_surah_by_session', [FetchMainSessionSurahAndAyahController::class, 'fetchSurahBySession']);
-    Route::post('organization_fetch_surah_for_session', [FetchMainSessionSurahAndAyahController::class, 'fetchSurahForSession']);
     Route::post('organization_fetch_ayah_by_surah', [FetchMainSessionSurahAndAyahController::class, 'fetchAyahBySurah']);
     Route::post('organization_fetch_ayah_for_session', [FetchMainSessionSurahAndAyahController::class, 'fetchAyahForSession']);
-    Route::post('organization_fetch_ayah_from_for_session', [FetchMainSessionSurahAndAyahController::class, 'fetchAyahForSession']);
     Route::post('organization_fetch_main_session_stage', [FetchMainSessionStageController::class, 'fetchMainSessionStage']);
     //COMPETITON REWARD
     Route::post('assign_competition_reward', [AssignCompetitionRewardController::class, 'assignUser']);
@@ -392,7 +390,7 @@ Route::middleware('auth:organization')->group(function () {
     //AYAH
     Route::post('organization_fetch_surah_ayahs ', [SurahController::class, 'fetchSurahAyahs']);
     //TEACHER
-    Route::post('organization_fetch_teachers ', [TeacherController::class, 'fetchTeachers']);
+    Route::post('organization_fetch_teachers ', [TeacherController::class, 'fetchTeachers']);// GET ALL TEACHERS BELONGS TO ORGANIZATION
     //SESSION TYPE
     Route::post('organization_fetch_session_types ', [SessionTypeController::class, 'fetchSessionTypes']);
 
