@@ -16,12 +16,16 @@ class FetchGroupStudentService
     public function fetchGroupStudent($dataRequest)
     {
         try {
-            $users = User::whereHas('subscriptions', function ($query) use ($dataRequest) {
+            $query = User::whereHas('subscriptions', function ($query) use ($dataRequest) {
                 $query->where('group_id', $dataRequest->group_id)
                     ->where('course_id', $dataRequest->course_id);
-            })->orderBy('id', 'desc')->paginate(10);
+            });
+            $users = $query->when($dataRequest->has('word'), function ($q) use ($dataRequest) {
+                return $q->where('name', 'like', '%' . $dataRequest->word . '%');
+            });
+            $data = $users->orderBy('id', 'desc')->paginate(10);
             return new DataSuccess(
-                data: MiniUserResource::collection($users)->response()->getData(true),
+                data: MiniUserResource::collection($data)->response()->getData(true),
                 status: true,
                 message: 'Fetch Users successfully'
             );
