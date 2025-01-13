@@ -69,6 +69,7 @@ use App\Http\Controllers\Organization\ApplicationInfo\ApplicationInfoController;
 use App\Http\Controllers\Organization\Curriculum\FetchCurriculumStageController;
 use App\Http\Controllers\Organization\LibraryCategory\LibraryCategoryController;
 use App\Http\Controllers\Organization\MainSession\FetchMainSessionStageController;
+use App\Http\Controllers\Organization\MainSession\SortGroupStageSessionController;
 use App\Http\Controllers\Organization\Competition\AssignCompetitionRewardController;
 use App\Http\Controllers\Organization\MainSession\FetchMainSessionSurahAndAyahController;
 
@@ -370,6 +371,7 @@ Route::middleware('auth:organization')->group(function () {
     Route::post('organization_fetch_ayah_by_surah', [FetchMainSessionSurahAndAyahController::class, 'fetchAyahBySurah']);
     Route::post('organization_fetch_ayah_for_session', [FetchMainSessionSurahAndAyahController::class, 'fetchAyahForSession']);
     Route::post('organization_fetch_main_session_stage', [FetchMainSessionStageController::class, 'fetchMainSessionStage']);
+    Route::post('sort_group_stage_session', [SortGroupStageSessionController::class, 'sort']);
     //COMPETITON REWARD
     Route::post('assign_competition_reward', [AssignCompetitionRewardController::class, 'assignUser']);
     //USER
