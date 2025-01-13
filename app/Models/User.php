@@ -120,6 +120,7 @@ class User extends Authenticatable
     {
         return $this->hasMany(Subscription::class, 'user_id', 'id');
     }
+
     public function examResults(): HasMany
     {
         return $this->hasMany(ExamResult::class, 'user_id', 'id');

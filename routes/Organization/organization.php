@@ -21,9 +21,11 @@ use App\Http\Controllers\Organization\JobType\JobTypeController;
 use App\Http\Controllers\Organization\Library\LibraryController;
 use App\Http\Controllers\Organization\Teacher\TeacherController;
 use App\Http\Controllers\Organization\Blog\BlogHashtagController;
+use App\Http\Controllers\Organization\Exam\ExamStudentController;
 use App\Http\Controllers\Organization\Group\FetchGroupController;
 use App\Http\Controllers\Organization\Blog\BlogCategoryController;
 use App\Http\Controllers\Organization\Employee\EmployeeController;
+use App\Http\Controllers\Organization\Exam\ExamQuestionController;
 use App\Http\Controllers\Organization\Question\QuestionController;
 use App\Http\Controllers\Organization\Relation\RelationController;
 use App\Http\Controllers\User\Subscription\SubscriptionController;
@@ -47,7 +49,9 @@ use App\Http\Controllers\Organization\Landingpage\StatisticController;
 use App\Http\Controllers\Organization\Landingpage\SubheaderController;
 use App\Http\Controllers\Organization\Blog\FetchBlogCategoryController;
 use App\Http\Controllers\Organization\Relation\FetchRelationController;
+use App\Http\Controllers\Organization\Surah\SurahApiProviderController;
 use App\Http\Controllers\Organization\Competition\CompetitionController;
+use App\Http\Controllers\Organization\Group\FetchGroupStudentController;
 use App\Http\Controllers\Organization\MainSession\MainSessionController;
 use App\Http\Controllers\Organization\SessionType\SessionTypeController;
 use App\Http\Controllers\Organization\BloodType\FetchBloodTypeController;
@@ -341,6 +345,7 @@ Route::middleware('auth:organization')->group(function () {
     Route::get('organization_fetch_countries', FetchCountryController::class);
     //GROUP
     Route::get('organization_fetch_groups', FetchGroupController::class);
+    Route::post('organization_fetch_group_students', [FetchGroupStudentController::class, 'fetchGroupStudent']);
     //SEASON
     Route::get('organization_fetch_seasons', FetchSeasonController::class);
     //CRUCULUM
