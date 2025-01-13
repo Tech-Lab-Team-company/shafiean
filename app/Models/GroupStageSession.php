@@ -77,4 +77,14 @@ class GroupStageSession extends Model
     {
         return $this->belongsTo(Ayah::class, 'end_ayah_id');
     }
+
+
+    protected static function boot(): void
+    {
+        parent::boot();
+        self::creating(function ($model) {
+            $lastOrderBy = self::max('order_by');
+            $model->order_by = $lastOrderBy ? $lastOrderBy + 1 : 1;
+        });
+    }
 }
