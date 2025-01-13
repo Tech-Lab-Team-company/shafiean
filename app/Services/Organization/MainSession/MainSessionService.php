@@ -22,19 +22,21 @@ class MainSessionService
     public function index($dataRequest, $auth): DataStatus
     {
         try {
-            // $query = MainSession::query();
-            // $filter_service = new FilterService();
-            // if ($dataRequest) {
-            //     $filter_service->filterMainSession($dataRequest, $query);
-            // }
-            // $mainSessions = $query->orderBy('id', 'desc')->paginate(10);
-            $mainSession = GroupStageSession::where('group_id', $dataRequest->group_id)
+            $query = GroupStageSession::where('group_id', $dataRequest->group_id);
+            $mainSession = $query->when($dataRequest->has('word'), function ($q) use ($dataRequest) {
+                return $q->whereHas('session', function ($q) use ($dataRequest) {
+                    $q->where('title', 'like', '%' . $dataRequest->word . '%')
+                        ->orwhereHas('teacher', function ($q) use ($dataRequest) {
+                            $q->where('name', 'like', '%' . $dataRequest->word . '%');
+                        });
+                });
+            });
+            $data =  $mainSession
                 ->orderBy('order_by', 'asc')
                 ->orderBy('updated_at', 'desc')
                 ->paginate(10);
-            // $mainSessions = MainSession::whereOrganizationId($auth->organization_id)->whereIn("id", $mainSessionIds)->orderBy('id', 'desc')->paginate(10);
             return new DataSuccess(
-                data: FetchMainSessionIndexForGroupResource::collection($mainSession)->response()->getData(true),
+                data: FetchMainSessionIndexForGroupResource::collection($data)->response()->getData(true),
                 status: true,
                 message: 'Main sessions retrieved successfully'
             );
