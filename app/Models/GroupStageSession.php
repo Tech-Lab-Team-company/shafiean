@@ -12,6 +12,7 @@ use App\Models\MainSession;
 use App\Models\SessionType;
 use App\Models\Surah\Surah;
 use App\Models\UserSession;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -83,8 +84,10 @@ class GroupStageSession extends Model
     {
         parent::boot();
         self::creating(function ($model) {
-            $lastOrderBy = self::max('order_by');
-            $model->order_by = $lastOrderBy ? $lastOrderBy + 1 : 1;
+            if (Schema::hasColumn($model->getTable(), 'order_by')) {
+                $lastOrderBy = self::max('order_by');
+                $model->order_by = $lastOrderBy ? $lastOrderBy + 1 : 1;
+            }
         });
     }
 }
