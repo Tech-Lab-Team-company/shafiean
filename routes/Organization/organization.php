@@ -3,16 +3,13 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Global\StageController;
 use App\Http\Controllers\Global\GlobalController;
-use App\Http\Middleware\CheckWebsiteLinkMiddleware;
 use App\Http\Controllers\Admin\CurriculumController;
 use App\Http\Controllers\Global\DisabilityController;
-use App\Http\Controllers\Admin\DisabilityTypeController;
 use App\Http\Controllers\Organization\Auth\AuthController;
 use App\Http\Controllers\Organization\Blog\BlogController;
 use App\Http\Controllers\Organization\Exam\ExamController;
 use App\Http\Controllers\Organization\Rate\RateController;
 use App\Http\Controllers\Organization\User\UserController;
-use App\Http\Controllers\Admin\AdminHomeStatisticController;
 use App\Http\Controllers\Organization\Group\GroupController;
 use App\Http\Controllers\Organization\Surah\SurahController;
 use App\Http\Controllers\Organization\Answer\AnswerController;
@@ -22,14 +19,11 @@ use App\Http\Controllers\Organization\User\FetchUserController;
 use App\Http\Controllers\Organization\Contact\ContactController;
 use App\Http\Controllers\Organization\JobType\JobTypeController;
 use App\Http\Controllers\Organization\Library\LibraryController;
-use App\Http\Controllers\Organization\Reports\ReportsController;
 use App\Http\Controllers\Organization\Teacher\TeacherController;
 use App\Http\Controllers\Organization\Blog\BlogHashtagController;
-use App\Http\Controllers\Organization\Exam\ExamStudentController;
 use App\Http\Controllers\Organization\Group\FetchGroupController;
 use App\Http\Controllers\Organization\Blog\BlogCategoryController;
 use App\Http\Controllers\Organization\Employee\EmployeeController;
-use App\Http\Controllers\Organization\Exam\ExamQuestionController;
 use App\Http\Controllers\Organization\Question\QuestionController;
 use App\Http\Controllers\Organization\Relation\RelationController;
 use App\Http\Controllers\User\Subscription\SubscriptionController;
@@ -47,15 +41,12 @@ use App\Http\Controllers\Organization\Country\FetchCountryController;
 use App\Http\Controllers\Organization\JobType\FetchJobTypeController;
 use App\Http\Controllers\Organization\Student\FetchStudentController;
 use App\Http\Controllers\Organization\Attendance\AttendanceController;
-
 use App\Http\Controllers\Organization\Blog\FetchBlogHashtagController;
-
 use App\Http\Controllers\Organization\ExamResult\ExamResultController;
 use App\Http\Controllers\Organization\Landingpage\StatisticController;
 use App\Http\Controllers\Organization\Landingpage\SubheaderController;
 use App\Http\Controllers\Organization\Blog\FetchBlogCategoryController;
 use App\Http\Controllers\Organization\Relation\FetchRelationController;
-use App\Http\Controllers\Organization\Surah\SurahApiProviderController;
 use App\Http\Controllers\Organization\Competition\CompetitionController;
 use App\Http\Controllers\Organization\MainSession\MainSessionController;
 use App\Http\Controllers\Organization\SessionType\SessionTypeController;
@@ -310,7 +301,7 @@ Route::middleware('auth:organization')->group(function () {
     //MAIN SESSION
     Route::controller(MainSessionController::class)->group(function () {
         Route::post('organization_fetch_sessions', 'index'); // GET SESSION BELONGS TO COURSE AND GROUP
-        Route::post('organization_add_session', 'store');// ADD SESSION FROM ORGANIZATION
+        Route::post('organization_add_session', 'store'); // ADD SESSION FROM ORGANIZATION
         Route::post('organization_fetch_session_details', 'show');
         Route::post('organization_edit_session', 'update');
         Route::post('organization_delete_session', 'destroy');
@@ -390,7 +381,7 @@ Route::middleware('auth:organization')->group(function () {
     //AYAH
     Route::post('organization_fetch_surah_ayahs ', [SurahController::class, 'fetchSurahAyahs']);
     //TEACHER
-    Route::post('organization_fetch_teachers ', [TeacherController::class, 'fetchTeachers']);// GET ALL TEACHERS BELONGS TO ORGANIZATION
+    Route::post('organization_fetch_teachers ', [TeacherController::class, 'fetchTeachers']); // GET ALL TEACHERS BELONGS TO ORGANIZATION
     //SESSION TYPE
     Route::post('organization_fetch_session_types ', [SessionTypeController::class, 'fetchSessionTypes']);
 
