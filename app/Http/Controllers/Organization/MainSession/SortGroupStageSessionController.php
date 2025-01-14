@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Services\Organization\MainSession\MainSessionService;
+use App\Http\Requests\MainSession\SortGroupStageSessionRequest;
 use App\Http\Requests\Organization\MainSession\AddSessionRequest;
 use App\Http\Requests\Organization\MainSession\EditSessionRequest;
 use App\Http\Requests\Organization\MainSession\DeleteSessionRequest;
@@ -21,7 +22,7 @@ class SortGroupStageSessionController extends Controller
 
     public function __construct(protected SortGroupStageSessionService $sortGroupStageSessionService) {}
 
-    public function sort(Request $request)
+    public function sort(SortGroupStageSessionRequest $request)
     {
         return $this->sortGroupStageSessionService->sort($request)->response();
     }
