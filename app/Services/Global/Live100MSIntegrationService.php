@@ -43,7 +43,6 @@ class Live100MSIntegrationService
             // dd($room_data['data']);
             $response = Http::withHeaders($headers)->post('https://api.100ms.live/v2/rooms', $room_data['data']['body']);
             $json_data = $response->json();
-            dd($json_data);
             // dd($json_data['id']);
             $arrayOfCodes = $this->get_room_code($json_data['id']);
             // dd($arrayOfCodes);
@@ -80,22 +79,17 @@ class Live100MSIntegrationService
             } else {
                 $live = $session->lives()->where('id', $request->live_id)->first();
             }
+            dd($live);
             if ($live == null) {
-                dd('test');
                 $check_live =  $this->create_room($request, true);
                 if ($check_live instanceof DataFailed) {
                     return new DataFailed(
                         status: false,
-                        message: $check_live->getMessage()
-                        // message: $this->create_room($request, true)->getMessage()
+                        message: $this->create_room($request, true)->getMessage()
                     );
-                }elseif ($check_live instanceof DataSuccess) {
+                }
+                if ($check_live instanceof DataSuccess) {
                     $live =   $check_live->getData();
-                }else {
-                    return new DataFailed(
-                        status: false,
-                        message: 'Something went wrong'
-                    );
                 }
             }
             $live_info = $live->live_info;
