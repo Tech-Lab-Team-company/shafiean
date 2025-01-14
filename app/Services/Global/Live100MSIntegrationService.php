@@ -44,17 +44,11 @@ class Live100MSIntegrationService
                 'Authorization' => 'Bearer ' . $room_data['data']['token'],
                 'Content-Type' => 'application/json'
             ];
-            dd($room_data['data']['body']);
             $response = Http::withHeaders($headers)->post('https://api.100ms.live/v2/rooms', $room_data['data']['body']);
-            dd($response);
             $json_data = $response->json();
-            // dd($json_data['id']);
             $arrayOfCodes = $this->get_room_code($json_data['id']);
-            // dd($arrayOfCodes);
             $room_info_data = $json_data + $arrayOfCodes;
-            dd($room_info_data);
             $live_info = $this->store_live_info($room_data['data']['live_id'], $room_info_data);
-
             if ($join) {
                 DB::commit();
                 return new DataSuccess(
@@ -89,7 +83,6 @@ class Live100MSIntegrationService
             }
             if ($live == null) {
                 $check_live =  $this->create_room($request, true);
-                dd($check_live);
                 if ($check_live instanceof DataFailed) {
                     return new DataFailed(
                         status: false,
