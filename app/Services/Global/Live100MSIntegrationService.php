@@ -74,6 +74,7 @@ class Live100MSIntegrationService
     {
         try {
             $session = GroupStageSession::find($request->session_id);
+            dd($session);
             if ($request->live_id == null) {
                 $live = $session->lives()->latest()->first();
             } else {
@@ -90,7 +91,8 @@ class Live100MSIntegrationService
                 if ($check_live instanceof DataSuccess) {
                     $live =   $check_live->getData();
                 }
-            }                     $live_info = $live->live_info;
+            }
+            $live_info = $live->live_info;
             $live->update([
                 'leave_date' => null
             ]);
@@ -113,9 +115,9 @@ class Live100MSIntegrationService
         $this->live100MSIntegrationParam = new Live100MSIntegrationParam($session, $request->enable_recording);
         $body = $this->live100MSIntegrationParam->prepare_body();
         $live = $this->store_live($session);
-        if ($live == false) {
-            return false;
-        }
+        // if ($live == false) {
+        //     return false;
+        // }
         $token = $this->generate_token();
         $response = [
             'data' => [
@@ -136,9 +138,9 @@ class Live100MSIntegrationService
             ->where('group_id', $live_data['group_id'])
             ->where('leave_date', null)
             ->latest()->first();
-        if ($hasLive) {
-            return false;
-        }
+        // if ($hasLive) {
+        //     return false;
+        // }
         $live = Live::create($live_data);
         return $live;
     }

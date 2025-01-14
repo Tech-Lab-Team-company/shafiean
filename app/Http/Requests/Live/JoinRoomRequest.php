@@ -22,6 +22,7 @@ class JoinRoomRequest extends ApiRequest
      */
     public function rules(): array
     {
+
         return [
             'session_id' => 'required|exists:group_stage_sessions,id',
         ];
