@@ -74,7 +74,6 @@ class Live100MSIntegrationService
     {
         try {
             $session = GroupStageSession::find($request->session_id);
-            dd($session);
             if ($request->live_id == null) {
                 $live = $session->lives()->latest()->first();
             } else {
