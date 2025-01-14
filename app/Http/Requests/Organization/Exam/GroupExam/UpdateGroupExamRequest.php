@@ -1,0 +1,32 @@
+<?php
+
+namespace App\Http\Requests\Organization\Exam\GroupExam;
+
+use App\Enum\QuestionTypeEnum;
+use Illuminate\Validation\Rule;
+use App\Helpers\Response\ApiRequest;
+
+class UpdateGroupExamRequest extends ApiRequest
+{
+    public function authorize(): bool
+    {
+        return true;
+    }
+    public function rules(): array
+    {
+        return [
+            'id' => 'required|exists:exams,id',
+            'name' => 'required|string',
+            'start_date' => 'required|date|date_format:Y-m-d|after_or_equal:today',
+            'end_date' => 'required|date|date_format:Y-m-d|after:start_date',
+            'start_time' => 'required|date_format:H:i',
+            'end_time' => 'required|date_format:H:i|after:date:start_time',
+            'duration' => 'required|date_format:H:i',
+            'group_id' => 'required|exists:groups,id',
+            // 'question_count' => 'required|numeric',
+            // 'exam_type' => 'required|numeric|in:' . enumCaseValue(ExamTypeEnum::class),
+            // 'degree_type' => 'required|numeric|in:' . enumCaseValue(DegreeTypeEnum::class),
+            // 'degree' => 'required|numeric',
+        ];
+    }
+}
