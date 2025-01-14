@@ -84,11 +84,16 @@ class Live100MSIntegrationService
                 if ($check_live instanceof DataFailed) {
                     return new DataFailed(
                         status: false,
-                        message: $this->create_room($request, true)->getMessage()
+                        message: $check_live->getMessage()
+                        // message: $this->create_room($request, true)->getMessage()
                     );
-                }
-                if ($check_live instanceof DataSuccess) {
+                }elseif ($check_live instanceof DataSuccess) {
                     $live =   $check_live->getData();
+                }else {
+                    return new DataFailed(
+                        status: false,
+                        message: 'Something went wrong'
+                    );
                 }
             }
             $live_info = $live->live_info;
