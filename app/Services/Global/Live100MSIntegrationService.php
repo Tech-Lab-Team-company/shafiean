@@ -135,7 +135,6 @@ class Live100MSIntegrationService
                 'live' => $live
             ]
         ];
-        dd($response);
         return $response;
     }
     public function store_live($session)
