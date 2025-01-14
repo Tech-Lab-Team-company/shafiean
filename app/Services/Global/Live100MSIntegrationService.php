@@ -44,7 +44,7 @@ class Live100MSIntegrationService
                 'Authorization' => 'Bearer ' . $room_data['data']['token'],
                 'Content-Type' => 'application/json'
             ];
-            dd($room_data['data']);
+            dd($room_data);
             $response = Http::withHeaders($headers)->post('https://api.100ms.live/v2/rooms', $room_data['data']['body']);
             dd($response);
             $json_data = $response->json();
