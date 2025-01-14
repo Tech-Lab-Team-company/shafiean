@@ -79,7 +79,6 @@ class Live100MSIntegrationService
             } else {
                 $live = $session->lives()->where('id', $request->live_id)->first();
             }
-            dd($live);
             if ($live == null) {
                 $check_live =  $this->create_room($request, true);
                 if ($check_live instanceof DataFailed) {
