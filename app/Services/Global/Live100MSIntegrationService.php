@@ -81,6 +81,7 @@ class Live100MSIntegrationService
             }
             if ($live == null) {
                 $check_live =  $this->create_room($request, true);
+                dd($check_live);
                 if ($check_live instanceof DataFailed) {
                     return new DataFailed(
                         status: false,
