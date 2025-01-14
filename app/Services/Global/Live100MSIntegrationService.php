@@ -91,6 +91,7 @@ class Live100MSIntegrationService
                 if ($check_live instanceof DataSuccess) {
                     $live =   $check_live->getData();
                 }
+
             }
             $live_info = $live->live_info;
             $live->update([
