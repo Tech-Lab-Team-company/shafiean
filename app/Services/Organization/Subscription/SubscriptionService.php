@@ -68,7 +68,7 @@ class SubscriptionService
     public function delete($request): DataStatus
     {
         try {
-            Subscription::whereId($request->id)->first()->delete();
+            Subscription::whereUserId($request->id)->first()->delete();
             return new DataSuccess(
                 statusCode: 200,
                 message: 'Subscription deleted successfully'

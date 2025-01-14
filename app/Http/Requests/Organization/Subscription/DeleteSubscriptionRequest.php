@@ -23,7 +23,7 @@ class DeleteSubscriptionRequest extends ApiRequest
     public function rules(): array
     {
         return [
-          'id'=>'required|exists:subscriptions,id'
+          'id'=>'required|exists:users,id'
         ];
     }
 }
