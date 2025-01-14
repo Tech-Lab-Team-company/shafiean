@@ -77,6 +77,26 @@ class FetchMainSessionService
             );
         }
     }
+    public function fetchAllSessions($dataRequest)
+    {
+        try {
+            $mainSessions = CourseStage::where("course_id", $dataRequest->course_id)
+                ->first()
+                ->sessions()
+                ->orderBy('id', 'desc')
+                ->get();
+            return new DataSuccess(
+                data: FetchMainSessionForSessionResource::collection($mainSessions),
+                status: true,
+                message: 'Main Session fetched successfully'
+            );
+        } catch (Exception $e) {
+            return new DataFailed(
+                status: false,
+                message: $e->getMessage()
+            );
+        }
+    }
     public function fetchMainSessionsDetail($dataRequest)
     {
         try {
