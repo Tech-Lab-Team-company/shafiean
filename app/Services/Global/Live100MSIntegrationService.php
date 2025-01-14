@@ -8,12 +8,13 @@ use App\Models\Live\Live;
 use Monolog\DateTimeImmutable;
 use App\Models\GroupStageSession;
 use App\Models\Live\Live100msInfo;
+use Illuminate\Support\Facades\DB;
 use App\Helpers\Response\DataFailed;
 use App\Helpers\Response\DataStatus;
 use Illuminate\Support\Facades\Http;
 use App\Helpers\Response\DataSuccess;
-use App\Http\Params\Live100MSIntegrationParam;
 use App\Http\Resources\Live\JoinRoomResource;
+use App\Http\Params\Live100MSIntegrationParam;
 
 class Live100MSIntegrationService
 {
@@ -28,14 +29,17 @@ class Live100MSIntegrationService
     public function create_room($request, $join = false): DataStatus
     {
         try {
+            DB::beginTransaction();
             $room_data = $this->handle_live_room_body($request);
             if ($room_data == false) {
+                DB::rollBack();
                 return new DataSuccess(
                     status: false,
                     message: 'تم تجهيز اللايف بالفعل',
                 );
                 // return $room_data['data']['live'];
             }
+
             $headers = [
                 'Authorization' => 'Bearer ' . $room_data['data']['token'],
                 'Content-Type' => 'application/json'
@@ -47,10 +51,11 @@ class Live100MSIntegrationService
             $arrayOfCodes = $this->get_room_code($json_data['id']);
             // dd($arrayOfCodes);
             $room_info_data = $json_data + $arrayOfCodes;
-            // dd($room_info_data);
+            dd($room_info_data);
             $live_info = $this->store_live_info($room_data['data']['live_id'], $room_info_data);
 
             if ($join) {
+                DB::commit();
                 return new DataSuccess(
                     status: true,
                     data: $room_data['data']['live'],
@@ -58,11 +63,13 @@ class Live100MSIntegrationService
                 );
                 // return $room_data['data']['live'];
             }
+            DB::commit();
             return new DataSuccess(
                 status: true,
                 message: 'Room created successfully',
             );
         } catch (\Exception $e) {
+            DB::rollBack();
             return new DataFailed(
                 status: false,
                 message: $e->getMessage()
@@ -128,6 +135,7 @@ class Live100MSIntegrationService
                 'live' => $live
             ]
         ];
+        dd($response);
         return $response;
     }
     public function store_live($session)
