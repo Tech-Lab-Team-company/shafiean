@@ -20,8 +20,8 @@ return new class extends Migration
             $table->foreign('start_ayah_id')->references('id')->on('ayahs')->onDelete('set null');
             $table->foreign('end_ayah_id')->references('id')->on('ayahs')->onDelete('set null');
             $table->string('date')->nullable()->after('title');
-            // $table->string('start_time')->nullable()->after('date');
-            // $table->string('end_time')->nullable()->after('start_time');
+            $table->string('start_time')->nullable()->after('date');
+            $table->string('end_time')->nullable()->after('start_time');
         });
     }
 
