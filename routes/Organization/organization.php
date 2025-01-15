@@ -15,6 +15,7 @@ use App\Http\Controllers\Organization\Surah\SurahController;
 use App\Http\Controllers\Organization\Answer\AnswerController;
 use App\Http\Controllers\Organization\Course\CourseController;
 use App\Http\Controllers\Global\Live100MSIntegrationController;
+use App\Http\Controllers\Organization\Exam\GroupExamController;
 use App\Http\Controllers\Organization\User\FetchUserController;
 use App\Http\Controllers\Organization\Contact\ContactController;
 use App\Http\Controllers\Organization\JobType\JobTypeController;
@@ -116,6 +117,14 @@ Route::middleware('auth:organization')->group(function () {
         Route::post('fetch_exam_details', 'show');
         Route::post('edit_exam', 'update');
         Route::post('delete_exam', 'delete');
+    });
+    //GROUP EXAM
+    Route::controller(GroupExamController::class)->group(function () {
+        Route::post('fetch_group_exams', 'index');
+        Route::post('add_group_exam', 'store');
+        Route::post('fetch_group_exam_details', 'show');
+        Route::post('edit_group_exam', 'update');
+        Route::post('delete_group_exam', 'delete');
     });
     //QUESTION BANK
     Route::controller(QuestionBankController::class)->group(function () {

@@ -122,6 +122,7 @@ class GroupExamService
             'start_time' => $dataRequest->start_time,
             'end_time' => $dataRequest->end_time,
             'duration' => $dataRequest->duration,
+            'group_id' => $dataRequest->group_id,
             // 'question_count' => $dataRequest->question_count,
             // 'exam_type' => $dataRequest->exam_type,
             // 'degree_type' => $dataRequest->degree_type,
