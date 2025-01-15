@@ -53,9 +53,9 @@ return new class extends Migration
         Schema::table('quraan', function (Blueprint $table) {
             $table->softDeletes();
         });
-        Schema::table('ayat', function (Blueprint $table) {
-            $table->softDeletes();
-        });
+        // Schema::table('ayat', function (Blueprint $table) {
+        //     $table->softDeletes();
+        // });
         Schema::table('stage_disability_types', function (Blueprint $table) {
             $table->softDeletes();
         });
