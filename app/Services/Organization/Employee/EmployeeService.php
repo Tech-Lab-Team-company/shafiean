@@ -7,6 +7,7 @@ use Exception;
 use Carbon\Carbon;
 use App\Models\Image;
 use App\Models\Teacher;
+use App\Enum\EmployeeTypeEnum;
 use App\Helpers\Response\DataFailed;
 use App\Helpers\Response\DataStatus;
 use App\Helpers\Response\DataSuccess;
@@ -179,7 +180,7 @@ class EmployeeService
     public function fetch_teachers($request): DataStatus
     {
         try {
-            $query = Teacher::where('organization_id', get_organization_id(auth()->guard('organization')->user()))->where('is_employed', 1);
+            $query = Teacher::where('organization_id', get_organization_id(auth()->guard('organization')->user()))->where('is_employed', EmployeeTypeEnum::TEACHER->value);
             $filter_service = new FilterService();
             if (isset($request)) {
                 $filter_service->filterTeachers($query, $request);
