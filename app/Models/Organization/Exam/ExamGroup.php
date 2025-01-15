@@ -15,7 +15,7 @@ class ExamGroup extends Model
 {
     use HasFactory, SoftDeletes;
     public $table = 'exam_groups';
-    protected $gurded = [];
+    protected $guarded = [];
     public function exam(): BelongsTo
     {
         return $this->belongsTo(Exam::class, "exam_id", "id");

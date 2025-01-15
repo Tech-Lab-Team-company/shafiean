@@ -1,6 +1,7 @@
 <?php
 
-namespace App\Http\Resources\Organization\Question;
+namespace App\Http\Resources\Organization\GroupExamQuestion;
+
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -8,14 +9,10 @@ use App\Http\Resources\Organization\Answer\AnswerResource;
 use App\Http\Resources\Organization\Question\QuestionAnswerResource;
 use App\Http\Resources\Organization\Question\QuestionSeasonResource;
 use App\Http\Resources\Organization\Question\QuestionCurriculumResource;
+use App\Http\Resources\Organization\GroupExamQuestion\GroupExamQuestionAnswerResource;
 
-class QuestionResource extends JsonResource
+class GroupExamQuestionResource extends JsonResource
 {
-    /**
-     * Transform the resource into an array.
-     *
-     * @return array<string, mixed>
-     */
     public function toArray(Request $request): array
     {
         return [
@@ -24,6 +21,7 @@ class QuestionResource extends JsonResource
             'type' => $this->type ?? "",
             'degree' => (int) $this->degree ?? "",
             'is_private' => (int)$this->is_private ?? "",
+            'ansewers' => GroupExamQuestionAnswerResource::collection($this->answers ?? ""),
         ];
     }
 }
