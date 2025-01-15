@@ -3,6 +3,7 @@
 namespace App\Services\Organization\Exam;
 
 use Exception;
+use App\Models\Group;
 use App\Helpers\Response\DataFailed;
 use App\Helpers\Response\DataStatus;
 use App\Helpers\Response\DataSuccess;
@@ -18,7 +19,8 @@ class GroupExamService
     public function index($dataRequest)
     {
         try {
-            $query = Exam::query();
+            // $query = Exam::query();
+            $query = Group::whereId($dataRequest->group_id)?->first()?->exams();
             $filter_service = new FilterService();
             if (isset($dataRequest)) {
                 $filter_service->filterExams($query, $dataRequest);
