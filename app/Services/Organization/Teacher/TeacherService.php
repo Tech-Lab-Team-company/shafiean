@@ -5,6 +5,7 @@ namespace App\Services\Organization\Teacher;
 
 use Exception;
 use App\Models\Teacher;
+use App\Enum\EmployeeTypeEnum;
 use App\Helpers\Response\DataFailed;
 use App\Helpers\Response\DataStatus;
 use App\Helpers\Response\DataSuccess;
@@ -121,7 +122,7 @@ class TeacherService
     public function fetchTeachers($auth): DataStatus
     {
         try {
-            $teachers = Teacher::whereOrganizationId($auth->organization_id)->get();
+            $teachers = Teacher::whereOrganizationId($auth->organization_id)->where('is_employed', EmployeeTypeEnum::TEACHER->value)->get();
 
             return new DataSuccess(
                 statusCode: 200,
