@@ -49,6 +49,7 @@ use App\Http\Controllers\Organization\ExamResult\ExamResultController;
 use App\Http\Controllers\Organization\Landingpage\StatisticController;
 use App\Http\Controllers\Organization\Landingpage\SubheaderController;
 use App\Http\Controllers\Organization\Blog\FetchBlogCategoryController;
+use App\Http\Controllers\Organization\Exam\GroupExamQuestionController;
 use App\Http\Controllers\Organization\Relation\FetchRelationController;
 use App\Http\Controllers\Organization\Surah\SurahApiProviderController;
 use App\Http\Controllers\Organization\Competition\CompetitionController;
@@ -125,6 +126,14 @@ Route::middleware('auth:organization')->group(function () {
         Route::post('fetch_group_exam_details', 'show');
         Route::post('edit_group_exam', 'update');
         Route::post('delete_group_exam', 'delete');
+    });
+    //GROUP EXAM QUESTION
+    Route::controller(GroupExamQuestionController::class)->group(function () {
+        Route::post('fetch_group_exam_questions', 'index');
+        Route::post('add_group_exam_question', 'store');
+        Route::post('fetch_group_exam_question_details', 'show');
+        Route::post('edit_group_exam_question', 'update');
+        Route::post('delete_group_exam_question', 'delete');
     });
     //QUESTION BANK
     Route::controller(QuestionBankController::class)->group(function () {

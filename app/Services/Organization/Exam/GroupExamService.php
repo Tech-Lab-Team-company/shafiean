@@ -8,6 +8,7 @@ use App\Helpers\Response\DataStatus;
 use App\Helpers\Response\DataSuccess;
 use App\Models\Organization\Exam\Exam;
 use App\Services\Global\FilterService;
+use App\Models\Organization\Exam\ExamGroup;
 use App\Models\Organization\Exam\ExamQuestion;
 use App\Models\Organization\Question\Question;
 use App\Http\Resources\Organization\Exam\GroupExamResource;
@@ -55,6 +56,7 @@ class GroupExamService
         try {
             $data = $this->examData($dataRequest);
             $exam = Exam::create($data);
+            $this->groupExamData($exam, $dataRequest);
             return new DataSuccess(
                 data: new GroupExamResource($exam),
                 status: true,
@@ -122,11 +124,18 @@ class GroupExamService
             'start_time' => $dataRequest->start_time,
             'end_time' => $dataRequest->end_time,
             'duration' => $dataRequest->duration,
-            'group_id' => $dataRequest->group_id,
+            // 'group_id' => $dataRequest->group_id,
             // 'question_count' => $dataRequest->question_count,
             // 'exam_type' => $dataRequest->exam_type,
             // 'degree_type' => $dataRequest->degree_type,
             // 'degree' => $dataRequest->degree,
         ];
+    }
+    private function groupExamData($exam, $dataRequest)
+    {
+        return ExamGroup::create([
+            'group_id' => $dataRequest->group_id,
+            'exam_id' => $exam->id,
+        ]);
     }
 }

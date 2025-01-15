@@ -1,13 +1,10 @@
 <?php
-
-namespace App\Http\Resources\Organization\Question;
-
-
+namespace App\Http\Resources\Organization\GroupExamQuestion;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\Organization\Answer\AnswerQuestionResource;
 
-class QuestionAnswerResource extends JsonResource
+class GroupExamQuestionAnswerResource extends JsonResource
 {
     /**
      * Transform the resource into an array.

@@ -15,10 +15,11 @@ class ExamQuestionResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+
         return [
             'id' => $this->id ?? 0,
             'exam' => new ExamResource($this->exam ?? "") ?? "",
-            'question' => new QuestionResource($this->question ?? "") ?? "",
+            // 'question' => new QuestionResource($this->question ?? "") ?? "",
         ];
     }
 }

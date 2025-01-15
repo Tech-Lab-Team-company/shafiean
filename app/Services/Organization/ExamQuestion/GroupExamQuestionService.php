@@ -1,0 +1,88 @@
+<?php
+
+namespace App\Services\Organization\ExamQuestion;
+
+use Exception;
+use App\Helpers\Response\DataFailed;
+use App\Helpers\Response\DataStatus;
+use App\Helpers\Response\DataSuccess;
+use App\Models\Organization\Exam\Exam;
+use App\Models\Organization\Exam\ExamQuestion;
+use App\Models\Organization\Question\Question;
+use App\Http\Resources\Organization\Exam\ExamQuestionResource;
+use App\Http\Resources\Organization\GroupExamQuestion\GroupExamQuestionResource;
+
+class GroupExamQuestionService
+{
+
+    public function store($dataRequest): DataStatus
+    {
+        try {
+            $exam = Exam::whereId($dataRequest['exam_id'])->first();
+            $question = $this->storeQuestion($exam, $dataRequest);
+            return new DataSuccess(
+                data: new GroupExamQuestionResource($question),
+                status: true,
+                message: 'تم اضافة السؤال بنجاح'
+            );
+        } catch (Exception $e) {
+            return new DataFailed(
+                status: false,
+                message: $e->getMessage()
+            );
+        }
+    }
+
+    public function delete($request): DataStatus
+    {
+        try {
+            $question = Question::whereId($request->id)->first();
+            if (!$question) {
+                return new DataFailed(
+                    statusCode: 400,
+                    message: 'غير موجود'
+                );
+            }
+            $question->delete();
+            return new DataSuccess(
+                statusCode: 200,
+                message: 'تم حذف السؤال بنجاح'
+            );
+        } catch (Exception $e) {
+            return new DataFailed(
+                statusCode: 500,
+                message: 'Exam Question deletion failed: ' . $e->getMessage()
+            );
+        }
+    }
+    private function storeQuestion($exam, $dataRequest)
+    {
+        $question =  Question::create([
+            'question' => $dataRequest['question'],
+            'type' => $dataRequest['type'],
+            'degree' => $dataRequest['degree'],
+            'is_private' => 1
+        ]);
+        $this->assignExamQuestion($exam, $question);
+        $this->storeAnswer($question, $dataRequest);
+        return $question;
+    }
+    private function assignExamQuestion($exam, $question)
+    {
+        return   $exam->questions()->attach($question->id);
+    }
+    private function storeAnswer($question, $dataRequest)
+    {
+        $answers = array_map(function ($answer) {
+            return [
+                'answer' => $answer['answer'],
+                'is_correct' => $answer['is_correct'],
+            ];
+        }, $dataRequest['answers']);
+        $this->assignAnswerQuestion($question, $answers);
+    }
+    private function assignAnswerQuestion($question, $answers)
+    {
+        return $question->answers()->createMany($answers);
+    }
+}
