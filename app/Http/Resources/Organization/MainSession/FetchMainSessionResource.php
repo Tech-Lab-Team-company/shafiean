@@ -23,7 +23,7 @@ class FetchMainSessionResource extends JsonResource
             'title' => $isSession ? $this->session->title : $this->title,
             'start_verse' => $isSession ? (int) $this->session->startAyah->text : $this->startAyah->text,
             'end_verse' => $isSession ? (int) $this->session->endAyah->text : $this->endAyah->text,
-            "teacher_name" => $this->group->teacher->name ?? "",
+            "teacher_name" => $this->teacher->name ?? "",
 
             "stage" => new StageResource($this->stage) ?? "",
         ];
