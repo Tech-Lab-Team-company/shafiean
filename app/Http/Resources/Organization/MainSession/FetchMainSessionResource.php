@@ -17,22 +17,13 @@ class FetchMainSessionResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        $isSession = $this->session_id ? true : false;
         return [
             'id' => $this->id ?? 0,
-            'title' => $this->session->title ?? "",
-            // 'status' => (int)$this->status ?? "",
-            'start_verse' => (int)$this->start_verse ?? "",
-            'end_verse' => (int) $this->end_verse ?? "",
-            // 'start_date' => $this->start_date ?? "",
-            // 'end_date' => $this->end_date ?? "",
-            // 'start_time' => $this->start_time ?? "",
-            // 'end_time' => $this->end_time ?? "",
-            // 'duration' => $this->duration ?? "",
-            // 'group_name' => $this->group->title ?? "",
-            // "course_name" => $this->group->course->name ?? "",
-            "teacher_name" => $this->group->teacher->name ?? "",
-            // "teacher_image" => $this->teacher->image_link ?? "",
-            // "quraan" => new QuraanResource($this->quraan) ?? "",
+            'title' => $isSession ? $this->session->title : $this->title,
+            'start_verse' => $isSession ? (int) $this->session->start_verse : $this->start_verse,
+            'end_verse' => $isSession ? (int) $this->session->end_verse : $this->end_verse,
+            "teacher_name" => $this->teacher->name ?? "",
             "stage" => new StageResource($this->stage) ?? "",
         ];
     }
