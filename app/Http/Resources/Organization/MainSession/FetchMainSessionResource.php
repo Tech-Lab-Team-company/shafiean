@@ -17,8 +17,8 @@ class FetchMainSessionResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        dd($this->session->startAyah->text);
         $isSession = $this->session_id ? true : false;
+        dd($isSession);
         return [
             'id' => $this->id ?? 0,
             'title' => $isSession ? $this->session->title : $this->title,
