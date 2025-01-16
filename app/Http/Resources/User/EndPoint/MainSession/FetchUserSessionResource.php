@@ -18,16 +18,16 @@ class FetchUserSessionResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        dd($this);
         $isLive = $this->lives()->whereLeaveDate(null)->count() > 0 ? true : false;
+        $isSession = $this->session_id ? true : false;
         return [
             'id' => $this->id ?? 0,
-            'title' => $this->session->title ?? "",
-            'status' => (int) $this->session->status ?? "",
-            'start_verse' => (int) $this->session->start_verse ?? "",
-            'end_verse' => (int) $this->session->end_verse ?? "",
+            'title' => $isSession ? $this->session->title : $this->title,
+            'status' =>  $isSession ? (int) $this->session->status : 0,
+            'start_verse' => $isSession ? (int) $this->session->start_verse : $this->start_verse,
+            'end_verse' => $isSession ? (int) $this->session->end_verse : $this->end_verse,
             "group_name" => $this->group->title ?? "",
-            "quraan" => new QuraanResource($this->session->quraan) ?? "",
+            // "quraan" => new QuraanResource($this->session->quraan) ?? "",
             "stage" => new StageResource($this->session->stage) ?? "",
             'is_live' => $isLive ?? "",
             // 'live' => $isLive ?  LiveInfoResource::collection($this->lives) : []
