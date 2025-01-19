@@ -130,24 +130,24 @@ class SubheaderService
             }
             $subheader->update($data);
 
-            if (isset($request->features)) {
-                $subheader->features()->delete();
-                foreach ($request->features as $featureData) {
-                    $feature_data = []; // Initialize empty array
-                    // If the feature image is part of a file input, handle it correctly
-                    if (isset($featureData['image']) && is_file($featureData['image'])) {
-                        $feature_data['image'] = upload_image($featureData['image'], 'organizations/landingpage/subheader/feature');
-                    }
-                    $subheader->features()->create([
-                        'title' => $featureData['title'],
-                        'description' => $featureData['description'],
-                        'image' => $feature_data['image'] ?? null,
-                        'color' => $featureData['color'] ?? null,
-                        'featurable_type' => Subheader::class,
-                        'featurable_id' => $subheader->id
-                    ]);
-                }
-            }
+            // if (isset($request->features)) {
+            //     $subheader->features()->delete();
+            //     foreach ($request->features as $featureData) {
+            //         $feature_data = []; // Initialize empty array
+            //         // If the feature image is part of a file input, handle it correctly
+            //         if (isset($featureData['image']) && is_file($featureData['image'])) {
+            //             $feature_data['image'] = upload_image($featureData['image'], 'organizations/landingpage/subheader/feature');
+            //         }
+            //         $subheader->features()->create([
+            //             'title' => $featureData['title'],
+            //             'description' => $featureData['description'],
+            //             'image' => $feature_data['image'] ?? null,
+            //             'color' => $featureData['color'] ?? null,
+            //             'featurable_type' => Subheader::class,
+            //             'featurable_id' => $subheader->id
+            //         ]);
+            //     }
+            // }
 
             return new DataSuccess(
                 status: true,
