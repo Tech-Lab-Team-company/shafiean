@@ -5,6 +5,7 @@ namespace App\Http\Resources\Organization\Exam;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\Organization\Question\QuestionResource;
+use App\Http\Resources\Organization\Exam\ExamQuestionAnswerResource;
 use App\Http\Resources\Organization\Question\QuestionAnswerResource;
 
 class ExamQuestionAndAnswerResource extends JsonResource
@@ -22,7 +23,7 @@ class ExamQuestionAndAnswerResource extends JsonResource
             'type' => $this->type ?? "",
             'degree' => (int) $this->degree ?? "",
             'is_private' => (int)$this->is_private ?? "",
-            'answers' =>  QuestionAnswerResource::collection($this->answers ?? []) ?? []
+            'answers' =>  ExamQuestionAnswerResource::collection($this->answers ?? []) ?? []
         ];
     }
 }
