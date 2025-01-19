@@ -18,7 +18,7 @@ class GroupExamQuestionResource extends JsonResource
         return [
             'id' => $this->id ?? 0,
             'question' => $this->question ?? "",
-            'type' => $this->type ?? "",
+            'type' =>(int)  $this->type ?? "",
             'degree' => (int) $this->degree ?? "",
             'is_private' => (int)$this->is_private ?? "",
             'ansewers' => GroupExamQuestionAnswerResource::collection($this->answers ?? ""),
