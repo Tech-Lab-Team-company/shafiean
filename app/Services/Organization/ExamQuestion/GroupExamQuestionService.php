@@ -14,7 +14,22 @@ use App\Http\Resources\Organization\GroupExamQuestion\GroupExamQuestionResource;
 
 class GroupExamQuestionService
 {
-
+    public function index($dataRequest)
+    {
+        try {
+            $questions = Exam::whereId($dataRequest['id'])->first()->questions;
+            return new DataSuccess(
+                data: GroupExamQuestionResource::collection($questions)->response()->getData(true),
+                status: true,
+                message: 'تم جلب البيانات بنجاح'
+            );
+        } catch (Exception $e) {
+            return new DataFailed(
+                status: false,
+                message: $e->getMessage()
+            );
+        }
+    }
     public function store($dataRequest): DataStatus
     {
         try {

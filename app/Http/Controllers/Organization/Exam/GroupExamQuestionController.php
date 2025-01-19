@@ -11,10 +11,10 @@ use App\Http\Requests\Organization\Exam\GroupExamQuestion\DeleteGroupExamQuestio
 class GroupExamQuestionController extends Controller
 {
     public function __construct(protected  GroupExamQuestionService $groupExamQuestionService) {}
-    // public function index()
-    // {
-    //     return $this->groupExamQuestionService->index()->response();
-    // }
+    public function index(Request $request)
+    {
+        return $this->groupExamQuestionService->index($request)->response();
+    }
     // public function show(FetchExamQuestionDetailsRequest $request)
     // {
     //     return $this->groupExamQuestionService->show($request)->response();
