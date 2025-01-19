@@ -107,7 +107,7 @@ class SubheaderService
 
     public function organization_edit_subheader($request): DataStatus
     {
-        try {
+        // try {
             // dd($request->id);
             $subheader = Subheader::find($request->id);
             // dd($subheader);
@@ -155,12 +155,12 @@ class SubheaderService
                 data: new SubheaderResource($subheader),
                 message: 'Get Header Success'
             );
-        } catch (\Exception $e) {
-            return new DataFailed(
-                status: false,
-                message: $e->getMessage()
-            );
-        }
+        // } catch (\Exception $e) {
+            // return new DataFailed(
+                // status: false,
+                // message: $e->getMessage()
+            // );
+        // }
     }
 
     public function organization_delete_subheader($request): DataStatus
