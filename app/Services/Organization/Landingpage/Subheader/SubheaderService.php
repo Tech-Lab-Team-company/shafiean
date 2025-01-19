@@ -114,6 +114,7 @@ class SubheaderService
             $data['title'] = $request->title ?? $subheader->title;
             $data['subtitle'] = $request->subtitle ?? $subheader->subtitle;
             $data['description'] = $request->description ?? $subheader->description;
+            dd('test');
             if ($request->hasFile('image') && $request->file('image')->isValid()) {
                 // Get the MIME type of the image file.
                 $mimeType = $request->file('image')->getMimeType();
