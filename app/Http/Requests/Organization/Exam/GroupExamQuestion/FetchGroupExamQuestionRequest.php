@@ -4,7 +4,7 @@ namespace App\Http\Requests\Organization\Exam\GroupExamQuestion;
 use App\Helpers\Response\ApiRequest;
 use Illuminate\Foundation\Http\FormRequest;
 
-class FetchGroupExamQuestionDetailsRequest extends ApiRequest
+class FetchGroupExamQuestionRequest extends ApiRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,7 +22,7 @@ class FetchGroupExamQuestionDetailsRequest extends ApiRequest
     public function rules(): array
     {
         return [
-            'id' => 'required|exists:questions,id',
+            'id' => 'required|exists:exams,id',
         ];
     }
 }
