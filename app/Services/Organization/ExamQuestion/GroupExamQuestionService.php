@@ -17,7 +17,7 @@ class GroupExamQuestionService
     public function index($dataRequest)
     {
         try {
-            $questions = Exam::whereId($dataRequest['id'])->first()->questions()->orderBy('id')
+            $questions = Exam::whereId($dataRequest['id'])->first()->questions()->orderBy('id', 'desc')
                 ->paginate(10);
             return new DataSuccess(
                 data: GroupExamQuestionResource::collection($questions)->response()->getData(true),
