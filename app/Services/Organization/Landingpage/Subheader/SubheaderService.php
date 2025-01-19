@@ -108,57 +108,57 @@ class SubheaderService
     public function organization_edit_subheader($request): DataStatus
     {
         // try {
-            // dd($request->id);
-            $subheader = Subheader::find($request->id);
-            // dd($subheader);
-            $data['title'] = $request->title ?? $subheader->title;
-            $data['subtitle'] = $request->subtitle ?? $subheader->subtitle;
-            $data['description'] = $request->description ?? $subheader->description;
-            if ($request->hasFile('image') && $request->file('image')->isValid()) {
-                // Get the MIME type of the image file.
-                $mimeType = $request->file('image')->getMimeType();
-                // Determine the type of image and upload it accordingly.
-                if (str_starts_with($mimeType, 'image/')) {
-                    delete_image($subheader->image);
-                    $data['image'] = upload_image($request->file('image'), 'organizations/landingpage/subheader/image');
-                    $data['type'] = 'image';
-                } elseif (str_starts_with($mimeType, 'video/')) {
-                    delete_image($subheader->image);
-                    $data['image'] = uploadFile($request->file('image'), 'organizations/landingpage/subheader/video');
-                    $data['type'] = 'video';
-                }
+        // dd($request->id);
+        $subheader = Subheader::find($request->id);
+        // dd($subheader);
+        $data['title'] = $request->title ?? $subheader->title;
+        $data['subtitle'] = $request->subtitle ?? $subheader->subtitle;
+        $data['description'] = $request->description ?? $subheader->description;
+        if ($request->hasFile('image') && $request->file('image')->isValid()) {
+            // Get the MIME type of the image file.
+            $mimeType = $request->file('image')->getMimeType();
+            // Determine the type of image and upload it accordingly.
+            if (str_starts_with($mimeType, 'image/')) {
+                delete_image($subheader->image);
+                $data['image'] = upload_image($request->file('image'), 'organizations/landingpage/subheader/image');
+                $data['type'] = 'image';
+            } elseif (str_starts_with($mimeType, 'video/')) {
+                delete_image($subheader->image);
+                $data['image'] = uploadFile($request->file('image'), 'organizations/landingpage/subheader/video');
+                $data['type'] = 'video';
             }
-            $subheader->update($data);
+        }
+        $subheader->update($data);
 
-            if (isset($request->features)) {
-                $subheader->features()->delete();
-                foreach ($request->features as $featureData) {
-                    $feature_data = []; // Initialize empty array
-                    // If the feature image is part of a file input, handle it correctly
-                    if (isset($featureData['image']) && is_file($featureData['image'])) {
-                        $feature_data['image'] = upload_image($featureData['image'], 'organizations/landingpage/subheader/feature');
-                    }
-                    // $subheader->features()->create([
-                    //     'title' => $featureData['title'],
-                    //     'description' => $featureData['description'],
-                    //     'image' => $feature_data['image'] ?? null,
-                    //     'color' => $featureData['color'] ?? null,
-                    //     'featurable_type' => Subheader::class,
-                    //     'featurable_id' => $subheader->id
-                    // ]);
+        if (isset($request->features)) {
+            $subheader->features()->delete();
+            foreach ($request->features as $featureData) {
+                $feature_data = []; // Initialize empty array
+                // If the feature image is part of a file input, handle it correctly
+                if (isset($featureData['image']) && is_file($featureData['image'])) {
+                    $feature_data['image'] = upload_image($featureData['image'], 'organizations/landingpage/subheader/feature');
                 }
+                $subheader->features()->create([
+                    'title' => $featureData['title'],
+                    'description' => $featureData['description'],
+                    'image' => upload_image($featureData['image'], 'organizations/landingpage/subheader/feature'),
+                    'color' => $featureData['color'] ?? null,
+                    'featurable_type' => Subheader::class,
+                    'featurable_id' => $subheader->id
+                ]);
             }
+        }
 
-            return new DataSuccess(
-                status: true,
-                data: new SubheaderResource($subheader),
-                message: 'Get Header Success'
-            );
+        return new DataSuccess(
+            status: true,
+            data: new SubheaderResource($subheader),
+            message: 'Get Header Success'
+        );
         // } catch (\Exception $e) {
-            // return new DataFailed(
-                // status: false,
-                // message: $e->getMessage()
-            // );
+        // return new DataFailed(
+        // status: false,
+        // message: $e->getMessage()
+        // );
         // }
     }
 
