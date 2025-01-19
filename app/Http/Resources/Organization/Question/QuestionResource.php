@@ -1,0 +1,40 @@
+<?php
+
+namespace App\Http\Resources\Organization\Question;
+
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\Organization\Answer\AnswerResource;
+use App\Http\Resources\Organization\Question\QuestionAnswerResource;
+use App\Http\Resources\Organization\Question\QuestionSeasonResource;
+use App\Http\Resources\Organization\Question\QuestionCurriculumResource;
+use App\Http\Resources\Organization\GroupExamQuestion\GroupExamQuestionAnswerResource;
+
+class QuestionResource extends JsonResource
+{
+    public function toArray(Request $request): array
+    {
+        $correctAnswer = $this->answers ? $this->answers
+            ->map(function ($answer) {
+                return [
+                    'id' => $answer->id ?? 0,
+                    'answer' => $answer->answer ?? "",
+                    'is_correct' => (bool)($answer->is_correct ?? false),
+                ];
+            })
+            ->filter(function ($answer) {
+                return $answer['is_correct'] === true;
+            })
+            ->pluck('answer')
+            ->first() : null;
+        return [
+            'id' => $this->id ?? 0,
+            'question' => $this->question ?? "",
+            'type' => (int)  $this->type ?? "",
+            'degree' => (int) $this->degree ?? "",
+            'is_private' => (int)$this->is_private ?? "",
+            'correct_answer' => $correctAnswer,
+            'ansewers' => GroupExamQuestionAnswerResource::collection($this->answers ?? ""),
+        ];
+    }
+}
