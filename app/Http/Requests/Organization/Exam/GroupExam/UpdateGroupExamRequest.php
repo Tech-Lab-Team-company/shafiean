@@ -22,7 +22,7 @@ class UpdateGroupExamRequest extends ApiRequest
             'start_time' => 'required|date_format:H:i',
             'end_time' => 'required|date_format:H:i|after:date:start_time',
             'duration' => 'required|date_format:H:i',
-            'group_id' => 'required|exists:groups,id',
+            // 'group_id' => 'required|exists:groups,id',
             // 'question_count' => 'required|numeric',
             // 'exam_type' => 'required|numeric|in:' . enumCaseValue(ExamTypeEnum::class),
             // 'degree_type' => 'required|numeric|in:' . enumCaseValue(DegreeTypeEnum::class),
