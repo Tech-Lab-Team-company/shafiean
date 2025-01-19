@@ -30,6 +30,22 @@ class GroupExamQuestionService
             );
         }
     }
+
+    public function show($request)
+    {
+        $question = Question::whereId($request->id)->first();
+        if (!$question) {
+            return new DataFailed(
+                statusCode: 400,
+                message: 'غير موجود'
+            );
+        }
+        return new DataSuccess(
+            data: new GroupExamQuestionResource($question),
+            statusCode: 200,
+            message: 'تم جلب البيانات بنجاح'
+        );
+    }
     public function store($dataRequest): DataStatus
     {
         try {
