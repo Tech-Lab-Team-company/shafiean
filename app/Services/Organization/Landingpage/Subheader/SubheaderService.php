@@ -117,7 +117,6 @@ class SubheaderService
             if ($request->hasFile('image') && $request->file('image')->isValid()) {
                 // Get the MIME type of the image file.
                 $mimeType = $request->file('image')->getMimeType();
-dd($mimeType);
                 // Determine the type of image and upload it accordingly.
                 if (str_starts_with($mimeType, 'image/')) {
                     delete_image($subheader->image);
