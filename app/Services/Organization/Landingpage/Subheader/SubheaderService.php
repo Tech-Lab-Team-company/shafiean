@@ -138,14 +138,14 @@ class SubheaderService
                     if (isset($featureData['image']) && is_file($featureData['image'])) {
                         $feature_data['image'] = upload_image($featureData['image'], 'organizations/landingpage/subheader/feature');
                     }
-                    $subheader->features()->create([
-                        'title' => $featureData['title'],
-                        'description' => $featureData['description'],
-                        'image' => $feature_data['image'] ?? null,
-                        'color' => $featureData['color'] ?? null,
-                        'featurable_type' => Subheader::class,
-                        'featurable_id' => $subheader->id
-                    ]);
+                    // $subheader->features()->create([
+                    //     'title' => $featureData['title'],
+                    //     'description' => $featureData['description'],
+                    //     'image' => $feature_data['image'] ?? null,
+                    //     'color' => $featureData['color'] ?? null,
+                    //     'featurable_type' => Subheader::class,
+                    //     'featurable_id' => $subheader->id
+                    // ]);
                 }
             }
 
