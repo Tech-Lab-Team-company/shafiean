@@ -21,6 +21,12 @@ class ExamResult extends Model
     use HasFactory, SoftDeletes;
     protected $guarded = [];
     protected $table = "exam_results";
+    protected function casts(): array
+    {
+        return [
+            'created_at' => 'datetime:Y-m-d',
+        ];
+    }
     public function exam(): BelongsTo
     {
         return $this->belongsTo(Exam::class, "exam_id", "id");
