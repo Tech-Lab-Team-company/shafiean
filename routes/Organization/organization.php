@@ -30,6 +30,7 @@ use App\Http\Controllers\Organization\Exam\ExamQuestionController;
 use App\Http\Controllers\Organization\Question\QuestionController;
 use App\Http\Controllers\Organization\Relation\RelationController;
 use App\Http\Controllers\User\Subscription\SubscriptionController;
+use App\Http\Controllers\Organization\Exam\GroupExamUserController;
 use App\Http\Controllers\Organization\Landingpage\HeaderController;
 use App\Http\Controllers\Organization\Landingpage\PolicyController;
 use App\Http\Controllers\Organization\Landingpage\ScreenController;
@@ -134,6 +135,11 @@ Route::middleware('auth:organization')->group(function () {
         Route::post('fetch_group_exam_question_details', 'show');
         Route::post('edit_group_exam_question', 'update');
         Route::post('delete_group_exam_question', 'delete');
+    });
+    //GROUP EXAM USER
+    Route::controller(GroupExamUserController::class)->group(function () {
+        Route::post('fetch_group_exam_user', 'index');
+        Route::post('fetch_group_exam_user_details', 'show');
     });
     //QUESTION BANK
     Route::controller(QuestionBankController::class)->group(function () {
