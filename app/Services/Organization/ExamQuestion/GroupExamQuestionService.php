@@ -11,6 +11,7 @@ use App\Models\Organization\Exam\ExamQuestion;
 use App\Models\Organization\Question\Question;
 use App\Http\Resources\Organization\Exam\ExamQuestionResource;
 use App\Http\Resources\Organization\GroupExamQuestion\GroupExamQuestionResource;
+use App\Models\Organization\Answer\Answer;
 
 class GroupExamQuestionService
 {
@@ -64,7 +65,58 @@ class GroupExamQuestionService
             );
         }
     }
-
+    public function updateQuestion($dataRequest): DataStatus
+    {
+        try {
+            $question = Question::whereId($dataRequest->question_id)->first();
+            if (!$question) {
+                return new DataFailed(
+                    statusCode: 400,
+                    message: 'غير موجود'
+                );
+            }
+            $question->update([
+                'question' => $dataRequest->question,
+                'type' => $dataRequest->type,
+                'degree' => $dataRequest->degree,
+            ]);
+            return new DataSuccess(
+                data: new GroupExamQuestionResource($question),
+                status: true,
+                message: 'تم تعديل السؤال بنجاح'
+            );
+        } catch (Exception $e) {
+            return new DataFailed(
+                status: false,
+                message: $e->getMessage()
+            );
+        }
+    }
+    public function updateAnswer($dataRequest): DataStatus
+    {
+        try {
+            $answer = Answer::whereId($dataRequest->answer_id)->first();
+            if (!$answer) {
+                return new DataFailed(
+                    statusCode: 400,
+                    message: 'غير موجود'
+                );
+            }
+            $answer->update([
+                'answer' => $dataRequest->answer,
+                'is_correct' => $dataRequest->is_correct,
+            ]);
+            return new DataSuccess(
+                statusCode: 200,
+                message: 'تم تعديل الاجابات بنجاح'
+            );
+        } catch (Exception $e) {
+            return new DataFailed(
+                statusCode: 500,
+                message: 'Exam Question Answer update failed: ' . $e->getMessage()
+            );
+        }
+    }
     public function delete($request): DataStatus
     {
         try {

@@ -4,12 +4,11 @@ namespace App\Http\Requests\Organization\Exam\GroupExamQuestion;
 
 
 
-use App\Enum\ExamTypeEnum;
 use Illuminate\Validation\Rule;
 use App\Helpers\Response\ApiRequest;
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateGroupExamQuestionRequest extends ApiRequest
+class UpdateGroupExamQuestionAnswerRequest extends ApiRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,11 +26,9 @@ class UpdateGroupExamQuestionRequest extends ApiRequest
     public function rules(): array
     {
         return [
-            'question_id' => 'required|exists:questions,id',
-            'question' => 'required|max:255',
-            'type' => 'nullable|in:' . enumCaseValue(ExamTypeEnum::class),
-            'degree' => 'nullable|integer',
-
+            'answer_id' => 'required|exists:answers,id',
+            'is_correct' => 'required|boolean',
+            'answer' => 'required|max:255',
         ];
     }
 }
