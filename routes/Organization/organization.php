@@ -46,6 +46,7 @@ use App\Http\Controllers\Organization\JobType\FetchJobTypeController;
 use App\Http\Controllers\Organization\Student\FetchStudentController;
 use App\Http\Controllers\Organization\Attendance\AttendanceController;
 use App\Http\Controllers\Organization\Blog\FetchBlogHashtagController;
+use App\Http\Controllers\Organization\Exam\ChangeExamStatusController;
 use App\Http\Controllers\Organization\ExamResult\ExamResultController;
 use App\Http\Controllers\Organization\Landingpage\StatisticController;
 use App\Http\Controllers\Organization\Landingpage\SubheaderController;
@@ -120,6 +121,8 @@ Route::middleware('auth:organization')->group(function () {
         Route::post('edit_exam', 'update');
         Route::post('delete_exam', 'delete');
     });
+    //TOGGLE EXAM STATUS
+    Route::post('toggle_exam_status', [ChangeExamStatusController::class, 'toggleStatus']);
     //GROUP EXAM
     Route::controller(GroupExamController::class)->group(function () {
         Route::post('fetch_group_exams', 'index');
