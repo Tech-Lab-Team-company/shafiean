@@ -95,6 +95,7 @@ class GroupExamQuestionService
             'degree' => $dataRequest['degree'],
             'is_private' => 1
         ]);
+        $this->updateExamDegree($exam, $dataRequest['degree']);
         $this->assignExamQuestion($exam, $question);
         $this->storeAnswer($question, $dataRequest);
         return $question;
@@ -116,5 +117,11 @@ class GroupExamQuestionService
     private function assignAnswerQuestion($question, $answers)
     {
         return $question->answers()->createMany($answers);
+    }
+    private function updateExamDegree($exam, $degree)
+    {
+        $exam->update([
+            'degree' => $exam->degree + $degree
+        ]);
     }
 }
