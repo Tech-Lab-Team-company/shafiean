@@ -15,6 +15,8 @@ use App\Models\Organization\Exam\ExamQuestion;
 use App\Models\Organization\Question\Question;
 use App\Http\Resources\Organization\Exam\GroupExamResource;
 use App\Http\Resources\Organization\Exam\GroupExamUserResource;
+use App\Http\Resources\Organization\Exam\GroupExamUserDetailsResource;
+use App\Models\Organization\Exam\ExamResultAnswer;
 
 class GroupExamUserService
 {
@@ -41,15 +43,15 @@ class GroupExamUserService
     }
     public function show($request)
     {
-        $exam = Exam::whereId($request->id)->first();
-        if (!$exam) {
+        $examResultAnswer = ExamResultAnswer::whereExamResultId($request->id)->whereUserId($request->user_id)->get();
+        if (!$examResultAnswer) {
             return new DataFailed(
                 statusCode: 400,
                 message: 'not found'
             );
         }
         return new DataSuccess(
-            data: new GroupExamResource($exam),
+            data: GroupExamUserDetailsResource::collection($examResultAnswer),
             statusCode: 200,
             message: 'Fetch Exam successfully'
         );
