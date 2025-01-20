@@ -29,8 +29,8 @@ class UpdateGroupExamQuestionRequest extends ApiRequest
         return [
             'question_id' => 'required|exists:questions,id',
             'question' => 'required|max:255',
-            'type' => 'nullable|in:' . enumCaseValue(ExamTypeEnum::class),
-            'degree' => 'nullable|integer',
+            'type' => 'required|in:' . enumCaseValue(ExamTypeEnum::class),
+            'degree' => 'required|integer',
 
         ];
     }
