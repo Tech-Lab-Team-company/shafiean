@@ -133,10 +133,8 @@ Route::middleware('auth:organization')->group(function () {
         Route::post('fetch_group_exam_questions', 'index');
         Route::post('add_group_exam_question', 'store');
         Route::post('fetch_group_exam_question_details', 'show');
-        // Route::post('edit_group_exam_question', 'update');
+        Route::post('edit_group_exam_question', 'update');
         Route::post('delete_group_exam_question', 'delete');
-        Route::post('update_group_exam_question', 'updateQuestion');
-        Route::post('update_group_exam_question_answer', 'updateAnswer');
     });
     //GROUP EXAM USER
     Route::controller(GroupExamUserController::class)->group(function () {

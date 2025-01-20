@@ -24,17 +24,13 @@ class GroupExamQuestionController extends Controller
     {
         return $this->groupExamQuestionService->show($request)->response();
     }
+    public function update(UpdateGroupExamQuestionRequest $request)
+    {
+        return $this->groupExamQuestionService->update($request)->response();
+    }
     public function store(StoreGroupExamQuestionRequest $request)
     {
         return $this->groupExamQuestionService->store($request)->response();
-    }
-    public function updateQuestion(UpdateGroupExamQuestionRequest $request)
-    {
-        return $this->groupExamQuestionService->updateQuestion($request)->response();
-    }
-    public function updateAnswer(UpdateGroupExamQuestionAnswerRequest $request)
-    {
-        return $this->groupExamQuestionService->updateAnswer($request)->response();
     }
     public function delete(DeleteGroupExamQuestionRequest $request)
     {
