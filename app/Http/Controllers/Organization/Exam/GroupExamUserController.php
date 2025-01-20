@@ -11,11 +11,12 @@ use App\Http\Requests\Organization\Exam\GroupExam\StoreGroupExamRequest;
 use App\Http\Requests\Organization\Exam\GroupExam\DeleteGroupExamRequest;
 use App\Http\Requests\Organization\Exam\GroupExam\UpdateGroupExamRequest;
 use App\Http\Requests\Organization\Exam\GroupExam\FetchGroupExamDetailsRequest;
+use App\Http\Requests\Organization\Exam\GroupExamUser\FetchGroupExamUserRequest;
 
 class GroupExamUserController extends Controller
 {
     public function __construct(protected  GroupExamUserService $groupExamUserService) {}
-    public function index(FetchGroupExamRequest $request)
+    public function index(FetchGroupExamUserRequest $request)
     {
         return $this->groupExamUserService->index($request)->response();
     }
