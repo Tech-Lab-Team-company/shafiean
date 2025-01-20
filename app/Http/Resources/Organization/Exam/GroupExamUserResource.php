@@ -13,6 +13,7 @@ class GroupExamUserResource extends JsonResource
     {
         return [
             'id' => $this->id ?? 0,
+            'user_id' => $this->user_id ?? 0,
             'user_name' => $this->user->name ?? '',
             'degree' => $this->grade ?? '',
             'created_at' => Carbon::parse($this->created_at)->format('Y-m-d H:i') ?? '',
