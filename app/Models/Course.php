@@ -49,7 +49,7 @@ class Course extends Model
     }
     public function groups()
     {
-        $this->hasMany(Group::class, 'course_id');
+        return  $this->hasMany(Group::class, 'course_id');
     }
 
     public function sessions()

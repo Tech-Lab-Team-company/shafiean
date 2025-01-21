@@ -158,6 +158,15 @@ class CourseService
     {
         try {
             $course = Course::find($request->id);
+
+            $hasGroups = $course->groups()->count() ? true : false;
+            if ($hasGroups) {
+                return new DataSuccess(
+                    status: false,
+                    statusCode: 200,
+                    message: 'لا يمكن مسح الدوره ان كانت تحتوى علي مجاميع'
+                );
+            }
             $course->delete();
             return new DataSuccess(
                 status: true,
