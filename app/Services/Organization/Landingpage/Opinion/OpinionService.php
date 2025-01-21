@@ -41,14 +41,14 @@ class OpinionService
     public function store(object $dataRequest): DataStatus
     {
         try {
-            // if (isset($dataRequest['image'])) {
-            //     $data['image'] = upload_image($dataRequest['image'], 'opinion');
-            // }
             $data = [
                 'name' => $dataRequest->name,
                 'description' => $dataRequest->description,
-                'image' => upload_image(image: $dataRequest->image, folder: 'opinion'),
+                // 'image' => upload_image(image: $dataRequest->image, folder: 'opinion'),
             ];
+            if (isset($dataRequest['image'])) {
+                $data['image'] = upload_image($dataRequest['image'], 'opinion');
+            }
             $opinion = Opinion::create($data);
             return new DataSuccess(
                 data: new OpinionResource($opinion),
