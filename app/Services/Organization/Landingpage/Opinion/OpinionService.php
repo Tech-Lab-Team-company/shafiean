@@ -44,11 +44,8 @@ class OpinionService
             $data = [
                 'name' => $dataRequest->name,
                 'description' => $dataRequest->description,
-                // 'image' => upload_image(image: $dataRequest->image, folder: 'opinion'),
+                'image' => $dataRequest['image'] ? upload_image(image: $dataRequest->image, folder: 'opinion') : null,
             ];
-            if (isset($dataRequest['image'])) {
-                $data['image'] = upload_image($dataRequest['image'], 'opinion');
-            }
             $opinion = Opinion::create($data);
             return new DataSuccess(
                 data: new OpinionResource($opinion),
