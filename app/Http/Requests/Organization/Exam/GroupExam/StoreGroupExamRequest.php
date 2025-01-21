@@ -19,7 +19,7 @@ class StoreGroupExamRequest extends ApiRequest
             'start_date' => 'required|date|date_format:Y-m-d|after_or_equal:today',
             'end_date' => 'required|date|date_format:Y-m-d|after:start_date',
             'start_time' => 'required|date_format:H:i',
-            'end_time' => 'required|date_format:H:i|after:date:start_time',
+            'end_time' => 'required|date_format:H:i|after:start_time',
             'duration' => 'required|date_format:H:i',
             'group_id' => 'required|exists:groups,id',
             // 'question_count' => 'required|numeric',
@@ -27,6 +27,12 @@ class StoreGroupExamRequest extends ApiRequest
             // 'degree_type' => 'required|numeric|in:' . enumCaseValue(DegreeTypeEnum::class),
             // 'degree' => 'required|numeric',
 
+        ];
+    }
+    public function messages(): array
+    {
+        return [
+            'end_time.after' => 'يجب أن يكون وقت النهاية بعد وقت البداية.',
         ];
     }
 }
