@@ -15,6 +15,7 @@ class ExamResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        $hasResult = $this->exam_results()->count() ? true : false;
         return [
             'id' => $this->id ?? 0,
             'name' => $this->name ?? '',
@@ -28,6 +29,7 @@ class ExamResource extends JsonResource
             // 'degree_type' => $this->degree_type ?? '',
             // 'degree' => $this->degree ?? 0,
             'status' => $this->status ?? 0,
+            'hasResult' => $hasResult ?? false,
             'groups' => ExamGroupResource::collection($this->groups ?? []) ?? [],
             "questions" => ExamQuestionAndAnswerResource::collection($this->questions ?? []) ?? "",
             // "bank_questions" => ExamQuestionAndAnswerResource::collection($this->bankQuestions ?? []) ?? ""

@@ -15,6 +15,7 @@ class GroupExamQuestionResource extends JsonResource
 {
     public function toArray(Request $request): array
     {
+        $hasAnswer = $this->examResultAnswers()->count() ? true : false;
         $correctAnswer = $this->answers ? $this->answers
             ->map(function ($answer) {
                 return [
@@ -35,6 +36,7 @@ class GroupExamQuestionResource extends JsonResource
             'degree' => (int) $this->degree ?? "",
             'is_private' => (int)$this->is_private ?? "",
             'correct_answer' => $correctAnswer,
+            'hasAnswer' => $hasAnswer ?? false,
             'ansewers' => GroupExamQuestionAnswerResource::collection($this->answers ?? ""),
         ];
     }
