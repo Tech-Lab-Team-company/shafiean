@@ -52,11 +52,18 @@ class GroupExamQuestionService
     {
         try {
             $question = Question::whereId($dataRequest->question_id)->first();
-
             if (!$question) {
                 return new DataFailed(
                     statusCode: 400,
                     message: 'not found'
+                );
+            }
+            $hasAnswer = $question->examResultAnswers()->count() ? true : false;
+            if ($hasAnswer) {
+                return new DataSuccess(
+                    status: false,
+                    statusCode: 200,
+                    message: 'السؤال يحتوى علي اجابات لا يمكن تعديله'
                 );
             }
             $question->update([

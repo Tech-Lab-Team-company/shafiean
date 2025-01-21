@@ -97,13 +97,23 @@ class ExamService
     public function update(object $dataRequest): DataStatus
     {
         try {
+
             $exam = Exam::whereId($dataRequest['id'])->first();
             if (!$exam) {
                 return new DataFailed(
-                    statusCode: 400,
+                    statusCode: 404,
                     message: 'not found'
                 );
             }
+            $hasResult = $exam->exam_results()->count() ? true : false;
+            if ($hasResult) {
+                return new DataSuccess(
+                    status: false,
+                    statusCode: 200,
+                    message: 'الامتحان يحتوى علي نتائج لا يمكن تعديله'
+                );
+            }
+
             $data = $this->examData($dataRequest);
             $exam->update($data);
             if (isset($dataRequest['group_ids']) && count($dataRequest['group_ids']) > 0) {
