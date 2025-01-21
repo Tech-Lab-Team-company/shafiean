@@ -37,7 +37,7 @@ class FetchUserExamService
                 $examGroups = ExamGroup::whereIn('group_id', $groups)->pluck('exam_id')->toArray();
             }
             $exams = Exam::whereIn('id', $examGroups)
-                ->whereNotIn('id', $completedExams)->whereStatus(ExamStatusEnum::ACTIVE->value)
+                ->whereNotIn('id', $completedExams)->whereStatus(ExamStatusEnum::ACTIVE->value)->has('questions')
                 ->orderBy('id', 'desc')->get();
             return new DataSuccess(
                 status: true,
