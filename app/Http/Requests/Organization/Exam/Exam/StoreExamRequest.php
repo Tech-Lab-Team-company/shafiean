@@ -32,7 +32,24 @@ class StoreExamRequest extends ApiRequest
             'start_date' => 'required|date|date_format:Y-m-d|after_or_equal:today',
             'end_date' => 'required|date|date_format:Y-m-d|after:start_date',
             'start_time' => 'required|date_format:H:i',
-            'end_time' => 'required|date_format:H:i|after:start_time',
+            'end_time' => [
+                'required',
+                'date_format:H:i',
+                function ($attribute, $value, $fail) {
+                    // Access the start_time from the data array
+                    $startTime = $this->input('start_time');
+
+                    // Convert times to timestamps for comparison
+                    $startTimestamp = strtotime($startTime);
+                    $endTimestamp = strtotime($value);
+
+                    // Check if end_time is after start_time
+                    if ($endTimestamp <= $startTimestamp) {
+                        $fail('The end time must be after the start time.');
+                    }
+                },
+            ],
+            // 'end_time' => 'required|date_format:H:i|after:start_time',
             'duration' => 'required|date_format:H:i',
             // 'question_count' => 'required|numeric',
             // 'exam_type' => 'required|numeric|in:' . enumCaseValue(ExamTypeEnum::class),
