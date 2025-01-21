@@ -3,7 +3,9 @@
 namespace App\Services\User\EndPoint\Exam;
 
 
+use App\Models\User;
 use App\Models\Group;
+use App\Enum\ExamStatusEnum;
 use App\Models\Subscription;
 use App\Enum\ExamResultStatusEnum;
 use App\Helpers\Response\DataFailed;
@@ -11,13 +13,12 @@ use App\Helpers\Response\DataStatus;
 use App\Helpers\Response\DataSuccess;
 use App\Http\Resources\GroupResource;
 use App\Models\Organization\Exam\Exam;
+use App\Models\Organization\Exam\ExamGroup;
 use App\Models\Organization\Exam\ExamResult;
 use App\Models\Organization\Exam\ExamQuestion;
 use App\Http\Resources\User\Exam\FetchUserExamResource;
 use App\Http\Resources\User\Exam\FetchUserExamQuestionResource;
 use App\Http\Resources\User\EndPoint\Group\FetchUserSubscriptionGroupResource;
-use App\Models\Organization\Exam\ExamGroup;
-use App\Models\User;
 
 class FetchUserExamService
 {
@@ -36,7 +37,7 @@ class FetchUserExamService
                 $examGroups = ExamGroup::whereIn('group_id', $groups)->pluck('exam_id')->toArray();
             }
             $exams = Exam::whereIn('id', $examGroups)
-                ->whereNotIn('id', $completedExams)
+                ->whereNotIn('id', $completedExams)->whereStatus(ExamStatusEnum::ACTIVE->value)
                 ->orderBy('id', 'desc')->get();
             return new DataSuccess(
                 status: true,
