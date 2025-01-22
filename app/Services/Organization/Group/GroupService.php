@@ -31,7 +31,7 @@ class GroupService
             $groups = $query->orderBy('id', 'desc')->paginate(10);
 
             return new DataSuccess(
-                data:  $groups ? GroupResource::collection($groups)->response()->getData(true):[],
+                data: $groups ? GroupResource::collection($groups)->response()->getData(true) : [],
                 status: true,
                 message: 'Groups retrieved successfully'
             );
@@ -187,10 +187,17 @@ class GroupService
     {
         try {
             $group = Group::find($request->id);
+            $hasSession = $group->groupStageSessions()->count() ? true : false;
+            if ($hasSession) {
+                return new DataFailed(
+                    status: false,
+                    message: 'لايمكن حذف المجموعة ان كانت تحتوى علي حصص'
+                );
+            }
             $group->delete();
             return new DataSuccess(
                 status: true,
-                message: 'Group deleted successfully'
+                message: 'تم حذف المجموعة بنجاح'
             );
         } catch (Exception $exception) {
             return new DataFailed(
