@@ -187,10 +187,18 @@ class GroupService
     {
         try {
             $group = Group::find($request->id);
+            if (!$group) {
+                return new DataFailed(
+                    status: false,
+                    statusCode: 400,
+                    message: 'Group not found'
+                );
+            }
             $hasSession = $group->groupStageSessions()->count() ? true : false;
             if ($hasSession) {
                 return new DataFailed(
                     status: false,
+                    statusCode: 400,
                     message: 'لايمكن حذف المجموعة ان كانت تحتوى علي حصص'
                 );
             }
