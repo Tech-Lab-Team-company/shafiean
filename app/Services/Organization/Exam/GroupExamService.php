@@ -81,6 +81,14 @@ class GroupExamService
                     message: 'not found'
                 );
             }
+            $hasResult = $exam->exam_results()->count() ? true : false;
+            if ($hasResult) {
+                return new DataFailed(
+                    status: false,
+                    statusCode: 400,
+                    message: 'الامتحان يحتوى علي نتائج لا يمكن تعديله'
+                );
+            }
             $data = $this->examData($dataRequest);
             $exam->update($data);
             return new DataSuccess(
@@ -105,11 +113,20 @@ class GroupExamService
                     message: 'not found'
                 );
             }
-            $exam->delete();
-            return new DataSuccess(
-                statusCode: 200,
-                message: 'Exam deleted successfully'
-            );
+            $hasResult = $exam->exam_results()->count() ? true : false;
+            if ($hasResult) {
+                return new DataFailed(
+                    status: false,
+                    statusCode: 400,
+                    message: 'الامتحان يحتوى علي نتائج لا يمكن حذفه'
+                );
+            } else {
+                $exam->delete();
+                return new DataSuccess(
+                    statusCode: 200,
+                    message: 'Exam deleted successfully'
+                );
+            }
         } catch (Exception $e) {
             return new DataFailed(
                 statusCode: 500,

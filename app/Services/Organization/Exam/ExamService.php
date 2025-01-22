@@ -107,9 +107,9 @@ class ExamService
             }
             $hasResult = $exam->exam_results()->count() ? true : false;
             if ($hasResult) {
-                return new DataSuccess(
+                return new DataFailed(
                     status: false,
-                    statusCode: 200,
+                    statusCode: 400,
                     message: 'الامتحان يحتوى علي نتائج لا يمكن تعديله'
                 );
             }

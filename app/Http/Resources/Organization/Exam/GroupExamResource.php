@@ -10,6 +10,7 @@ class GroupExamResource extends JsonResource
 {
     public function toArray(Request $request): array
     {
+        $hasResult = $this->exam_results()->count() ? true : false;
         return [
             'id' => $this->id ?? 0,
             'name' => $this->name ?? '',
@@ -19,6 +20,7 @@ class GroupExamResource extends JsonResource
             'end_time' => $this->end_time ?? '',
             'duration' => $this->duration ?? '',
             'status' => $this->status ?? 0,
+            'hasResult' => $hasResult ?? false,
             // 'groups' => ExamGroupResource::collection($this->groups ?? []) ?? [],
             // "questions" => ExamQuestionAndAnswerResource::collection($this->questions ?? []) ?? "",
         ];
