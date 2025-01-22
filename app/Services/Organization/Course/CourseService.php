@@ -158,7 +158,6 @@ class CourseService
     {
         try {
             $course = Course::find($request->id);
-
             $hasGroups = $course->groups()->count() ? true : false;
             if ($hasGroups) {
                 return new DataSuccess(
