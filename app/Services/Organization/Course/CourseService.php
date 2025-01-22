@@ -162,7 +162,7 @@ class CourseService
             if ($hasGroups) {
                 return new DataSuccess(
                     status: false,
-                    statusCode: 200,
+                    statusCode: 400,
                     message: 'لا يمكن مسح الدوره ان كانت تحتوى علي مجاميع'
                 );
             }
