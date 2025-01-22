@@ -195,18 +195,26 @@ class GroupService
                 );
             }
             $hasSession = $group->groupStageSessions()->count() ? true : false;
+            $hasExam = $group->exams()->count() ? true : false;
             if ($hasSession) {
                 return new DataFailed(
                     status: false,
                     statusCode: 400,
                     message: 'لايمكن حذف المجموعة ان كانت تحتوى علي حصص'
                 );
+            } elseif ($hasExam) {
+                return new DataFailed(
+                    status: false,
+                    statusCode: 400,
+                    message: 'لايمكن حذف المجموعة ان كانت تحتوى علي امتحانات'
+                );
+            } else {
+                $group->delete();
+                return new DataSuccess(
+                    status: true,
+                    message: 'تم حذف المجموعة بنجاح'
+                );
             }
-            $group->delete();
-            return new DataSuccess(
-                status: true,
-                message: 'تم حذف المجموعة بنجاح'
-            );
         } catch (Exception $exception) {
             return new DataFailed(
                 status: false,
