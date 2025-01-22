@@ -62,7 +62,7 @@ class GroupExamQuestionService
             if ($hasAnswer) {
                 return new DataSuccess(
                     status: false,
-                    statusCode: 200,
+                    statusCode: 400,
                     message: 'السؤال يحتوى علي اجابات لا يمكن تعديله'
                 );
             }
