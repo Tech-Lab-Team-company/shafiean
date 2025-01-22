@@ -31,7 +31,7 @@ class ExamResource extends JsonResource
             'status' => $this->status ?? 0,
             'hasResult' => $hasResult ?? false,
             'groups' => ExamGroupResource::collection($this->groups ?? []) ?? [],
-            "questions" => ExamQuestionAndAnswerResource::collection($this->questions ?? []) ?? "",
+            "questions" => ExamQuestionAndAnswerResource::collection($this->questions ?? []) ?? [],
             // "bank_questions" => ExamQuestionAndAnswerResource::collection($this->bankQuestions ?? []) ?? ""
         ];
     }
