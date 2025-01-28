@@ -65,8 +65,8 @@ class TeacherDashboardStatisticsService
         try {
             /** @var Teacher $teacher  */
             $teacher = Auth::guard('organization')->user();
-            $now = Carbon::now();
-            $upcomingSessions = $teacher->sessions()->where('created_at', '>', $now)->orderBy('created_at', 'desc')->limit(3)->get();
+            $now = Carbon::parse(Carbon::now())->toDateString();
+            $upcomingSessions = $teacher->sessions()->where('date', '>', $now)->orderBy('created_at', 'desc')->limit(3)->get();
             return new DataSuccess(
                 data: UpcomingGroupActivitiesResource::collection($upcomingSessions),
                 status: true,
