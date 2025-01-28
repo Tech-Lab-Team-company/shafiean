@@ -70,7 +70,7 @@ class TeacherDashboardStatisticsService
             return new DataSuccess(
                 data: UpcomingGroupActivitiesResource::collection($upcomingSessions),
                 status: true,
-                message: 'site Statistics Rate successfully'
+                message: 'teacher_upcoming_group_activities successfully'
             );
         } catch (Exception $e) {
             return new DataFailed(
