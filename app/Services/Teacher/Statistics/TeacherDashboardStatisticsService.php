@@ -83,8 +83,11 @@ class TeacherDashboardStatisticsService
     public function interactedRateWithOrganization()
     {
         try {
+            // $startDate = Carbon::now()->startOfMonth();
+            // $endDate = Carbon::now()->endOfMonth();
+
             $startDate = Carbon::now()->subMonths(7)->startOfMonth();
-            $endDate = Carbon::now()->subMonth()->endOfMonth();
+            $endDate = Carbon::now()->endOfMonth();
             $period = CarbonPeriod::create($startDate, '1 month', $endDate);
             $months = [];
             $userCounts = [];
@@ -95,6 +98,7 @@ class TeacherDashboardStatisticsService
                     ->whereYear('created_at', $date->year)
                     ->count();
             }
+
             return new DataSuccess(
                 data: new InteractedRateWithOrganizationResource([
                     'months' => $months,
