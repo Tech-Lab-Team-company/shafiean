@@ -4,12 +4,14 @@ namespace App\Models;
 
 use App\Models\Curriculum;
 use App\Models\Organization;
+use App\Models\GroupStageSession;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use App\Models\Organization\JobType\JobType;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Models\SessionStudentRate\SessionStudentRate;
 use App\Models\SessionTeacherRate\SessionTeacherRate;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -74,5 +76,17 @@ class Teacher extends Authenticatable
     public function groups(): BelongsToMany
     {
         return $this->belongsToMany(Group::class, 'user_groups', 'user_id', 'group_id')->withTimestamps();
+    }
+    public function sessions(): HasMany
+    {
+        return $this->hasMany(GroupStageSession::class, 'teacher_id', 'id');
+    }
+    public function teacherGroups(): BelongsToMany
+    {
+        return $this->belongsToMany(Group::class, 'group_stage_sessions', 'teacher_id', 'group_id');
+    }
+    public function teacherRates(): HasMany
+    {
+        return $this->hasMany(SessionTeacherRate::class, 'teacher_id');
     }
 }

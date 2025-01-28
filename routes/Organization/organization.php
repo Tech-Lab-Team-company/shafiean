@@ -50,6 +50,7 @@ use App\Http\Controllers\Organization\Exam\ChangeExamStatusController;
 use App\Http\Controllers\Organization\ExamResult\ExamResultController;
 use App\Http\Controllers\Organization\Landingpage\StatisticController;
 use App\Http\Controllers\Organization\Landingpage\SubheaderController;
+use App\Http\Controllers\Teacher\TeacherDashboardStatisticsController;
 use App\Http\Controllers\Organization\Blog\FetchBlogCategoryController;
 use App\Http\Controllers\Organization\Exam\GroupExamQuestionController;
 use App\Http\Controllers\Organization\Relation\FetchRelationController;
@@ -519,6 +520,10 @@ Route::middleware('auth:organization')->group(function () {
         Route::post('fetch_policy_details', 'show');
         Route::post('edit_policy', 'update');
         Route::post('delete_policy', 'delete');
+    });
+    //TEACHER STATISTIC
+    Route::controller(TeacherDashboardStatisticsController::class)->group(function () {
+        Route::post('teacher_site_statistics_rate', 'siteStatisticsRate');
     });
     // ***********************************************************************************************************************************
     //**************************************************** lANDINGPAGE END *************************************************************
