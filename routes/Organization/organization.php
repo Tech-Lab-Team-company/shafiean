@@ -524,6 +524,7 @@ Route::middleware('auth:organization')->group(function () {
     //TEACHER STATISTIC
     Route::controller(TeacherDashboardStatisticsController::class)->group(function () {
         Route::post('teacher_site_statistics_rate', 'siteStatisticsRate');
+        Route::post('teacher_upcoming_group_activities', 'upcomingGroupActivities');
     });
     // ***********************************************************************************************************************************
     //**************************************************** lANDINGPAGE END *************************************************************

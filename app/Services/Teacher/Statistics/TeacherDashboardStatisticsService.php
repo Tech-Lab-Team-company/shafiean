@@ -12,7 +12,10 @@ use Illuminate\Support\Facades\DB;
 use App\Helpers\Response\DataFailed;
 use Illuminate\Support\Facades\Auth;
 use App\Helpers\Response\DataSuccess;
+use App\Http\Resources\Teacher\UpcomingGroupActivitiesResource;
 use App\Http\Resources\Admin\Statistics\Organization\InteractedRateWithOrganizationResource;
+
+use function Termwind\parse;
 
 class TeacherDashboardStatisticsService
 {
@@ -47,6 +50,25 @@ class TeacherDashboardStatisticsService
                     'user_count' => $userCount,
                     'rate_count' => $rateCount
                 ],
+                status: true,
+                message: 'site Statistics Rate successfully'
+            );
+        } catch (Exception $e) {
+            return new DataFailed(
+                status: false,
+                message: $e->getMessage()
+            );
+        }
+    }
+    public function upcomingGroupActivities()
+    {
+        try {
+            /** @var Teacher $teacher  */
+            $teacher = Auth::guard('organization')->user();
+            $now = Carbon::now();
+            $upcomingSessions = $teacher->sessions()->where('created_at', '>', $now)->orderBy('created_at', 'desc')->limit(3)->get();
+            return new DataSuccess(
+                data: UpcomingGroupActivitiesResource::collection($upcomingSessions),
                 status: true,
                 message: 'site Statistics Rate successfully'
             );
