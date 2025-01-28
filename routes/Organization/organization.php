@@ -10,6 +10,7 @@ use App\Http\Controllers\Organization\Blog\BlogController;
 use App\Http\Controllers\Organization\Exam\ExamController;
 use App\Http\Controllers\Organization\Rate\RateController;
 use App\Http\Controllers\Organization\User\UserController;
+use App\Http\Controllers\Teacher\TeacherSessionController;
 use App\Http\Controllers\Organization\Group\GroupController;
 use App\Http\Controllers\Organization\Surah\SurahController;
 use App\Http\Controllers\Organization\Answer\AnswerController;
@@ -521,12 +522,18 @@ Route::middleware('auth:organization')->group(function () {
         Route::post('edit_policy', 'update');
         Route::post('delete_policy', 'delete');
     });
+    /* START TEACHER */
     //TEACHER STATISTIC
     Route::controller(TeacherDashboardStatisticsController::class)->group(function () {
         Route::post('teacher_site_statistics_rate', 'siteStatisticsRate');
         Route::post('teacher_upcoming_group_activities', 'upcomingGroupActivities');
         Route::post('teacher_interacted_rate_with_organization', 'interactedRateWithOrganization');
     });
+    //TEACHER SESSION
+    Route::controller(TeacherSessionController::class)->group(function () {
+        Route::post('teacher_current_session', 'currentSession');
+    });
+    /* END TEACHER */
     // ***********************************************************************************************************************************
     //**************************************************** lANDINGPAGE END *************************************************************
     // ***********************************************************************************************************************************
