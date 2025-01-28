@@ -15,4 +15,12 @@ class TeacherSessionController extends Controller
     {
         return $this->teacherSessionService->currentSession()->response();
     }
+    public function nextSession()
+    {
+        return $this->teacherSessionService->nextSession()->response();
+    }
+    public function finishedSession()
+    {
+        return $this->teacherSessionService->finishedSession()->response();
+    }
 }

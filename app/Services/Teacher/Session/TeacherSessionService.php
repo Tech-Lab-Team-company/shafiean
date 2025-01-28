@@ -32,4 +32,42 @@ class TeacherSessionService
             );
         }
     }
+    public function nextSession()
+    {
+        try {
+            $toDay = Carbon::parse(Carbon::today())->format('Y-m-d');
+            $teacher = Auth::guard('organization')->user();
+            /** @var Teacher $teacher  */
+            $sessions = $teacher->sessions()->where('date', '>', $toDay)->get();
+            return new DataSuccess(
+                data: TeacherSessionResource::collection($sessions),
+                status: true,
+                message: 'Data fetched successfully'
+            );
+        } catch (Exception $e) {
+            return new DataFailed(
+                status: false,
+                message: $e->getMessage()
+            );
+        }
+    }
+    public function finishedSession()
+    {
+        try {
+            $toDay = Carbon::parse(Carbon::today())->format('Y-m-d');
+            $teacher = Auth::guard('organization')->user();
+            /** @var Teacher $teacher  */
+            $sessions = $teacher->sessions()->where('date', '<', $toDay)->get();
+            return new DataSuccess(
+                data: TeacherSessionResource::collection($sessions),
+                status: true,
+                message: 'Data fetched successfully'
+            );
+        } catch (Exception $e) {
+            return new DataFailed(
+                status: false,
+                message: $e->getMessage()
+            );
+        }
+    }
 }

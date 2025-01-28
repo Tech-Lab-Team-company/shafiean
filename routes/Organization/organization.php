@@ -532,6 +532,8 @@ Route::middleware('auth:organization')->group(function () {
     //TEACHER SESSION
     Route::controller(TeacherSessionController::class)->group(function () {
         Route::post('teacher_current_session', 'currentSession');
+        Route::post('teacher_next_session', 'nextSession');
+        Route::post('teacher_finished_session', 'finishedSession');
     });
     /* END TEACHER */
     // ***********************************************************************************************************************************
