@@ -83,9 +83,6 @@ class TeacherDashboardStatisticsService
     public function interactedRateWithOrganization()
     {
         try {
-            // $startDate = Carbon::now()->startOfMonth();
-            // $endDate = Carbon::now()->endOfMonth();
-
             $startDate = Carbon::now()->subMonths(7)->startOfMonth();
             $endDate = Carbon::now()->endOfMonth();
             $period = CarbonPeriod::create($startDate, '1 month', $endDate);
