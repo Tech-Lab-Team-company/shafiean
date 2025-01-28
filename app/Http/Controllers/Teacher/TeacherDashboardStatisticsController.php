@@ -19,8 +19,8 @@ class TeacherDashboardStatisticsController extends Controller
     {
         return $this->teacherDashboardStatisticsService->upcomingGroupActivities()->response();
     }
-    public function fetchInteractedRateWithOrganization()
+    public function interactedRateWithOrganization()
     {
-        return $this->teacherDashboardStatisticsService->fetchInteractedRateWithOrganization()->response();
+        return $this->teacherDashboardStatisticsService->interactedRateWithOrganization()->response();
     }
 }

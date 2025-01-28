@@ -8,14 +8,15 @@ use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Teacher;
 use Carbon\CarbonPeriod;
+use App\Enum\UserTypeEnum;
+use function Termwind\parse;
 use Illuminate\Support\Facades\DB;
 use App\Helpers\Response\DataFailed;
 use Illuminate\Support\Facades\Auth;
 use App\Helpers\Response\DataSuccess;
+
 use App\Http\Resources\Teacher\UpcomingGroupActivitiesResource;
 use App\Http\Resources\Admin\Statistics\Organization\InteractedRateWithOrganizationResource;
-
-use function Termwind\parse;
 
 class TeacherDashboardStatisticsService
 {
@@ -79,7 +80,7 @@ class TeacherDashboardStatisticsService
             );
         }
     }
-    public function fetchInteractedRateWithOrganization()
+    public function interactedRateWithOrganization()
     {
         try {
             $startDate = Carbon::now()->subMonths(7)->startOfMonth();
@@ -89,7 +90,8 @@ class TeacherDashboardStatisticsService
             $userCounts = [];
             foreach ($period as $date) {
                 $months[] = $date->format('M');
-                $userCounts[] =  User::whereMonth('created_at', $date->month)
+                $userCounts[] =  User::whereType(UserTypeEnum::STUDENT->value)
+                    ->whereMonth('created_at', $date->month)
                     ->whereYear('created_at', $date->year)
                     ->count();
             }
