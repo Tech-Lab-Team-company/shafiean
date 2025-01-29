@@ -539,7 +539,8 @@ Route::middleware('auth:organization')->group(function () {
     //TEACHER GROUP
     Route::controller(TeacherGroupController::class)->group(function () {
         Route::post('teacher_groups', 'teacherGroup');
-        Route::post('teacher_group_session', 'teacherGroupSession');
+        Route::post('teacher_group_sessions', 'teacherGroupSessions');
+        Route::post('teacher_group_students', 'teacherGroupStudents');
     });
     /* END TEACHER */
     // ***********************************************************************************************************************************

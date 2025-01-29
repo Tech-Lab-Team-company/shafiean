@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Services\Teacher\Group\TeacherGroupService;
 use App\Services\Teacher\Session\TeacherSessionService;
+use App\Http\Requests\Teacher\Group\TeacherGroupIdRequest;
 use App\Http\Requests\Teacher\Group\TeacherSessionByGroupRequest;
 
 class TeacherGroupController extends Controller
@@ -17,8 +18,12 @@ class TeacherGroupController extends Controller
     {
         return $this->teacherGroupService->teacherGroup()->response();
     }
-    public function teacherGroupSession(TeacherSessionByGroupRequest $request)
+    public function teacherGroupSessions(TeacherGroupIdRequest $request)
     {
-        return $this->teacherGroupService->teacherGroupSession($request)->response();
+        return $this->teacherGroupService->teacherGroupSessions($request)->response();
+    }
+    public function teacherGroupStudents(TeacherGroupIdRequest $request)
+    {
+        return $this->teacherGroupService->teacherGroupStudents($request)->response();
     }
 }
