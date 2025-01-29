@@ -29,7 +29,7 @@ class AddSessionRequest extends ApiRequest
             'duration' => 'nullable|numeric',
             'date' => 'nullable|date|date_format:Y-m-d',
             'start_time' => 'nullable|date_format:H:i',
-            'end_time' => 'nullable|date_format:H:i|after:start_time',
+            'end_time' => 'nullable|date_format:H:i|after:start_time',  
         ];
     }
     public function withValidator($validator)

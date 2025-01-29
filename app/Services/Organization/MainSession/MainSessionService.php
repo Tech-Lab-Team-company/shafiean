@@ -2,7 +2,7 @@
 
 namespace App\Services\Organization\MainSession;
 
-
+use App\Enum\CanEditSessionEnum;
 use Exception;
 use App\Models\Group;
 use App\Models\Course;
@@ -123,22 +123,23 @@ class MainSessionService
     {
         try {
             $session = GroupStageSession::find($dataRequest->id);
-            $data['title'] = $dataRequest->is_new == SessionIsNewEnum::NEW->value ? $dataRequest->title : MainSession::find($dataRequest->session_id)?->title;
-            $data['session_id'] = $dataRequest->is_new == SessionIsNewEnum::EXISTS->value ? $dataRequest->session_id : null;
+            if ($session->with_edit == SessionIsNewEnum::NEW->value) {
+                $data = [
+                    'title' => $dataRequest->title,
+                    'stage_id' => $dataRequest->stage_id,
+                    'surah_id' => $dataRequest->surah_id,
+                    'start_ayah_id' => $dataRequest->start_ayah_id,
+                    'end_ayah_id' => $dataRequest->end_ayah_id
+                ];
+            }
             $data['teacher_id'] = $dataRequest->teacher_id;
-            $data['stage_id'] = $dataRequest->stage_id;
-            $data['group_id'] = $dataRequest->group_id;
             $data['session_type_id'] = $dataRequest->session_type_id;
-            $data['surah_id'] = $dataRequest->surah_id;
-            $data['start_ayah_id'] = $dataRequest->start_ayah_id;
-            $data['end_ayah_id'] = $dataRequest->end_ayah_id;
             $data['date'] = $dataRequest->date;
             $data['start_time'] = $dataRequest->start_time;
             $data['end_time'] = $dataRequest->end_time;
-            $data['with_edit'] = $dataRequest->is_new == SessionIsNewEnum::NEW->value ? 1 : 0;
             $session->update($data);
             return new DataSuccess(
-                data: new MainSessionResource($session),
+                data: new FetchMainSessionIndexForGroupResource($session),
                 status: true,
                 message: 'Main session updated successfully'
             );
