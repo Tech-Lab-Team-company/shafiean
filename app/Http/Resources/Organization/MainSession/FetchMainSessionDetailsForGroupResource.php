@@ -2,12 +2,14 @@
 
 namespace App\Http\Resources\Organization\MainSession;
 
-use App\Http\Resources\SessionTypeTitleResource;
 use Illuminate\Http\Request;
+use App\Http\Resources\StageTitleResource;
 use App\Http\Resources\TeacherNameResource;
 use App\Http\Resources\Surah\AyahTitleResource;
+use App\Http\Resources\SessionTypeTitleResource;
 use App\Http\Resources\Surah\SurahTitleResource;
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\Organization\MainSession\FetchMainSessionTitleResource;
 
 class FetchMainSessionDetailsForGroupResource extends JsonResource
 {
@@ -32,11 +34,13 @@ class FetchMainSessionDetailsForGroupResource extends JsonResource
             'start_time' => $this->start_time ?? "",
             'end_time' => $this->end_time ?? "",
             'is_new' => (bool)$this->with_edit ?? 0,
-            'session_type' => new SessionTypeTitleResource($this->session_type) ?? "",
-            'teacher' => new TeacherNameResource($this->teacher) ?? "",
-            'surah' => new SurahTitleResource($this->surah) ?? "",
-            'start_ayah' => new AyahTitleResource($this->startAyah) ?? "",
-            'end_ayah' => new AyahTitleResource($this->endAyah) ?? "",
+            'stage' => new StageTitleResource($this->stage ?? "") ?? "",
+            'session' => new FetchMainSessionTitleResource($this->session ?? "") ?? "",
+            'session_type' => new SessionTypeTitleResource($this->session_type ?? "") ?? "",
+            'teacher' => new TeacherNameResource($this->teacher ?? "") ?? "",
+            'surah' => new SurahTitleResource($this->surah ?? "") ?? "",
+            'start_ayah' => new AyahTitleResource($this->startAyah ?? "") ?? "",
+            'end_ayah' => new AyahTitleResource($this->endAyah ?? "") ?? "",
         ];
     }
 }
