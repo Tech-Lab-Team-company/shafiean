@@ -26,4 +26,8 @@ class TeacherGroupController extends Controller
     {
         return $this->teacherGroupService->teacherGroupStudents($request)->response();
     }
+    public function teacherGroupExams(TeacherGroupIdRequest $request)
+    {
+        return $this->teacherGroupService->teacherGroupExams($request)->response();
+    }
 }
