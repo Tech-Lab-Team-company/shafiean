@@ -15,10 +15,11 @@ class FetchMainSessionForSessionResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id' => $this->id??0,
-            'title' => $this->title??"",
+            'id' => $this->id ?? 0,
+            'title' => $this->title ?? "",
             'stage_title' => $this?->stage?->title ?? "",
             // 'stage_type' => $this?->stage?->type ?? "",
+            'session_type' => $this->session_type->title ?? "",
             'disability_types' => $this?->stage?->disabilityTypes->pluck('title')->implode(', ') ?? "", // This is a collection of disability types
             'curriculum_title' => $this?->stage->curriculum->title ?? "",
             'surah_title' => $this->surah->name ?? "",
