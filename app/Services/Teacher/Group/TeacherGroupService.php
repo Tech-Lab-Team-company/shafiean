@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 use App\Helpers\Response\DataFailed;
 use Illuminate\Support\Facades\Auth;
 use App\Helpers\Response\DataSuccess;
+use App\Http\Resources\Teacher\Session\TeacherSessionResource;
 use App\Http\Resources\Teacher\Group\TeacherGroupTitleResource;
 
 class TeacherGroupService
@@ -25,6 +26,22 @@ class TeacherGroupService
             })->distinct()->get();
             return new DataSuccess(
                 data: TeacherGroupTitleResource::collection($groups),
+                status: true,
+                message: 'Data fetched successfully'
+            );
+        } catch (Exception $e) {
+            return new DataFailed(
+                status: false,
+                message: $e->getMessage()
+            );
+        }
+    }
+    public function teacherGroupSession($dataRequest)
+    {
+        try {
+            $sessions = Group::find($dataRequest->group_id)->groupStageSessions()->get();
+            return new DataSuccess(
+                data: TeacherSessionResource::collection($sessions),
                 status: true,
                 message: 'Data fetched successfully'
             );
