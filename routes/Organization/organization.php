@@ -5,6 +5,7 @@ use App\Http\Controllers\Global\StageController;
 use App\Http\Controllers\Global\GlobalController;
 use App\Http\Controllers\Admin\CurriculumController;
 use App\Http\Controllers\Global\DisabilityController;
+use App\Http\Controllers\Teacher\TeacherGroupController;
 use App\Http\Controllers\Organization\Auth\AuthController;
 use App\Http\Controllers\Organization\Blog\BlogController;
 use App\Http\Controllers\Organization\Exam\ExamController;
@@ -534,6 +535,10 @@ Route::middleware('auth:organization')->group(function () {
         Route::post('teacher_current_session', 'currentSession');
         Route::post('teacher_next_session', 'nextSession');
         Route::post('teacher_finished_session', 'finishedSession');
+    });
+    //TEACHER GROUP
+    Route::controller(TeacherGroupController::class)->group(function () {
+        Route::post('teacher_groups', 'teacherGroup');
     });
     /* END TEACHER */
     // ***********************************************************************************************************************************

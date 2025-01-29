@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Resources\Teacher\Group;
 
 
@@ -19,10 +20,6 @@ class TeacherGroupTitleResource extends JsonResource
         return [
             'id' => $this->id ?? 0,
             'title' => $this->title ?? "",
-            'user_count' => $this->users()->count() ?? 0,
-            'exam_count' => $this->exams()->count() ?? 0,
-            'lesson_count' => $this->groupStageSessions()->count() ?? 0
-
         ];
     }
 }
