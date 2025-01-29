@@ -84,6 +84,7 @@ class MainSessionService
             $data['date'] = $dataRequest->date;
             $data['start_time'] = $dataRequest->start_time;
             $data['end_time'] = $dataRequest->end_time;
+            $data['with_edit'] = $dataRequest->is_new == SessionIsNewEnum::NEW->value ? 1 : 0;
             /* $mainSession = */
             GroupStageSession::create($data);
             // $this->storeGroupStageSessions($mainSession, $dataRequest->group_id, $dataRequest->stage_id, $dataRequest->session_type_id);
