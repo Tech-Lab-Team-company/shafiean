@@ -1,6 +1,6 @@
 <?php
+namespace App\Http\Resources\Teacher\Session;
 
-namespace App\Http\Resources\Teacher;
 
 use Illuminate\Http\Request;
 use App\Http\Resources\StageResource;

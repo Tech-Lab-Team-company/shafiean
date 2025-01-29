@@ -15,7 +15,7 @@ use App\Helpers\Response\DataFailed;
 use Illuminate\Support\Facades\Auth;
 use App\Helpers\Response\DataSuccess;
 
-use App\Http\Resources\Teacher\UpcomingGroupActivitiesResource;
+use App\Http\Resources\Teacher\Group\UpcomingGroupActivitiesResource;
 use App\Http\Resources\Admin\Statistics\Organization\InteractedRateWithOrganizationResource;
 
 class TeacherDashboardStatisticsService

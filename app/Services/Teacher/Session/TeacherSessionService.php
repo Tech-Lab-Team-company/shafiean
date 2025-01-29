@@ -8,7 +8,7 @@ use App\Models\Teacher;
 use App\Helpers\Response\DataFailed;
 use Illuminate\Support\Facades\Auth;
 use App\Helpers\Response\DataSuccess;
-use App\Http\Resources\Teacher\TeacherSessionResource;
+use App\Http\Resources\Teacher\Session\TeacherSessionResource;
 
 class TeacherSessionService
 {
