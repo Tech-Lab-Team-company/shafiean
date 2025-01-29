@@ -40,7 +40,7 @@ class EditSessionRequest extends ApiRequest
 
         if ($session && $session->with_edit == CanEditSessionEnum::CAN->value) {
             $data = array_merge($data, [
-                'session_id' => ['required', 'exists:main_sessions,id'],
+                // 'session_id' => ['required', 'exists:main_sessions,id'],
                 "stage_id" => "required|exists:stages,id",
                 "surah_id" => "required|exists:surahs,id",
                 'start_ayah_id' => 'required|exists:ayahs,id',
