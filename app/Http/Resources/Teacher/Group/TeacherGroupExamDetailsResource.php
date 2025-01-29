@@ -13,8 +13,8 @@ class TeacherGroupExamDetailsResource extends JsonResource
 {
     public function toArray(Request $request): array
     {
-        $groupId = ExamGroup::where('exam_id', $this->id)->first()->group_id;
-        $groupName = Group::where('id', $groupId)->first()->title;
+        $groupId = ExamGroup::where('exam_id', $this->id)->first()?->group_id;
+        $groupName = Group::where('id', $groupId)->first()?->title;
         return [
             'id' => $this->id ?? 0,
             'name' => $this->name ?? '',
