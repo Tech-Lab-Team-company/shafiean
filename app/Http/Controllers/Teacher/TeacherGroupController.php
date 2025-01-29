@@ -2,13 +2,10 @@
 
 namespace App\Http\Controllers\Teacher;
 
-
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Services\Teacher\Group\TeacherGroupService;
-use App\Services\Teacher\Session\TeacherSessionService;
 use App\Http\Requests\Teacher\Group\TeacherGroupIdRequest;
-use App\Http\Requests\Teacher\Group\TeacherSessionByGroupRequest;
+use App\Http\Requests\Teacher\Group\TeacherGroupExamIdRequest;
 
 class TeacherGroupController extends Controller
 {
@@ -29,5 +26,9 @@ class TeacherGroupController extends Controller
     public function teacherGroupExams(TeacherGroupIdRequest $request)
     {
         return $this->teacherGroupService->teacherGroupExams($request)->response();
+    }
+    public function teacherGroupExamDetails(TeacherGroupExamIdRequest $request)
+    {
+        return $this->teacherGroupService->teacherGroupExamDetails($request)->response();
     }
 }

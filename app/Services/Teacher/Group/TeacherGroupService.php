@@ -6,14 +6,17 @@ use Exception;
 use Carbon\Carbon;
 use App\Models\Group;
 use App\Models\Teacher;
+use Tests\Unit\ExampleTest;
 use Illuminate\Support\Facades\DB;
 use App\Helpers\Response\DataFailed;
 use Illuminate\Support\Facades\Auth;
 use App\Helpers\Response\DataSuccess;
+use App\Models\Organization\Exam\Exam;
 use App\Http\Resources\Teacher\Group\TeacherGroupExamResource;
 use App\Http\Resources\Teacher\Session\TeacherSessionResource;
 use App\Http\Resources\Teacher\Group\TeacherGroupTitleResource;
 use App\Http\Resources\Teacher\Group\TeacherGroupStudentResource;
+use App\Http\Resources\Teacher\Group\TeacherGroupExamDetailsResource;
 
 class TeacherGroupService
 {
@@ -76,6 +79,22 @@ class TeacherGroupService
             $exams = Group::find($dataRequest->group_id)->exams()->distinct()->get();
             return new DataSuccess(
                 data: TeacherGroupExamResource::collection($exams),
+                status: true,
+                message: 'Data fetched successfully'
+            );
+        } catch (Exception $e) {
+            return new DataFailed(
+                status: false,
+                message: $e->getMessage()
+            );
+        }
+    }
+    public function teacherGroupExamDetails($dataRequest)
+    {
+        try {
+            $exam = Exam::find($dataRequest->exam_id);
+            return new DataSuccess(
+                data: new TeacherGroupExamDetailsResource($exam),
                 status: true,
                 message: 'Data fetched successfully'
             );
