@@ -16,6 +16,7 @@ use App\Helpers\Response\DataSuccess;
 use App\Services\Global\FilterService;
 use App\Http\Resources\MainSessionResource;
 use App\Http\Resources\Organization\MainSession\FetchMainSessionIndexForGroupResource;
+use App\Http\Resources\Organization\MainSession\FetchMainSessionDetailsForGroupResource;
 
 class MainSessionService
 {
@@ -104,11 +105,11 @@ class MainSessionService
     public function getDetails($request): DataStatus
     {
         try {
-            $mainSession = MainSession::find($request->id);
+            $session = GroupStageSession::find($request->id);
             return new DataSuccess(
-                data: new MainSessionResource($mainSession),
+                data: new FetchMainSessionDetailsForGroupResource($session),
                 status: true,
-                message: 'Main session retrieved successfully'
+                message: 'session retrieved successfully'
             );
         } catch (Exception $e) {
             return new DataFailed(
@@ -118,19 +119,26 @@ class MainSessionService
         }
     }
 
-    public function update($request): DataStatus
+    public function update($dataRequest): DataStatus
     {
         try {
-            $mainSession = MainSession::find($request->id);
-            $data['title'] = $request->title;
-            $data['stage_id'] = $request->stage_id;
-            $data['surah_id'] = $request->surah_id;
-            $data['session_type_id'] = $request->session_type_id;
-            $data['start_ayah_id'] = $request->start_ayah_id;
-            $data['end_ayah_id'] = $request->end_ayah_id;
-            $mainSession->update($data);
+            $session = GroupStageSession::find($dataRequest->id);
+            $data['title'] = $dataRequest->is_new == SessionIsNewEnum::NEW->value ? $dataRequest->title : MainSession::find($dataRequest->session_id)?->title;
+            $data['session_id'] = $dataRequest->is_new == SessionIsNewEnum::EXISTS->value ? $dataRequest->session_id : null;
+            $data['teacher_id'] = $dataRequest->teacher_id;
+            $data['stage_id'] = $dataRequest->stage_id;
+            $data['group_id'] = $dataRequest->group_id;
+            $data['session_type_id'] = $dataRequest->session_type_id;
+            $data['surah_id'] = $dataRequest->surah_id;
+            $data['start_ayah_id'] = $dataRequest->start_ayah_id;
+            $data['end_ayah_id'] = $dataRequest->end_ayah_id;
+            $data['date'] = $dataRequest->date;
+            $data['start_time'] = $dataRequest->start_time;
+            $data['end_time'] = $dataRequest->end_time;
+            $data['with_edit'] = $dataRequest->is_new == SessionIsNewEnum::NEW->value ? 1 : 0;
+            $session->update($data);
             return new DataSuccess(
-                data: new MainSessionResource($mainSession),
+                data: new MainSessionResource($session),
                 status: true,
                 message: 'Main session updated successfully'
             );
