@@ -31,4 +31,8 @@ class TeacherGroupController extends Controller
     {
         return $this->teacherGroupService->teacherGroupExamDetails($request)->response();
     }
+    public function teacherExams()
+    {
+        return $this->teacherGroupService->teacherExams()->response();
+    }
 }

@@ -105,4 +105,27 @@ class TeacherGroupService
             );
         }
     }
+    public function teacherExams()
+    {
+        try {
+            /** @var Teacher $teacher  */
+            $teacher = Auth::guard('organization')->user();
+            $exams = $teacher->sessions()
+                ->with('group.exams')
+                ->get()
+                ->pluck('group.exams')
+                ->flatten()
+                ->unique();
+            return new DataSuccess(
+                data: TeacherGroupExamResource::collection($exams),
+                status: true,
+                message: 'Data fetched successfully'
+            );
+        } catch (Exception $e) {
+            return new DataFailed(
+                status: false,
+                message: $e->getMessage()
+            );
+        }
+    }
 }
