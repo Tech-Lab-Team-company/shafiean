@@ -18,7 +18,7 @@ class TeacherGroupExamResource extends JsonResource
         return [
             'id' => $this->id ?? 0,
             'title' => $this->name ?? "",
-            'questions_count' => $this?->questions()?->count() ?? 0,
+            'questions_count' => isset($this->questions) ? $this->questions()->count() : 0,
             'exam_type' => $this->exam_type ?? 0,
         ];
     }
