@@ -3,22 +3,15 @@
 namespace App\Services\Teacher\StudentReports;
 
 use Exception;
-use Carbon\Carbon;
-use App\Models\Group;
-use App\Models\Teacher;
-use Tests\Unit\ExampleTest;
 use App\Models\GroupStageSession;
-use Illuminate\Support\Facades\DB;
 use App\Helpers\Response\DataFailed;
 use Illuminate\Support\Facades\Auth;
 use App\Helpers\Response\DataSuccess;
 use App\Models\Organization\Exam\Exam;
-use App\Http\Resources\Teacher\Group\TeacherGroupExamResource;
-use App\Http\Resources\Teacher\Session\TeacherSessionResource;
-use App\Http\Resources\Teacher\Group\TeacherGroupTitleResource;
-use App\Http\Resources\Teacher\Group\TeacherGroupStudentResource;
-use App\Http\Resources\Teacher\Group\TeacherGroupExamDetailsResource;
+use App\Models\Organization\Exam\ExamResult;
+use App\Http\Resources\Teacher\StudentReports\TeacherStudentExamResource;
 use App\Http\Resources\Teacher\StudentReports\TeacherStudentAttendanceAndDepartureResource;
+use App\Models\User;
 
 class TeacherStudentReportsService
 {
@@ -35,6 +28,26 @@ class TeacherStudentReportsService
             $data = $groupStageSessions->orderBy('id', 'desc')->paginate(8);
             return new DataSuccess(
                 data: TeacherStudentAttendanceAndDepartureResource::collection($data),
+                status: true,
+                message: 'Data fetched successfully'
+            );
+        } catch (Exception $e) {
+            return new DataFailed(
+                status: false,
+                message: $e->getMessage()
+            );
+        }
+    }
+
+    public function studentExams($dataRequest)
+    {
+        try {
+            // $exams = Exam::WhereHas('exam_results', function ($query) use ($dataRequest) {
+            //     $query->where('user_id', $dataRequest->user_id);
+            // })->first();
+            $student = User::whereId($dataRequest->user_id)->first();
+            return new DataSuccess(
+                data: new TeacherStudentExamResource/* ::collection */($student),
                 status: true,
                 message: 'Data fetched successfully'
             );

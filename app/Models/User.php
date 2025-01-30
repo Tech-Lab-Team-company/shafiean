@@ -4,9 +4,12 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Models\City;
+use App\Models\Group;
 use App\Models\Country;
 use App\Models\BloodType;
 use App\Models\MainSession;
+use App\Models\UserSession;
+use App\Models\Subscription;
 use App\Models\DisabilityType;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Support\Facades\Auth;
@@ -20,6 +23,7 @@ use App\Models\Scopes\PerOrganizationScope;
 use App\Models\Organization\Exam\ExamResult;
 use App\Models\Organization\Exam\ExamStudent;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\Organization\Exam\ExamResultAnswer;
 use App\Models\Scopes\PerOrganizationWebsiteScope;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Models\Organization\Competition\Competition;
@@ -31,6 +35,7 @@ use App\Models\Organization\UserRelation\UserRelation;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use App\Services\User\ExamResultAnswer\ExamResultAnswerService;
 
 class User extends Authenticatable
 {
@@ -124,6 +129,10 @@ class User extends Authenticatable
     public function examResults(): HasMany
     {
         return $this->hasMany(ExamResult::class, 'user_id', 'id');
+    }
+    public function examResultAnswers(): HasMany
+    {
+        return $this->hasMany(ExamResultAnswer::class, 'user_id', 'id');
     }
     public function sessions()
     {
