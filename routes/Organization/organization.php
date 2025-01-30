@@ -26,6 +26,7 @@ use App\Http\Controllers\Organization\Teacher\TeacherController;
 use App\Http\Controllers\Organization\Blog\BlogHashtagController;
 use App\Http\Controllers\Organization\Exam\ExamStudentController;
 use App\Http\Controllers\Organization\Group\FetchGroupController;
+use App\Http\Controllers\Teacher\TeacherStudentReportsController;
 use App\Http\Controllers\Organization\Blog\BlogCategoryController;
 use App\Http\Controllers\Organization\Employee\EmployeeController;
 use App\Http\Controllers\Organization\Exam\ExamQuestionController;
@@ -544,6 +545,10 @@ Route::middleware('auth:organization')->group(function () {
         Route::post('teacher_group_exams', 'teacherGroupExams');
         Route::post('teacher_group_exam_details', 'teacherGroupExamDetails');
         Route::post('teacher_exams', 'teacherExams');
+    });
+    //TEACHER STUDENT REPORTS
+    Route::controller(TeacherStudentReportsController::class)->group(function () {
+        Route::post('teacher_student_attendance_and_departure', 'studentAttendanceAndDeparture');
     });
     /* END TEACHER */
     // ***********************************************************************************************************************************
