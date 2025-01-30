@@ -42,12 +42,9 @@ class TeacherStudentReportsService
     public function studentExams($dataRequest)
     {
         try {
-            // $exams = Exam::WhereHas('exam_results', function ($query) use ($dataRequest) {
-            //     $query->where('user_id', $dataRequest->user_id);
-            // })->first();
             $student = User::whereId($dataRequest->user_id)->first();
             return new DataSuccess(
-                data: new TeacherStudentExamResource/* ::collection */($student),
+                data: new TeacherStudentExamResource($student),
                 status: true,
                 message: 'Data fetched successfully'
             );
