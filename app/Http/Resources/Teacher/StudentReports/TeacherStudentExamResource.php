@@ -25,7 +25,7 @@ class TeacherStudentExamResource extends JsonResource
             'completed_exam_count' => $completedExamCount,
             'answer_count' => $answerCount,
             'unfinished_exam_count' => $unfinishedExams,
-            'exam_results' => TeacherStudentExamResultResource::collection($this->examResults),
+            'exam_results' => TeacherStudentExamResultResource::collection($this->examResults) ?? [],
         ];
     }
 }
