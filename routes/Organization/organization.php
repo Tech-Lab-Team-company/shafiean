@@ -349,7 +349,7 @@ Route::middleware('auth:organization')->group(function () {
             Route::post('teacher_fetch_count_statistics', 'fetchCounts');
             Route::post('teacher_group', 'teacherGroup');
             Route::post('teacher_fetch_main_sessions', 'fetchMainsessions');
-            Route::post('teacher_exams', 'fetchExams');
+            // Route::post('teacher_exams', 'fetchExams');
         }
     );
     /**
