@@ -26,7 +26,7 @@ class TeacherStudentExamResultDetailsResource extends JsonResource
             'correct_answer_count' => $this->correct_question_count ?? 0,
             'wrong_answer_count' => $this->wrong_question_count ?? 0,
             'final_grade' => $computedFinalGrade,
-            'wrong_answers' => TeacherStudentExamWrongAnswerResource::collection($this->examResultAnswers()->where('is_correct', false)->get()),
+            'wrong_answers' => TeacherStudentExamWrongAnswerResource::collection($this->examResultAnswers()->where('is_correct', false)->get()) ?? [],
         ];
     }
 }
