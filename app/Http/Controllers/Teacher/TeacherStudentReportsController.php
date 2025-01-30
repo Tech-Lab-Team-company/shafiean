@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Teacher;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Teacher\StudentReports\TeacherUserIdRequest;
 use App\Services\Teacher\StudentReports\TeacherStudentReportsService;
+use App\Http\Requests\Teacher\StudentReports\TeacherExamResultIdRequest;
 
 class TeacherStudentReportsController extends Controller
 {
@@ -17,5 +18,9 @@ class TeacherStudentReportsController extends Controller
     public function studentExams(TeacherUserIdRequest $request)
     {
         return $this->teacherStudentReportsService->studentExams($request)->response();
+    }
+    public function studentExamDetails(TeacherExamResultIdRequest $request)
+    {
+        return $this->teacherStudentReportsService->studentExamDetails($request)->response();
     }
 }
