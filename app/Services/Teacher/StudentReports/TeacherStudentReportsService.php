@@ -84,7 +84,17 @@ class TeacherStudentReportsService
     public function studentRatings($dataRequest)
     {
         try {
-            $sessionTeacherRates = SessionTeacherRate::whereuserId($dataRequest->user_id)->get();
+            $sessionTeacherRates = SessionTeacherRate::whereuserId($dataRequest->user_id);
+            $sessionTeacherRates->when($dataRequest->word, function ($query) use ($dataRequest) {
+                $query->whereHas('groupStageSession', function ($q) use ($dataRequest) {
+                    $q->where('title', 'like', '%' . $dataRequest->word . '%');
+                })->orwhereHas('groupStageSession', function ($q) use ($dataRequest) {
+                    $q->whereHas('session', function ($q) use ($dataRequest) {
+                        $q->where('title', 'like', '%' . $dataRequest->word . '%');
+                    });
+                });
+            });
+            $sessionTeacherRates = $sessionTeacherRates->orderBy('id', 'desc')->get();
             return new DataSuccess(
                 data: TeacherStudentRatingsResource::collection($sessionTeacherRates),
                 status: true,
