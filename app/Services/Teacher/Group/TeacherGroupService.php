@@ -3,11 +3,8 @@
 namespace App\Services\Teacher\Group;
 
 use Exception;
-use Carbon\Carbon;
 use App\Models\Group;
 use App\Models\Teacher;
-use Tests\Unit\ExampleTest;
-use Illuminate\Support\Facades\DB;
 use App\Helpers\Response\DataFailed;
 use Illuminate\Support\Facades\Auth;
 use App\Helpers\Response\DataSuccess;
@@ -17,6 +14,7 @@ use App\Http\Resources\Teacher\Session\TeacherSessionResource;
 use App\Http\Resources\Teacher\Group\TeacherGroupTitleResource;
 use App\Http\Resources\Teacher\Group\TeacherGroupStudentResource;
 use App\Http\Resources\Teacher\Group\TeacherGroupExamDetailsResource;
+use App\Http\Resources\Teacher\Group\TeacherGroupLastSessionResource;
 
 class TeacherGroupService
 {
@@ -118,6 +116,23 @@ class TeacherGroupService
                 ->unique();
             return new DataSuccess(
                 data: TeacherGroupExamResource::collection($exams),
+                status: true,
+                message: 'Data fetched successfully'
+            );
+        } catch (Exception $e) {
+            return new DataFailed(
+                status: false,
+                message: $e->getMessage()
+            );
+        }
+    }
+
+    public function teacherGroupLastSessions($dataRequest)
+    {
+        try {
+            $sessions = Group::find($dataRequest->group_id)->groupStageSessions()->orderBy('created_at', 'desc')->take(3)->get();
+            return new DataSuccess(
+                data: TeacherGroupLastSessionResource::collection($sessions),
                 status: true,
                 message: 'Data fetched successfully'
             );
