@@ -44,7 +44,15 @@ class TeacherStudentReportsService
     public function studentExams($dataRequest)
     {
         try {
-            $student = User::whereId($dataRequest->user_id)->first();
+            $student = User::whereId($dataRequest->user_id)
+                ->with([
+                    'examResults' => function ($query) use ($dataRequest) {
+                        $query->whereHas('exam', function ($subQuery) use ($dataRequest) {
+                            $subQuery->where('name', 'LIKE', "%$dataRequest->word%");
+                        });
+                    }
+                ])
+                ->first();
             return new DataSuccess(
                 data: new TeacherStudentExamResource($student),
                 status: true,
