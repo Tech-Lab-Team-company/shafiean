@@ -23,4 +23,8 @@ class TeacherStudentReportsController extends Controller
     {
         return $this->teacherStudentReportsService->studentExamDetails($request)->response();
     }
+    public function studentRatings(TeacherUserIdRequest $request)
+    {
+        return $this->teacherStudentReportsService->studentRatings($request)->response();
+    }
 }

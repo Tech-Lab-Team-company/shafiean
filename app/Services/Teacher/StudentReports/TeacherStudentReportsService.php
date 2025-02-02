@@ -6,9 +6,12 @@ use Exception;
 use App\Models\User;
 use App\Models\GroupStageSession;
 use App\Helpers\Response\DataFailed;
+use Illuminate\Support\Facades\Auth;
 use App\Helpers\Response\DataSuccess;
 use App\Models\Organization\Exam\ExamResult;
+use App\Models\SessionTeacherRate\SessionTeacherRate;
 use App\Http\Resources\Teacher\StudentReports\TeacherStudentExamResource;
+use App\Http\Resources\Teacher\StudentReports\TeacherStudentRatingsResource;
 use App\Http\Resources\Teacher\StudentReports\TeacherStudentExamResultDetailsResource;
 use App\Http\Resources\Teacher\StudentReports\TeacherStudentAttendanceAndDepartureResource;
 
@@ -57,9 +60,25 @@ class TeacherStudentReportsService
     public function studentExamDetails($dataRequest)
     {
         try {
-          $examResult = ExamResult::whereId($dataRequest->exam_result_id)->first();
+            $examResult = ExamResult::whereId($dataRequest->exam_result_id)->first();
             return new DataSuccess(
                 data: new TeacherStudentExamResultDetailsResource($examResult),
+                status: true,
+                message: 'Data fetched successfully'
+            );
+        } catch (Exception $e) {
+            return new DataFailed(
+                status: false,
+                message: $e->getMessage()
+            );
+        }
+    }
+    public function studentRatings($dataRequest)
+    {
+        try {
+            $sessionTeacherRates = SessionTeacherRate::whereuserId($dataRequest->user_id)->get();
+            return new DataSuccess(
+                data: TeacherStudentRatingsResource::collection($sessionTeacherRates),
                 status: true,
                 message: 'Data fetched successfully'
             );

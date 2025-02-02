@@ -551,6 +551,7 @@ Route::middleware('auth:organization')->group(function () {
         Route::post('teacher_student_attendance_and_departure', 'studentAttendanceAndDeparture');
         Route::post('teacher_student_exams', 'studentExams');
         Route::post('teacher_student_exam_details', 'studentExamDetails');
+        Route::post('teacher_student_ratings', 'studentRatings');
     });
     /* END TEACHER */
     // ***********************************************************************************************************************************
