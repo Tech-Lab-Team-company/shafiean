@@ -72,7 +72,7 @@ class EmployeeService
             return new DataSuccess(
                 data: new OrganizationEmployeeResource($employee),
                 status: true,
-                message: 'Employee created successfully'
+                message: __('messages.success_create')
             );
         } catch (Exception $e) {
             return new DataFailed(
@@ -114,7 +114,7 @@ class EmployeeService
             return new DataSuccess(
                 data: new OrganizationEmployeeResource($employee),
                 status: true,
-                message: 'Employee updated successfully'
+                message: __('messages.success_update')
             );
         } catch (Exception $e) {
             return new DataFailed(
@@ -148,7 +148,7 @@ class EmployeeService
             $employee->delete();
             return new DataSuccess(
                 status: true,
-                message: 'Employee deleted successfully'
+                message: __('messages.success_delete')
             );
         } catch (Exception $e) {
             return new DataFailed(
@@ -167,7 +167,7 @@ class EmployeeService
             return new DataSuccess(
                 status: true,
                 data: new OrganizationEmployeeResource($employee),
-                message: 'Employee password updated successfully'
+                message: __('messages.success_update')
             );
         } catch (Exception $e) {
             return new DataFailed(

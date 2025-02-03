@@ -48,7 +48,7 @@ class PrivacyService
             return new DataSuccess(
                 data: new PrivacyResource($privacy),
                 status: true,
-                message: 'Privacy created successfully'
+                message: __('messages.success_create')
             );
         } catch (Exception $e) {
             return new DataFailed(

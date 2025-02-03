@@ -22,7 +22,7 @@ class DisabilityService
             return new DataSuccess(
                 status: true,
                 data: DisabilityTypeResource::collection($disabilities),
-                message: 'disabilities fetched successfully'
+                message: __('messages.success')
             );
         } catch (Exception $exception) {
             return new DataFailed(
@@ -41,7 +41,7 @@ class DisabilityService
             return new DataSuccess(
                 status: true,
                 data: DisabilityTypeTitleResource::collection($disabilities),
-                message: 'disabilities fetched successfully'
+                message: __('messages.success')
             );
         } catch (Exception $exception) {
             return new DataFailed(

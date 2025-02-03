@@ -36,7 +36,7 @@ class QuestionService
         if (!$question) {
             return new DataFailed(
                 statusCode: 400,
-                message: 'not found'
+                message: __('messages.not_found')
             );
         }
         return new DataSuccess(
@@ -53,7 +53,7 @@ class QuestionService
             return new DataSuccess(
                 data: new QuestionResource($question),
                 status: true,
-                message: 'Question created successfully'
+                message: __('messages.success_create')
             );
         } catch (Exception $e) {
             return new DataFailed(
@@ -69,7 +69,7 @@ class QuestionService
             if (!$question) {
                 return new DataFailed(
                     statusCode: 400,
-                    message: 'not found'
+                    message: __('messages.not_found')
                 );
             }
             // $dataRequest['is_private'] = 1;
@@ -78,7 +78,7 @@ class QuestionService
             return new DataSuccess(
                 data: new QuestionResource($question),
                 status: true,
-                message: 'Question updated successfully'
+                message: __('messages.success_update')
             );
         } catch (Exception $e) {
             return new DataFailed(
@@ -94,13 +94,13 @@ class QuestionService
             if (!$question) {
                 return new DataFailed(
                     statusCode: 400,
-                    message: 'not found'
+                    message: __('messages.not_found')
                 );
             }
             $question->delete();
             return new DataSuccess(
                 statusCode: 200,
-                message: 'Question deleted successfully'
+                message: __('messages.success_delete')
             );
         } catch (Exception $e) {
             return new DataFailed(

@@ -49,7 +49,7 @@ class LibraryService
             return new DataSuccess(
                 data: new LibraryResource($library),
                 status: true,
-                message: 'Library created successfully'
+                message: __('messages.success_create')
             );
         } catch (Exception $e) {
             return new DataFailed(
@@ -73,7 +73,7 @@ class LibraryService
             return new DataSuccess(
                 data: new LibraryResource($library),
                 status: true,
-                message: 'Library updated successfully'
+                message: __('messages.success_update')
             );
         } catch (Exception $e) {
             return new DataFailed(
@@ -88,7 +88,7 @@ class LibraryService
             Library::whereId($request->id)->first()->delete();
             return new DataSuccess(
                 statusCode: 200,
-                message: 'Library deleted successfully'
+                message: __('messages.success_delete')
             );
         } catch (Exception $e) {
             return new DataFailed(

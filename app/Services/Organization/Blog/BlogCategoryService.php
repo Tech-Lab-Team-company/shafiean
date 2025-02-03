@@ -46,7 +46,7 @@ class BlogCategoryService
             return new DataSuccess(
                 data: new BlogCategoryResource($blogCategory),
                 status: true,
-                message: 'Blog Category created successfully'
+                message: __('messages.success_create')
             );
         } catch (Exception $e) {
             return new DataFailed(
@@ -65,7 +65,7 @@ class BlogCategoryService
             return new DataSuccess(
                 data: new BlogCategoryResource($blogCategory),
                 status: true,
-                message: 'Blog Category updated successfully'
+                message: __('messages.success_update')
             );
         } catch (Exception $e) {
             return new DataFailed(
@@ -80,7 +80,7 @@ class BlogCategoryService
             BlogCategory::whereId($request->id)->first()->delete();
             return new DataSuccess(
                 statusCode: 200,
-                message: 'Blog Category deleted successfully'
+                message: __('messages.success_delete')
             );
         } catch (Exception $e) {
             return new DataFailed(

@@ -19,7 +19,7 @@ class AyatService
             return new DataSuccess(
                 data: new AyatResource($ayat),
                 statusCode: 200,
-                message: 'Ayat created successfully'
+                message: __('messages.success_create')
             );
         } catch (Exception $e) {
             return new DataFailed(
@@ -66,11 +66,11 @@ class AyatService
         }
     }
 
-    public function getAllAyats() :DataStatus
+    public function getAllAyats(): DataStatus
     {
         $ayat = Ayat::all();
         return new DataSuccess(
-            data:  AyatResource::collection($ayat),
+            data: AyatResource::collection($ayat),
             statusCode: 200,
             message: 'Ayat retrieved successfully'
         );
@@ -80,10 +80,9 @@ class AyatService
     {
         $ayat_by_id = Ayat::findOrFail($id);
         return new DataSuccess(
-            data:  new AyatResource($ayat_by_id),
+            data: new AyatResource($ayat_by_id),
             statusCode: 200,
             message: 'Ayat retrieved successfully'
         );
     }
 }
-

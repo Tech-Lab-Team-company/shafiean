@@ -99,7 +99,7 @@ class GroupService
             return new DataSuccess(
                 data: new GroupResource($group),
                 status: true,
-                message: 'Group created successfully'
+                message: __('messages.success_create')
             );
         } catch (Exception $exception) {
             return new DataFailed(
@@ -173,7 +173,7 @@ class GroupService
             return new DataSuccess(
                 data: new GroupResource($group),
                 status: true,
-                message: 'Group updated successfully'
+                message: __('messages.success_update')
             );
         } catch (Exception $exception) {
             return new DataFailed(
@@ -191,7 +191,7 @@ class GroupService
                 return new DataFailed(
                     status: false,
                     statusCode: 400,
-                    message: 'Group not found'
+                    message: __('messages.not_found')
                 );
             }
             $hasSession = $group->groupStageSessions()->count() ? true : false;
@@ -236,7 +236,7 @@ class GroupService
             return new DataSuccess(
                 data: new GroupResource($group),
                 status: true,
-                message: 'Group status updated successfully'
+                message: __('messages.success_change_status')
             );
         } catch (Exception $exception) {
             return new DataFailed(

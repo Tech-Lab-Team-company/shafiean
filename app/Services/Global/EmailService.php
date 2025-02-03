@@ -20,7 +20,7 @@ class EmailService
             // If user exists, send an email verification notification
             $user->notify(new EmailNotification());
             // Return a DataSuccess status indicating successful email verification
-            $msg = 'Check your email for verification code.';
+            $msg = __('messages.check_email_verification');
             return new DataSuccess(
                 status: true,
                 data: true,
@@ -28,7 +28,7 @@ class EmailService
             );
         } else {
             // If email is not found, return a DataFailed status with appropriate message and status code
-            $msg = 'email not found';
+            $msg = __('messages.email_not_found');
             return new DataFailed(
                 message: $msg,
                 status: false,

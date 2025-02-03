@@ -63,7 +63,7 @@ class CompetitionService
             return new DataSuccess(
                 data: new CompetitionResource($competition),
                 status: true,
-                message: 'Competition created successfully'
+                message: __('messages.success_create')
             );
         } catch (Exception $e) {
             return new DataFailed(
@@ -79,7 +79,7 @@ class CompetitionService
             if (!$competition) {
                 return new DataFailed(
                     status: false,
-                    message: 'Competition not found'
+                    message: __('messages.not_found')
                 );
             }
             if (isset($dataRequest['image'])) {
@@ -98,7 +98,7 @@ class CompetitionService
             return new DataSuccess(
                 data: new CompetitionResource($competition),
                 status: true,
-                message: 'Competition updated successfully'
+                message: __('messages.success_update')
             );
         } catch (Exception $e) {
             return new DataFailed(
@@ -113,7 +113,7 @@ class CompetitionService
             Competition::whereId($request->id)->first()->delete();
             return new DataSuccess(
                 statusCode: 200,
-                message: 'Competition deleted successfully'
+                message: __('messages.success_delete')
             );
         } catch (Exception $e) {
             return new DataFailed(

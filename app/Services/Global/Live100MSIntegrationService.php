@@ -35,7 +35,7 @@ class Live100MSIntegrationService
                 DB::rollBack();
                 return new DataSuccess(
                     status: false,
-                    message: 'تم تجهيز اللايف بالفعل',
+                    message: __('messages.live_exists'),
                 );
                 // return $room_data['data']['live'];
             }
@@ -54,14 +54,14 @@ class Live100MSIntegrationService
                 return new DataSuccess(
                     status: true,
                     data: $room_data['data']['live'],
-                    message: 'Room created successfully',
+                    message: __('messages.success_create'),
                 );
                 // return $room_data['data']['live'];
             }
             DB::commit();
             return new DataSuccess(
                 status: true,
-                message: 'Room created successfully',
+                message: __('messages.success_create'),
             );
         } catch (\Exception $e) {
             DB::rollBack();
@@ -92,7 +92,6 @@ class Live100MSIntegrationService
                 if ($check_live instanceof DataSuccess) {
                     $live =   $check_live->getData();
                 }
-
             }
             $live_info = $live->live_info;
             $live->update([
@@ -100,7 +99,7 @@ class Live100MSIntegrationService
             ]);
             return new DataSuccess(
                 status: true,
-                message: 'Room joined successfully',
+                message:  __('messages.success_join_room'),
                 data: new JoinRoomResource($live_info)
             );
         } catch (\Exception $e) {

@@ -39,7 +39,7 @@ class AnswerService
         if (!$answer) {
             return new DataFailed(
                 statusCode: 400,
-                message: 'not found'
+                message: __('messages.not_found')
             );
         }
         return new DataSuccess(
@@ -55,7 +55,7 @@ class AnswerService
             return new DataSuccess(
                 data: new AnswerResource($answer),
                 status: true,
-                message: 'Answer created successfully'
+                message: __('messages.success_create')
             );
         } catch (Exception $e) {
             return new DataFailed(
@@ -71,7 +71,7 @@ class AnswerService
             if (!$answer) {
                 return new DataFailed(
                     statusCode: 400,
-                    message: 'not found'
+                    message: __('messages.not_found')
                 );
             }
             unset($dataRequest['id']);
@@ -79,7 +79,7 @@ class AnswerService
             return new DataSuccess(
                 data: new AnswerResource($answer),
                 status: true,
-                message: 'Answer updated successfully'
+                message: __('messages.success_update')
             );
         } catch (Exception $e) {
             return new DataFailed(
@@ -95,13 +95,13 @@ class AnswerService
             if (!$answer) {
                 return new DataFailed(
                     statusCode: 400,
-                    message: 'not found'
+                    message: __('messages.not_found')
                 );
             }
             $answer->delete();
             return new DataSuccess(
                 statusCode: 200,
-                message: 'Answer deleted successfully'
+                message: __('messages.success_delete')
             );
         } catch (Exception $e) {
             return new DataFailed(

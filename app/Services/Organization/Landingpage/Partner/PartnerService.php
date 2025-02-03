@@ -52,7 +52,7 @@ class PartnerService
             return new DataSuccess(
                 data: new PartnerResource($partner),
                 status: true,
-                message: 'Partner created successfully'
+                message: __('messages.success_create')
             );
         } catch (Exception $e) {
             return new DataFailed(
@@ -78,7 +78,7 @@ class PartnerService
             return new DataSuccess(
                 data: new PartnerResource($partner),
                 status: true,
-                message: 'Partner updated successfully'
+                message: __('messages.success_update')
             );
         } catch (Exception $e) {
             return new DataFailed(
@@ -94,7 +94,7 @@ class PartnerService
             if (!$partner) {
                 return new DataFailed(
                     statusCode: 404,
-                    message: 'Partner not found'
+                    message: __('messages.not_found')
                 );
             }
             if ($partner->image) {
@@ -103,7 +103,7 @@ class PartnerService
             $partner->delete();
             return new DataSuccess(
                 statusCode: 200,
-                message: 'Partner deleted successfully'
+                message: __('messages.success_delete')
             );
         } catch (Exception $e) {
             return new DataFailed(

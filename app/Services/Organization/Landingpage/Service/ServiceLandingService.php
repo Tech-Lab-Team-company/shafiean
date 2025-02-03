@@ -58,7 +58,7 @@ class ServiceLandingService
             return new DataSuccess(
                 data: new ServiceResource($service),
                 status: true,
-                message: 'Service created successfully'
+                message: __('messages.success_create')
             );
         } catch (Exception $e) {
             return new DataFailed(
@@ -84,7 +84,7 @@ class ServiceLandingService
             return new DataSuccess(
                 data: new ServiceResource($service),
                 status: true,
-                message: 'Service updated successfully'
+                message: __('messages.success_update')
             );
         } catch (Exception $e) {
             return new DataFailed(
@@ -100,7 +100,7 @@ class ServiceLandingService
             if (!$service) {
                 return new DataFailed(
                     statusCode: 404,
-                    message: 'Service not found'
+                    message: __('messages.not_found')
                 );
             }
             if ($service->image) {
@@ -109,7 +109,7 @@ class ServiceLandingService
             $service->delete();
             return new DataSuccess(
                 statusCode: 200,
-                message: 'Service deleted successfully'
+                message: __('messages.success_delete')
             );
         } catch (Exception $e) {
             return new DataFailed(

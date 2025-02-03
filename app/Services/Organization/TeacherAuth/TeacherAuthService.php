@@ -23,7 +23,7 @@ class TeacherAuthService
             $teacher = Teacher::where('email', $credentials['email'])->first();
             if (!$teacher || !Hash::check($credentials['password'], $teacher->password)) {
                 throw ValidationException::withMessages([
-                    'email' => ['The provided credentials are incorrect.'],
+                    'email' => [__('messages.email_or_password_incorrect')],
                 ]);
             }
             Auth::login($teacher);
@@ -31,7 +31,7 @@ class TeacherAuthService
             return new DataSuccess(
                 data: new TeacherResource($teacher, $token),
                 statusCode: 200,
-                message: 'Login successful'
+                message: __('messages.success_login')
             );
         } catch (\Exception $e) {
             return new DataFailed(
@@ -51,7 +51,7 @@ class TeacherAuthService
             }
             DB::commit();
             return new DataSuccess(
-                message: 'Admin logout successful'
+                message: __('messages.success_logout')
             );
         } catch (\Exception $e) {
             DB::rollBack();

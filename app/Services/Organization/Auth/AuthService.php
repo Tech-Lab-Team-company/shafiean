@@ -25,14 +25,14 @@ class AuthService
             if (!$employee) {
                 return new DataFailed(
                     status: false,
-                    message: 'wrong email'
+                    message: __('messages.email_not_found')
                 );
             }
 
             if (!Hash::check($request->password, $employee->password)) {
                 return new DataFailed(
                     status: false,
-                    message: 'wrong password'
+                    message: __('messages.wrong_password')
                 );
             }
             // If the credentials are correct, create a token
@@ -45,7 +45,7 @@ class AuthService
             return new DataSuccess(
                 status: true,
                 data: $response,
-                message: 'Login successful',
+                message: __('messages.success_login'),
             );
         } catch (Exception $exception) {
             return new DataFailed(
@@ -61,7 +61,7 @@ class AuthService
             auth()->user()->currentAccessToken()->delete();
             return new DataSuccess(
                 status: true,
-                message: 'Logout successful',
+                message: __('messages.success_logout'),
             );
         } catch (Exception $exception) {
             return new DataFailed(
@@ -78,7 +78,7 @@ class AuthService
             if (!$employee) {
                 return new DataFailed(
                     status: false,
-                    message: 'wrong email'
+                    message: __('messages.email_not_found')
                 );
             }
             $email_service = new EmailService();

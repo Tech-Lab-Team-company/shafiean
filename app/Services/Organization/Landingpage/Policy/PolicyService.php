@@ -49,7 +49,7 @@ class PolicyService
             return new DataSuccess(
                 data: new PolicyResource($policy),
                 status: true,
-                message: 'Policy created successfully'
+                message: __('messages.success_create')
             );
         } catch (Exception $e) {
             return new DataFailed(

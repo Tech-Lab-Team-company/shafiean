@@ -42,7 +42,7 @@ class SessionTypeService
             return new DataSuccess(
                 status: true,
                 data: new SessionTypeResource($sessiontype),
-                message: 'Session type created successfully'
+                message: __('messages.success_create')
             );
         } catch (Exception $e) {
             return new DataStatus(
@@ -79,7 +79,7 @@ class SessionTypeService
             return new DataSuccess(
                 status: true,
                 data: new SessionTypeResource($sessiontype),
-                message: 'Session type updated successfully'
+                message: __('messages.success_update')
             );
         } catch (Exception $e) {
             return new DataStatus(
@@ -96,7 +96,7 @@ class SessionTypeService
             $sessiontype->delete();
             return new DataSuccess(
                 status: true,
-                message: 'Session type deleted successfully'
+                message: __('messages.success_delete')
             );
         } catch (Exception $e) {
             return new DataStatus(
@@ -119,7 +119,7 @@ class SessionTypeService
             return new DataSuccess(
                 status: true,
                 data: new SessionTypeResource($sessiontype),
-                message: 'Session type status changed successfully'
+                message: __('messages.success_change_status')
             );
         } catch (Exception $e) {
             return new DataStatus(

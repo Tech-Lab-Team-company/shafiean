@@ -19,7 +19,7 @@ class UserContactService
             return new DataSuccess(
                 data: new UserContactResource($contact),
                 status: true,
-                message: 'Message Sent Successfully'
+                message: __('messages.success_create')
             );
         } catch (\Exception $exception) {
             return new DataFailed(

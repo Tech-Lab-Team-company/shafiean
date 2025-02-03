@@ -66,7 +66,7 @@ class FeatureService
             return new DataSuccess(
                 status: true,
                 data: new FeatureResource($feature),
-                message: 'Add Feature Success'
+                message: __('messages.success_create')
             );
         } catch (\Exception $e) {
             return new DataFailed(
@@ -90,7 +90,7 @@ class FeatureService
             return new DataSuccess(
                 status: true,
                 data: new FeatureResource($feature),
-                message: 'Edit Feature Success'
+                message: __('messages.success_update')
             );
         } catch (\Exception $e) {
             return new DataFailed(
@@ -108,7 +108,7 @@ class FeatureService
             return new DataSuccess(
                 status: true,
                 data: new FeatureResource($feature),
-                message: 'Delete Feature Success'
+                message: __('messages.success_delete')
             );
         } catch (\Exception $e) {
             return new DataFailed(

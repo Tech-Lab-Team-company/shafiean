@@ -29,7 +29,7 @@ class RateService
             return new DataSuccess(
                 status: true,
                 // data: new SessionTeacherRateResource($teacher_rate),
-                message: 'Rate added successfully'
+                message: __('messages.success_create')
             );
         } catch (\Exception $e) {
             return new DataFailed(
@@ -47,7 +47,7 @@ class RateService
             return new DataSuccess(
                 status: true,
                 data: new SessionTeacherRateResource($teacher_rate),
-                message: 'Rate added successfully'
+                message: __('messages.success')
             );
         } catch (\Exception $e) {
             return new DataFailed(

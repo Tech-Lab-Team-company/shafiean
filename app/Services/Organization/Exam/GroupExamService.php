@@ -44,7 +44,7 @@ class GroupExamService
         if (!$exam) {
             return new DataFailed(
                 statusCode: 400,
-                message: 'not found'
+                message: __('messages.not_found')
             );
         }
         return new DataSuccess(
@@ -62,7 +62,7 @@ class GroupExamService
             return new DataSuccess(
                 data: new GroupExamResource($exam),
                 status: true,
-                message: 'Exam created successfully'
+                message: __('messages.success_create')
             );
         } catch (Exception $e) {
             return new DataFailed(
@@ -78,7 +78,7 @@ class GroupExamService
             if (!$exam) {
                 return new DataFailed(
                     statusCode: 400,
-                    message: 'not found'
+                    message: __('messages.not_found')
                 );
             }
             $hasResult = $exam->exam_results()->count() ? true : false;
@@ -94,7 +94,7 @@ class GroupExamService
             return new DataSuccess(
                 data: new GroupExamResource($exam),
                 status: true,
-                message: 'Exam updated successfully'
+                message: __('messages.success_update')
             );
         } catch (Exception $e) {
             return new DataFailed(
@@ -110,7 +110,7 @@ class GroupExamService
             if (!$exam) {
                 return new DataFailed(
                     statusCode: 400,
-                    message: 'not found'
+                    message: __('messages.not_found')
                 );
             }
             $hasResult = $exam->exam_results()->count() ? true : false;
@@ -124,7 +124,7 @@ class GroupExamService
                 $exam->delete();
                 return new DataSuccess(
                     statusCode: 200,
-                    message: 'Exam deleted successfully'
+                    message: __('messages.success_delete')
                 );
             }
         } catch (Exception $e) {

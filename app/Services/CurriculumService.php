@@ -61,7 +61,7 @@ class CurriculumService
             return new DataSuccess(
                 data: new CurriculumResource($curriculum),
                 status: true,
-                message: 'Curriculum created successfully'
+                message: __('messages.success_create')
             );
         } catch (Exception $e) {
             return new DataFailed(
@@ -82,7 +82,7 @@ class CurriculumService
             return new DataSuccess(
                 data: new CurriculumResource($curriculum),
                 status: true,
-                message: 'Curriculum updated successfully'
+                message: __('messages.success_update')
             );
         } catch (Exception $e) {
             return new DataFailed(
@@ -100,7 +100,7 @@ class CurriculumService
 
             return new DataSuccess(
                 status: true,
-                message: 'Curriculum deleted successfully'
+                message: __('messages.success_delete')
             );
         } catch (Exception $e) {
             return new DataFailed(
@@ -123,7 +123,7 @@ class CurriculumService
             return new DataSuccess(
                 status: true,
                 data: new CurriculumResource($curriculum),
-                message: 'Curriculum status updated successfully'
+                message: __('messages.success_change_status')
             );
         } catch (Exception $e) {
             return new DataFailed(

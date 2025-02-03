@@ -38,7 +38,7 @@ class CodeService
             // Find the user by email and update their verification status and timestamp
             // $user = User::where('email', $request->email)->first();
             $user->update(['email_verified_at' => now()]);
-            $msg = 'email verified successfully';
+            $msg = __('messages.success_verify_code');
             // Return a DataSuccess status indicating successful verification
             return new DataSuccess(
                 status: true,
@@ -54,7 +54,7 @@ class CodeService
             return new DataSuccess(
                 status: false,
                 data: false,
-                message: 'Email not verified'
+                message: __('messages.email_not_verified')
             );
         }
         $otp = $this->otp->validate($request->email, $request->code);
@@ -64,7 +64,7 @@ class CodeService
                 message: $otp->message,
             );
         } else {
-            $msg = 'تم التحقق من الكود بنجاح';
+            $msg = __('messages.success_check_code');
             return new DataSuccess(
                 status: true,
                 message: $msg

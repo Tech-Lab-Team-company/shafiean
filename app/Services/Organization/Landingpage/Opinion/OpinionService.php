@@ -50,7 +50,7 @@ class OpinionService
             return new DataSuccess(
                 data: new OpinionResource($opinion),
                 status: true,
-                message: 'Opinion created successfully'
+                message: __('messages.success_create')
             );
         } catch (Exception $e) {
             return new DataFailed(
@@ -76,7 +76,7 @@ class OpinionService
             return new DataSuccess(
                 data: new OpinionResource($opinion),
                 status: true,
-                message: 'Opinion updated successfully'
+                message: __('messages.success_update')
             );
         } catch (Exception $e) {
             return new DataFailed(
@@ -92,7 +92,7 @@ class OpinionService
             if (!$opinion) {
                 return new DataFailed(
                     statusCode: 404,
-                    message: 'Opinion not found'
+                    message: __('messages.not_found')
                 );
             }
             if ($opinion->image) {
@@ -101,7 +101,7 @@ class OpinionService
             $opinion->delete();
             return new DataSuccess(
                 statusCode: 200,
-                message: 'Opinion deleted successfully'
+                message: __('messages.success_delete')
             );
         } catch (Exception $e) {
             return new DataFailed(

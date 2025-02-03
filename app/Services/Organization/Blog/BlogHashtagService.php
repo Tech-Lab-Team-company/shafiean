@@ -50,7 +50,7 @@ class BlogHashtagService
             return new DataSuccess(
                 data: new BlogHashtagResource($blogHashtag),
                 status: true,
-                message: 'Blog Hashtag created successfully'
+                message: __('messages.success_create')
             );
         } catch (Exception $e) {
             return new DataFailed(
@@ -74,7 +74,7 @@ class BlogHashtagService
             return new DataSuccess(
                 data: new BlogHashtagResource($blogHashtag),
                 status: true,
-                message: 'Blog Hashtag updated successfully'
+                message: __('messages.success_update')
             );
         } catch (Exception $e) {
             return new DataFailed(
@@ -89,7 +89,7 @@ class BlogHashtagService
             BlogHashtag::whereId($request->id)->first()->delete();
             return new DataSuccess(
                 statusCode: 200,
-                message: 'Blog Hashtag deleted successfully'
+                message: __('messages.success_delete')
             );
         } catch (Exception $e) {
             return new DataFailed(

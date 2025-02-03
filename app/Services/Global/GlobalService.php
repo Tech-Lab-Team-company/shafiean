@@ -30,7 +30,7 @@ class GlobalService
             return new DataSuccess(
                 data: DayResource::collection($days),
                 status: true,
-                message: 'Days retrieved successfully'
+                message: __('messages.success')
             );
         } catch (Exception $exception) {
             return new DataFailed(
@@ -46,7 +46,7 @@ class GlobalService
             return new DataSuccess(
                 data: FetchExamStudentResource::collection($examStudents),
                 status: true,
-                message: 'Fetch exam students  successfully'
+                message:  __('messages.success')
             );
         } catch (Exception $exception) {
             return new DataFailed(
@@ -62,7 +62,7 @@ class GlobalService
             return new DataSuccess(
                 data: FetchYearResource::collection($years),
                 status: true,
-                message: 'Fetch Years Successfully'
+                message:  __('messages.success')
             );
         } catch (Exception $exception) {
             return new DataFailed(

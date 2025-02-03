@@ -23,7 +23,7 @@ class UserLoginService
             return new DataSuccess(
                 status: true,
                 data: (new UserLoginResource($user))->additional(['token' => $token]),
-                message: 'Login successfully',
+                message: __('messages.success_login'),
             );
         } catch (Exception $exception) {
             return new DataFailed(

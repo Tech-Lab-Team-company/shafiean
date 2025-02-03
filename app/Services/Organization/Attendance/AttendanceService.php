@@ -24,7 +24,7 @@ class AttendanceService
             if ($live == null) {
                 return new DataFailed(
                     status: false,
-                    message: 'Live not found'
+                    message: __('messages.live_not_found')
                 );
             }
             $live->update([
@@ -33,7 +33,7 @@ class AttendanceService
             ]);
             return new DataSuccess(
                 status: true,
-                message: 'Attendance marked successfully'
+                message: __('messages.success')
             );
         } catch (\Exception $exception) {
             return new DataFailed(
@@ -54,7 +54,7 @@ class AttendanceService
             return new DataSuccess(
                 status: true,
                 data: AttendanceResource::collection($user_session)->response()->getData(true),
-                message: 'Attendance marked successfully'
+                message: __('messages.success')
             );
         } catch (\Exception $exception) {
             return new DataFailed(
@@ -74,7 +74,7 @@ class AttendanceService
             return new DataSuccess(
                 status: true,
                 data: AttendanceResource::collection($user_session),
-                message: 'user_session fetched successfully'
+                message: __('messages.success')
             );
         } catch (\Exception $exception) {
             return new DataFailed(
@@ -92,7 +92,7 @@ class AttendanceService
             if ($live == null) {
                 return new DataFailed(
                     status: false,
-                    message: 'Live not found'
+                    message: __('messages.live_not_found')
                 );
             }
             $live->update([
@@ -100,7 +100,7 @@ class AttendanceService
             ]);
             return new DataSuccess(
                 status: true,
-                message: 'leaved  successfully'
+                message: __('messages.leave_live')
             );
         } catch (\Exception $exception) {
             return new DataFailed(

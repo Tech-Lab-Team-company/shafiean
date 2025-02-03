@@ -36,6 +36,12 @@ class TeacherService
     {
         try {
             $teacher = Teacher::find($id);
+            if (!$teacher) {
+                return new DataFailed(
+                    status: false,
+                    message: __('messages.not_found')
+                );
+            }
             return new DataSuccess(
                 data: new TeacherResource($teacher),
                 statusCode: 200,
@@ -62,7 +68,7 @@ class TeacherService
             return new DataSuccess(
                 data: new TeacherResource($teacher),
                 statusCode: 200,
-                message: 'Teacher created successfully'
+                message: __('messages.success_create')
             );
         } catch (Exception $e) {
             return new DataFailed(
@@ -89,7 +95,7 @@ class TeacherService
             return new DataSuccess(
                 data: new TeacherResource($teacher),
                 statusCode: 200,
-                message: 'Teacher updated successfully'
+                message: __('messages.success_update')
             );
         } catch (Exception $e) {
             return new DataFailed(
@@ -110,7 +116,7 @@ class TeacherService
 
             return new DataSuccess(
                 statusCode: 200,
-                message: 'Teacher deleted successfully'
+                message: __('messages.success_delete')
             );
         } catch (Exception $e) {
             return new DataFailed(

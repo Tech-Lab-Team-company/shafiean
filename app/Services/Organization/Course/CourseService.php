@@ -102,7 +102,7 @@ class CourseService
             return new DataSuccess(
                 status: true,
                 data: new CourseResource($course),
-                message: 'Course created successfully'
+                message: __('messages.success_create')
             );
         } catch (Exception $exception) {
             return new DataFailed(
@@ -144,7 +144,7 @@ class CourseService
             return new DataSuccess(
                 status: true,
                 data: new CourseResource($course),
-                message: 'Course updated successfully'
+                message: __('messages.success_update')
             );
         } catch (Exception $exception) {
             return new DataFailed(
@@ -169,7 +169,7 @@ class CourseService
             $course->delete();
             return new DataSuccess(
                 status: true,
-                message: 'Course deleted successfully'
+                message: __('messages.success_delete')
             );
         } catch (Exception $exception) {
             return new DataFailed(
@@ -192,7 +192,7 @@ class CourseService
             return new DataSuccess(
                 status: true,
                 data: new CourseResource($course),
-                message: 'Course status changed successfully'
+                message: __('messages.success_change_status')
             );
         } catch (Exception $exception) {
             return new DataFailed(
@@ -237,7 +237,7 @@ class CourseService
 
             return new DataSuccess(
                 status: true,
-                message: 'Course stage added successfully'
+                message: __('messages.success_create')
             );
         } catch (Exception $exception) {
             return new DataFailed(

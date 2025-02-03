@@ -95,7 +95,7 @@ class SubheaderService
             return new DataSuccess(
                 status: true,
                 data: new SubheaderResource($subheader),
-                message: 'Get subheader Success'
+                message: __('messages.success_create')
             );
         } catch (\Exception $e) {
             return new DataFailed(
@@ -152,7 +152,7 @@ class SubheaderService
         return new DataSuccess(
             status: true,
             data: new SubheaderResource($subheader),
-            message: 'Get Header Success'
+            message: __('messages.success_update')
         );
         // } catch (\Exception $e) {
         // return new DataFailed(
@@ -182,7 +182,7 @@ class SubheaderService
             $subheader->delete();
             return new DataSuccess(
                 status: true,
-                message: 'Delete subheader Success'
+                message: __('messages.success_delete')
             );
         } catch (\Exception $e) {
             return new DataFailed(

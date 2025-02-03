@@ -51,7 +51,7 @@ class ExamResultAnswerService
             if (!$examResult) {
                 return new DataFailed(
                     status: false,
-                    message: 'Exam Result not found for user'
+                    message: __('messages.not_found')
                 );
             }
 
@@ -61,7 +61,7 @@ class ExamResultAnswerService
             if (!$answer || !$question) {
                 return new DataFailed(
                     status: false,
-                    message: 'Invalid answer or question ID'
+                    message: __('messages.error')
                 );
             }
 
@@ -90,7 +90,7 @@ class ExamResultAnswerService
                 return new DataSuccess(
                     data: new UserExamResultAnswerResource($examResultAnswer),
                     status: true,
-                    message: 'Exam Result Answer updated successfully'
+                    message: __('messages.success_update')
                 );
             }
             // Create a new answer record if it doesn't exist
@@ -108,7 +108,7 @@ class ExamResultAnswerService
             return new DataSuccess(
                 data: new UserExamResultAnswerResource($examResultAnswer),
                 status: true,
-                message: 'Exam Result Answer created successfully'
+                message: __('messages.success_create')
             );
         } catch (Exception $e) {
             return new DataFailed(

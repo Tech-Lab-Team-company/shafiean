@@ -26,7 +26,7 @@ class AttendanceService
             if ($live == null) {
                 return new DataFailed(
                     status: false,
-                    message: 'Live not found'
+                    message: __('messages.live_not_found')
                 );
             }
             $userId = auth()->guard('user')->user()->id;
@@ -90,7 +90,7 @@ class AttendanceService
             ]);
             return new DataSuccess(
                 status: true,
-                message: 'leaved  successfully'
+                message: __('messages.leave_live')
             );
         } catch (\Exception $exception) {
             return new DataFailed(

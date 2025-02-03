@@ -45,7 +45,7 @@ class CountryService
             return new DataSuccess(
                 data: new CountryResource($country),
                 status: true,
-                message: 'Country created successfully'
+                message: __('messages.success_create')
             );
         } catch (Exception $e) {
             return new DataFailed(
@@ -85,7 +85,7 @@ class CountryService
             return new DataSuccess(
                 data: new CountryResource($country),
                 status: true,
-                message: 'Country updated successfully'
+                message: __('messages.success_update')
             );
         } catch (Exception $e) {
             return new DataFailed(
@@ -103,7 +103,7 @@ class CountryService
 
             return new DataSuccess(
                 statusCode: 200,
-                message: 'Country deleted successfully'
+                message: __('messages.success_delete')
             );
         } catch (Exception $e) {
             return new DataFailed(

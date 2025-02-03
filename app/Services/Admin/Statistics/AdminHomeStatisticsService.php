@@ -35,7 +35,7 @@ class AdminHomeStatisticsService
                     'user_count' => $users,
                 ]),
                 status: true,
-                message: 'fetch Count Statistics successfully'
+                message:__('messages.success')
             );
         } catch (Exception $e) {
             return new DataFailed(
@@ -51,7 +51,7 @@ class AdminHomeStatisticsService
             return new DataSuccess(
                 data: LatestStudentStatisticResource::collection($latestStudents),
                 status: true,
-                message: 'fetch Latest Students Statistics successfully'
+                message: __('messages.success')
             );
         } catch (Exception $e) {
             return new DataFailed(
@@ -67,7 +67,7 @@ class AdminHomeStatisticsService
             return new DataSuccess(
                 data: MostActiveOrganizationStatisticResource::collection($mostActiveOrganizations),
                 status: true,
-                message: 'fetch Most Active Organizations Statistics successfully'
+                message: __('messages.success')
             );
         } catch (Exception $e) {
             return new DataFailed(
@@ -98,7 +98,7 @@ class AdminHomeStatisticsService
             return new DataSuccess(
                 data: BestPlacesInteractedWithOrganizationStatisticResource::collection($cities),
                 status: true,
-                message: 'fetch Best Places Interacted With Organization Statistics successfully'
+                message: __('messages.success')
             );
         } catch (Exception $e) {
             return new DataFailed(
@@ -127,7 +127,7 @@ class AdminHomeStatisticsService
                     'user_counts' => $userCounts
                 ]),
                 status: true,
-                message: 'fetch Interacted Rate With Organization Statistics successfully'
+                message:__('messages.success')
             );
         } catch (Exception $e) {
             return new DataFailed(

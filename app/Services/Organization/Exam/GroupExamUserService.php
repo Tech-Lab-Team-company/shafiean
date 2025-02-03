@@ -47,7 +47,7 @@ class GroupExamUserService
         if (!$examResultAnswer) {
             return new DataFailed(
                 statusCode: 400,
-                message: 'not found'
+                message: __('messages.not_found')
             );
         }
         return new DataSuccess(

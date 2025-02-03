@@ -55,7 +55,7 @@ class SurahApiProviderService
             return new DataSuccess(
                 data: SurahResource::collection($surahs),
                 status: true,
-                message: 'Surahs fetched and store in DB successfully'
+                message: __('messages.success')
             );
         } catch (Exception $e) {
             return new DataFailed(

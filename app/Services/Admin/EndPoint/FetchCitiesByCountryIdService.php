@@ -17,11 +17,11 @@ class FetchCitiesByCountryIdService
     public function fetchCities($dataRequest)
     {
         try {
-            $cities  = City::Where('country_id',$dataRequest->country_id)->orderBy('id', 'desc')->get();
+            $cities  = City::Where('country_id', $dataRequest->country_id)->orderBy('id', 'desc')->get();
             return new DataSuccess(
                 data: SimpleCityResource::collection($cities),
                 status: true,
-                message: 'Fetch Cities successfully'
+                message: __('messages.success')
             );
         } catch (Exception $e) {
             return new DataFailed(

@@ -21,7 +21,7 @@ class AssignCompetitionRewardService
             if (!$competitionReward) {
                 return new DataFailed(
                     status: false,
-                    message: 'Competition Reward not found'
+                    message: __('messages.not_found')
                 );
             }
             $competitionReward->update([
@@ -30,7 +30,7 @@ class AssignCompetitionRewardService
             return new DataSuccess(
                 status: true,
                 data: new CompetitionRewardUserResource($competitionReward),
-                message: 'Competition Reward Assign Successfully'
+                message: __('messages.success_update')
             );
         } catch (Exception $e) {
             return new DataFailed(

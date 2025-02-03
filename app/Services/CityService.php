@@ -46,7 +46,7 @@ class CityService
             return new DataSuccess(
                 data: new CityResource($city),
                 status: true,
-                message: 'City created successfully'
+                message: __('messages.success_create')
             );
         } catch (Exception $e) {
             return new DataStatus(
@@ -85,7 +85,7 @@ class CityService
             return new DataSuccess(
                 data: new CityResource($city),
                 status: true,
-                message: 'City updated successfully'
+                message: __('messages.success_update')
             );
         } catch (Exception $e) {
             return new DataFailed(
@@ -105,7 +105,7 @@ class CityService
 
             return new DataSuccess(
                 status: true,
-                message: 'City deleted successfully'
+                message: __('messages.success_delete')
             );
         } catch (Exception $e) {
             return new DataFailed(
@@ -114,7 +114,4 @@ class CityService
             );
         }
     }
-
-
-
 }

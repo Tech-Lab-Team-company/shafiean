@@ -8,7 +8,7 @@ use App\Models\Admin\AdminHistory;
 
 class AdminHistoryService
 {
-public function getAll()
+    public function getAll()
     {
         $admin_history_all = AdminHistory::all();
         return new DataSuccess(
@@ -16,7 +16,6 @@ public function getAll()
             statusCode: 200,
             message: 'Admin retrieved successfully'
         );
-
     }
 
     public function getById($id)
@@ -46,7 +45,7 @@ public function getAll()
         return new DataSuccess(
             data: $adminHistory,
             statusCode: 200,
-            message: 'Admin history updated successfully'
+            message: __('messages.success_update')
         );
     }
 
@@ -55,9 +54,7 @@ public function getAll()
         $adminHistory->delete();
         return new DataSuccess(
             statusCode: 200,
-            message: 'Admin history deleted successfully'
+            message: __('messages.success_delete')
         );
     }
 }
-
-

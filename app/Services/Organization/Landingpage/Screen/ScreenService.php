@@ -51,7 +51,7 @@ class ScreenService
             return new DataSuccess(
                 data: new ScreenResource($screen),
                 status: true,
-                message: 'Screen created successfully'
+                message: __('messages.success_create')
             );
         } catch (Exception $e) {
             return new DataFailed(
@@ -68,7 +68,7 @@ class ScreenService
             if (!$screen) {
                 return new DataFailed(
                     statusCode: 404,
-                    message: 'Screen not found'
+                    message: __('messages.not_found')
                 );
             }
             if ($dataRequest->image) {
@@ -81,7 +81,7 @@ class ScreenService
             return new DataSuccess(
                 data: new ScreenResource($screen),
                 status: true,
-                message: 'Screen updated successfully'
+                message: __('messages.success_update')
             );
         } catch (Exception $e) {
             return new DataFailed(
@@ -100,7 +100,7 @@ class ScreenService
             $screen->delete();
             return new DataSuccess(
                 statusCode: 200,
-                message: 'Screen deleted successfully'
+                message: __('messages.success_delete')
             );
         } catch (Exception $e) {
             return new DataFailed(

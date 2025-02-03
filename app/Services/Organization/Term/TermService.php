@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Services\Organization\Term;
 
 
@@ -52,7 +53,7 @@ class TermService
             return new DataSuccess(
                 data: new TermResource($term),
                 statusCode: 201,
-                message: 'Term created successfully'
+                message: __('messages.success_create')
             );
         } catch (Exception $e) {
             return new DataFailed(
@@ -70,7 +71,7 @@ class TermService
             return new DataSuccess(
                 data: new TermResource($term),
                 statusCode: 200,
-                message: 'Term updated successfully'
+                message: __('messages.success_update')
             );
         } catch (Exception $e) {
             return new DataFailed(
@@ -87,7 +88,7 @@ class TermService
             $term->delete();
             return new DataSuccess(
                 statusCode: 200,
-                message: 'Term deleted successfully'
+                message: __('messages.success_delete')
             );
         } catch (Exception $e) {
             return new DataFailed(
@@ -97,4 +98,3 @@ class TermService
         }
     }
 }
-

@@ -43,7 +43,7 @@ class YearService
             return new DataSuccess(
                 status: true,
                 data: new YearResource($year),
-                message: 'Year created successfully'
+                message: __('messages.success_create')
             );
         } catch (Exception $e) {
 
@@ -81,7 +81,7 @@ class YearService
             return new DataSuccess(
                 status: true,
                 data: new YearResource($year),
-                message: 'Year updated successfully'
+                message: __('messages.success_update')
             );
         } catch (Exception $e) {
             return new DataFailed(
@@ -98,7 +98,7 @@ class YearService
             $year->delete();
             return new DataSuccess(
                 status: true,
-                message: 'Year deleted successfully'
+                message: __('messages.success_delete')
             );
         } catch (Exception $e) {
             return new DataFailed(
@@ -121,7 +121,7 @@ class YearService
             return new DataSuccess(
                 status: true,
                 data: new YearResource($year),
-                message: 'Year status changed successfully'
+                message: __('messages.success_change_status')
             );
         } catch (Exception $e) {
             return new DataFailed(

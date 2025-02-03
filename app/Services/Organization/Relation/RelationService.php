@@ -43,7 +43,7 @@ class RelationService
             return new DataSuccess(
                 data: new RelationResource($relation),
                 status: true,
-                message: 'Relation created successfully'
+                message: __('messages.success_create')
             );
         } catch (Exception $e) {
             return new DataFailed(
@@ -61,7 +61,7 @@ class RelationService
             return new DataSuccess(
                 data: new RelationResource($relation),
                 status: true,
-                message: 'Relation updated successfully'
+                message: __('messages.success_update')
             );
         } catch (Exception $e) {
             return new DataFailed(
@@ -76,7 +76,7 @@ class RelationService
             Relation::whereId($request->id)->first()->delete();
             return new DataSuccess(
                 statusCode: 200,
-                message: 'Relation deleted successfully'
+                message: __('messages.success_delete')
             );
         } catch (Exception $e) {
             return new DataFailed(

@@ -45,7 +45,7 @@ class CompetitionRewardService
             return new DataSuccess(
                 data: new CompetitionRewardResource($competitionReward),
                 status: true,
-                message: 'CompetitionReward created successfully'
+                message: __('messages.success_create')
             );
         } catch (Exception $e) {
             return new DataFailed(
@@ -63,7 +63,7 @@ class CompetitionRewardService
             return new DataSuccess(
                 data: new CompetitionRewardResource($competitionReward),
                 status: true,
-                message: 'CompetitionReward updated successfully'
+                message: __('messages.success_update')
             );
         } catch (Exception $e) {
             return new DataFailed(
@@ -78,7 +78,7 @@ class CompetitionRewardService
             CompetitionReward::whereId($request->id)->first()->delete();
             return new DataSuccess(
                 statusCode: 200,
-                message: 'CompetitionReward deleted successfully'
+                message: __('messages.success_delete')
             );
         } catch (Exception $e) {
             return new DataFailed(

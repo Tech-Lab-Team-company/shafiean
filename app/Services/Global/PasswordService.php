@@ -18,7 +18,7 @@ class PasswordService
                 return new DataSuccess(
                     status: false,
                     data: false,
-                    message: 'Email not found'
+                    message: __('messages.email_not_found')
                 );
             }
             $verefied = $user->email_verified_at;
@@ -28,7 +28,7 @@ class PasswordService
                 return new DataSuccess(
                     status: false,
                     data: false,
-                    message: 'Email not verified'
+                    message: __('messages.email_not_verified')
                 );
             }
             $user->update([
@@ -36,7 +36,7 @@ class PasswordService
             ]);
             return new DataSuccess(
                 status: true,
-                message: 'Password reset successfully'
+                message: __('messages.success_reset_password')
             );
         } catch (Exception $exception) {
             return new DataFailed(
@@ -52,7 +52,7 @@ class PasswordService
             if (!Hash::check($request->old_password, $user->password)) {
                 return new DataFailed(
                     status: false,
-                    message: 'Current password is incorrect'
+                    message: __('messages.current_password_incorrect')
                 );
             }
             $user->update([
@@ -61,7 +61,7 @@ class PasswordService
 
             return new DataSuccess(
                 status: true,
-                message: 'Password changed successfully'
+                message: __('messages.success_change_password')
             );
         } catch (Exception $exception) {
             return new DataFailed(

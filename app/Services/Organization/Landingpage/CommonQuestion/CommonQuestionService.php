@@ -51,7 +51,7 @@ class CommonQuestionService
             return new DataSuccess(
                 data: new CommonQuestionResource($commonQuestion),
                 status: true,
-                message: 'CommonQuestion created successfully'
+                message: __('messages.success_create')
             );
         } catch (Exception $e) {
             return new DataFailed(
@@ -77,7 +77,7 @@ class CommonQuestionService
             return new DataSuccess(
                 data: new CommonQuestionResource($commonQuestion),
                 status: true,
-                message: 'CommonQuestion updated successfully'
+                message: __('messages.success_update')
             );
         } catch (Exception $e) {
             return new DataFailed(
@@ -93,7 +93,7 @@ class CommonQuestionService
             if (!$commonQuestion) {
                 return new DataFailed(
                     statusCode: 404,
-                    message: 'CommonQuestion not found'
+                    message: __('messages.not_found')
                 );
             }
             if ($commonQuestion->image) {
@@ -102,7 +102,7 @@ class CommonQuestionService
             $commonQuestion->delete();
             return new DataSuccess(
                 statusCode: 200,
-                message: 'CommonQuestion deleted successfully'
+                message: __('messages.success_delete')
             );
         } catch (Exception $e) {
             return new DataFailed(

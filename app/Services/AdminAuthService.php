@@ -28,7 +28,7 @@ class AdminAuthService
             // Check if the admin exists and if the password matches
             if (!$admin || !Hash::check($credentials['password'], $admin->password)) {
                 return new DataFailed(
-                    message: 'The provided credentials are incorrect.',
+                    message: __('messages.email_or_password_incorrect'),
                     status: false,
                     statusCode: 401
                 );
@@ -47,7 +47,7 @@ class AdminAuthService
             return new DataSuccess(
                 status: true,
                 data: $response,
-                message: 'Login successful',
+                message: __('messages.success_login'),
             );
         } catch (\Exception $exception) {
             // Return a failed response in case of an exception
@@ -68,7 +68,7 @@ class AdminAuthService
             }
             return new DataSuccess(
                 status: true,
-                message: 'Admin logout successful'
+                message: __('messages.success_logout')
             );
         } catch (\Exception $e) {
             return new DataFailed(
@@ -107,7 +107,7 @@ class AdminAuthService
                 return new DataSuccess(
                     status: false,
                     data: false,
-                    message: 'Email not found'
+                    message: __('messages.email_not_found')
                 );
             }
             $email_service = new EmailService();

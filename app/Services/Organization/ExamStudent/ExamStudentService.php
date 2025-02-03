@@ -33,7 +33,7 @@ class ExamStudentService
         if (!$examStudent) {
             return new DataFailed(
                 statusCode: 400,
-                message: 'not found'
+                message: __('messages.not_found')
             );
         }
         return new DataSuccess(
@@ -49,7 +49,7 @@ class ExamStudentService
             return new DataSuccess(
                 data: new ExamStudentResource($examStudent),
                 status: true,
-                message: 'Exam Student created successfully'
+                message: __('messages.success_create')
             );
         } catch (Exception $e) {
             return new DataFailed(
@@ -65,7 +65,7 @@ class ExamStudentService
             if (!$examStudent) {
                 return new DataFailed(
                     statusCode: 400,
-                    message: 'not found'
+                    message: __('messages.not_found')
                 );
             }
             unset($dataRequest['id']);
@@ -73,7 +73,7 @@ class ExamStudentService
             return new DataSuccess(
                 data: new ExamStudentResource($examStudent),
                 status: true,
-                message: 'Exam Student updated successfully'
+                message: __('messages.success_update')
             );
         } catch (Exception $e) {
             return new DataFailed(
@@ -89,13 +89,13 @@ class ExamStudentService
             if (!$examStudent) {
                 return new DataFailed(
                     statusCode: 400,
-                    message: 'not found'
+                    message: __('messages.not_found')
                 );
             }
             $examStudent->delete();
             return new DataSuccess(
                 statusCode: 200,
-                message: 'Exam Student deleted successfully'
+                message: __('messages.success_delete')
             );
         } catch (Exception $e) {
             return new DataFailed(

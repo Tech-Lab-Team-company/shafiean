@@ -57,7 +57,7 @@ class AdminService
         return new DataSuccess(
             data: new AdminResource($admin),
             status: true,
-            message: 'Admin created successfully'
+            message: __('messages.success_create')
         );
     }
 
@@ -83,7 +83,7 @@ class AdminService
         return new DataSuccess(
             data: new AdminResource($admin),
             status: true,
-            message: 'Admin updated successfully'
+            message: __('messages.success_update')
         );
     }
 
@@ -95,13 +95,13 @@ class AdminService
             if ($admin?->is_master == 1) {
                 return new DataFailed(
                     status: false,
-                    message: 'Master admin can not be deleted'
+                    message: 'لا يمكن حذف الادمن الرئيسي'
                 );
             }
             $admin->delete();
             return new DataSuccess(
                 status: true,
-                message: 'Admin deleted successfully'
+                message: __('messages.success_delete')
             );
         } catch (\Exception $e) {
             return new DataFailed(
@@ -119,14 +119,14 @@ class AdminService
             if ($admin->is_master == 1) {
                 return new DataFailed(
                     status: false,
-                    message: 'Master admin can not change password'
+                    message: 'لا يمكن تغيير كلمة المرور للادمن الرئيسي'
                 );
             }
             $admin->password = Hash::make($request->password);
             $admin->save();
             return new DataSuccess(
                 status: true,
-                message: 'Password updated successfully'
+                message: __('messages.success_update_password')
             );
         } catch (\Exception $e) {
             return new DataFailed(

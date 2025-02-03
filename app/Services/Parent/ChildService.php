@@ -75,7 +75,7 @@ class ChildService
                     return (new ChildExamResource($exam))->additional(['child_id' => $childId, 'children_ids' => $childrenIds]);
                 }),
                 status: true,
-                message: 'success',
+                message: __('messages.success'),
             );
         } catch (\Exception $e) {
             return new DataFailed(
@@ -96,7 +96,7 @@ class ChildService
             return new DataSuccess(
                 data: LittleChildExamResource::collection($exams),
                 status: true,
-                message: 'success',
+                message: __('messages.success'),
             );
         } catch (\Exception $e) {
             return new DataFailed(
@@ -141,7 +141,7 @@ class ChildService
                     ]);
                 }),
                 status: true,
-                message: 'success',
+                message: __('messages.success'),
             );
         } catch (\Exception $e) {
             return new DataFailed(
@@ -162,7 +162,7 @@ class ChildService
             return new DataSuccess(
                 data: ChildCompetitionReportResource::collection($competitions),
                 status: true,
-                message: 'success',
+                message: __('messages.success'),
             );
         } catch (\Exception $e) {
             return new DataFailed(
@@ -179,7 +179,7 @@ class ChildService
             return new DataSuccess(
                 data: ParentChildrenResource::collection($children),
                 status: true,
-                message: 'success',
+                message: __('messages.success'),
             );
         } catch (\Exception $e) {
             return new DataFailed(
@@ -199,7 +199,7 @@ class ChildService
             return new DataSuccess(
                 data: new  ParentChildrenResource($children),
                 status: true,
-                message: 'success',
+                message: __('messages.success'),
             );
         } catch (\Exception $e) {
             return new DataFailed(

@@ -92,7 +92,7 @@ class MainSessionService
             return new DataSuccess(
                 /* data: new MainSessionResource($mainSession), */
                 status: true,
-                message: 'Main session created successfully'
+                message: __('messages.success_create')
             );
         } catch (Exception $e) {
             return new DataFailed(
@@ -141,7 +141,7 @@ class MainSessionService
             return new DataSuccess(
                 data: new FetchMainSessionIndexForGroupResource($session),
                 status: true,
-                message: 'Main session updated successfully'
+                message: __('messages.success_update')
             );
         } catch (Exception $e) {
             return new DataFailed(
@@ -159,7 +159,7 @@ class MainSessionService
             $groupStageSession->delete();
             return new DataSuccess(
                 status: true,
-                message: 'Main session deleted successfully'
+                message: __('messages.success_delete')
             );
         } catch (Exception $e) {
             return new DataFailed(
@@ -182,7 +182,7 @@ class MainSessionService
             return new DataSuccess(
                 status: true,
                 data: new MainSessionResource($mainSession),
-                message: 'Main session status changed successfully'
+                message: __('messages.success_change_status')
             );
         } catch (Exception $e) {
             return new DataFailed(

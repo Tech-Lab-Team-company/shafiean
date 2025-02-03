@@ -55,7 +55,7 @@ class SubscriptionService
             }
             return new DataSuccess(
                 status: true,
-                message: 'Subscription created successfully',
+                message: __('messages.success_create'),
                 data: new SubscriptionResource($subscription)
             );
         } catch (\Exception $e) {
@@ -71,7 +71,7 @@ class SubscriptionService
             Subscription::whereUserId($request->id)->first()->delete();
             return new DataSuccess(
                 statusCode: 200,
-                message: 'Subscription deleted successfully'
+                message: __('messages.success_delete')
             );
         } catch (Exception $e) {
             return new DataFailed(

@@ -26,7 +26,7 @@ class UserChangePasswordService
             return new DataSuccess(
                 status: true,
                 data: new UserWithOutTokenResource($user),
-                message: 'Change password successfully',
+                message: __('messages.success_change_password'),
             );
         } catch (Exception $exception) {
             return new DataFailed(

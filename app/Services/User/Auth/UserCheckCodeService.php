@@ -22,7 +22,7 @@ class UserCheckCodeService
             return new DataSuccess(
                 status: true,
                 data: new UserWithOutTokenResource($user),
-                message: 'email verified successfully',
+                message: __('messages.success_verify_code'),
             );
         } catch (Exception $exception) {
             return new DataFailed(

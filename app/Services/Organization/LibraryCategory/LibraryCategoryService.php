@@ -49,7 +49,7 @@ class LibraryCategoryService
             return new DataSuccess(
                 data: new LibraryCategoryResource($libraryCategory),
                 status: true,
-                message: 'Library Category created successfully'
+                message: __('messages.success_create')
             );
         } catch (Exception $e) {
             return new DataFailed(
@@ -67,7 +67,7 @@ class LibraryCategoryService
             return new DataSuccess(
                 data: new LibraryCategoryResource($libraryCategory),
                 status: true,
-                message: 'Library Category updated successfully'
+                message: __('messages.success_update')
             );
         } catch (Exception $e) {
             return new DataFailed(
@@ -82,7 +82,7 @@ class LibraryCategoryService
             LibraryCategory::whereId($request->id)->first()->delete();
             return new DataSuccess(
                 statusCode: 200,
-                message: 'Library Category deleted successfully'
+                message: __('messages.success_delete')
             );
         } catch (Exception $e) {
             return new DataFailed(

@@ -86,7 +86,7 @@ class ServiceFeatureService
             return new DataSuccess(
                 status: true,
                 data: new ServiceFeatureResource($service_feature),
-                message: 'Get Header Success'
+                message: __('messages.success_create')
             );
         } catch (\Exception $e) {
             return new DataFailed(
@@ -134,7 +134,7 @@ class ServiceFeatureService
             return new DataSuccess(
                 status: true,
                 data: new ServiceFeatureResource($service_feature),
-                message: 'Get Header Success'
+                message: __('messages.success_update')
             );
         } catch (\Exception $e) {
             return new DataFailed(
@@ -160,7 +160,7 @@ class ServiceFeatureService
             $service_feature->delete();
             return new DataSuccess(
                 status: true,
-                message: 'Delete subheader Success'
+                message: __('messages.success_delete')
             );
         } catch (\Exception $e) {
             return new DataFailed(

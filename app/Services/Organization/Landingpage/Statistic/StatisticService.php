@@ -57,7 +57,7 @@ class StatisticService
             return new DataSuccess(
                 data: new StatisticResource($statistic),
                 status: true,
-                message: 'Statistic created successfully'
+                message: __('messages.success_create')
             );
         } catch (Exception $e) {
             return new DataFailed(
@@ -83,7 +83,7 @@ class StatisticService
             return new DataSuccess(
                 data: new StatisticResource($statistic),
                 status: true,
-                message: 'Statistic updated successfully'
+                message: __('messages.success_update')
             );
         } catch (Exception $e) {
             return new DataFailed(
@@ -99,7 +99,7 @@ class StatisticService
             if (!$statistic) {
                 return new DataFailed(
                     statusCode: 404,
-                    message: 'Statistic not found'
+                    message: __('messages.not_found')
                 );
             }
             if ($statistic->image) {
@@ -108,7 +108,7 @@ class StatisticService
             $statistic->delete();
             return new DataSuccess(
                 statusCode: 200,
-                message: 'Statistic deleted successfully'
+                message: __('messages.success_delete')
             );
         } catch (Exception $e) {
             return new DataFailed(

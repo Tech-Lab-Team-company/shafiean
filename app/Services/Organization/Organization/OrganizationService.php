@@ -55,7 +55,7 @@ class OrganizationService
         } catch (Exception $e) {
             return new DataFailed(
                 status: false,
-                message: 'Organization not found: ' . $e->getMessage()
+                message: __('messages.not_found') . $e->getMessage()
             );
         }
     }
@@ -102,7 +102,7 @@ class OrganizationService
             return new DataSuccess(
                 data: new OrganizationResource($organization),
                 status: true,
-                message: 'Organization created successfully'
+                message: __('messages.success_create')
             );
         } catch (Exception $e) {
             return new DataFailed(
@@ -150,7 +150,7 @@ class OrganizationService
             return new DataSuccess(
                 data: new OrganizationResource($organization),
                 status: true,
-                message: 'Organization updated successfully'
+                message: __('messages.success_update')
             );
         } catch (Exception $e) {
             return new DataFailed(
@@ -167,7 +167,7 @@ class OrganizationService
             $organization->delete();
             return new DataSuccess(
                 status: true,
-                message: 'Organization deleted successfully'
+                message: __('messages.success_delete')
             );
         } catch (Exception $e) {
             return new DataFailed(

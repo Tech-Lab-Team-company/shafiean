@@ -4,16 +4,9 @@ namespace App\Services\Organization\Teacher;
 
 
 use Exception;
-use Carbon\Carbon;
-use App\Models\City;
 use App\Models\User;
 use App\Models\Group;
-use App\Models\Teacher;
-use Carbon\CarbonPeriod;
 use App\Enum\UserTypeEnum;
-use App\Models\MainSession;
-use App\Models\Organization;
-use Illuminate\Support\Facades\DB;
 use App\Helpers\Response\DataFailed;
 use Illuminate\Support\Facades\Auth;
 use App\Helpers\Response\DataSuccess;
@@ -22,12 +15,7 @@ use App\Models\Organization\Exam\ExamGroup;
 use App\Http\Resources\Organization\Group\GroupTitleResource;
 use App\Http\Resources\Organization\Exam\ExamWithOutQuestionResource;
 use App\Http\Resources\Organization\MainSession\FetchMainSessionResource;
-use App\Http\Resources\Admin\Statistics\Student\LatestStudentStatisticResource;
 use App\Http\Resources\Organization\Teacher\Statistics\Count\TeacherStatisticCountResource;
-use App\Http\Resources\Admin\Statistics\Organization\InteractedRateWithOrganizationResource;
-use App\Http\Resources\Organization\Statistics\Count\OrganizationHomeCountStatisticResource;
-use App\Http\Resources\Admin\Statistics\Organization\MostActiveOrganizationGroupStatisticResource;
-use App\Http\Resources\Admin\Statistics\Organization\BestPlacesInteractedWithOrganizationStatisticResource;
 
 class TeacherStatisticsService
 {

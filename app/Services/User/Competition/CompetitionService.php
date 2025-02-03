@@ -62,7 +62,7 @@ class CompetitionService
             $competition->users()->sync(auth()->guard('user')->user()->id);
             return new DataSuccess(
                 status: true,
-                message: 'joined successfully'
+                message: __('messages.success'),
                 // data: new CompetitionResource($competition),
             );
         } catch (\Exception $exception) {

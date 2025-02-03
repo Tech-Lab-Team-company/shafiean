@@ -18,7 +18,7 @@ class SeasonService
             $query = Season::query();
             $filter_service = new FilterService();
             if ($request) {
-                $filter_service->filterSeason( $request , $query);
+                $filter_service->filterSeason($request, $query);
             }
             $seasons = $query->orderBy('id', 'desc')->paginate(10);
             return new DataSuccess(
@@ -43,7 +43,7 @@ class SeasonService
             return new DataSuccess(
                 data: new SeasonResource($season),
                 status: true,
-                message: 'Season created successfully'
+                message: __('messages.success_create')
             );
         } catch (Exception $e) {
             return new DataFailed(
@@ -80,7 +80,7 @@ class SeasonService
             return new DataSuccess(
                 data: new SeasonResource($season),
                 status: true,
-                message: 'Season updated successfully'
+                message: __('messages.success_update')
             );
         } catch (Exception $e) {
             return new DataFailed(
@@ -97,7 +97,7 @@ class SeasonService
             $season->delete();
             return new DataSuccess(
                 status: true,
-                message: 'Season deleted successfully'
+                message: __('messages.success_delete')
             );
         } catch (Exception $e) {
             return new DataFailed(
@@ -120,7 +120,7 @@ class SeasonService
             return new DataSuccess(
                 data: new SeasonResource($season),
                 status: true,
-                message: 'Season status changed successfully'
+                message: __('messages.success_change_status')
             );
         } catch (Exception $e) {
             return new DataFailed(

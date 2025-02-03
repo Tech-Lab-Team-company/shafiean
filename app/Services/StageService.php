@@ -69,7 +69,7 @@ class StageService
             return new DataSuccess(
                 data: new StageResource($stage),
                 statusCode: 200,
-                message: 'Stage created successfully'
+                message: __('messages.success_create')
             );
         } catch (Exception $e) {
             return new DataFailed(
@@ -98,7 +98,7 @@ class StageService
             return new DataSuccess(
                 data: new StageResource($stage),
                 status: true,
-                message: 'Stage updated successfully'
+                message: __('messages.success_update')
             );
         } catch (Exception $e) {
             return new DataFailed(
@@ -115,7 +115,7 @@ class StageService
             $stage->delete();
             return new DataSuccess(
                 status: true,
-                message: 'Stage deleted successfully'
+                message: __('messages.success_delete')
             );
         } catch (Exception $e) {
             return new DataFailed(
@@ -134,7 +134,7 @@ class StageService
             return new DataSuccess(
                 status: true,
                 data: new StageResource($stage),
-                message: 'Stage status changed successfully'
+                message: __('messages.success_change_status')
             );
         } catch (Exception $e) {
             return new DataFailed(

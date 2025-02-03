@@ -19,7 +19,7 @@ class UserLogoutService
             $this->removeCurrentSanctumToken(model: $user);
             return new DataSuccess(
                 status: true,
-                message: 'Logout successful',
+                message: __('messages.success_logout'),
             );
         } catch (Exception $exception) {
             return new DataFailed(

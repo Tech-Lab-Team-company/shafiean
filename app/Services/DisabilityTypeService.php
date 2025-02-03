@@ -71,7 +71,7 @@ class DisabilityTypeService
             return new DataSuccess(
                 data: new DisabilityTypeResource($disabilityType),
                 status: true,
-                message: 'Disability type created successfully'
+                message: __('messages.success_create')
             );
         } catch (Exception $e) {
             return new DataFailed(
@@ -108,7 +108,7 @@ class DisabilityTypeService
             return new DataSuccess(
                 data: new DisabilityTypeResource($disability),
                 status: true,
-                message: 'Disability type updated successfully'
+                message: __('messages.success_update')
             );
         } catch (Exception $e) {
             return new DataFailed(
@@ -126,7 +126,7 @@ class DisabilityTypeService
             $disabilityType->delete();
             return new DataSuccess(
                 status: true,
-                message: 'Disability type deleted successfully'
+                message: __('messages.success_delete')
             );
         } catch (Exception $e) {
             return new DataFailed(

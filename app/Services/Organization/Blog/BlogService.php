@@ -58,7 +58,7 @@ class BlogService
             return new DataSuccess(
                 data: new BlogResource($blog),
                 status: true,
-                message: 'Blog created successfully'
+                message: __('messages.success_create')
             );
         } catch (Exception $e) {
             return new DataFailed(
@@ -90,7 +90,7 @@ class BlogService
             return new DataSuccess(
                 data: new BlogResource($blog),
                 status: true,
-                message: 'Blog updated successfully'
+                message: __('messages.success_update')
             );
         } catch (Exception $e) {
             return new DataFailed(
@@ -105,7 +105,7 @@ class BlogService
             Blog::whereId($request->id)->first()->delete();
             return new DataSuccess(
                 statusCode: 200,
-                message: 'Blog deleted successfully'
+                message: __('messages.success_delete')
             );
         } catch (Exception $e) {
             return new DataFailed(

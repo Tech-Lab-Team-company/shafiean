@@ -18,7 +18,7 @@ class AuthService
             $user = User::where('email', $credentials['email'])->first();
             if (!$user || Hash::check($credentials['password'], $user->password)) {
                 throw ValidationException::withMessages([
-                    'email' => ['The provided credentials are incorrect.'],
+                    'email' => [__('messages.email_or_password_incorrect')],
                 ]);
             }
             Auth::login($user);
@@ -26,10 +26,9 @@ class AuthService
             return new DataSuccess(
                 data: new UserResource($user, $token),
                 statusCode: 200,
-                message: 'Login successful'
+                message: __('messages.success_login')
             );
-        }
-        catch (\Exception $e) {
+        } catch (\Exception $e) {
             return new DataFailed(
                 statusCode: 500,
                 message: 'Login failed: ' . $e->getMessage()
@@ -47,8 +46,7 @@ class AuthService
 
         return new DataSuccess(
             statusCode: 200,
-            message: 'Logout successful'
+            message: __('messages.success_logout')
         );
     }
 }
-

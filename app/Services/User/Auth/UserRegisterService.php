@@ -38,7 +38,7 @@ class UserRegisterService
             return new DataSuccess(
                 status: true,
                 // data: new UserRegisterResource($user),
-                message: 'user Registered successfully,please verify your email',
+                message: __('messages.success_register'),
             );
         } catch (Exception $exception) {
             return new DataFailed(

@@ -42,7 +42,7 @@ class ApplicationInfoService
             return new DataSuccess(
                 data: new ApplicationInfoResource($appInfo),
                 status: true,
-                message: 'Application info created successfully'
+                message: __('messages.success_create')
             );
         } catch (Exception $e) {
             return new DataFailed(

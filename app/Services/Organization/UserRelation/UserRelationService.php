@@ -44,7 +44,7 @@ class UserRelationService
             return new DataSuccess(
                 data: new UserRelationResource($relation),
                 status: true,
-                message: 'UserRelation created successfully'
+                message: __('messages.success_create')
             );
         } catch (Exception $e) {
             return new DataFailed(
@@ -79,7 +79,7 @@ class UserRelationService
             return new DataSuccess(
                 data: new UserRelationResource($relation),
                 status: true,
-                message: 'UserRelation updated successfully'
+                message: __('messages.success_update')
             );
         } catch (Exception $e) {
             return new DataFailed(
@@ -94,7 +94,7 @@ class UserRelationService
             UserRelation::whereId($request->id)->first()->delete();
             return new DataSuccess(
                 statusCode: 200,
-                message: 'UserRelation deleted successfully'
+                message: __('messages.success_delete')
             );
         } catch (Exception $e) {
             return new DataFailed(

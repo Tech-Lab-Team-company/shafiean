@@ -42,7 +42,7 @@ class QuestionBankService
         if (!$question) {
             return new DataFailed(
                 statusCode: 400,
-                message: 'not found'
+                message: __('messages.not_found')
             );
         }
         return new DataSuccess(
@@ -59,7 +59,7 @@ class QuestionBankService
             return new DataSuccess(
                 data: new QuestionBankResource($question),
                 status: true,
-                message: 'Question Bank created successfully'
+                message: __('messages.success_create')
             );
         } catch (Exception $e) {
             return new DataFailed(
@@ -75,7 +75,7 @@ class QuestionBankService
             if (!$question) {
                 return new DataFailed(
                     statusCode: 400,
-                    message: 'not found'
+                    message: __('messages.not_found')
                 );
             }
             // $dataRequest['is_private'] = 1;
@@ -84,7 +84,7 @@ class QuestionBankService
             return new DataSuccess(
                 data: new QuestionBankResource($question),
                 status: true,
-                message: 'Question Bank updated successfully'
+                message: __('messages.success_update')
             );
         } catch (Exception $e) {
             return new DataFailed(
@@ -100,13 +100,13 @@ class QuestionBankService
             if (!$question) {
                 return new DataFailed(
                     statusCode: 400,
-                    message: 'not found'
+                    message: __('messages.not_found')
                 );
             }
             $question->delete();
             return new DataSuccess(
                 statusCode: 200,
-                message: 'Question Bank deleted successfully'
+                message: __('messages.success_delete')
             );
         } catch (Exception $e) {
             return new DataFailed(
