@@ -72,6 +72,7 @@ class ExamService
                         'is_private' => 1
                     ]);
                     $exam->questions()->attach($question->id);
+                    $exam->update(['degree' => $exam->degree + $questionRequest['degree']]);
                     $answers = array_map(function ($answer) {
                         return [
                             'answer' => $answer['answer'],
