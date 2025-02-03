@@ -79,7 +79,6 @@ class ExamService
                             'is_correct' => $answer['is_correct'],
                         ];
                     }, $questionRequest['answers']);
-
                     $question->answers()->createMany($answers);
                 }
             }
@@ -143,6 +142,7 @@ class ExamService
                         'is_private' => 1
                     ]);
                     $exam->questions()->syncWithoutDetaching($question->id);
+                    $exam->update(['degree' => $exam->degree + $questionRequest['degree']]);
                     $question->answers()->delete();
                     $answers = array_map(function ($answer) {
                         return [
