@@ -27,7 +27,6 @@ class StoreExamRequest extends ApiRequest
      */
     public function rules(): array
     {
-        dd($this->input('start_time'));
         return [
             'name' => 'required|string',
             'start_date' => 'required|date|date_format:Y-m-d|after_or_equal:today',
