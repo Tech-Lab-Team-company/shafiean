@@ -41,13 +41,14 @@ class PartnerService
     public function store(object $dataRequest): DataStatus
     {
         try {
-            if (isset($dataRequest['image'])) {
-                $data['image'] = upload_image($dataRequest['image'], 'partner');
-            }
+
             $data = [
                 'title' => $dataRequest->title,
                 'link' => $dataRequest->link,
             ];
+            if (isset($dataRequest['image'])) {
+                $data['image'] = upload_image($dataRequest['image'], 'partner');
+            }
             $partner = Partner::create($data);
             return new DataSuccess(
                 data: new PartnerResource($partner),
