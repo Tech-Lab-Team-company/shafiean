@@ -32,6 +32,7 @@ use App\Http\Controllers\Organization\Employee\EmployeeController;
 use App\Http\Controllers\Organization\Exam\ExamQuestionController;
 use App\Http\Controllers\Organization\Question\QuestionController;
 use App\Http\Controllers\Organization\Relation\RelationController;
+use App\Http\Controllers\Teacher\TeacherAccountSettingsController;
 use App\Http\Controllers\User\Subscription\SubscriptionController;
 use App\Http\Controllers\Organization\Exam\GroupExamUserController;
 use App\Http\Controllers\Organization\Landingpage\HeaderController;
@@ -553,6 +554,11 @@ Route::middleware('auth:organization')->group(function () {
         Route::post('teacher_student_exams', 'studentExams');
         Route::post('teacher_student_exam_details', 'studentExamDetails');
         Route::post('teacher_student_ratings', 'studentRatings');
+    });
+    //TEACHER ACCOUNT SETTINGS
+    Route::controller(TeacherAccountSettingsController::class)->group(function () {
+        Route::post('teacher_fetch_account_settings', 'fetchAccountSettings');
+        Route::post('teacher_update_account_settings', 'updateAccountSettings');
     });
     /* END TEACHER */
     // ***********************************************************************************************************************************

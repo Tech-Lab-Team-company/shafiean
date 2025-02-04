@@ -115,3 +115,12 @@ function calculateDurationInWeeks($start_date, $end_date)
 
     return ""; // Return empty string if no dates provided
 }
+function getCurrentGuard()
+{
+    foreach (array_keys(config('auth.guards')) as $guard) {
+        if (Auth::guard($guard)->check()) {
+            return $guard;
+        }
+    }
+    return null;
+}
