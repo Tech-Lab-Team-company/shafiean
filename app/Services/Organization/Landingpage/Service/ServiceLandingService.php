@@ -47,13 +47,13 @@ class ServiceLandingService
     public function store(object $dataRequest): DataStatus
     {
         try {
-            if (isset($dataRequest['image'])) {
-                $data['image'] = upload_image($dataRequest['image'], 'service');
-            }
             $data = [
                 'title' => $dataRequest->title,
                 'sub_title' => $dataRequest->sub_title,
             ];
+            if (isset($dataRequest['image'])) {
+                $data['image'] = upload_image($dataRequest['image'], 'service');
+            }
             $service = Service::create($data);
             return new DataSuccess(
                 data: new ServiceResource($service),
