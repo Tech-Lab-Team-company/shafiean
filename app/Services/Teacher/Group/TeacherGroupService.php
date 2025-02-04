@@ -157,7 +157,6 @@ class TeacherGroupService
     {
         try {
             $examIds = ExamGroup::where('group_id', $dataRequest->group_id)->pluck('exam_id')->toArray();
-
             $startDate = Carbon::now()->subMonths(7)->startOfMonth();
             $endDate = Carbon::now()->subMonth()->endOfMonth();
             $period = CarbonPeriod::create($startDate, '1 month', $endDate);
@@ -170,7 +169,6 @@ class TeacherGroupService
                     ->whereYear('created_at', $date->year)
                     ->avg('grade') ?? 0);
             }
-
             return new DataSuccess(
                 data: new TeacherGroupStudentProgressRateResource([
                     'months' => $months,
