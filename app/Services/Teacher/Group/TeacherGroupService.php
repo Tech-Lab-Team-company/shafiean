@@ -74,7 +74,12 @@ class TeacherGroupService
     public function teacherGroupExams($dataRequest)
     {
         try {
-            $exams = Group::find($dataRequest->group_id)->exams()->distinct()->get();
+            // $exams = Group::find($dataRequest->group_id)->exams()->distinct()->get();
+            $query = Group::find($dataRequest->group_id)->exams()->distinct();
+            $query->when($dataRequest->word, function ($q) use ($dataRequest) {
+                $q->where('name', 'like', '%' . $dataRequest->word . '%');
+            });
+            $exams = $query->get();
             return new DataSuccess(
                 data: TeacherGroupExamResource::collection($exams),
                 status: true,
