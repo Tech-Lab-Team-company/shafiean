@@ -39,4 +39,8 @@ class TeacherGroupController extends Controller
     {
         return $this->teacherGroupService->teacherGroupLastSessions($request)->response();
     }
+    public function teacherGroupStudentProgressRate(TeacherGroupIdRequest $request)
+    {
+        return $this->teacherGroupService->teacherGroupStudentProgressRate($request)->response();
+    }
 }

@@ -547,6 +547,7 @@ Route::middleware('auth:organization')->group(function () {
         Route::post('teacher_group_exam_details', 'teacherGroupExamDetails');
         Route::post('teacher_exams', 'teacherExams');
         Route::post('teacher_group_last_sessions', 'teacherGroupLastSessions');
+        Route::post('teacher_group_student_progress_rate', 'teacherGroupStudentProgressRate');
     });
     //TEACHER STUDENT REPORTS
     Route::controller(TeacherStudentReportsController::class)->group(function () {
