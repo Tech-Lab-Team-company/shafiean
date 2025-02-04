@@ -114,8 +114,9 @@ class TeacherGroupService
             );
         }
     }
-    public function teacherExams()
+    public function teacherExams($dataRequest)
     {
+        dd($dataRequest->word);
         try {
             /** @var Teacher $teacher  */
             $teacher = Auth::guard('organization')->user();

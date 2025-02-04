@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Services\Teacher\Group\TeacherGroupService;
 use App\Http\Requests\Teacher\Group\TeacherGroupIdRequest;
 use App\Http\Requests\Teacher\Group\TeacherGroupExamIdRequest;
+use App\Http\Requests\Teacher\Group\TeacherGroupWordSearchRequest;
 
 class TeacherGroupController extends Controller
 {
@@ -31,9 +32,9 @@ class TeacherGroupController extends Controller
     {
         return $this->teacherGroupService->teacherGroupExamDetails($request)->response();
     }
-    public function teacherExams()
+    public function teacherExams(TeacherGroupWordSearchRequest $request)
     {
-        return $this->teacherGroupService->teacherExams()->response();
+        return $this->teacherGroupService->teacherExams($request)->response();
     }
     public function teacherGroupLastSessions(TeacherGroupIdRequest $request)
     {
