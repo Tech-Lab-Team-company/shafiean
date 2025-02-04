@@ -116,16 +116,27 @@ class TeacherGroupService
     }
     public function teacherExams($dataRequest)
     {
-        dd($dataRequest->word);
         try {
             /** @var Teacher $teacher  */
             $teacher = Auth::guard('organization')->user();
-            $exams = $teacher->sessions()
-                ->with('group.exams')
-                ->get()
-                ->pluck('group.exams')
-                ->flatten()
-                ->unique();
+            $exams = $teacher->sessions()->with('group.exams')->get()->pluck('group.exams')->flatten()->unique();
+            // $query = $teacher->sessions()->with(['group.exams' => function ($q) use ($dataRequest) {
+            //     if ($dataRequest->filled('word')) {
+            //         $q->where('name', 'like', '%' . $dataRequest->word . '%');
+            //     }
+            // }]);
+            // $exams = $query->get()
+            //     ->pluck('group.exams')
+            //     ->flatten()
+            //     ->unique();
+            // إنشاء استعلام للامتحانات المرتبطة بالمجموعات الخاصة بالمعلم
+            // $exams = $teacher->sessions()
+            //     ->join('groups', 'sessions.group_id', '=', 'groups.id') // Join with the groups table
+            //     ->join('exams', 'groups.id', '=', 'exams.group_id') // Join with the exams table
+            //     ->select('exams.*') // Select only the columns from the exams table
+            //     ->distinct() // Ensure unique results
+            //     ->paginate(10);
+
             return new DataSuccess(
                 data: TeacherGroupExamResource::collection($exams),
                 status: true,
