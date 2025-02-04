@@ -117,7 +117,7 @@ class UserService
     {
         $organizationId = get_organization_id(auth()->guard('organization')->user());
         if (isset($dataRequest['image'])) {
-            if ($user && $user->image !== 'uploads/default.jpg') {
+            if ($user->image && $user->image !== 'uploads/default.jpg') {
                 delete_image($user->image);
             }
             $data['image'] = upload_image($dataRequest['image'], 'users');
