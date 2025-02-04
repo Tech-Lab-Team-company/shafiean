@@ -53,7 +53,7 @@ class AccountSettingsService
             );
         }
     }
-    public function changeAccountSettings($user, $dataRequest)
+    public function changePassword($user, $dataRequest)
     {
         try {
             $response = (new PasswordService())->changePassword($dataRequest, $user)->response()->getData();

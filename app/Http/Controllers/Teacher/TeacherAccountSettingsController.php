@@ -24,8 +24,8 @@ class TeacherAccountSettingsController extends Controller
     {
         return $this->accountSettingsService->updateAccountSettings($this->user, $request)->response();
     }
-    public function changeAccountSettings(TeacherAccountSettingsPasswordRequest $request)
+    public function changePassword(TeacherAccountSettingsPasswordRequest $request)
     {
-        return $this->accountSettingsService->changeAccountSettings($this->user, $request)->response();
+        return $this->accountSettingsService->changePassword($this->user, $request)->response();
     }
 }
