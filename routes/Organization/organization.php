@@ -559,6 +559,7 @@ Route::middleware('auth:organization')->group(function () {
     Route::controller(TeacherAccountSettingsController::class)->group(function () {
         Route::post('teacher_fetch_account_settings', 'fetchAccountSettings');
         Route::post('teacher_update_account_settings', 'updateAccountSettings');
+        Route::post('teacher_change_account_settings', 'changeAccountSettings');
     });
     /* END TEACHER */
     // ***********************************************************************************************************************************

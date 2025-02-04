@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Services\Global\AccountSettingsService;
 use App\Http\Requests\Teacher\AccountSettings\TeacherAccountSettingsRequest;
+use App\Http\Requests\Teacher\AccountSettings\TeacherAccountSettingsPasswordRequest;
 
 class TeacherAccountSettingsController extends Controller
 {
@@ -22,5 +23,9 @@ class TeacherAccountSettingsController extends Controller
     public function updateAccountSettings(TeacherAccountSettingsRequest $request)
     {
         return $this->accountSettingsService->updateAccountSettings($this->user, $request)->response();
+    }
+    public function changeAccountSettings(TeacherAccountSettingsPasswordRequest $request)
+    {
+        return $this->accountSettingsService->changeAccountSettings($this->user, $request)->response();
     }
 }

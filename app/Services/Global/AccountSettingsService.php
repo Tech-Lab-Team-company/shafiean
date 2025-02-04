@@ -53,4 +53,19 @@ class AccountSettingsService
             );
         }
     }
+    public function changeAccountSettings($user, $dataRequest)
+    {
+        try {
+            $response = (new PasswordService())->changePassword($dataRequest, $user)->response()->getData();
+            return new DataSuccess(
+                status: true,
+                message: $response->message
+            );
+        } catch (Exception $exception) {
+            return new DataFailed(
+                status: false,
+                message: $exception->getMessage()
+            );
+        }
+    }
 }
