@@ -4,6 +4,7 @@ namespace App\Services\Organization\Exam;
 
 use Exception;
 use App\Models\Group;
+use App\Enum\ExamStatusEnum;
 use App\Helpers\Response\DataFailed;
 use App\Helpers\Response\DataStatus;
 use App\Helpers\Response\DataSuccess;
@@ -143,6 +144,7 @@ class GroupExamService
             'start_time' => $dataRequest->start_time,
             'end_time' => $dataRequest->end_time,
             'duration' => $dataRequest->duration,
+            'status' => ExamStatusEnum::IN_ACTIVE->value,
             // 'group_id' => $dataRequest->group_id,
             // 'question_count' => $dataRequest->question_count,
             // 'exam_type' => $dataRequest->exam_type,
