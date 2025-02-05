@@ -113,15 +113,34 @@ class UserService
             );
         }
     }
+    public function deleteUserImage($request): DataStatus
+    {
+        try {
+            $user = User::whereId($request->id)->first();
+            if ($user->image != null) {
+                delete_image($user->image);
+            }
+            $user->update(['image' => null]);
+            return new DataSuccess(
+                statusCode: 200,
+                message: __('messages.success_delete')
+            );
+        } catch (Exception $e) {
+            return new DataFailed(
+                statusCode: 500,
+                message: 'User deletion failed: ' . $e->getMessage()
+            );
+        }
+    }
     private function userData($dataRequest, $user = null)
     {
         $organizationId = get_organization_id(auth()->guard('organization')->user());
-        // if (isset($dataRequest['image'])) {
-        if ($user && $user->image && $user->image !== 'uploads/default.jpg') {
-            delete_image($user->image);
+        if (isset($dataRequest['image'])) {
+            if ($user && $user->image && $user->image !== 'uploads/default.jpg') {
+                delete_image($user->image);
+            }
+            $data['image'] = upload_image($dataRequest['image'], 'users');
         }
-        $data['image'] = $dataRequest['image'] ?  upload_image($dataRequest['image'], 'users') : null;
-        // }
         $data['organization_id'] = $organizationId;
         $data['name'] = $dataRequest['name'];
         $data['email'] = $dataRequest['email'];

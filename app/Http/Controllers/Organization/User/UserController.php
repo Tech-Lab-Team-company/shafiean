@@ -47,4 +47,8 @@ class UserController extends Controller
     {
         return $this->userService->delete($request)->response();
     }
+    public function deleteUserImage(DeleteUserRequest $request)
+    {
+        return $this->userService->deleteUserImage($request)->response();
+    }
 }

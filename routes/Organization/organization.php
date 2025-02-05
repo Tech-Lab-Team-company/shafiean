@@ -252,6 +252,7 @@ Route::middleware('auth:organization')->group(function () {
         Route::post('fetch_user_details', 'show');
         Route::post('edit_user', 'update');
         Route::post('delete_user', 'delete');
+        Route::post('delete_user_image', 'deleteUserImage');
     });
     //AUTH
     Route::controller(AuthController::class)->group(function () {
