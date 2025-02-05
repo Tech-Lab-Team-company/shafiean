@@ -116,12 +116,12 @@ class UserService
     private function userData($dataRequest, $user = null)
     {
         $organizationId = get_organization_id(auth()->guard('organization')->user());
-        if (isset($dataRequest['image'])) {
-            if ($user && $user->image && $user->image !== 'uploads/default.jpg') {
-                delete_image($user->image);
-            }
-            $data['image'] = upload_image($dataRequest['image'], 'users');
+        // if (isset($dataRequest['image'])) {
+        if ($user && $user->image && $user->image !== 'uploads/default.jpg') {
+            delete_image($user->image);
         }
+        $data['image'] = $dataRequest['image'] ?  upload_image($dataRequest['image'], 'users') : null;
+        // }
         $data['organization_id'] = $organizationId;
         $data['name'] = $dataRequest['name'];
         $data['email'] = $dataRequest['email'];
