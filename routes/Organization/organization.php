@@ -268,6 +268,7 @@ Route::middleware('auth:organization')->group(function () {
         Route::post('delete_employee', 'delete_employee');
         Route::post('edit_employee_password', 'edit_employee_password');
         Route::post('fetch_teachers', 'fetch_teachers');
+        Route::post('delete_employee_image', 'deleteEmployeeImage');
     });
     //COURSE
     Route::controller(CourseController::class)->group(function () {

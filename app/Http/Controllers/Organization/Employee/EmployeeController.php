@@ -63,4 +63,8 @@ class EmployeeController extends Controller
     {
         return $this->employee_service->fetch_teachers($request)->response();
     }
+    public function deleteEmployeeImage(DeleteEmployeeRequest $request)
+    {
+        return $this->employee_service->deleteEmployeeImage($request)->response();
+    }
 }

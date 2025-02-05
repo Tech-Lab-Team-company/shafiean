@@ -157,6 +157,25 @@ class EmployeeService
             );
         }
     }
+    public function deleteEmployeeImage($request): DataStatus
+    {
+        try {
+            $employee = Teacher::where('id', $request->id)->first();
+            if ($employee->image != null) {
+                delete_image($employee->image);
+            }
+            $employee->update(['image' => null]);
+            return new DataSuccess(
+                status: true,
+                message: __('messages.success_delete')
+            );
+        } catch (Exception $e) {
+            return new DataFailed(
+                status: false,
+                message: $e->getMessage()
+            );
+        }
+    }
 
     public function edit_employee_password($request): DataStatus
     {
