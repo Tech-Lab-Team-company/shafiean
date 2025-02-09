@@ -28,7 +28,7 @@ class Live100MSIntegrationService
     }
     public function create_room($request, $join = false): DataStatus
     {
-        // try {
+        try {
             DB::beginTransaction();
             $room_data = $this->handle_live_room_body($request);
             if ($room_data == false) {
@@ -63,13 +63,13 @@ class Live100MSIntegrationService
                 status: true,
                 message: __('messages.success_create'),
             );
-        // } catch (\Exception $e) {
-            // DB::rollBack();
-        //     return new DataFailed(
-        //         status: false,
-        //         message: $e->getMessage()
-        //     );
-        // }
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return new DataFailed(
+                status: false,
+                message: $e->getMessage()
+            );
+        }
     }
 
     public function join_room($request): DataStatus
@@ -99,7 +99,7 @@ class Live100MSIntegrationService
             ]);
             return new DataSuccess(
                 status: true,
-                message:  __('messages.success_join_room'),
+                message: __('messages.success_join_room'),
                 data: new JoinRoomResource($live_info)
             );
         } catch (\Exception $e) {
