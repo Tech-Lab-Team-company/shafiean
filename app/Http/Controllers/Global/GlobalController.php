@@ -20,7 +20,6 @@ class GlobalController extends Controller
 
     public function fetch_days(Request $request)
     {
-        dd(Auth::guard('organization')->user());
         return $this->global_service->fetch_days($request)->response();
     }
     public function fetch_exam_students(FetchExamStudentRequest $request)
