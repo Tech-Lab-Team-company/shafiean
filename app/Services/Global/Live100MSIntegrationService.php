@@ -46,7 +46,6 @@ class Live100MSIntegrationService
             ];
             $response = Http::withHeaders($headers)->post('https://api.100ms.live/v2/rooms', $room_data['data']['body']);
             $json_data = $response->json();
-            dd($json_data);
             $arrayOfCodes = $this->get_room_code($json_data['id']);
             $room_info_data = $json_data + $arrayOfCodes;
             $live_info = $this->store_live_info($room_data['data']['live_id'], $room_info_data);
