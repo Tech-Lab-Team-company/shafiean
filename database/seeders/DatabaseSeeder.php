@@ -23,10 +23,11 @@ class DatabaseSeeder extends Seeder
             // // TermSeeder::class,
             // OrganizationDisabilityTypeSeeder::class,
             // CurriculumDisabilityTypeSeeder::class,
-            QuraanSeeder::class,
+            // QuraanSeeder::class,
             // // AyatSeeder::class,
             // DaySeeder::class,
             // BloodTypeTableSeeder::class,
+            // LaratrustSeeder::class,
         ]);
     }
 }
