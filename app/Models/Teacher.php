@@ -7,9 +7,11 @@ use App\Models\Organization;
 use App\Models\GroupStageSession;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Support\Facades\Hash;
+use Laratrust\Contracts\LaratrustUser;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use App\Models\Organization\JobType\JobType;
+use Laratrust\Traits\HasRolesAndPermissions;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Models\SessionStudentRate\SessionStudentRate;
@@ -19,9 +21,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class Teacher extends Authenticatable
+class Teacher extends Authenticatable implements LaratrustUser
 {
-    use HasFactory, Notifiable, HasApiTokens, SoftDeletes;
+    use HasFactory, Notifiable, HasApiTokens, SoftDeletes, HasRolesAndPermissions;
     protected $table = 'teachers';
     // protected $guard = 'organization';
     protected $guarded = [];

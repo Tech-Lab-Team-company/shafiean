@@ -16,6 +16,7 @@ class LaratrustSetupTables extends Migration
         // Create table for storing roles
         Schema::create('roles', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->foreignId('organization_id')->nullable()->references('id')->on('organizations')->onDelete('cascade');
             $table->string('name')->unique();
             $table->string('display_name')->nullable();
             $table->string('description')->nullable();
@@ -25,6 +26,7 @@ class LaratrustSetupTables extends Migration
         // Create table for storing permissions
         Schema::create('permissions', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->foreignId('organization_id')->nullable()->references('id')->on('organizations')->onDelete('cascade');
             $table->string('name')->unique();
             $table->string('display_name')->nullable();
             $table->string('description')->nullable();
@@ -33,12 +35,14 @@ class LaratrustSetupTables extends Migration
         // Create table for storing maps
         Schema::create('maps', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->foreignId('organization_id')->nullable()->references('id')->on('organizations')->onDelete('cascade');
             $table->string('name')->unique()->nullable();
             $table->string('description')->nullable();
             $table->timestamps();
         });
 
         Schema::create('modules', function (Blueprint $table) {
+            $table->foreignId('organization_id')->nullable()->references('id')->on('organizations')->onDelete('cascade');
             $table->bigIncrements('id');
             $table->string('name')->unique()->nullable();
             $table->string('description')->nullable();

@@ -6,9 +6,11 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Services\Global\GlobalService;
+use Illuminate\Routing\Controllers\Middleware;
+use Illuminate\Routing\Controllers\HasMiddleware;
 use App\Http\Requests\Organization\Exam\EndPoint\FetchExamStudentRequest;
 
-class GlobalController extends Controller
+class GlobalController extends Controller implements HasMiddleware
 {
     protected $global_service;
 
@@ -17,9 +19,17 @@ class GlobalController extends Controller
     {
         $this->global_service = $globalService;
     }
-
+    public static function middleware(): array
+    {
+        return [
+            'auth:organization',
+            // new Middleware('permission:cities-create', only: ['create', 'store']),
+            new Middleware('permission:cities-read', only: ['fetch_days', 'show']),
+        ];
+    }
     public function fetch_days(Request $request)
     {
+        dd(Auth::guard('organization')->user());
         return $this->global_service->fetch_days($request)->response();
     }
     public function fetch_exam_students(FetchExamStudentRequest $request)

@@ -6,13 +6,16 @@ use App\Http\Controllers\Global\GlobalController;
 use App\Http\Controllers\Admin\CurriculumController;
 use App\Http\Controllers\Global\DisabilityController;
 use App\Http\Controllers\Teacher\TeacherGroupController;
+use App\Http\Controllers\Organization\Role\MapController;
 use App\Http\Controllers\Organization\Auth\AuthController;
 use App\Http\Controllers\Organization\Blog\BlogController;
 use App\Http\Controllers\Organization\Exam\ExamController;
 use App\Http\Controllers\Organization\Rate\RateController;
+use App\Http\Controllers\Organization\Role\RoleController;
 use App\Http\Controllers\Organization\User\UserController;
 use App\Http\Controllers\Teacher\TeacherSessionController;
 use App\Http\Controllers\Organization\Group\GroupController;
+use App\Http\Controllers\Organization\Role\ModuleController;
 use App\Http\Controllers\Organization\Surah\SurahController;
 use App\Http\Controllers\Organization\Answer\AnswerController;
 use App\Http\Controllers\Organization\Course\CourseController;
@@ -110,6 +113,29 @@ Route::middleware('auth:organization')->group(function () {
     //     Route::post('edit_exam_question', 'update');
     //     Route::post('delete_exam_question', 'delete');
     // });
+    /* ROLE START */
+    // MAP
+    Route::controller(MapController::class)->group(function () {
+        Route::post('store_map', 'store');
+        Route::post('fetch_all_maps', 'fetchAllMaps');
+    });
+    // MODULE
+    Route::controller(ModuleController::class)->group(function () {
+        Route::post('store_module', 'store');
+        Route::post('update_module', 'update');
+        Route::post('fetch_module_details', 'fetchModuleDetails');
+        Route::post('fetch_all_modules', 'fetchAllModules');
+        Route::post('delete_module', 'delete');
+    });
+    // ROLE
+    Route::controller(RoleController::class)->group(function () {
+        Route::post('store_role', 'store');
+        Route::post('update_role', 'update');
+        Route::post('fetch_roles', 'fetchRoles');
+        Route::post('fetch_role_details', 'fetchRoleDetails');
+        Route::post('delete_role', 'delete');
+    });
+    /* ROLE END */
     //ANSWER
     Route::controller(AnswerController::class)->group(function () {
         Route::post('fetch_answers', 'index');

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Organization\Blog;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use App\Services\Organization\Blog\BlogService;
 use App\Http\Requests\Organization\Blog\StoreBlogRequest;
 use App\Http\Requests\Organization\Blog\DeleteBlogRequest;

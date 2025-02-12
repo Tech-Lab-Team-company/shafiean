@@ -1,5 +1,10 @@
 <?php
 
+use App\Models\Teacher;
+use Laratrust\Laratrust;
+use App\Models\Organization\Role\Role;
+use App\Models\Organization\Role\Permission;
+
 return [
     /*
     |--------------------------------------------------------------------------
@@ -100,6 +105,7 @@ return [
     */
     'user_models' => [
         'users' => \App\Models\User::class,
+        'teachers' => Teacher::class,
     ],
 
     /*
@@ -114,9 +120,9 @@ return [
     */
     'models' => [
 
-        'role' => \App\Models\Role::class,
+        'role' => Role::class,
 
-        'permission' => \App\Models\Permission::class,
+        'permission' => Permission::class,
 
         /**
          * Will be used only if the teams functionality is enabled.
@@ -210,7 +216,8 @@ return [
              */
             'abort' => [
                 'code' => 403,
-                'message' => 'User does not have any of the necessary access rights.',
+                // 'message' => 'User does not have any of the necessary access rights.',
+                'message' =>  'ليس لديك صلاحية للوصول لهذه الصفحة',
             ],
 
             /**
