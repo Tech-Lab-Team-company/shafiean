@@ -2,7 +2,9 @@
 
 namespace App\Services\Organization\Role;
 
+use App\Models\Organization\Role\MapPermission;
 use Exception;
+use Illuminate\Support\Facades\DB;
 use App\Helpers\Response\DataFailed;
 use App\Helpers\Response\DataSuccess;
 use App\Models\Organization\Role\Map;
@@ -54,10 +56,15 @@ class ModuleService
             if ($dataRequest->has('map_ids')) {
                 $permissionModule->maps()->sync($dataRequest->map_ids);
             }
-            // $permissions = [];
             foreach ($dataRequest->map_ids as $mapId) {
-                $permissionValue = Map::find($mapId)->name;
-                $permissions[] = Permission::firstOrCreate(['name' => $dataRequest->name . '-' . $permissionValue]);
+                $mapValue = Map::find($mapId)->name;
+                $permissions = Permission::firstOrCreate(['name' => $dataRequest->name . '-' . $mapValue]);
+                MapPermission::updateOrCreate([
+                    'module_id' => $permissionModule->id,
+                    'map_id' => $mapId,
+                ], [
+                    'permission_id' => $permissions->id
+                ]);
             }
             return new DataSuccess(
                 status: true,

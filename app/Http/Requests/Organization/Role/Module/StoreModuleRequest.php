@@ -24,7 +24,7 @@ class StoreModuleRequest extends ApiRequest
     public function rules(): array
     {
         return [
-            'name' => 'required',
+            'name' => 'required|unique:modules,name',
             'description' => 'nullable',
             'map_ids' => 'required|array|exists:maps,id',
         ];

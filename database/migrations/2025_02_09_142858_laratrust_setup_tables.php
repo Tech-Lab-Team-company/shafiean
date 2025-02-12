@@ -42,8 +42,8 @@ class LaratrustSetupTables extends Migration
         });
 
         Schema::create('modules', function (Blueprint $table) {
-            $table->foreignId('organization_id')->nullable()->references('id')->on('organizations')->onDelete('cascade');
             $table->bigIncrements('id');
+            $table->foreignId('organization_id')->nullable()->references('id')->on('organizations')->onDelete('cascade');
             $table->string('name')->unique()->nullable();
             $table->string('description')->nullable();
             $table->timestamps();
@@ -51,15 +51,14 @@ class LaratrustSetupTables extends Migration
 
 
         Schema::create('map_permission', function (Blueprint $table) {
+            $table->bigIncrements('id');
             $table->unsignedBigInteger('module_id');
             $table->unsignedBigInteger('map_id');
-
             $table->unsignedBigInteger('permission_id')->nullable();
-
             $table->foreign('module_id')->references('id')->on('modules')->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('map_id')->references('id')->on('maps')->onUpdate('cascade')->onDelete('cascade');
-
-            $table->primary(['map_id', 'module_id']);
+            $table->foreign('permission_id')->references('id')->on('permissions')->onUpdate('cascade')->onDelete('cascade');
+            $table->timestamps();
         });
 
         // Create table for associating roles to users and teams (Many To Many Polymorphic)
@@ -72,6 +71,7 @@ class LaratrustSetupTables extends Migration
                 ->onUpdate('cascade')->onDelete('cascade');
 
             $table->primary(['user_id', 'role_id', 'user_type']);
+            $table->timestamps();
         });
 
         // Create table for associating permissions to users (Many To Many Polymorphic)
@@ -84,6 +84,7 @@ class LaratrustSetupTables extends Migration
                 ->onUpdate('cascade')->onDelete('cascade');
 
             $table->primary(['user_id', 'permission_id', 'user_type']);
+            $table->timestamps();
         });
 
         // Create table for associating permissions to roles (Many-to-Many)
@@ -97,6 +98,7 @@ class LaratrustSetupTables extends Migration
                 ->onUpdate('cascade')->onDelete('cascade');
 
             $table->primary(['permission_id', 'role_id']);
+            $table->timestamps();
         });
     }
 

@@ -63,10 +63,6 @@ class RoleService
                         $permissionValue = $map['name'] . '-' . $module['name'];
                         $permission = Permission::firstOrCreate(['name' => $permissionValue]);
                         $permissions[] = $permission;
-                        // DB::table('map_permission')
-                        //     ->where('map_id', $map['id'])
-                        //     ->where('module_id', $module['id'])
-                        //     ->update(['permission_id' => $permission->id]);
                     }
                 }
                 $role->syncPermissions($permissions);

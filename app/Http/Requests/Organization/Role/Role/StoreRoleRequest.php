@@ -25,7 +25,7 @@ class StoreRoleRequest extends ApiRequest
     public function rules(): array
     {
         return [
-            'name' => 'nullable',
+            'name' => 'nullable|unique:roles,name',
             'description' => 'nullable',
             'display_name' => 'required',
             'modules' => 'required|array',
