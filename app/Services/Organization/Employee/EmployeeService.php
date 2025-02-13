@@ -11,6 +11,7 @@ use App\Enum\EmployeeTypeEnum;
 use App\Helpers\Response\DataFailed;
 use App\Helpers\Response\DataStatus;
 use App\Helpers\Response\DataSuccess;
+use App\Models\Organization\Role\Role;
 use App\Services\Global\FilterService;
 use App\Http\Resources\OrganizationEmployeeResource;
 use App\Services\Organization\Employee\EmployeeImageService;
@@ -63,6 +64,8 @@ class EmployeeService
             $data['organization_id'] = get_organization_id(auth()->guard('organization')->user());
             $data['job_type_id'] = array_key_exists('job_type_id', $request->all()) ? $request->job_type_id : null;
             $employee = Teacher::create($data);
+            $role = Role::find($request->role_id);
+            $employee->addRole($role);
 
             if ($request->certificate_images) (new EmployeeImageService())->storeCertificateImage(null, $employee, $request);
 
