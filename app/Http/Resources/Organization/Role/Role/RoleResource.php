@@ -28,7 +28,7 @@ class RoleResource extends JsonResource
             'id' => $this->id ?? 0,
             'name' => $this->name ?? '',
             'display_name' => $this->display_name ?? '',
-            'description' => $this->description ?? '',
+            // 'description' => $this->description ?? '',
             'modules' => $modules->map(function ($module) {
                 return [
                     'id' => $module->id ?? 0,
