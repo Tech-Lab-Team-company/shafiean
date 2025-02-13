@@ -1,0 +1,464 @@
+[
+  {
+    "id": 1,
+    "title": "employee",
+    "module": [
+      "index",
+      "add",
+      "edit",
+      "show",
+      "delete"
+    ]
+  },
+  {
+    "id": 2,
+    "title": "courses",
+    "module": [
+      "index",
+      "add",
+      "edit",
+      "show",
+      "delete"
+    ]
+  },
+  {
+    "id": 3,
+    "title": "groups",
+    "module": [
+      "index",
+      "add",
+      "edit",
+      "show",
+      "delete"
+    ]
+  },
+  {
+    "id": 4,
+    "title": "groups exams",
+    "module": [
+      "index",
+      "add",
+      "edit",
+      "show",
+      "delete"
+    ]
+  },
+  {
+    "id": 5,
+    "title": "organizations sessions",
+    "module": [
+      "index",
+      "add",
+      "edit",
+      "show",
+      "delete"
+    ]
+  },
+  {
+    "id": 6,
+    "title": "organizations group student",
+    "module": [
+      "index",
+      "add",
+      "delete"
+    ]
+  },
+  {
+    "id": 7,
+    "title": "organizations main sessions",
+    "module": [
+      "index"
+    ]
+  },
+  {
+    "id": 8,
+    "title": "exam results",
+    "module": [
+      "index",
+      "show"
+    ]
+  },
+  {
+    "id": 9,
+    "title": "exams",
+    "module": [
+      "index",
+      "add",
+      "edit",
+      "show",
+      "delete"
+    ]
+  },
+  {
+    "id": 10,
+    "title": "admin session",
+    "module": [
+      "index",
+      "show"
+    ]
+  },
+  {
+    "id": 11,
+    "title": "student",
+    "module": [
+      "index",
+      "add",
+      "edit",
+      "show",
+      "delete"
+    ]
+  },
+  {
+    "id": 12,
+    "title": "teachers",
+    "module": [
+      "index",
+      "add",
+      "edit",
+      "show",
+      "delete"
+    ]
+  },
+  {
+    "id": 13,
+    "title": "users",
+    "module": [
+      "index",
+      "add",
+      "edit",
+      "show",
+      "delete"
+    ]
+  },
+  {
+    "id": 14,
+    "title": "relationships",
+    "module": [
+      "index",
+      "add",
+      "edit",
+      "show",
+      "delete"
+    ]
+  },
+  {
+    "id": 15,
+    "title": "job type",
+    "module": [
+      "index",
+      "add",
+      "edit",
+      "show",
+      "delete"
+    ]
+  },
+  {
+    "id": 16,
+    "title": "headers",
+    "module": [
+      "index",
+      "add",
+      "edit",
+      "show",
+      "delete"
+    ]
+  },
+  {
+    "id": 17,
+    "title": "statistics",
+    "module": [
+      "index",
+      "add",
+      "edit",
+      "show",
+      "delete"
+    ]
+  },
+  {
+    "id": 18,
+    "title": "screens",
+    "module": [
+      "index",
+      "add",
+      "edit",
+      "show",
+      "delete"
+    ]
+  },
+  {
+    "id": 19,
+    "title": "opinions",
+    "module": [
+      "index",
+      "add",
+      "edit",
+      "show",
+      "delete"
+    ]
+  },
+  {
+    "id": 20,
+    "title": "subheaders",
+    "module": [
+      "index",
+      "add",
+      "edit",
+      "show",
+      "delete"
+    ]
+  },
+  {
+    "id": 21,
+    "title": "services",
+    "module": [
+      "index",
+      "add",
+      "edit",
+      "show",
+      "delete"
+    ]
+  },
+  {
+    "id": 22,
+    "title": "partners",
+    "module": [
+      "index",
+      "add",
+      "edit",
+      "show",
+      "delete"
+    ]
+  },
+  {
+    "id": 23,
+    "title": "service features",
+    "module": [
+      "index",
+      "add",
+      "edit",
+      "show",
+      "delete"
+    ]
+  },
+  {
+    "id": 24,
+    "title": "application info",
+    "module": [
+      "add",
+      "edit",
+      "show"
+    ]
+  },
+  {
+    "id": 25,
+    "title": "blogs",
+    "module": [
+      "index",
+      "add",
+      "edit",
+      "show",
+      "delete"
+    ]
+  },
+  {
+    "id": 26,
+    "title": "blogs categories",
+    "module": [
+      "index",
+      "add",
+      "edit",
+      "show",
+      "delete"
+    ]
+  },
+  {
+    "id": 27,
+    "title": "blogs hashtags",
+    "module": [
+      "index",
+      "add",
+      "edit",
+      "show",
+      "delete"
+    ]
+  },
+  {
+    "id": 28,
+    "title": "libraries",
+    "module": [
+      "index",
+      "add",
+      "edit",
+      "show",
+      "delete"
+    ]
+  },
+  {
+    "id": 29,
+    "title": "libraries categories",
+    "module": [
+      "index",
+      "add",
+      "edit",
+      "show",
+      "delete"
+    ]
+  },
+  {
+    "id": 30,
+    "title": "subscripe group",
+    "module": [
+      "index",
+      "add",
+      "delete"
+    ]
+  },
+  {
+    "id": 31,
+    "title": "general setting",
+    "module": [
+      "add",
+      "edit",
+      "show"
+    ]
+  },
+  {
+    "id": 32,
+    "title": "contact ",
+    "module": [
+      "index"
+    ]
+  },
+  {
+    "id": 33,
+    "title": "teacher statistics rate ",
+    "module": [
+      "index"
+    ]
+  },
+  {
+    "id": 34,
+    "title": "teacher current session ",
+    "module": [
+      "index"
+    ]
+  },
+  {
+    "id": 35,
+    "title": "teacher next session ",
+    "module": [
+      "index"
+    ]
+  },
+  {
+    "id": 36,
+    "title": "teacher finished session ",
+    "module": [
+      "index"
+    ]
+  },
+  {
+    "id": 37,
+    "title": "teacher groups ",
+    "module": [
+      "index"
+    ]
+  },
+  {
+    "id": 38,
+    "title": "teacher groups last session ",
+    "module": [
+      "index"
+    ]
+  },
+  {
+    "id": 39,
+    "title": "teacher groups student progress ",
+    "module": [
+      "index"
+    ]
+  },
+  {
+    "id": 40,
+    "title": "teacher groups students ",
+    "module": [
+      "index"
+    ]
+  },
+  {
+    "id": 41,
+    "title": "teacher groups exams ",
+    "module": [
+      "index"
+    ]
+  },
+  {
+    "id": 42,
+    "title": "teacher  exams",
+    "module": [
+      "index",
+      "add",
+      "show"
+    ]
+  },
+  {
+    "id": 43,
+    "title": "teacher  account setting",
+    "module": [
+      "edit",
+      "show"
+    ]
+  },
+  {
+    "id": 44,
+    "title": "teacher  changes pass",
+    "module": [
+      "edit"
+    ]
+  }
+]
+
+ "employee"=> 'c,r,u,d',
+ "courses"=> 'c,r,u,d',
+ "groups"=> 'c,r,u,d',
+ "groups exams"=> 'c,r,u,d',
+ "organizations sessions"=> 'c,r,u,d',
+ "organizations group student"=> 'c,r,u,d',
+ "organizations main sessions"=> 'c,r,u,d',
+ "exam results"=> 'c,r,u,d',
+ "exams"=> 'c,r,u,d',
+ "admin session"=> 'c,r,u,d',
+ "student"=> 'c,r,u,d',
+ "teachers"=> 'c,r,u,d',
+ "users"=> 'c,r,u,d',
+ "relationships"=> 'c,r,u,d',
+ "job type"=> 'c,r,u,d',
+ "headers"=> 'c,r,u,d',
+ "statistics"=> 'c,r,u,d',
+ "screens"=> 'c,r,u,d',
+ "opinions"=> 'c,r,u,d',
+ "subheaders"=> 'c,r,u,d',
+ "services"=> 'c,r,u,d',
+ "partners"=> 'c,r,u,d',
+ "service features"=> 'c,r,u,d',
+ "application info"=> 'c,r,u,d',
+ "blogs"=> 'c,r,u,d',
+ "blogs categories"=> 'c,r,u,d',
+ "blogs hashtags"=> 'c,r,u,d',
+ "libraries"=> 'c,r,u,d',
+ "libraries categories"=> 'c,r,u,d',
+ "subscripe group"=> 'c,r,u,d',
+ "general setting"=> 'c,r,u,d',
+ "contact "=> 'c,r,u,d',
+ "teacher statistics rate "=> 'c,r,u,d',
+ "teacher current session "=> 'c,r,u,d',
+ "teacher next session "=> 'c,r,u,d',
+ "teacher finished session "=> 'c,r,u,d',
+ "teacher groups "=> 'c,r,u,d',
+ "teacher groups last session"=> 'c,r,u,d',
+ "teacher groups student progress"=> 'c,r,u,d',
+ "teacher groups students "=> 'c,r,u,d',
+ "teacher groups exams "=> 'c,r,u,d',
+ "teacher  exams"=> 'c,r,u,d',
+ "teacher  account setting"=> 'c,r,u,d',
+ "teacher  changes pass"=> 'c,r,u,d',

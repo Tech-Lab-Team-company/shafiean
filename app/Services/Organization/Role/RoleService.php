@@ -13,6 +13,7 @@ use App\Models\Organization\Role\Permission;
 use App\Models\Organization\Role\MapPermission;
 use App\Http\Resources\Organization\Role\Role\RoleResource;
 use App\Http\Resources\Organization\Season\FetchSeasonResource;
+use App\Http\Resources\Organization\Role\Role\FetchAllRoleResource;
 use App\Http\Resources\Organization\Role\Role\FetchRoleDetailsResource;
 
 class RoleService
@@ -27,6 +28,26 @@ class RoleService
                 ->get();
             return new DataSuccess(
                 data: RoleResource::collection($rules),
+                status: true,
+                message: __('messages.success')
+            );
+        } catch (Exception $e) {
+            return new DataFailed(
+                status: false,
+                message: $e->getMessage()
+            );
+        }
+    }
+    public function fetchAllRoles()
+    {
+        try {
+            $auth = Auth::guard('organization')->user();
+            $rules = Role::with('permissions')
+                ->where('organization_id', $auth->organization_id)
+                ->orWhereNull('organization_id')
+                ->get();
+            return new DataSuccess(
+                data: FetchAllRoleResource::collection($rules),
                 status: true,
                 message: __('messages.success')
             );

@@ -132,6 +132,7 @@ Route::middleware('auth:organization')->group(function () {
         Route::post('store_role', 'store');
         Route::post('update_role', 'update');
         Route::post('fetch_roles', 'fetchRoles');
+        Route::post('fetch_all_roles', 'fetchAllRoles');
         Route::post('fetch_role_details', 'fetchRoleDetails');
         Route::post('delete_role', 'delete');
     });

@@ -16,6 +16,10 @@ class RoleController extends Controller
     {
         return $this->roleService->fetchRoles()->response();
     }
+    public function fetchAllRoles()
+    {
+        return $this->roleService->fetchAllRoles()->response();
+    }
     public function fetchRoleDetails(FetchRoleDetailsRequest $request)
     {
         return $this->roleService->fetchRoleDetails($request)->response();
