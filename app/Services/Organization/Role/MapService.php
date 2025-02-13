@@ -5,6 +5,7 @@ namespace App\Services\Organization\Role;
 use Exception;
 use App\Models\Season;
 use App\Helpers\Response\DataFailed;
+use Illuminate\Support\Facades\Auth;
 use App\Helpers\Response\DataSuccess;
 use App\Models\Organization\Role\Map;
 use App\Http\Resources\Organization\Role\MapResource;
@@ -15,7 +16,10 @@ class MapService
     public function fetchAllMaps()
     {
         try {
-            $maps =  Map::get();
+            $auth = Auth::guard('organization')->user();
+            $maps = Map::where('organization_id', $auth->organization_id)
+                ->orWhereNull('organization_id')
+                ->get();
             return new DataSuccess(
                 data: MapResource::collection($maps),
                 status: true,

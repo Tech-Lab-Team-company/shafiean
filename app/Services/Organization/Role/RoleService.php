@@ -6,6 +6,7 @@ use Exception;
 use App\Models\Season;
 use Illuminate\Support\Facades\DB;
 use App\Helpers\Response\DataFailed;
+use Illuminate\Support\Facades\Auth;
 use App\Helpers\Response\DataSuccess;
 use App\Models\Organization\Role\Role;
 use App\Models\Organization\Role\Permission;
@@ -19,7 +20,11 @@ class RoleService
     public function fetchRoles()
     {
         try {
-            $rules = Role::with('permissions')->paginate(10);
+            $auth = Auth::guard('organization')->user();
+            $rules = Role::with('permissions')
+                ->where('organization_id', $auth->organization_id)
+                ->orWhereNull('organization_id')
+                ->get();
             return new DataSuccess(
                 data: RoleResource::collection($rules),
                 status: true,

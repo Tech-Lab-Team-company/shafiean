@@ -27,9 +27,9 @@ class Role extends RoleModel
     //     // static::addGlobalScope(new PerOrganizationScope);
     // }
 
-    // protected static function boot()
-    // {
-    //     parent::boot();
-    //     static::observe(OrganizationIdObserver::class);
-    // }
+    protected static function boot()
+    {
+        parent::boot();
+        static::observe(OrganizationIdObserver::class);
+    }
 }

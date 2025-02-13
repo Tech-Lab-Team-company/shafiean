@@ -27,9 +27,9 @@ class Permission extends PermissionModel
     //     // static::addGlobalScope(new PerOrganizationScope);
     // }
 
-    // protected static function boot()
-    // {
-    //     parent::boot();
-    //     static::observe(OrganizationIdObserver::class);
-    // }
+    protected static function boot()
+    {
+        parent::boot();
+        static::observe(OrganizationIdObserver::class);
+    }
 }

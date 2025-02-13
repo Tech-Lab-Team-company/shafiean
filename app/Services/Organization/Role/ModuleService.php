@@ -2,14 +2,15 @@
 
 namespace App\Services\Organization\Role;
 
-use App\Models\Organization\Role\MapPermission;
 use Exception;
 use Illuminate\Support\Facades\DB;
 use App\Helpers\Response\DataFailed;
+use Illuminate\Support\Facades\Auth;
 use App\Helpers\Response\DataSuccess;
 use App\Models\Organization\Role\Map;
 use App\Models\Organization\Role\Module;
 use App\Models\Organization\Role\Permission;
+use App\Models\Organization\Role\MapPermission;
 use App\Http\Resources\Organization\Role\ModuleResource;
 
 class ModuleService
@@ -17,7 +18,11 @@ class ModuleService
     public function fetchAllModules()
     {
         try {
-            $modules = Module::with('maps')->get();
+            $auth = Auth::guard('organization')->user();
+            $modules = Module::with('maps')
+                ->where('organization_id', $auth->organization_id)
+                ->orWhereNull('organization_id')
+                ->get();
             return new DataSuccess(
                 data: ModuleResource::collection($modules),
                 status: true,
