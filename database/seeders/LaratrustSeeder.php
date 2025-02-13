@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Schema;
 use App\Models\Organization\Role\Module;
 use App\Models\Organization\Role\Permission;
+use App\Models\Organization\Role\MapPermission;
 
 class LaratrustSeeder extends Seeder
 {
@@ -40,7 +41,7 @@ class LaratrustSeeder extends Seeder
                 'display_name' => ucwords(str_replace('_', ' ', $key)),
                 'description' => ucwords(str_replace('_', ' ', $key))
             ]);
-            $permissions = [];
+            // $permissions = [];
 
             $this->command->info('Creating Role ' . strtoupper($key));
 
@@ -54,14 +55,21 @@ class LaratrustSeeder extends Seeder
 
                     $permissionValue = $mapPermission->get($perm);
 
-                    $permissions[] = Permission::firstOrCreate([
+                    $permission = Permission::firstOrCreate([
                         'name' => $module . '-' . $permissionValue,
                         'display_name' => ucfirst($permissionValue) . ' ' . ucfirst($module),
                         'description' => ucfirst($permissionValue) . ' ' . ucfirst($module),
-                    ])->id;
+                    ]);
                     $map = Map::firstOrCreate([
                         'name' => $permissionValue,
                     ]);
+                    MapPermission::updateOrCreate([
+                        'module_id' => $permissionModule->id,
+                        'map_id' => $map->id,
+                    ], [
+                        'permission_id' => $permission->id
+                    ]);
+                    $permissions[] = $permission->id;
                     $permissionModule->maps()->syncWithoutDetaching([$map->id]);
                     $this->command->info('Creating Permission to ' . $permissionValue . ' for ' . $module);
                 }
