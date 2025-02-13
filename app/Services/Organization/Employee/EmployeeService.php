@@ -110,6 +110,9 @@ class EmployeeService
             }
             $employee->update($data);
             $role = Role::find($request->role_id);
+            if ($employee->roles()->first()) {
+                $employee->removeRole($employee->roles()->first());
+            }
             $employee->addRole($role);
             if (isset($request->curriculum_ids)) {
                 $employee->curriculums()->sync($request->curriculum_ids);
