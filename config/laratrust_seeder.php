@@ -59,6 +59,9 @@ return [
             "teacher_exams" => 'c,r,u,d',
             "teacher_account_setting" => 'c,r,u,d',
             "teacher_changes_pass" => 'c,r,u,d',
+            "premisson" => 'c,r,u,d',
+            "app_info_student" => 'c,r,u,d',
+            "app_info_teacher" => 'c,r,u,d',
         ],
         'administrator' => [
             'users' => 'c,r,u,d',
