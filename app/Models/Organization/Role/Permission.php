@@ -8,6 +8,7 @@ use App\Observers\OrganizationIdObserver;
 use App\Models\Scopes\PerOrganizationScope;
 use App\Models\Organization\Role\MapPermission;
 use App\Models\Scopes\PerOrganizationWebsiteScope;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Laratrust\Models\Permission as PermissionModel;
 
 class Permission extends PermissionModel

@@ -4,6 +4,7 @@ namespace App\Http\Resources\Organization\Role\Role;
 
 
 use Illuminate\Http\Request;
+use App\Models\Organization\Role\Map;
 use PhpParser\Node\Expr\AssignOp\Mod;
 use App\Models\Organization\Role\Module;
 use App\Models\Organization\Role\MapPermission;
@@ -28,12 +29,13 @@ class RoleResource extends JsonResource
             'id' => $this->id ?? 0,
             'name' => $this->name ?? '',
             'display_name' => $this->display_name ?? '',
-            // 'description' => $this->description ?? '',
-            'modules' => $modules->map(function ($module) {
+            'modules' => $modules->map(function ($module) use ($mapPermissions) {
+                $mapIds = $mapPermissions->where('module_id', $module->id)->pluck('map_id');
+                $maps = Map::whereIn('id', $mapIds)->get();
                 return [
                     'id' => $module->id ?? 0,
                     'name' => $module->name ?? "",
-                    'maps' => MapResource::collection($module->maps ?? []) ?? []
+                    'maps' => MapResource::collection($maps ?? []) ?? []
                 ];
             }),
         ];

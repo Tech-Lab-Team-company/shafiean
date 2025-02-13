@@ -89,9 +89,16 @@ class RoleService
                         $permissionValue = $map['name'] . '-' . $module['name'];
                         $permission = Permission::firstOrCreate(['name' => $permissionValue]);
                         $permissions[] = $permission;
+                        /*   MapPermission::create([
+                            'module_id' => $module['id'],
+                            'map_id' => $map['id'],
+                            'permission_id' => $permission->id
+                        ]); */
+
                         MapPermission::updateOrCreate([
                             'module_id' => $module['id'],
-                            'map_id' => $map,
+                            'map_id' => $map['id'],
+                            'permission_id' => $permission->id
                         ], [
                             'permission_id' => $permission->id
                         ]);
@@ -131,6 +138,7 @@ class RoleService
                         MapPermission::updateOrCreate([
                             'module_id' => $module['id'],
                             'map_id' => $map,
+                            'permission_id' => $permission->id
                         ], [
                             'permission_id' => $permission->id
                         ]);
