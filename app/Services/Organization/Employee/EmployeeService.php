@@ -109,6 +109,8 @@ class EmployeeService
                 $data['image'] = $image;
             }
             $employee->update($data);
+            $role = Role::find($request->role_id);
+            $employee->addRole($role);
             if (isset($request->curriculum_ids)) {
                 $employee->curriculums()->sync($request->curriculum_ids);
             }

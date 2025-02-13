@@ -7,6 +7,7 @@ use App\Enum\EmployeeTypeEnum;
 use App\Http\Resources\ImageResource;
 use App\Http\Resources\CurriculumResource;
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\Organization\Role\Role\RoleResource;
 use App\Http\Resources\Organization\JobType\JobTypeResource;
 
 class OrganizationEmployeeResource extends JsonResource
@@ -18,6 +19,7 @@ class OrganizationEmployeeResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+
         return [
             'id' => $this->id ?? 0,
             'name' => $this->name ?? "",
@@ -36,7 +38,8 @@ class OrganizationEmployeeResource extends JsonResource
             'status' => EmployeeTypeEnum::from($this->is_employed)->label() ?? "",
             'curriculums' =>  CurriculumResource::collection($this->curriculums ?? []) ?? [],
             'images' => $this->images()->count() > 0 ? ImageResource::collection($this->images) : [],
-            'job_type' => new JobTypeResource($this->jobType) ?? ""
+            'job_type' => new JobTypeResource($this->jobType) ?? "",
+            'roles' => RoleResource::collection($this->roles ?? []) ?? []
         ];
     }
 }
