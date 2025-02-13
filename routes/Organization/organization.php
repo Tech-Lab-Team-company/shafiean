@@ -27,12 +27,10 @@ use App\Http\Controllers\Organization\JobType\JobTypeController;
 use App\Http\Controllers\Organization\Library\LibraryController;
 use App\Http\Controllers\Organization\Teacher\TeacherController;
 use App\Http\Controllers\Organization\Blog\BlogHashtagController;
-use App\Http\Controllers\Organization\Exam\ExamStudentController;
 use App\Http\Controllers\Organization\Group\FetchGroupController;
 use App\Http\Controllers\Teacher\TeacherStudentReportsController;
 use App\Http\Controllers\Organization\Blog\BlogCategoryController;
 use App\Http\Controllers\Organization\Employee\EmployeeController;
-use App\Http\Controllers\Organization\Exam\ExamQuestionController;
 use App\Http\Controllers\Organization\Question\QuestionController;
 use App\Http\Controllers\Organization\Relation\RelationController;
 use App\Http\Controllers\Teacher\TeacherAccountSettingsController;
@@ -96,24 +94,7 @@ Route::controller(AuthController::class)->group(function () {
 });
 
 Route::middleware('auth:organization')->group(function () {
-    // Route::get('fetch_surah', [SurahApiProviderController::class, 'fetchSurah']);
-    //EXAM STUDENT
-    // Route::controller(ExamStudentController::class)->group(function () {
-    //     Route::post('fetch_exam_students', 'index');
-    //     Route::post('add_exam_student', 'store');
-    //     Route::post('fetch_exam_student_details', 'show');
-    //     Route::post('edit_exam_student', 'update');
-    //     Route::post('delete_exam_student', 'delete');
-    // });
-    //EXAM QUESTION
-    // Route::controller(ExamQuestionController::class)->group(function () {
-    //     Route::post('fetch_exam_questions', 'index');
-    //     Route::post('add_exam_question', 'store');
-    //     Route::post('fetch_exam_question_details', 'show');
-    //     Route::post('edit_exam_question', 'update');
-    //     Route::post('delete_exam_question', 'delete');
-    // });
-    /* ROLE START */
+    /* START ROLE */
     // MAP
     Route::controller(MapController::class)->group(function () {
         Route::post('store_map', 'store');
@@ -136,7 +117,8 @@ Route::middleware('auth:organization')->group(function () {
         Route::post('fetch_role_details', 'fetchRoleDetails');
         Route::post('delete_role', 'delete');
     });
-    /* ROLE END */
+    /* END ROLE */
+
     //ANSWER
     Route::controller(AnswerController::class)->group(function () {
         Route::post('fetch_answers', 'index');
@@ -334,19 +316,14 @@ Route::middleware('auth:organization')->group(function () {
         Route::post('fetch_application_info', 'show');
         Route::post('store_application_info', 'store');
     });
-
-
-    // Attendance end point
+    // ATTENDANCE
     Route::controller(AttendanceController::class)->group(function () {
         Route::post('organization_attendance', 'attendance');
         Route::post('fetch_attendance', 'fetch_attendance');
         Route::post('organization_leave', 'leave');
         Route::post('fetch_session_attendance', 'fetch_session_attendance');
     });
-
-
-    // Rate end point
-
+    // RATE
     Route::controller(RateController::class)->group(function () {
         Route::post('fetch_rates', 'fetch_rates');
         Route::post('add_rate', 'add_rate');
@@ -458,10 +435,7 @@ Route::middleware('auth:organization')->group(function () {
      * END POINT END
      */
 
-    // ***********************************************************************************************************************************
-    //**************************************************** lANDINGPAGE START *************************************************************
-    // ***********************************************************************************************************************************
-
+    /* START LANDING PAGE */
     Route::controller(HeaderController::class)->group(function () {
         Route::post('organization_fetch_headers',  'organization_fetch_headers');
         Route::post('organization_add_header',  'organization_add_header');
@@ -554,6 +528,7 @@ Route::middleware('auth:organization')->group(function () {
         Route::post('edit_policy', 'update');
         Route::post('delete_policy', 'delete');
     });
+
     /* START TEACHER */
     //TEACHER STATISTIC
     Route::controller(TeacherDashboardStatisticsController::class)->group(function () {
@@ -592,25 +567,18 @@ Route::middleware('auth:organization')->group(function () {
         Route::post('teacher_account_settings_change_password', 'changePassword');
     });
     /* END TEACHER */
-    // ***********************************************************************************************************************************
-    //**************************************************** lANDINGPAGE END *************************************************************
-    // ***********************************************************************************************************************************
+    /* END LANDING PAGE */
 
-
-
-    // ***********************************************************************************************************************************
-    //**************************************************** Live100MS Start *************************************************************
-    // ***********************************************************************************************************************************
-
+    /* START 100MS LIVE */
     Route::controller(Live100MSIntegrationController::class)->group(function () {
         Route::post('create_room',  'create_room');
         Route::post('join_room',  'join_room');
     });
+    /* END 100MS LIVE */
 });
 
-
-
-//GLOBAL
+/* START GLOBAL */
 Route::controller(GlobalController::class)->group(function () {
     Route::post('fetch_days',  'fetch_days');
 });
+/* END GLOBAL */
