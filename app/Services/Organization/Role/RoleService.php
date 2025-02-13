@@ -89,6 +89,12 @@ class RoleService
                         $permissionValue = $map['name'] . '-' . $module['name'];
                         $permission = Permission::firstOrCreate(['name' => $permissionValue]);
                         $permissions[] = $permission;
+                        MapPermission::updateOrCreate([
+                            'module_id' => $module['id'],
+                            'map_id' => $map,
+                        ], [
+                            'permission_id' => $permission->id
+                        ]);
                     }
                 }
                 $role->syncPermissions($permissions);
@@ -120,7 +126,14 @@ class RoleService
                 foreach ($dataRequest->modules as $module) {
                     foreach ($module['maps'] as $map) {
                         $permissionValue = $map['name'] . '-' . $module['name'];
-                        $permissions[] = Permission::firstOrCreate(['name' => $permissionValue]);
+                        $permission = Permission::firstOrCreate(['name' => $permissionValue]);
+                        $permissions[] = $permission;
+                        MapPermission::updateOrCreate([
+                            'module_id' => $module['id'],
+                            'map_id' => $map,
+                        ], [
+                            'permission_id' => $permission->id
+                        ]);
                     }
                 }
                 $role->syncPermissions($permissions);
