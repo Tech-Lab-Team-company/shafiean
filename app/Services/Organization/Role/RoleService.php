@@ -137,7 +137,7 @@ class RoleService
                         $permissions[] = $permission;
                         MapPermission::updateOrCreate([
                             'module_id' => $module['id'],
-                            'map_id' => $map,
+                            'map_id' =>$map['id'],
                             'permission_id' => $permission->id
                         ], [
                             'permission_id' => $permission->id
