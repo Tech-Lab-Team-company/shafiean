@@ -86,7 +86,7 @@ class RoleService
                 $permissions = [];
                 foreach ($dataRequest->modules as $module) {
                     foreach ($module['maps'] as $map) {
-                        $permissionValue = $map['name'] . '-' . $module['name'];
+                        $permissionValue = $module['name'] . '-' . $map['name'];
                         $permission = Permission::firstOrCreate(['name' => $permissionValue]);
                         $permissions[] = $permission;
                         /*   MapPermission::create([
@@ -98,7 +98,7 @@ class RoleService
                         MapPermission::updateOrCreate([
                             'module_id' => $module['id'],
                             'map_id' => $map['id'],
-                            'permission_id' => $permission->id
+                            // 'permission_id' => $permission->id
                         ], [
                             'permission_id' => $permission->id
                         ]);
@@ -132,13 +132,13 @@ class RoleService
             if ($dataRequest->modules) {
                 foreach ($dataRequest->modules as $module) {
                     foreach ($module['maps'] as $map) {
-                        $permissionValue = $map['name'] . '-' . $module['name'];
+                        $permissionValue =  $module['name'] . '-' . $map['name'];
                         $permission = Permission::firstOrCreate(['name' => $permissionValue]);
                         $permissions[] = $permission;
                         MapPermission::updateOrCreate([
                             'module_id' => $module['id'],
-                            'map_id' =>$map['id'],
-                            'permission_id' => $permission->id
+                            'map_id' => $map['id'],
+                            // 'permission_id' => $permission->id
                         ], [
                             'permission_id' => $permission->id
                         ]);
