@@ -133,4 +133,8 @@ return [
             'rule-name' => 'custom-message',
         ],
     ],
+    'attributes' => [
+        'role_id' => 'أدوار الصلاحيات',
+        'stage_id' => 'المرحلة',
+    ],
 ];
