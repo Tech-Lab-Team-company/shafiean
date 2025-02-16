@@ -41,7 +41,7 @@ class AddEmployeeRequest extends ApiRequest
             'date_of_birth' => 'nullable',
             'curriculum_ids' => 'nullable|array|exists:curriculums,id', // Moved here
             'job_type_id' => 'nullable|exists:job_types,id',
-            'role_id' => 'nullable|exists:roles,id',
+            'role_id' => 'required|exists:roles,id',
         ];
     }
 }
