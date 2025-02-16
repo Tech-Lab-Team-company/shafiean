@@ -136,5 +136,11 @@ return [
     'attributes' => [
         'role_id' => 'أدوار الصلاحيات',
         'stage_id' => 'المرحلة',
+        'teacher_id' => 'المعلم',
+        'surah_id' => 'السورة',
+        'start_ayah_id' => 'بداية الآية',
+        'end_ayah_id' => 'نهاية الآية',
+        'start_time' => 'وقت البداية',
+        'end_time' => 'وقت النهاية',
     ],
 ];
