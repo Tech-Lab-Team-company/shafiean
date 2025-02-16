@@ -5,14 +5,15 @@ namespace App\Http\Controllers\Organization\Employee;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Employee\AddEmployeeRequest;
 use App\Http\Requests\Employee\EditEmployeeRequest;
+use App\Http\Requests\Employee\FetchTeachersRequest;
 use App\Http\Requests\Employee\DeleteEmployeeRequest;
 use App\Http\Requests\Employee\FetchEmployeesRequest;
 use App\Services\Organization\Employee\EmployeeService;
 use App\Http\Requests\Employee\EditEmployeePasswordRequest;
 use App\Http\Requests\Employee\FetchEmployeeDetailsRequest;
-use App\Http\Requests\Employee\FetchTeachersRequest;
 
 class EmployeeController extends Controller
 {
@@ -26,7 +27,6 @@ class EmployeeController extends Controller
 
     public function fetch_employees(FetchEmployeesRequest $request)
     {
-
         return $this->employee_service->fetch_employees($request)->response();
     }
     public function add_employee(AddEmployeeRequest $request)

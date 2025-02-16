@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Teacher;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use App\Services\Teacher\Group\TeacherGroupService;
 use App\Http\Requests\Teacher\Group\TeacherGroupIdRequest;
 use App\Http\Requests\Teacher\Group\TeacherGroupExamIdRequest;

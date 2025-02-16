@@ -530,6 +530,15 @@ Route::middleware('auth:organization')->group(function () {
     });
 
     /* START TEACHER */
+    //TEACHER MAIN SESSION
+    Route::controller(TeacherSessionController::class)->group(function () {
+        Route::post('teacher_fetch_sessions', 'index'); // GET SESSION BELONGS TO COURSE AND GROUP
+        Route::post('teacher_add_session', 'store'); // ADD SESSION FROM ORGANIZATION
+        Route::post('teacher_fetch_session_details', 'show');
+        Route::post('teacher_edit_session', 'update');
+        Route::post('teacher_delete_session', 'destroy');
+        Route::post('teacher_change_session_active_status', 'changeActiveStatus');
+    });
     //TEACHER STATISTIC
     Route::controller(TeacherDashboardStatisticsController::class)->group(function () {
         Route::post('teacher_site_statistics_rate', 'siteStatisticsRate');

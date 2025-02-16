@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Services\Organization\MainSession;
+namespace App\Services\Teacher\Session;
 
-use App\Enum\CanEditSessionEnum;
+
 use Exception;
 use App\Models\Group;
 use App\Models\Course;
@@ -18,10 +18,9 @@ use App\Http\Resources\MainSessionResource;
 use App\Http\Resources\Organization\MainSession\FetchMainSessionIndexForGroupResource;
 use App\Http\Resources\Organization\MainSession\FetchMainSessionDetailsForGroupResource;
 
-class MainSessionService
+class TeacherMainSessionService
 {
-    public function
-    index($dataRequest, $auth): DataStatus
+    public function index($dataRequest, $auth): DataStatus
     {
         try {
             $query = GroupStageSession::where('group_id', $dataRequest->group_id);
@@ -31,7 +30,7 @@ class MainSessionService
                         ->orwhereHas('teacher', function ($q) use ($dataRequest) {
                             $q->where('name', 'like', '%' . $dataRequest->word . '%');
                         });
-                });
+                })->orWhere('title', 'like', '%' . $dataRequest->word . '%');
             });
             $data =  $mainSession
                 ->orderBy('order_by', 'asc')
@@ -69,13 +68,13 @@ class MainSessionService
             'end_verse' => (int) $session->end_verse,
         ]);
     }
-    public function create($dataRequest): DataStatus
+    public function create($dataRequest, $auth): DataStatus
     {
         try {
             $groupStage = $this->storeGroupStage($dataRequest->group_id,  $dataRequest->stage_id);
             $data['title'] = $dataRequest->is_new == SessionIsNewEnum::NEW->value ? $dataRequest->title : MainSession::find($dataRequest->session_id)?->title;
             $data['session_id'] = $dataRequest->is_new == SessionIsNewEnum::EXISTS->value ? $dataRequest->session_id : null;
-            $data['teacher_id'] = $dataRequest->teacher_id;
+            $data['teacher_id'] = $auth->id;
             $data['group_stage_id'] = $groupStage->id;
             $data['stage_id'] = $dataRequest->stage_id;
             $data['group_id'] = $dataRequest->group_id;
@@ -120,7 +119,7 @@ class MainSessionService
         }
     }
 
-    public function update($dataRequest): DataStatus
+    public function update($dataRequest, $auth): DataStatus
     {
         try {
             $session = GroupStageSession::find($dataRequest->id);
@@ -133,7 +132,7 @@ class MainSessionService
                     'end_ayah_id' => $dataRequest->end_ayah_id
                 ];
             }
-            $data['teacher_id'] = $dataRequest->teacher_id;
+            $data['teacher_id'] = $auth->id;
             $data['session_type_id'] = $dataRequest->session_type_id;
             $data['date'] = $dataRequest->date;
             $data['start_time'] = $dataRequest->start_time;
