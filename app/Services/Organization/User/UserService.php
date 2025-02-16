@@ -97,8 +97,10 @@ class UserService
     {
         try {
             $user = User::whereId($request->id)->first();
-            if ($user->image !== 'uploads/default.jpg') {
-                Storage::delete($user->image);
+            if ($user->image) {
+                if ($user->image !== 'uploads/default.jpg') {
+                    Storage::delete($user->image);
+                }
             }
             $user->delete();
 

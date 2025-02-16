@@ -40,7 +40,7 @@ class UserResource extends JsonResource
             // 'user_relation' => new UserRelationResource($user ?? "") ?? "",
             'blood_type' => new BloodTypeResource($this->bloodType ?? "") ?? "",
             'country' => new CountryResource($this->country ?? "") ?? "",
-            "groups" => UserGroupResource::collection($this->groups ?? []) ?? [],
+            // "groups" => UserGroupResource::collection($this->groups ?? []) ?? [],
         ];
     }
 }
