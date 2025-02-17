@@ -85,6 +85,7 @@ class TeacherMainSessionService
             $data['date'] = $dataRequest->date;
             $data['start_time'] = $dataRequest->start_time;
             $data['end_time'] = $dataRequest->end_time;
+            $data['is_offline'] = $dataRequest->is_offline;
             $data['with_edit'] = $dataRequest->is_new == SessionIsNewEnum::NEW->value ? 1 : 0;
             /* $mainSession = */
             GroupStageSession::create($data);
@@ -137,6 +138,7 @@ class TeacherMainSessionService
             $data['date'] = $dataRequest->date;
             $data['start_time'] = $dataRequest->start_time;
             $data['end_time'] = $dataRequest->end_time;
+            $data['is_offline'] = $dataRequest->is_offline;
             $session->update($data);
             return new DataSuccess(
                 data: new FetchMainSessionIndexForGroupResource($session),

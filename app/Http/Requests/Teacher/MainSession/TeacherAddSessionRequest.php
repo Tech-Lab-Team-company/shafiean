@@ -4,7 +4,9 @@ namespace App\Http\Requests\Teacher\MainSession;
 
 use App\Enum\SessionIsNewEnum;
 use App\Helpers\Response\ApiRequest;
+use App\Enum\TeacherSessionStatusEnum;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rules\Enum;
 
 class TeacherAddSessionRequest extends ApiRequest
 {
@@ -24,6 +26,7 @@ class TeacherAddSessionRequest extends ApiRequest
             'start_ayah_id' => 'required|exists:ayahs,id',
             'end_ayah_id' => 'required|exists:ayahs,id',
             'is_new' => 'required|boolean|in:' . enumCaseValue(SessionIsNewEnum::class),
+            'is_offline' => 'required|boolean|in:' . enumCaseValue(TeacherSessionStatusEnum::class),
             'group_id' => 'nullable|exists:groups,id',
             'duration' => 'nullable|numeric',
             'date' => 'nullable|date|date_format:Y-m-d',

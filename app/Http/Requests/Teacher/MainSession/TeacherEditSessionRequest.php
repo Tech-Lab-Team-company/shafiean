@@ -2,10 +2,11 @@
 
 namespace App\Http\Requests\Teacher\MainSession;
 
-use App\Enum\CanEditSessionEnum;
 use App\Enum\SessionIsNewEnum;
+use App\Enum\CanEditSessionEnum;
 use App\Models\GroupStageSession;
 use App\Helpers\Response\ApiRequest;
+use App\Enum\TeacherSessionStatusEnum;
 use Illuminate\Foundation\Http\FormRequest;
 
 class TeacherEditSessionRequest extends ApiRequest
@@ -36,6 +37,8 @@ class TeacherEditSessionRequest extends ApiRequest
             'start_time' => 'nullable|date_format:H:i',
             'end_time' => 'nullable|date_format:H:i|after:start_time',
             'is_new' => ['required', 'boolean', 'in:' . enumCaseValue(CanEditSessionEnum::class)],
+            'is_offline' => 'required|boolean|in:' . enumCaseValue(TeacherSessionStatusEnum::class),
+
         ];
 
         if ($session && $session->with_edit == CanEditSessionEnum::CAN->value) {
