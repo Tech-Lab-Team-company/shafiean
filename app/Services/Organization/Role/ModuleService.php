@@ -54,24 +54,25 @@ class ModuleService
     public function store($dataRequest)
     {
         try {
-            $permissionModule = Module::create([
+            $module = Module::create([
                 'name' => $dataRequest->name,
                 'description' => $dataRequest->description
             ]);
             if ($dataRequest->has('map_ids')) {
-                $permissionModule->maps()->sync($dataRequest->map_ids);
+                $module->maps()->sync($dataRequest->map_ids);
             }
             foreach ($dataRequest->map_ids as $mapId) {
                 $mapValue = Map::find($mapId)->name;
                 $permissions = Permission::firstOrCreate(['name' => $dataRequest->name . '-' . $mapValue]);
                 MapPermission::updateOrCreate([
-                    'module_id' => $permissionModule->id,
+                    'module_id' => $module->id,
                     'map_id' => $mapId,
                 ], [
                     'permission_id' => $permissions->id
                 ]);
             }
             return new DataSuccess(
+                data: new ModuleResource($module),
                 status: true,
                 message: __('messages.success_create'),
             );
@@ -101,6 +102,7 @@ class ModuleService
                 $permissions[] = Permission::firstOrCreate(['name' => $dataRequest->name . '-' . $permissionValue]);
             }
             return new DataSuccess(
+                data: new ModuleResource($module),
                 status: true,
                 message: __('messages.success_update'),
             );

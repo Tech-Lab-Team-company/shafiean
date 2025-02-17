@@ -89,16 +89,9 @@ class RoleService
                         $permissionValue = $module['name'] . '-' . $map['name'];
                         $permission = Permission::firstOrCreate(['name' => $permissionValue]);
                         $permissions[] = $permission;
-                        /*   MapPermission::create([
-                            'module_id' => $module['id'],
-                            'map_id' => $map['id'],
-                            'permission_id' => $permission->id
-                        ]); */
-
                         MapPermission::updateOrCreate([
                             'module_id' => $module['id'],
                             'map_id' => $map['id'],
-                            // 'permission_id' => $permission->id
                         ], [
                             'permission_id' => $permission->id
                         ]);
@@ -108,7 +101,7 @@ class RoleService
             }
             DB::commit();
             return new DataSuccess(
-                // data: FetchSeasonResource::collection($seasons),
+                data: new RoleResource($role),
                 status: true,
                 message: __('messages.success_create')
             );
@@ -128,7 +121,6 @@ class RoleService
             $data["name"] = str_replace(' ', '_', $dataRequest->name);
             DB::beginTransaction();
             $role->update($data);
-
             if ($dataRequest->modules) {
                 foreach ($dataRequest->modules as $module) {
                     foreach ($module['maps'] as $map) {
@@ -138,19 +130,17 @@ class RoleService
                         MapPermission::updateOrCreate([
                             'module_id' => $module['id'],
                             'map_id' => $map['id'],
-                            // 'permission_id' => $permission->id
                         ], [
                             'permission_id' => $permission->id
                         ]);
                     }
                 }
                 $role->syncPermissions($permissions);
-                // dd($role->permissions, $permissions);
             }
 
             DB::commit();
             return new DataSuccess(
-                data: $role->permissions,
+                data: new RoleResource($role),
                 status: true,
                 message: __('messages.success_update')
             );

@@ -35,8 +35,9 @@ class MapService
     public function store($dataRequest)
     {
         try {
-            Map::create(['name' => $dataRequest->name, 'description' => $dataRequest->description]);
+            $map = Map::create(['name' => $dataRequest->name, 'description' => $dataRequest->description]);
             return new DataSuccess(
+                data: new MapResource($map),
                 status: true,
                 message: __('messages.success_create')
             );
