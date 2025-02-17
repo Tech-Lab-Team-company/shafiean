@@ -23,6 +23,7 @@ return [
     'live_not_found' => 'اللايف غير موجود.',
     'error' => 'حدث خطأ ما.',
     'error_create' => 'حدث خطأ اثناء عملية الاضافة.',
+    'credentials_incorrect' => 'البريد الالكتروني او كلمة المرور غير صحيحة.',
     'forbidden_access' => 'ليس لديك صلاحية للوصول لهذه الصفحة.',
     /* REQUIRED MESSAGES */
     'required_id' => 'رقم الهوية مطلوب.',

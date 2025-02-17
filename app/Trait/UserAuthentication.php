@@ -15,7 +15,7 @@ trait UserAuthentication
     public  function validatePassword(string $password, Model $row)
     {
         if (!Hash::check($password, $row->password)) {
-            throw new \Exception(__('auth.credentials_incorrect'));
+            throw new \Exception(__('messages.credentials_incorrect'));
         }
     }
     public function getRow(string $email, string $model)
