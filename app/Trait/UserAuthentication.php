@@ -15,14 +15,14 @@ trait UserAuthentication
     public  function validatePassword(string $password, Model $row)
     {
         if (!Hash::check($password, $row->password)) {
-            throw new \Exception(__('messages.credentials_incorrect'));
+            throw new \Exception(__('messages.email_or_password_incorrect'));
         }
     }
     public function getRow(string $email, string $model)
     {
         $row = $model::where('email', $email)->first();
         if (!$row) {
-            throw new \Exception(__('auth.email_not_found'));
+            throw new \Exception(__('messages.email_not_found'));
         }
 
         return $row;
