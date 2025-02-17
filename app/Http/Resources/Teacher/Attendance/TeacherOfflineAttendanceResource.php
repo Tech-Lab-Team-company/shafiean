@@ -16,6 +16,7 @@ class TeacherOfflineAttendanceResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
+            'id' => $this->id ?? 0,
             'user_id' => $this->user->id ?? 0,
             'user_name' => $this->user->name ?? "",
             'user_image' => $this->user->image_link ?? "",

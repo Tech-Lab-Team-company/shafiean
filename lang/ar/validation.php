@@ -134,6 +134,7 @@ return [
         ],
     ],
     'attributes' => [
+        'id'=> 'المعرف',
         'role_id' => 'الصلاحية',
         'stage_id' => 'المرحلة',
         'teacher_id' => 'المعلم',

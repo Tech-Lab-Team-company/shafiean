@@ -7,21 +7,36 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Services\Global\AccountSettingsService;
 use App\Services\Teacher\Attendance\TeacherOfflineAttendanceService;
-use App\Http\Requests\Teacher\Attendance\TeacherOfflineAttendanceRequest;
+use App\Http\Requests\Teacher\Attendance\TeacherEditOfflineAttendanceRequest;
+use App\Http\Requests\Teacher\Attendance\TeacherStoreOfflineAttendanceRequest;
+use App\Http\Requests\Teacher\Attendance\TeacherDeleteOfflineAttendanceRequest;
+use App\Http\Requests\Teacher\Attendance\TeacherOfflineAttendanceDetailsRequest;
 
 class TeacherOfflineAttendanceController extends Controller
 {
-    protected $user;
+    protected $auth;
     public function __construct(protected TeacherOfflineAttendanceService $teacherOfflineAttendanceService)
     {
-        $this->user = Auth::guard('organization')->user();
+        $this->auth = Auth::guard('organization')->user();
     }
     public function index(Request $request)
     {
-        return $this->teacherOfflineAttendanceService->index()->response();
+        return $this->teacherOfflineAttendanceService->index($this->auth)->response();
     }
-    public function store(TeacherOfflineAttendanceRequest $request)
+    public function show(TeacherOfflineAttendanceDetailsRequest $request)
     {
-        return $this->teacherOfflineAttendanceService->store($request)->response();
+        return $this->teacherOfflineAttendanceService->show($request)->response();
+    }
+    public function store(TeacherStoreOfflineAttendanceRequest $request)
+    {
+        return $this->teacherOfflineAttendanceService->store($request, $this->auth)->response();
+    }
+    public function update(TeacherEditOfflineAttendanceRequest $request)
+    {
+        return $this->teacherOfflineAttendanceService->update($request, $this->auth)->response();
+    }
+    public function delete(TeacherDeleteOfflineAttendanceRequest $request)
+    {
+        return $this->teacherOfflineAttendanceService->delete($request)->response();
     }
 }
