@@ -6,8 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Services\Global\AccountSettingsService;
 use App\Services\Teacher\Attendance\TeacherOfflineAttendanceService;
-use App\Http\Requests\Teacher\AccountSettings\TeacherAccountSettingsRequest;
-use App\Http\Requests\Teacher\AccountSettings\TeacherAccountSettingsPasswordRequest;
+use App\Http\Requests\Teacher\Attendance\TeacherOfflineAttendanceRequest;
 
 class TeacherOfflineAttendanceController extends Controller
 {
@@ -16,8 +15,8 @@ class TeacherOfflineAttendanceController extends Controller
     {
         $this->user = Auth::guard('organization')->user();
     }
-    public function store()
+    public function store(TeacherOfflineAttendanceRequest $request)
     {
-        return $this->teacherOfflineAttendanceService->store()->response();
+        return $this->teacherOfflineAttendanceService->store($request)->response();
     }
 }

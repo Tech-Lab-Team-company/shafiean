@@ -46,6 +46,7 @@ use App\Http\Controllers\Organization\Landingpage\OpinionController;
 use App\Http\Controllers\Organization\Landingpage\PartnerController;
 use App\Http\Controllers\Organization\Landingpage\PrivacyController;
 use App\Http\Controllers\Organization\Landingpage\ServiceController;
+use App\Http\Controllers\Teacher\TeacherOfflineAttendanceController;
 use App\Http\Controllers\Organization\Country\FetchCountryController;
 use App\Http\Controllers\Organization\JobType\FetchJobTypeController;
 use App\Http\Controllers\Organization\Student\FetchStudentController;
@@ -528,6 +529,7 @@ Route::middleware('auth:organization')->group(function () {
         Route::post('edit_policy', 'update');
         Route::post('delete_policy', 'delete');
     });
+    /* END LANDING PAGE */
 
     /* START TEACHER */
     //TEACHER MAIN SESSION
@@ -575,8 +577,11 @@ Route::middleware('auth:organization')->group(function () {
         Route::post('teacher_update_account_settings', 'updateAccountSettings');
         Route::post('teacher_account_settings_change_password', 'changePassword');
     });
+    //TEACHER OFFLINE ATTENDANCE
+    Route::controller(TeacherOfflineAttendanceController::class)->group(function () {
+        Route::post('teacher_store_offline_attendance', 'store');
+    });
     /* END TEACHER */
-    /* END LANDING PAGE */
 
     /* START 100MS LIVE */
     Route::controller(Live100MSIntegrationController::class)->group(function () {
