@@ -24,7 +24,7 @@ class Live100MSIntegrationParam
         //    dd($this->session->group);
         return [
             'name' => Carbon::now() . ' - ' . $this->session->id,
-            'description' => $this->session->group->title,
+            'description' => $this->session?->group?->title,
             "recording_info" => [
                 "enabled" => filter_var($this->enable_recording, FILTER_VALIDATE_BOOLEAN)
             ]
