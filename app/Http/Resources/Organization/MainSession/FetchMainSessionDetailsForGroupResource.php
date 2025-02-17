@@ -28,6 +28,7 @@ class FetchMainSessionDetailsForGroupResource extends JsonResource
             'start_time' => $this->start_time ?? "",
             'end_time' => $this->end_time ?? "",
             'is_new' => $this->with_edit ?? 0,
+            'is_offline' => $this->is_offline ??0,
             'stage' => new StageTitleResource($this->stage ?? "") ?? "",
             'session' => new FetchMainSessionTitleResource($this->session ?? "") ?? "",
             'session_type' => new SessionTypeTitleResource($this->session_type ?? "") ?? "",

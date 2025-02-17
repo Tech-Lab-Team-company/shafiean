@@ -30,7 +30,7 @@ class FetchMainSessionIndexForGroupResource extends JsonResource
             'date' => $this->date ?? "",
             'start_time' => $this->start_time ?? "",
             'end_time' => $this->end_time ?? "",
-            'is_offline' => $this->is_offline ?? "",
+            'is_offline' =>$this->is_offline ??0,
         ];
     }
 }
