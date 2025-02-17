@@ -84,6 +84,12 @@ class AttendanceService
     {
         try {
             $user_session = UserSession::where('user_id', auth()->guard('user')->user()->id)->where('session_id', $request->session_id)->first();
+            if ($user_session == null) {
+                return new DataFailed(
+                    status: false,
+                    message: __('messages.live_not_found')
+                );
+            }
             $user_session->update([
                 'to' => now(),
                 'is_attendan' => UserSessionAttendanEnum::NOT_ATTENDAN->value
