@@ -13,7 +13,6 @@ class TeacherAccountSettingsController extends Controller
     protected $user;
     public function __construct(protected AccountSettingsService $accountSettingsService)
     {
-        $this->middleware('auth:organization');
         $this->user = Auth::guard('organization')->user();
     }
     public function fetchAccountSettings()
