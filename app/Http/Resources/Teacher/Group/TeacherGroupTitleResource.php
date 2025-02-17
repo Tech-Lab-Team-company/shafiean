@@ -20,6 +20,8 @@ class TeacherGroupTitleResource extends JsonResource
         return [
             'id' => $this->id ?? 0,
             'title' => $this->title ?? "",
+            'course_id' => $this->course_id ?? 0,
+
         ];
     }
 }
