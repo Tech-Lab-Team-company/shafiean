@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Teacher;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Services\Global\AccountSettingsService;
@@ -14,6 +15,10 @@ class TeacherOfflineAttendanceController extends Controller
     public function __construct(protected TeacherOfflineAttendanceService $teacherOfflineAttendanceService)
     {
         $this->user = Auth::guard('organization')->user();
+    }
+    public function index(Request $request)
+    {
+        return $this->teacherOfflineAttendanceService->index()->response();
     }
     public function store(TeacherOfflineAttendanceRequest $request)
     {

@@ -20,9 +20,10 @@ class GroupTitleResource extends JsonResource
         return [
             'id' => $this->id ?? 0,
             'title' => $this->title ?? "",
+            'course_id' => $this->course_id ?? 0,
             'user_count' => $this->users()->count() ?? 0,
             'exam_count' => $this->exams()->count() ?? 0,
-            'lesson_count'=>$this->groupStageSessions()->count() ?? 0
+            'lesson_count' => $this->groupStageSessions()->count() ?? 0
 
         ];
     }

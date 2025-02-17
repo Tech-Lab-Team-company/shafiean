@@ -579,7 +579,11 @@ Route::middleware('auth:organization')->group(function () {
     });
     //TEACHER OFFLINE ATTENDANCE
     Route::controller(TeacherOfflineAttendanceController::class)->group(function () {
+        Route::post('teacher_offline_attendances', 'index');
         Route::post('teacher_store_offline_attendance', 'store');
+        Route::post('teacher_offline_attendance_details', 'show');
+        Route::post('teacher_update_offline_attendance', 'update');
+        Route::post('teacher_delete_offline_attendance', 'delete');
     });
     /* END TEACHER */
 
