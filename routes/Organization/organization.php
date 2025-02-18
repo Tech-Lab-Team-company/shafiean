@@ -578,12 +578,13 @@ Route::middleware('auth:organization')->group(function () {
         Route::post('teacher_account_settings_change_password', 'changePassword');
     });
     //TEACHER OFFLINE ATTENDANCE
-    Route::controller(TeacherOfflineAttendanceController::class)->group(function () {   
+    Route::controller(TeacherOfflineAttendanceController::class)->group(function () {
         Route::post('teacher_offline_attendances', 'index');
         Route::post('teacher_store_offline_attendance', 'store');
         Route::post('teacher_offline_attendance_details', 'show');
         Route::post('teacher_update_offline_attendance', 'update');
         Route::post('teacher_delete_offline_attendance', 'delete');
+        Route::post('teacher_fetch_subscription_user_for_attendance', 'subscriptionUserForAttendance');
     });
     /* END TEACHER */
 

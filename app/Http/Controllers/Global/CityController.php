@@ -14,7 +14,7 @@ use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use App\Http\Requests\City\FetchCityDetailsRequest;
 
-class CityController extends Controller implements HasMiddleware
+class CityController extends Controller /* implements HasMiddleware */
 {
     protected $cityService;
 
@@ -23,14 +23,14 @@ class CityController extends Controller implements HasMiddleware
         $this->cityService = $cityService;
     }
 
-    public static function middleware(): array
-    {
-        return [
-            'auth',
-            new Middleware('permission:cities-create', only: ['create', 'store']),
-            // new Middleware('permission:cities-read', only: ['index', 'show']),
-        ];
-    }
+    // public static function middleware(): array
+    // {
+    //     return [
+    //         'auth',
+    //         new Middleware('permission:cities-create', only: ['create', 'store']),
+    //         // new Middleware('permission:cities-read', only: ['index', 'show']),
+    //     ];
+    // }
 
     public function index(FetchCitiesRequest $request)
     {
