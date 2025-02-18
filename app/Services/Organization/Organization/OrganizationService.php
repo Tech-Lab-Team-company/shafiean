@@ -3,15 +3,16 @@
 namespace App\Services\Organization\Organization;
 
 
+use Exception;
+use App\Models\Teacher;
+use App\Models\Organization;
 use App\Helpers\Response\DataFailed;
 use App\Helpers\Response\DataStatus;
-use App\Helpers\Response\DataSuccess;
-use App\Http\Resources\OrganizationResource;
-use App\Models\Organization;
-use App\Models\Teacher;
-use App\Services\Global\FilterService;
-use Exception;
 use Illuminate\Support\Facades\Hash;
+use App\Helpers\Response\DataSuccess;
+use App\Models\Organization\Role\Role;
+use App\Services\Global\FilterService;
+use App\Http\Resources\OrganizationResource;
 
 class OrganizationService
 {
@@ -99,6 +100,10 @@ class OrganizationService
             ];
             // dd($employeeData);
             $employee = Teacher::create($employeeData);
+            $role = Role::find(1);
+            if ($role) {
+                $employee->addRole($role);
+            }
             return new DataSuccess(
                 data: new OrganizationResource($organization),
                 status: true,
