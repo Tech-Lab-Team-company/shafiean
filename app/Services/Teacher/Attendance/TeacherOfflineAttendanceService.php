@@ -2,6 +2,7 @@
 
 namespace App\Services\Teacher\Attendance;
 
+use App\Models\Subscription;
 use Carbon\Carbon;
 use App\Models\UserSession;
 use App\Models\GroupStageSession;
@@ -9,6 +10,7 @@ use App\Helpers\Response\DataFailed;
 use App\Enum\UserSessionAttendanEnum;
 use App\Helpers\Response\DataSuccess;
 use App\Http\Resources\Teacher\Attendance\TeacherOfflineAttendanceResource;
+use Doctrine\Inflector\Rules\Substitution;
 
 class TeacherOfflineAttendanceService
 {
@@ -126,4 +128,26 @@ class TeacherOfflineAttendanceService
             );
         }
     }
+    // public function subscriptionUserForAttendance($dataRequest)
+    // {
+    //     try {
+    //         $userSession = Subscription::find($dataRequest->id);
+    //         if (!$userSession) {
+    //             return new DataFailed(
+    //                 status: false,
+    //                 message: __('messages.not_found')
+    //             );
+    //         }
+    //         $userSession->delete();
+    //         return new DataSuccess(
+    //             status: true,
+    //             message: __('messages.success_delete')
+    //         );
+    //     } catch (\Exception $exception) {
+    //         return new DataFailed(
+    //             status: false,
+    //             message: $exception->getMessage()
+    //         );
+    //     }
+    // }
 }
