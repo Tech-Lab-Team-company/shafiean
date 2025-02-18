@@ -31,9 +31,27 @@ class UpdateExamRequest extends ApiRequest
             'id' => 'required|exists:exams,id',
             'name' => 'required|string',
             'start_date' => 'required|date|date_format:Y-m-d|after_or_equal:today',
-            'end_date' => 'required|date|date_format:Y-m-d|after:start_date',
-            'start_time' => 'required|date_format:H:i',
-            'end_time' => 'required|date_format:H:i|after:date:start_time',
+            'end_date' => 'required|date|date_format:Y-m-d|after_or_equal:today',
+            'start_time' => [
+                'required',
+                'date_format:H:i',
+                function ($attribute, $value, $fail) {
+                    if (strtotime($value) < strtotime(now()->format('H:i'))) {
+                        $fail("يجب أن يكون وقت البدء بعد الوقت الحالي أو يساويه.");
+                    }
+                },
+            ],
+            'end_time' => [
+                'required',
+                'date_format:H:i',
+                function ($attribute, $value, $fail) {
+                    if (isset(request()->start_time) && strtotime($value) < strtotime(request()->start_time)) {
+                        $fail("وقت النهاية يجب ان يكون بعد وقت البدأ");
+                    }
+                },
+            ],
+            // 'start_time' => 'required|date_format:H:i',
+            // 'end_time' => 'required|date_format:H:i|after:date:start_time',
             'duration' => 'required|date_format:H:i',
             // 'question_count' => 'required|numeric',
             // 'exam_type' => 'required|numeric|in:' . enumCaseValue(ExamTypeEnum::class),
