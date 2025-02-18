@@ -30,8 +30,8 @@ class StoreExamRequest extends ApiRequest
         return [
             'name' => 'required|string',
             'start_date' => 'required|date|date_format:Y-m-d|after_or_equal:today',
-            'end_date' => 'required|date|date_format:Y-m-d|after:start_date',
-            'start_time' => 'required|date_format:H:i',
+            'end_date' => 'required|date|date_format:Y-m-d|after_or_equal:today',
+            'start_time' => 'required|date_format:H:i|after_or_equal:now',
             'end_time' => 'required|date_format:H:i|after:start_time',
             'duration' => 'required|date_format:H:i',
             // 'question_count' => 'required|numeric',
