@@ -2,18 +2,16 @@
 
 namespace App\Services\Organization\Auth;
 
-
+use Exception;
+use App\Models\Teacher;
 use App\Helpers\Response\DataFailed;
 use App\Helpers\Response\DataStatus;
-use App\Helpers\Response\DataSuccess;
-use App\Http\Resources\OrganizationEmployeeResource;
-use App\Models\Organization;
-use App\Models\Teacher;
 use App\Services\Global\CodeService;
+use Illuminate\Support\Facades\Hash;
+use App\Helpers\Response\DataSuccess;
 use App\Services\Global\EmailService;
 use App\Services\Global\PasswordService;
-use Exception;
-use Illuminate\Support\Facades\Hash;
+use App\Http\Resources\OrganizationEmployeeResource;
 
 class AuthService
 {
@@ -35,13 +33,11 @@ class AuthService
                     message: __('messages.wrong_password')
                 );
             }
-            // If the credentials are correct, create a token
             $token = $employee->createToken($request->email)->plainTextToken;
             $response = [
-                'employee' => new OrganizationEmployeeResource($employee),
                 'token' => $token,
+                'employee' => new OrganizationEmployeeResource($employee),
             ];
-            // dd($response);
             return new DataSuccess(
                 status: true,
                 data: $response,
