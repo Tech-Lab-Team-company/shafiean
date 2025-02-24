@@ -27,7 +27,7 @@ class AddGroupRequest extends ApiRequest
             'course_id' => 'required|exists:courses,id',
             // 'teacher_id' => 'required|exists:teachers,id',
             'start_date' => 'required|date|date_format:Y-m-d|after_or_equal:today',
-            // 'end_date' => 'required|date|date_format:Y-m-d|after:start_date',
+            'end_date' => 'required|date|date_format:Y-m-d|after_or_equal:today',
             // 'with_all_disability' => 'required|integer',
             // 'with_all_course_content' => 'required|integer',
             // 'disabilities' => 'required_if:with_all_disability,0|array',

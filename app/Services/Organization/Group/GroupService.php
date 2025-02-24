@@ -69,7 +69,7 @@ class GroupService
                 'course_id' => $request->course_id,
                 // 'teacher_id' => $request->teacher_id,
                 'start_date' => $request->start_date,
-                // 'end_date' => $request->end_date,
+                'end_date' => $request->end_date,
                 // 'with_all_disability' => $request->with_all_disability,
                 // 'with_all_course_content' => $request->with_all_course_content,
             ]);
@@ -135,7 +135,7 @@ class GroupService
                 'course_id' => $request->course_id,
                 // 'teacher_id' => $request->teacher_id,
                 'start_date' => $request->start_date,
-                // 'end_date' => $request->end_date,
+                'end_date' => $request->end_date,
                 // 'with_all_disability' => $request->with_all_disability,
                 // 'with_all_course_content' => $request->with_all_course_content,
             ]);

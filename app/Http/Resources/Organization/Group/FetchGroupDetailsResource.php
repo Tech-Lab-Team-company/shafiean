@@ -23,7 +23,7 @@ class FetchGroupDetailsResource extends JsonResource
             'id' => $this->id ?? 0,
             'title' => $this->title ?? "",
             'start_date' => $this->start_date ?? "",
-            // 'end_date' => $this->end_date ?? "",
+            'end_date' => $this->end_date ?? "",
             // 'start_time' => $this->start_time ?? "",
             // 'end_time' => $this->end_time ?? "",
             // 'status' => $this->status ?? "",
