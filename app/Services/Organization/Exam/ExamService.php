@@ -13,6 +13,7 @@ use App\Services\Global\FilterService;
 use App\Models\Organization\Exam\ExamQuestion;
 use App\Models\Organization\Question\Question;
 use App\Http\Resources\Organization\Exam\ExamResource;
+use Carbon\Carbon;
 
 class ExamService
 {
@@ -190,13 +191,29 @@ class ExamService
     }
     private function examData($dataRequest)
     {
+        $exam_duration_seconds = Carbon::parse($dataRequest->end_date . ' ' . $dataRequest->end_time)->diffInSeconds(Carbon::parse($dataRequest->start_date . ' ' . $dataRequest->start_time));
+        $duration = Carbon::now()->subSeconds($exam_duration_seconds);
+
+        // create a placeholder
+        $placeholder = [
+
+            'h' => $duration->format('H'),
+
+            'm' => $duration->format('i'),
+
+            's' => $duration->format('s')
+
+        ];
+        $exam_duration = __(':hh :mm :ss', $placeholder);
+        // $exam_duration = $duration->format('H:i:s');
+        // dd($exam_duration);
         return  [
             'name' => $dataRequest->name,
             'start_date' => $dataRequest->start_date,
             'end_date' => $dataRequest->end_date,
             'start_time' => $dataRequest->start_time,
             'end_time' => $dataRequest->end_time,
-            'duration' => $dataRequest->duration,
+            'duration' => $dataRequest->duration ?? $exam_duration,
             // 'question_count' => $dataRequest->question_count,
             // 'exam_type' => $dataRequest->exam_type,
             // 'degree_type' => $dataRequest->degree_type,

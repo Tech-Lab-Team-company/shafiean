@@ -35,11 +35,11 @@ class StoreExamRequest extends ApiRequest
             'start_time' => [
                 'required',
                 'date_format:H:i',
-                function ($attribute, $value, $fail) {
+                /* function ($attribute, $value, $fail) {
                     if (strtotime($value) < strtotime(now()->format('H:i'))) {
                         $fail("يجب أن يكون وقت البدء بعد الوقت الحالي أو يساويه.");
                     }
-                },
+                }, */
             ],
             'end_time' => [
                 'required',
@@ -51,7 +51,7 @@ class StoreExamRequest extends ApiRequest
                 },
             ],
             // 'end_time' => 'required|date_format:H:i|after:start_time',
-            'duration' => 'required|date_format:H:i',
+            'duration' => 'nullable|date_format:H:i',
             // 'question_count' => 'required|numeric',
             // 'exam_type' => 'required|numeric|in:' . enumCaseValue(ExamTypeEnum::class),
             // 'degree_type' => 'required|numeric|in:' . enumCaseValue(DegreeTypeEnum::class),
