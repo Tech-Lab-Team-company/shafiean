@@ -4,6 +4,7 @@ namespace App\Http\Requests\Year;
 
 use App\Helpers\Response\ApiRequest;
 use Illuminate\Foundation\Http\FormRequest;
+// use Illuminate\Validation\Rules\Date;
 
 class AddYearRequest extends ApiRequest
 {
@@ -26,6 +27,14 @@ class AddYearRequest extends ApiRequest
             'title' => 'required|string|max:191',
             'country_id' => 'required|exists:countries,id',
             'organization_id' => 'nullable|exists:organizations,id',
+            'start_date' => [
+                'nullable',
+                'date',
+                'date_format:d/m/Y',
+            ],
+            'end_date' => ['nullable|date|after:start_date', 'date_format:d/m/Y'],
+            'hijri_start_date' => 'nullable|string',
+            'hijri_end_date' => 'nullable|string',
         ];
     }
 }

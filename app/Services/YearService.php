@@ -8,6 +8,7 @@ use App\Helpers\Response\DataSuccess;
 use App\Http\Resources\YearResource;
 use App\Models\Year;
 use App\Services\Global\FilterService;
+use Carbon\Carbon;
 use Exception;
 
 class YearService
@@ -36,9 +37,16 @@ class YearService
 
     public function store($request): DataStatus
     {
+        // composer require pharaonic/laravel-hijri
         try {
+            $start_date = $request->start_date ? Carbon::parse($request->start_date)->format('Y-m-d') : null;
+            $end_date = $request->end_date ? Carbon::parse($request->end_date)->format('Y-m-d') : null;
             $data['title'] = $request->title;
             $data['country_id'] = $request->country_id;
+            $data['start_date'] = $start_date;
+            $data['end_date'] = $end_date;
+            $data['hijri_start_date'] = $request->hijri_start_date ?? ($start_date ? Carbon::parse($request->start_date)->toHijri()->isoFormat('LLLL') : null);
+            $data['hijri_end_date'] = $request->hijri_end_date ?? ($end_date ? Carbon::parse($request->end_date)->toHijri()->isoFormat('LLLL') : null);
             $year = Year::create($data);
             return new DataSuccess(
                 status: true,
@@ -46,7 +54,6 @@ class YearService
                 message: __('messages.success_create')
             );
         } catch (Exception $e) {
-
             return new DataFailed(
                 status: false,
                 message: $e->getMessage()
@@ -74,6 +81,12 @@ class YearService
     public function update($request): DataStatus
     {
         try {
+            $start_date = $request->start_date ? Carbon::parse($request->start_date)->format('Y-m-d') : null;
+            $end_date = $request->end_date ? Carbon::parse($request->end_date)->format('Y-m-d') : null;
+            $data['start_date'] = $start_date;
+            $data['end_date'] = $end_date;
+            $data['hijri_start_date'] = $request->hijri_start_date ?? ($start_date ? Carbon::parse($request->start_date)->toHijri()->isoFormat('LLLL') : null);
+            $data['hijri_end_date'] = $request->hijri_end_date ?? ($end_date ? Carbon::parse($request->end_date)->toHijri()->isoFormat('LLLL') : null);
             $year = Year::find($request->id);
             $data['title'] = $request->title ?? $year->title;
             $data['country_id'] = $request->country_id ?? $year->country_id;

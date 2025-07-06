@@ -27,6 +27,14 @@ class EditYearRequest extends ApiRequest
             'title' => 'nullable|string|max:191',
             'country_id' => 'nullable|exists:countries,id',
             'organization_id' => 'nullable|exists:organizations,id',
+            'start_date' => [
+                'nullable',
+                'date',
+                'date_format:d/m/Y',
+            ],
+            'end_date' => ['nullable|date|after:start_date', 'date_format:d/m/Y'],
+            'hijri_start_date' => 'nullable|string',
+            'hijri_end_date' => 'nullable|string',
         ];
     }
 }
