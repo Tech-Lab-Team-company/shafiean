@@ -30,13 +30,13 @@ class AddCourseRequest extends ApiRequest
             // 'disability_ids' => 'required|array|exists:disability_types,id',
             'stage_ids' => 'required_if:all_curriculum,0|array|exists:stages,id',
             'all_curriculum' => 'nullable|integer|in:0,1',
-                        'start_date' => [
-                'nullable',
+            'start_date' => [
+                'required',
                 'date',
                 'date_format:d/m/Y',
                 'before_or_equal:end_date',
             ],
-            'end_date' => ['nullable', 'date', 'after:start_date', 'date_format:d/m/Y'],
+            'end_date' => ['required', 'date', 'after:start_date', 'date_format:d/m/Y'],
         ];
     }
 }

@@ -25,6 +25,8 @@ return [
     'error_create' => 'حدث خطأ اثناء عملية الاضافة.',
     'forbidden_access' => 'ليس لديك صلاحية للوصول لهذه الصفحة.',
     /* REQUIRED MESSAGES */
+    "start_date_required" => "تاريخ البدء مطلوب.",
+    "end_date_required" => "تاريخ الانتهاء مطلوب.",
     'required_id' => 'رقم الهوية مطلوب.',
     'required_name' => 'الاسم مطلوب.',
     'required_email' => 'البريد الالكتروني مطلوب.',
