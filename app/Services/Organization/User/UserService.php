@@ -134,7 +134,7 @@ class UserService
             );
         }
     }
-    private function userData($dataRequest, $user = null)
+    private function userData($dataRequest, $user = null): array
     {
         $organizationId = get_organization_id(auth()->guard('organization')->user());
         if (isset($dataRequest['image'])) {
@@ -157,6 +157,6 @@ class UserService
         $data['identity_type'] = $dataRequest['identity_type'];
         $data['identity_number'] = $dataRequest['identity_number'];
         $data['api_key'] = $dataRequest['api_key'];
-        return $data;
+        return array_filter($data);
     }
 }

@@ -39,4 +39,11 @@ class AddUserRequest extends ApiRequest
             'parent_id' =>  ['requiredif:type,0', 'exists:users,id'],
         ];
     }
+
+    public function validated($key = null, $default = null)
+    {
+        $data = parent::validated();
+        $data['name'] = strtolower($data['name']);
+        return $data;
+    }                                
 }

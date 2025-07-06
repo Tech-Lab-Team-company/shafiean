@@ -25,7 +25,8 @@ class UserLoginRequest extends ApiRequest
     public function rules(): array
     {
         return [
-            'email' => 'required|email|exists:users,email',
+            'credentials' => 'nullable|string',
+            'email' => 'nullable|email|exists:users,email',
             'password' => 'required',
         ];
     }

@@ -16,7 +16,15 @@ class UserLoginService
     public function login($dataRequest)
     {
         try {
-            $user = $this->getRow($dataRequest['email'], self::MODEL);
+            // $user = $this->getRow($dataRequest['email'], self::MODEL);
+            $email = null;
+            if(filter_var($dataRequest['email'], FILTER_VALIDATE_EMAIL)){
+                $email = $dataRequest['email'];
+            }else{
+                $email = $this->getRow($dataRequest['email'], self::MODEL)->email;
+            }
+            $user = $this->getRow($email, self::MODEL);
+
             // $this->checkVerified($user);
             $this->validatePassword($dataRequest['password'], $user);
             $token = $this->generateSanctumToken($user);
