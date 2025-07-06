@@ -6,7 +6,7 @@ namespace App\Http\Controllers\Organization\User;
 use Laravel\Sanctum\HasApiTokens;
 use App\Http\Controllers\Controller;
 use Illuminate\Notifications\Notifiable;
-use App\Http\Requests\User\StoreUserRequest;
+use App\Http\Requests\User\AddUserRequest;
 use App\Http\Requests\User\DeleteUserRequest;
 use App\Http\Requests\User\UpdateUserRequest;
 use App\Services\Organization\User\UserService;
@@ -28,7 +28,7 @@ class UserController extends Controller
         return $this->userService->index($request)->response();
     }
 
-    public function store(StoreUserRequest $request)
+    public function store(AddUserRequest $request)
     {
         return $this->userService->store($request)->response();
     }

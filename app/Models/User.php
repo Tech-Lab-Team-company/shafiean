@@ -173,4 +173,13 @@ class User extends Authenticatable
             static::addGlobalScope(new PerOrganizationWebsiteScope);
         }
     }
+
+    public function generateUsername()
+    {
+        $username = $this->name . '_' . $this->id;
+        if (self::where('username', $username)->exists()) {
+            $this->generateUsername();
+        }
+        return $username;
+    }
 }

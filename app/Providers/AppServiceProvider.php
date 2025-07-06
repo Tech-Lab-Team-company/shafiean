@@ -3,8 +3,10 @@
 namespace App\Providers;
 
 use App\Models\Organization\Relation\Relation;
+use App\Models\User;
 use Illuminate\Support\ServiceProvider;
 use App\Observers\OrganizationIdObserver;
+use App\Observers\UserObserver;
 use App\Services\Global\Live100MSIntegrationService;
 
 class AppServiceProvider extends ServiceProvider
@@ -23,5 +25,7 @@ class AppServiceProvider extends ServiceProvider
     /**
      * Bootstrap any application services.
      */
-    public function boot(): void {}
+    public function boot(): void {
+        User::observe(UserObserver::class);
+    }
 }
