@@ -31,10 +31,11 @@ class EditYearRequest extends ApiRequest
                 'nullable',
                 'date',
                 'date_format:d/m/Y',
+                'before_or_equal:end_date',
             ],
-            'end_date' => ['nullable|date|after:start_date', 'date_format:d/m/Y'],
-            'hijri_start_date' => 'nullable|string',
-            'hijri_end_date' => 'nullable|string',
+            'end_date' => ['nullable', 'date', 'after:start_date', 'date_format:d/m/Y'],
+            // 'hijri_start_date' => 'nullable|string',
+            // 'hijri_end_date' => 'nullable|string',
         ];
     }
 }

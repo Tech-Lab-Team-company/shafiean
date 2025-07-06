@@ -45,6 +45,10 @@ class SubscriptionService
     public function store($request): DataStatus
     {
         try {
+            /**
+             * TODO
+             * if course end date is less than today then show error message that course is expired ya 7omsa 
+             */
             foreach ($request['user_ids'] as $userId) {
                 $data['user_id'] = $userId;
                 $data['group_id'] = $request['group_id'];

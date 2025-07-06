@@ -32,7 +32,7 @@ class AddYearRequest extends ApiRequest
                 'date',
                 'date_format:d/m/Y',
             ],
-            'end_date' => ['nullable|date|after:start_date', 'date_format:d/m/Y'],
+            'end_date' => ['nullable', 'date', 'after:start_date', 'date_format:d/m/Y'],
             'hijri_start_date' => 'nullable|string',
             'hijri_end_date' => 'nullable|string',
         ];

@@ -14,6 +14,7 @@ use App\Http\Resources\CourseResource;
 use App\Models\CourseStage;
 use App\Models\MainSession;
 use App\Services\Global\FilterService;
+use Carbon\Carbon;
 
 class CourseService
 {
@@ -80,6 +81,8 @@ class CourseService
                 $image = upload_image($request->file('image'), 'courses');
                 $data['image'] = $image;
             }
+            $data['start_date'] = $request->start_date ? Carbon::parse($request->start_date)->format('Y-m-d') : null;
+            $data['end_date'] = $request->end_date ? Carbon::parse($request->end_date)->format('Y-m-d') : null;
             $data['name'] = $request->name;
             $data['year_id'] = $request->year_id;
             $data['season_id'] = $request->season_id;
@@ -122,11 +125,13 @@ class CourseService
                 $image = upload_image($request->file('image'), 'courses');
                 $data['image'] = $image;
             }
+            $data['start_date'] = $request->start_date ? Carbon::parse($request->start_date)->format('Y-m-d') : null;
+            $data['end_date'] = $request->end_date ? Carbon::parse($request->end_date)->format('Y-m-d') : null;
             $data['season_id'] = $request->season_id;
             $data['name'] = $request->name ?? $course->name;
             $data['year_id'] = $request->year_id ?? $course->year_id;
             $data['curriculum_id'] = $request->curriculum_id ?? $course->curriculum_id;
-            $course->update($data);
+            $course->update(array_filter($data));
             if (isset($request->disability_ids)) {
                 $course->disability_types()->sync($request->disability_ids);
             }

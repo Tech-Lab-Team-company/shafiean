@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('years', function (Blueprint $table) {
+        Schema::table('courses', function (Blueprint $table) {
             $table->date('start_date')->nullable();
             $table->date('end_date')->nullable();
         });
@@ -22,7 +22,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('years', function (Blueprint $table) {
+        Schema::table('courses', function (Blueprint $table) {
             $table->dropColumn('start_date');
             $table->dropColumn('end_date');
         });

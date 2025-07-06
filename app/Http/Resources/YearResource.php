@@ -19,10 +19,10 @@ class YearResource extends JsonResource
             'title' => $this->title,
             'status' => $this->status,
             'country' => new CountryResource($this->country),
-            'start_date' => $this->start_date,
-            'hijri_start_date' => $this->hijri_start_date,
-            'end_date' => $this->end_date,
-            'hijri_end_date' => $this->hijri_end_date
+            'start_date' => $this->start_date ?? '',
+            'hijri_start_date' => $this->hijri_start_date ?? '',
+            'end_date' => $this->end_date ?? '',
+            'hijri_end_date' => $this->hijri_end_date ?? ''
         ];
     }
 }
