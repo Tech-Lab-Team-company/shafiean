@@ -14,11 +14,13 @@ class GroupResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        $course_start_date = $this->course->start_date ? $this->course->start_date->format('Y-m-d') : null;
+        $course_end_date = $this->course->end_date ? $this->course->end_date->format('Y-m-d') : null;
         return [
             'id' => $this->id,
             'title' => $this->title,
-            'start_date' => $this->start_date,
-            'end_date' => $this->end_date,
+            'start_date' => $this->start_date ?? $course_start_date,
+            'end_date' => $this->end_date ?? $course_end_date,
             'start_time' => $this->start_time,
             'end_time' => $this->end_time,
             'status' => $this->status,

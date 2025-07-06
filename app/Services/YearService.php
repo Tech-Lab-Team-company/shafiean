@@ -45,8 +45,8 @@ class YearService
             $data['country_id'] = $request->country_id;
             $data['start_date'] = $start_date;
             $data['end_date'] = $end_date;
-            $data['hijri_start_date'] = $request->hijri_start_date ?? ($start_date ? Carbon::parse($request->start_date)->toHijri()->isoFormat('LLLL') : null);
-            $data['hijri_end_date'] = $request->hijri_end_date ?? ($end_date ? Carbon::parse($request->end_date)->toHijri()->isoFormat('LLLL') : null);
+            // $data['hijri_start_date'] = $request->hijri_start_date ?? ($start_date ? Carbon::parse($request->start_date)->toHijri()->isoFormat('LLLL') : null);
+            // $data['hijri_end_date'] = $request->hijri_end_date ?? ($end_date ? Carbon::parse($request->end_date)->toHijri()->isoFormat('LLLL') : null);
             $year = Year::create($data);
             return new DataSuccess(
                 status: true,
@@ -85,8 +85,8 @@ class YearService
             $end_date = $request->end_date ? Carbon::parse($request->end_date)->format('Y-m-d') : null;
             $data['start_date'] = $start_date;
             $data['end_date'] = $end_date;
-            $data['hijri_start_date'] = $request->hijri_start_date ?? ($start_date ? Carbon::parse($request->start_date)->toHijri()->isoFormat('LLLL') : null);
-            $data['hijri_end_date'] = $request->hijri_end_date ?? ($end_date ? Carbon::parse($request->end_date)->toHijri()->isoFormat('LLLL') : null);
+            // $data['hijri_start_date'] = $request->hijri_start_date ?? ($start_date ? Carbon::parse($request->start_date)->toHijri()->isoFormat('LLLL') : null);
+            // $data['hijri_end_date'] = $request->hijri_end_date ?? ($end_date ? Carbon::parse($request->end_date)->toHijri()->isoFormat('LLLL') : null);
             $year = Year::find($request->id);
             $data['title'] = $request->title ?? $year->title;
             $data['country_id'] = $request->country_id ?? $year->country_id;

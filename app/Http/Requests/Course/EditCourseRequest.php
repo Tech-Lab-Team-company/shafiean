@@ -28,6 +28,13 @@ class EditCourseRequest extends ApiRequest
             'year_id' => 'nullable|exists:years,id',
             'curriculum_id' => 'nullable|exists:curriculums,id',
             // 'disability_ids' => 'nullable|array|exists:disability_types,id',
+            'start_date' => [
+                'nullable',
+                'date',
+                'date_format:d/m/Y',
+                'before_or_equal:end_date',
+            ],
+            'end_date' => ['nullable', 'date', 'after:start_date', 'date_format:d/m/Y'],
         ];
     }
 }
