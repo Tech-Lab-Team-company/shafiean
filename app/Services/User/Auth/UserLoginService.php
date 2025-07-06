@@ -7,6 +7,7 @@ use App\Trait\UserAuthentication;
 use App\Helpers\Response\DataFailed;
 use App\Helpers\Response\DataSuccess;
 use App\Http\Resources\User\Auth\UserLoginResource;
+use App\Models\User;
 
 class UserLoginService
 {
@@ -26,10 +27,11 @@ class UserLoginService
             }elseif(array_key_exists('email', $dataRequest)){
                 $email = $dataRequest['email'];
                 $user = $this->getRow($email, self::MODEL);
+            }elseif(User::where("phone",$dataRequest['credential'] )->exists()){
+                $user = User::where("phone",$dataRequest['credential'] )->first();
+            }elseif (User::where("username",$dataRequest['credential'] )->exists()) {
+                $user = User::where("username",$dataRequest['credential'] )->first();
             }
-
-            
-            dd($user);
 
             // $this->checkVerified($user);
             $this->validatePassword($dataRequest['password'], $user);
