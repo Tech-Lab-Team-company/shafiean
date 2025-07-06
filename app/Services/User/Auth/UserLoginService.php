@@ -16,14 +16,20 @@ class UserLoginService
     public function login($dataRequest)
     {
         try {
+            $dataRequest = $dataRequest->all();
             // $user = $this->getRow($dataRequest['email'], self::MODEL);
             $email = null;
-            if(filter_var($dataRequest['email'], FILTER_VALIDATE_EMAIL)){
+            $user = null;
+            if(array_key_exists('credential', $dataRequest) && filter_var($dataRequest['credential'], FILTER_VALIDATE_EMAIL)){
+                $email = $dataRequest['credential'];
+                $user = $this->getRow($email, self::MODEL);
+            }elseif(array_key_exists('email', $dataRequest)){
                 $email = $dataRequest['email'];
-            }else{
-                $email = $this->getRow($dataRequest['email'], self::MODEL)->email;
+                $user = $this->getRow($email, self::MODEL);
             }
-            $user = $this->getRow($email, self::MODEL);
+
+            
+            dd($user);
 
             // $this->checkVerified($user);
             $this->validatePassword($dataRequest['password'], $user);
