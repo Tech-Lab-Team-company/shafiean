@@ -63,9 +63,13 @@ class EmployeeService
             $data['date_of_birth'] = array_key_exists('date_of_birth', $request->all()) ? Carbon::parse($request->date_of_birth)->format('Y-m-d') : null;
             $data['organization_id'] = get_organization_id(auth()->guard('organization')->user());
             $data['job_type_id'] = array_key_exists('job_type_id', $request->all()) ? $request->job_type_id : null;
+            $data['nationality_id'] = $request->nationality_id ?? null;
+            $data['city_id'] = $request->city_id;
             $employee = Teacher::create($data);
-            $role = Role::find($request->role_id);
-            $employee->addRole($role);
+            if(isset($request->role_id)){
+                $role = Role::find($request->role_id);
+                $employee->addRole($role);
+            }
 
             if ($request->certificate_images) (new EmployeeImageService())->storeCertificateImage(null, $employee, $request);
 

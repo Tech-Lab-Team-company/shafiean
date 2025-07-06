@@ -48,6 +48,7 @@ class SubscriptionService
             /**
              * TODO
              * if course end date is less than today then show error message that course is expired ya 7omsa 
+             * add disability_type_id to user based on course of the group
              */
             foreach ($request['user_ids'] as $userId) {
                 $data['user_id'] = $userId;

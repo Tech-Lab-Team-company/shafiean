@@ -153,6 +153,7 @@ class UserService
         $data['gender'] = $dataRequest['gender'];
         $data['type'] = $dataRequest['type'];
         $data['country_id'] = $dataRequest['country_id'];
+        $data['city_id'] = $dataRequest['city_id'];
         $data['blood_type_id'] = $dataRequest['blood_type_id'];
         $data['identity_type'] = $dataRequest['identity_type'];
         $data['identity_number'] = $dataRequest['identity_number'];
