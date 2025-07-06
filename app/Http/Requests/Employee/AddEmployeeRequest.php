@@ -42,7 +42,8 @@ class AddEmployeeRequest extends ApiRequest
             'curriculum_ids' => 'nullable|array|exists:curriculums,id', // Moved here
             'job_type_id' => 'nullable|exists:job_types,id',
             'role_id' => 'nullable|exists:roles,id',
-            "nationality_id" => "nullable|exists:countries,id"
+            "nationality_id" => "nullable|exists:countries,id",
+            'city_id' => 'nullable|exists:cities,id',
         ];
     }
 }
