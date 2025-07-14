@@ -31,10 +31,10 @@ class EditCourseRequest extends ApiRequest
             'start_date' => [
                 'nullable',
                 'date',
-                'date_format:d/m/Y',
+                'date_format:Y-m-d',
                 'before_or_equal:end_date',
             ],
-            'end_date' => ['nullable', 'date', 'after:start_date', 'date_format:d/m/Y'],
+            'end_date' => ['nullable', 'date', 'after:start_date', 'date_format:Y-m-d'],
         ];
     }
 }
