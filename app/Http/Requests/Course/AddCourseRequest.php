@@ -33,10 +33,10 @@ class AddCourseRequest extends ApiRequest
             'start_date' => [
                 'required',
                 'date',
-                'date_format:d/m/Y',
+                'date_format:Y-m-d',
                 'before_or_equal:end_date',
             ],
-            'end_date' => ['required', 'date', 'after:start_date', 'date_format:d/m/Y'],
+            'end_date' => ['required', 'date', 'after:start_date', 'date_format:Y-m-d'],
         ];
     }
 }
