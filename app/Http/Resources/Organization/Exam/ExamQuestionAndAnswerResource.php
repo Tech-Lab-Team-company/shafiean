@@ -22,6 +22,8 @@ class ExamQuestionAndAnswerResource extends JsonResource
             'id' => $this->id ?? 0,
             'question' => $this->question ?? "",
             'type' => $this->type ?? "",
+            'file' => $this->file_link ?? "",
+            'file_type' => $this->file_type ?? "",
             'degree' => (int) $this->degree ?? "",
             'is_private' => (int)$this->is_private ?? "",
             'hasAnswer' => $hasAnswer ?? false,

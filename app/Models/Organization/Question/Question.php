@@ -21,6 +21,10 @@ class Question extends Model
     use HasFactory, SoftDeletes;
     protected $guarded = [];
     protected $table = "questions";
+
+    public function getFileLinkAttribute(){
+        return $this->file ? asset('storage/' . $this->file) : '';
+    }
     public function curriculum(): BelongsTo
     {
         return $this->belongsTo(Curriculum::class, 'curriculum_id');

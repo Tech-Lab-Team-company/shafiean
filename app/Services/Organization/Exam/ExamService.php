@@ -2,8 +2,7 @@
 
 namespace App\Services\Organization\Exam;
 
-
-
+use App\Enum\QuestionTypeEnum;
 use Exception;
 use App\Helpers\Response\DataFailed;
 use App\Helpers\Response\DataStatus;
@@ -66,21 +65,33 @@ class ExamService
             }
             if (isset($dataRequest['questions']) && count($dataRequest['questions']) > 0) {
                 foreach ($dataRequest['questions'] as $questionRequest) {
-                    $question = Question::create([
+                    $question = new Question();
+                    $question ->question = $questionRequest['question'];
+                    $question->type = $questionRequest['type'];
+                    $question->file = $questionRequest['type'] == QuestionTypeEnum::AUDIO->value ? uploadFile(file:$questionRequest['file'], folder:'questions') : null;
+                    $question->file_type = $questionRequest['type'] == QuestionTypeEnum::AUDIO->value ? $questionRequest['file']->getClientOriginalExtension() : null;
+                    $question->degree = $questionRequest['degree'];
+                    $question->is_private = 1;
+                    $question->save();
+                    /* $question = Question::create([
                         'question' => $questionRequest['question'],
                         'type' => $questionRequest['type'],
+                        'file' => $questionRequest['type']  == QuestionTypeEnum::AUDIO ? uploadFile(file:$questionRequest['file'], folder:'questions') : null,
                         'degree' => $questionRequest['degree'],
                         'is_private' => 1
-                    ]);
+                    ]); */
                     $exam->questions()->attach($question->id);
                     $exam->update(['degree' => $exam->degree + $questionRequest['degree']]);
-                    $answers = array_map(function ($answer) {
-                        return [
-                            'answer' => $answer['answer'],
-                            'is_correct' => $answer['is_correct'],
-                        ];
-                    }, $questionRequest['answers']);
-                    $question->answers()->createMany($answers);
+                    if(array_key_exists('answers', $questionRequest) && count($questionRequest['answers']) > 0)
+                    {
+                        $answers = array_map(function ($answer) {
+                            return [
+                                'answer' => $answer['answer'],
+                                'is_correct' => $answer['is_correct'],
+                            ];
+                        }, $questionRequest['answers']);
+                        $question->answers()->createMany($answers);
+                    }
                 }
             }
             return new DataSuccess(

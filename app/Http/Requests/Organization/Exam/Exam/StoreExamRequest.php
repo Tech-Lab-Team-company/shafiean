@@ -60,11 +60,13 @@ class StoreExamRequest extends ApiRequest
             'group_ids.*' => ['required', Rule::exists('groups', 'id')->whereNull('deleted_at')],
             'bank_question_ids' => 'nullable|array',
             'bank_question_ids.*' => ['nullable', Rule::exists('questions', 'id')->whereNull('deleted_at')],
+            // questions rules
             "questions" => "nullable|array",
             "questions.*.question" => "required|string",
             "questions.*.type" => "required|in:" . enumCaseValue(QuestionTypeEnum::class),
+            "questions.*.file" => "nullable|file|required_if:questions.*.type," . QuestionTypeEnum::AUDIO->value . "|max:2048",
             "questions.*.degree" => "required|numeric",
-            "questions.*.answers" => "required|array",
+            "questions.*.answers" => "nullable|array",
             "questions.*.answers.*.answer" => "required|string",
             "questions.*.answers.*.is_correct" => "required|boolean",
 

@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests\Organization\Exam\GroupExam;
 
-use App\Enum\QuestionTypeEnum;
 use Illuminate\Validation\Rule;
 use App\Helpers\Response\ApiRequest;
 
