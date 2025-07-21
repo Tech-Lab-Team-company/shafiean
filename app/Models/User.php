@@ -178,7 +178,8 @@ class User extends Authenticatable
     {
         $username = $this->name . '_' . $this->id;
         if (self::where('username', $username)->exists()) {
-            $this->generateUsername();
+            // $this->generateUsername();
+            $username = $this->name . '_' . $this->id . '_' . time();
         }
         return $username;
     }

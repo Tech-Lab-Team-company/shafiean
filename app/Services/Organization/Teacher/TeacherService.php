@@ -12,6 +12,7 @@ use App\Helpers\Response\DataSuccess;
 use App\Http\Resources\TeacherResource;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Resources\TeacherNameResource;
+use Illuminate\Support\Facades\DB;
 
 class TeacherService
 {
@@ -58,6 +59,7 @@ class TeacherService
     public function createTeacher(array $data): DataStatus
     {
         try {
+            DB  ::beginTransaction();
             if (isset($data['image'])) {
                 $imagePath = upload_image('teachers', $data['image']);
                 $data['image'] = $imagePath;
@@ -65,12 +67,14 @@ class TeacherService
                 $data['image'] = 'uploads/default.jpg';
             }
             $teacher = Teacher::create($data);
+            DB::commit();
             return new DataSuccess(
                 data: new TeacherResource($teacher),
                 statusCode: 200,
                 message: __('messages.success_create')
             );
         } catch (Exception $e) {
+            DB::rollback();
             return new DataFailed(
                 statusCode: 500,
                 message: 'Teacher creation failed: ' . $e->getMessage()

@@ -28,7 +28,7 @@ class AddEmployeeRequest extends ApiRequest
             'name' => 'required|string|max:191',
             'email' => 'required|email|max:191|unique:teachers,email',
             'phone' => 'required|string|max:191|unique:teachers,phone',
-            'password' => 'required|string|max:191',
+            'password' => 'nullable|string|max:191',
             'gender' => 'nullable|string|in:' . enumCaseValue(GenderEnum::class),
             'age' => 'nullable|integer|min:14|max:100',
             'is_employed' => 'nullable|max:191',
@@ -45,5 +45,12 @@ class AddEmployeeRequest extends ApiRequest
             "nationality_id" => "nullable|exists:countries,id",
             'city_id' => 'nullable|exists:cities,id',
         ];
+    }
+
+    public function validated($key = null, $default = null)
+    {
+        $data = parent::validated();
+        $data['name'] = strtolower($data['name']);
+        return $data;
     }
 }

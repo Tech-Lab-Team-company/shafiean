@@ -12,6 +12,7 @@ class TeacherNameResource extends JsonResource
         return [
             'id' => $this->id ?? 0,
             'name' => $this->name ?? "",
+            'username' => $this->username ?? "",
         ];
     }
 }

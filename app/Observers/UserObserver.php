@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use App\Models\User;
+use voku\helper\ASCII;
 
 class UserObserver
 {
@@ -12,10 +13,18 @@ class UserObserver
     public function created(User $user): void
     {
         //generate unique username
-        // $user->username = $user->generateUsername();
-        $username = $user->name . '_' . $user->id;
+        // Transliterate Arabic to Latin and remove unwanted characters
+        $originalName = $user->name;
+
+        // Transliterate to ASCII
+        $transliterated = ASCII::to_ascii($originalName);
+
+        // Slugify
+        $baseName = preg_replace('/[^A-Za-z0-9_ ]/', '', $transliterated); // Keep only allowed chars
+        $username = str_replace(' ', '_', strtolower($baseName) . '_' . $user->id);
+
         if (User::where('username', $username)->exists()) {
-            $username = $user->name . '_' . $user->id . '_' . time();
+            $username = str_replace(' ', '_', strtolower($baseName) . '_' . $user->id . '_' . time());
         }
         if(!isset($user->password))
         {

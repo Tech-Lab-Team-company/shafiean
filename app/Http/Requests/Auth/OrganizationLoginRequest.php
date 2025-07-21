@@ -23,7 +23,8 @@ class OrganizationLoginRequest extends ApiRequest
     public function rules(): array
     {
         return [
-            'email' => 'required|string|email|exists:teachers,email',
+            'credentials' => 'nullable|string|required_without:email',
+            'email' => 'nullable|string|email|exists:teachers,email',
             'password' => 'required|string|min:6',
         ];
     }

@@ -12,13 +12,30 @@ use App\Helpers\Response\DataSuccess;
 use App\Services\Global\EmailService;
 use App\Services\Global\PasswordService;
 use App\Http\Resources\OrganizationEmployeeResource;
+use App\Trait\UserAuthentication;
 
 class AuthService
 {
+        use UserAuthentication;
+    const MODEL = "App\\Models\\Teacher";
+
     public function login($request): DataStatus
     {
         try {
-            $employee = Teacher::where('email', $request->email)->first();
+            $dataRequest = $request->all();
+            if (array_key_exists('credential', $dataRequest) && filter_var($dataRequest['credential'], FILTER_VALIDATE_EMAIL)) {
+                $email = $dataRequest['credential'];
+                $employee = Teacher::where('email', $email)->first();
+            } elseif (array_key_exists('email', $dataRequest)) {
+                $email = $dataRequest['email'];
+                $employee = Teacher::where('email', $email)->first();
+            } elseif (Teacher::where("phone", $dataRequest['credential'])->exists()) {
+                $employee = Teacher::where("phone", $dataRequest['credential'])->first();
+            } elseif (Teacher::where("username", $dataRequest['credential'])->exists()) {
+                $employee = Teacher::where("username", $dataRequest['credential'])->first();
+            }
+
+            // $employee = Teacher::where('email', $request->email)->first();
 
             if (!$employee) {
                 return new DataFailed(
@@ -27,13 +44,15 @@ class AuthService
                 );
             }
 
-            if (!Hash::check($request->password, $employee->password)) {
+            /* if (!Hash::check($request->password, $employee->password)) {
                 return new DataFailed(
                     status: false,
                     message: __('messages.wrong_password')
                 );
             }
-            $token = $employee->createToken($request->email)->plainTextToken;
+            $token = $employee->createToken($request->email)->plainTextToken; */
+            $this->validatePassword($dataRequest['password'], $employee);
+            $token = $this->generateSanctumToken($employee);
             $response = [
                 'token' => $token,
                 'employee' => new OrganizationEmployeeResource($employee),
