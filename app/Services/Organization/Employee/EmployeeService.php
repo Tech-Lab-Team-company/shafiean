@@ -65,6 +65,7 @@ class EmployeeService
             $data['job_type_id'] = array_key_exists('job_type_id', $request->all()) ? $request->job_type_id : null;
             $data['nationality_id'] = $request->nationality_id ?? null;
             $data['city_id'] = $request->city_id;
+            /** @var Teacher $employee */
             $employee = Teacher::create($data);
             if(isset($request->role_id)){
                 $role = Role::find($request->role_id);
@@ -76,6 +77,10 @@ class EmployeeService
             if (isset($request->curriculum_ids)) {
                 $employee->curriculums()->attach($request->curriculum_ids);
             }
+
+            /* if (isset($request->groups_ids)) {
+                $employee->teacherGroups()->attach($request->groups_ids);
+            } */
             return new DataSuccess(
                 data: new OrganizationEmployeeResource($employee),
                 status: true,

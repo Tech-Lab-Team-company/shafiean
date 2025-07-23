@@ -3,7 +3,6 @@
 namespace App\Http\Params;
 
 use Carbon\Carbon;
-use App\Models\GroupStageSession;
 
 class Live100MSIntegrationParam
 {
