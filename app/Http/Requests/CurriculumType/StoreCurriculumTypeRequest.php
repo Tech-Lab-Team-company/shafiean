@@ -26,6 +26,7 @@ class StoreCurriculumTypeRequest extends ApiRequest
         return [
             "name"=> "nullable|string|max:255",
             "description"=> "nullable|string|max:1000",
+            "slug"=> "nullable|string|max:255",
         ];
     }
 }
