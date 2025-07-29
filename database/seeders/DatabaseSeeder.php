@@ -28,6 +28,8 @@ class DatabaseSeeder extends Seeder
             // DaySeeder::class,
             // BloodTypeTableSeeder::class,
             // LaratrustSeeder::class,
+            // CurriculumTypeSeeder::class,
+            // UpdateCurriculumsWithCurriculumTypeSeeder::class,
         ]);
     }
 }
