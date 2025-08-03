@@ -1,11 +1,8 @@
 <?php
 
-namespace App\Services\Organization\MainSession;
+namespace App\Services\Organization\Report;
 
-use App\Enum\CanEditSessionEnum;
 use Exception;
-use App\Models\Group;
-use App\Models\Course;
 use App\Models\GroupStage;
 use App\Models\MainSession;
 use App\Enum\SessionIsNewEnum;
@@ -13,34 +10,33 @@ use App\Models\GroupStageSession;
 use App\Helpers\Response\DataFailed;
 use App\Helpers\Response\DataStatus;
 use App\Helpers\Response\DataSuccess;
+use App\Http\Resources\Organization\Report\ReportDetailsResource;
 use App\Services\Global\FilterService;
-use App\Http\Resources\MainSessionResource;
-use App\Http\Resources\Organization\MainSession\FetchMainSessionIndexForGroupResource;
-use App\Http\Resources\Organization\MainSession\FetchMainSessionDetailsForGroupResource;
+use App\Http\Resources\Organization\Report\ReportResource;
+use App\Models\Ayah;
+use App\Models\Report\Report;
+use App\Models\Surah\Surah;
+use App\ReportTypeEnum;
 
-class MainSessionService
+class ReportService
 {
-    public function
-    index($dataRequest, $auth): DataStatus
+    public function index($dataRequest, $auth): DataStatus
     {
         try {
-            $query = GroupStageSession::where('group_id', $dataRequest->group_id);
-            $mainSession = $query->when($dataRequest->has('word') && !empty($dataRequest->word), function ($q) use ($dataRequest) {
-                return $q->whereHas('session', function ($q) use ($dataRequest) {
-                    $q->where('title', 'like', '%' . $dataRequest->word . '%')
-                        ->orwhereHas('teacher', function ($q) use ($dataRequest) {
-                            $q->where('name', 'like', '%' . $dataRequest->word . '%');
-                        });
+            $reports = Report::when($dataRequest->has('word') && !empty($dataRequest->word), function ($q) use ($dataRequest) {
+                return $q->whereHas('user', function ($subq) use ($dataRequest) {
+                    $subq->where('name', 'like', '%' . $dataRequest->word . '%');
+                })->orWhereHas('teacher', function ($subq2) use ($dataRequest) {
+                    $subq2->where('name', 'like', '%' . $dataRequest->word . '%');
                 });
             });
-            $data =  $mainSession
+            $data =  $reports
                 ->orderBy('order_by', 'asc')
                 ->orderBy('updated_at', 'desc')
                 ->paginate(10);
             return new DataSuccess(
-                data: FetchMainSessionIndexForGroupResource::collection($data)->response()->getData(true),
-                status: true,
-                message: 'Main sessions retrieved successfully'
+                data: ReportResource::collection($data)->response()->getData(true),
+                message: 'All Reports retrieved successfully'
             );
         } catch (Exception $e) {
             return new DataFailed(
@@ -56,42 +52,26 @@ class MainSessionService
             'stage_id' => $stageId,
         ]);
     }
-    private function storeGroupStageSessions($session, $groupId, $stageId, $sessionTypeId)
-    {
-        $groupStage = $this->storeGroupStage($groupId, $stageId);
-        GroupStageSession::create([
-            'group_stage_id' => $groupStage->id,
-            'session_id' => $session->id,
-            'group_id' => $groupId,
-            'stage_id' => $stageId,
-            'session_type_id' => $sessionTypeId,
-            'start_verse' => (int) $session->start_verse,
-            'end_verse' => (int) $session->end_verse,
-        ]);
-    }
     public function create($dataRequest): DataStatus
     {
         try {
-            $groupStage = $this->storeGroupStage($dataRequest->group_id,  $dataRequest->stage_id);
-            $data['title'] = $dataRequest->is_new == SessionIsNewEnum::NEW->value ? $dataRequest->title : MainSession::find($dataRequest->session_id)?->title;
-            $data['session_id'] = $dataRequest->is_new == SessionIsNewEnum::EXISTS->value ? $dataRequest->session_id : null;
+            // $groupStage = $this->storeGroupStage($dataRequest->group_id,  $dataRequest->stage_id);
+            // $data['group_stage_id'] = $groupStage->id;
+            $data['user_id'] = $dataRequest->user_id;
+            $data['degree'] = $dataRequest->degree;
+            $data['is_absent'] = $dataRequest->is_absent ?? false;
             $data['teacher_id'] = $dataRequest->teacher_id;
-            $data['group_stage_id'] = $groupStage->id;
-            $data['stage_id'] = $dataRequest->stage_id;
+            $data['session_id'] = $dataRequest->session_id;
             $data['group_id'] = $dataRequest->group_id;
-            $data['session_type_id'] = $dataRequest->session_type_id; //not used cause we store it in group_stage_sessions table as the same session may be different type based on
-            $data['surah_id'] = $dataRequest->surah_id;
-            $data['start_ayah_id'] = $dataRequest->start_ayah_id;
-            $data['end_ayah_id'] = $dataRequest->end_ayah_id;
+            $data['stage_id'] = $dataRequest->stage_id;
+            $data['session_type_id'] = $dataRequest->session_type_id;
+            $data['type'] = $dataRequest->type;
             $data['date'] = $dataRequest->date;
-            $data['start_time'] = $dataRequest->start_time;
-            $data['end_time'] = $dataRequest->end_time;
-            $data['with_edit'] = $dataRequest->is_new == SessionIsNewEnum::NEW->value ? 1 : 0;
-            /* $mainSession = */
-            GroupStageSession::create($data);
-            // $this->storeGroupStageSessions($mainSession, $dataRequest->group_id, $dataRequest->stage_id, $dataRequest->session_type_id);
+            $data['notes'] = $dataRequest->notes;
+            $createData = array_merge($data,$this->handleCreateReportable($dataRequest, $data));
+            $report = Report::create($createData);
             return new DataSuccess(
-                /* data: new MainSessionResource($mainSession), */
+                data: new ReportResource($report),
                 status: true,
                 message: __('messages.success_create')
             );
@@ -102,15 +82,31 @@ class MainSessionService
             );
         }
     }
+    private function handleCreateReportable($dataRequest, $data=[]):array
+    {
+        if($dataRequest->type == ReportTypeEnum::QURAAN->value){
+            $data['from_reportable_type'] = Surah::class;
+            $data['from_reportable_id'] = $dataRequest->from_surah_id ?? null;
 
+            $data['from_sub_reportable_type'] = Ayah::class;
+            $data['from_sub_reportable_id'] = $dataRequest->from_ayah_id ?? null;
+
+            $data['to_reportable_type'] = Surah::class;
+            $data['to_reportable_id'] = $dataRequest->to_surah_id ?? null;
+
+            $data['to_sub_reportable_type'] = Ayah::class;
+            $data['to_sub_reportable_id'] = $dataRequest->to_ayah_id ?? null;
+        }
+        return $data;
+    }
     public function getDetails($request): DataStatus
     {
         try {
-            $session = GroupStageSession::find($request->id);
+            $report = Report::find($request->report_id);
             return new DataSuccess(
-                data: new FetchMainSessionDetailsForGroupResource($session),
+                data: new ReportDetailsResource($report),
                 status: true,
-                message: 'session retrieved successfully'
+                message: 'report retrieved successfully'
             );
         } catch (Exception $e) {
             return new DataFailed(
@@ -140,7 +136,7 @@ class MainSessionService
             $data['end_time'] = $dataRequest->end_time;
             $session->update($data);
             return new DataSuccess(
-                data: new FetchMainSessionIndexForGroupResource($session),
+                data: new ReportResource($session),
                 status: true,
                 message: __('messages.success_update')
             );
@@ -156,15 +152,13 @@ class MainSessionService
     public function delete($request): DataStatus
     {
         try {
-            $groupStageSession = GroupStageSession::find($request->id);
-            $groupStageSession->delete();
+            $report = Report::find($request->report_id);
+            $report->delete();
             return new DataSuccess(
-                status: true,
                 message: __('messages.success_delete')
             );
         } catch (Exception $e) {
             return new DataFailed(
-                status: false,
                 message: $e->getMessage()
             );
         }
@@ -182,7 +176,7 @@ class MainSessionService
             $mainSession->save();
             return new DataSuccess(
                 status: true,
-                data: new MainSessionResource($mainSession),
+                data: new ReportResource($mainSession),
                 message: __('messages.success_change_status')
             );
         } catch (Exception $e) {
