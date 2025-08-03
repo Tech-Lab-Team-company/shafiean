@@ -35,4 +35,8 @@ return [
         ],
     ],
 
+    'quran' => [
+        'api_url' => env('QURAN_API_URL','https://alquran.cloud/api'),
+        // 'api_key' => env('QURAN_API_KEY'),
+    ],
 ];

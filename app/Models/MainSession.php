@@ -40,10 +40,10 @@ class MainSession extends Model
         return $this->belongsTo(Organization::class, 'organization_id');
     }
 
-    public function quraan()
-    {
-        return $this->belongsTo(Quraan::class, 'quraan_id');
-    }
+    // public function quraan()
+    // {
+    //     return $this->belongsTo(Quraan::class, 'quraan_id');
+    // }
 
     public function course_stages()
     {

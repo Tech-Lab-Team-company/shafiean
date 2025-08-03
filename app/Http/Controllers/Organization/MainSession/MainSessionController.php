@@ -26,6 +26,12 @@ class MainSessionController extends Controller
         return $this->mainSessionService->index($request,  $auth)->response();
     }
 
+    /**
+     * Store a newly created session in the storage.
+     *
+     * @param AddSessionRequest $request
+     * @return \Illuminate\Http\Response
+     */
     public function store(AddSessionRequest $request)
     {
         return $this->mainSessionService->create($request)->response();
