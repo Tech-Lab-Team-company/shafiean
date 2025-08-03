@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\CurriculumTypeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AyatController;
 use App\Http\Controllers\Admin\YearController;
@@ -76,6 +77,14 @@ Route::middleware('auth:admin')->group(function () {
     Route::post('edit_curriculum', [CurriculumController::class, 'update']);
     Route::post('delete_curriculm', [CurriculumController::class, 'destroy']);
     Route::post('change_cirruclum_active_status', [CurriculumController::class, 'changeActiveStatus']);
+
+
+    // Curriculum Types Routes
+    Route::post('fetch_curriculum_types', [CurriculumTypeController::class, 'index']);
+    Route::post('fetch_curriculum_type_details', [CurriculumTypeController::class, 'show']);
+    Route::post('add_curriculum_type', [CurriculumTypeController::class, 'store']);
+    Route::post('edit_curriculum_type', [CurriculumTypeController::class, 'update']);
+    Route::post('delete_curriculum_type', [CurriculumTypeController::class, 'destroy']);
 
     // Stages Routes
     Route::post('fetch_stages', [StageController::class, 'index']);

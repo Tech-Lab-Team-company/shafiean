@@ -19,6 +19,11 @@ class Curriculum extends Model
     public function stages():HasMany{
         return $this->hasMany(Stage::class,'curriculum_id','id');
     }
+
+    public function curriculumType()
+    {
+        return $this->belongsTo(CurriculumType::class, 'curriculum_type_id', 'id');
+    }
     protected static function booted(): void
     {
         static::addGlobalScope(new PerOrganizationScope);

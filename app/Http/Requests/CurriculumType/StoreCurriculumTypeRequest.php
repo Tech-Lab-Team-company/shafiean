@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Requests\Curriculum;
+namespace App\Http\Requests\CurriculumType;
 
-use App\Enum\CurriculumTypeEnum;
-use App\Helpers\Response\ApiRequest;
 use Illuminate\Foundation\Http\FormRequest;
+use App\Helpers\Response\ApiRequest;
 
-class EditCurriculumRequest extends ApiRequest
+
+class StoreCurriculumTypeRequest extends ApiRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,11 +24,9 @@ class EditCurriculumRequest extends ApiRequest
     public function rules(): array
     {
         return [
-            'id' => 'required|exists:curriculums,id',
-            'title' => 'nullable|string|max:191',
-            'type' => 'required|numeric|in:' . enumCaseValue(CurriculumTypeEnum::class),
-            "curriculum_type_id" => "nullable|exists:curriculum_types,id",
-
+            "name"=> "nullable|string|max:255",
+            "description"=> "nullable|string|max:1000",
+            "slug"=> "nullable|string|max:255",
         ];
     }
 }

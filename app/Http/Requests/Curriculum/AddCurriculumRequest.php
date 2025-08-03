@@ -24,6 +24,7 @@ class AddCurriculumRequest extends ApiRequest
     public function rules(): array
     {
         return [
+            "curriculum_type_id"=> "nullable|exists:curriculum_types,id",
             'title' => 'required|string|max:191',
             'type' => 'required|numeric|in:' . enumCaseValue(CurriculumTypeEnum::class),
         ];
