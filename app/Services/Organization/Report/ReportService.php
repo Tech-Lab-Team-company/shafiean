@@ -35,7 +35,7 @@ class ReportService
                 ->orderBy('updated_at', 'desc')
                 ->paginate(10);
             return new DataSuccess(
-                data: ReportResource::collection($data)->response()->getData(true),
+                data: ReportDetailsResource::collection($data)->response()->getData(true),
                 message: 'All Reports retrieved successfully'
             );
         } catch (Exception $e) {

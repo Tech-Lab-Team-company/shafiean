@@ -66,4 +66,24 @@ class Report extends Model
             }
         );
     }
+
+    public function fromReportable()
+    {
+        return $this->morphTo();
+    }
+
+    public function toReportable()
+    {
+        return $this->morphTo();
+    }
+
+    public function fromSubReportable()
+    {
+        return $this->morphTo();
+    }
+
+    public function toSubReportable()
+    {
+        return $this->morphTo();
+    }
 }

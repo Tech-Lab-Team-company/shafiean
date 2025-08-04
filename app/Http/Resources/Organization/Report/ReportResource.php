@@ -23,7 +23,8 @@ class ReportResource extends JsonResource
             "report_type_title" => ReportTypeEnum::from($this->type)->label(),
             "date" => $this->date ?? '',
             "hijri_date" => $this->hijri_date ?? '',
-            "notes" => $this->notes ?? ''
+            "notes" => $this->notes ?? '',
+            
         ];
     }
 }
