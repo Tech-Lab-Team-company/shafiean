@@ -5,18 +5,19 @@ namespace App\Http\Controllers\Organization\Report;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Organization\Report\AddReportRequest;
-use App\Http\Requests\Organization\Report\DeleteReportRequest;
-use App\Http\Requests\Organization\Report\EditReportRequest;
-use App\Http\Requests\Organization\Report\FetchReportDetailsRequest;
-use App\Http\Requests\Organization\Report\FetchReportRequest;
+use App\Http\Requests\Organization\AttendenceReport\AddMutipleReportsRequest;
+use App\Http\Requests\Organization\AttendenceReport\AddSingleReportRequest;
+use App\Http\Requests\Organization\AttendenceReport\DeleteReportRequest;
+use App\Http\Requests\Organization\AttendenceReport\EditReportRequest;
+use App\Http\Requests\Organization\AttendenceReport\FetchReportDetailsRequest;
+use App\Http\Requests\Organization\AttendenceReport\FetchReportRequest;
 use Illuminate\Support\Facades\Auth;
-use App\Services\Organization\Report\ReportService;
+use App\Services\Organization\Report\AttendenceReportService;
 
-class ReportController extends Controller
+class AttendenceReportController extends Controller
 {
 
-    public function __construct(protected ReportService $reportService) {}
+    public function __construct(protected AttendenceReportService $reportService) {}
 
     public function index(FetchReportRequest $request)
     {
@@ -27,12 +28,17 @@ class ReportController extends Controller
     /**
      * Store a newly created session in the storage.
      *
-     * @param AddReportRequest $request
+     * @param AddSingleReportRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(AddReportRequest $request)
+    public function store(AddSingleReportRequest $request)
     {
         return $this->reportService->create($request)->response();
+    }
+    
+    public function storeMultiple(AddMutipleReportsRequest $request)
+    {
+        return $this->reportService->createMutiple($request)->response();
     }
 
     public function show(FetchReportDetailsRequest $request)

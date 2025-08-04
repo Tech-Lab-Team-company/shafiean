@@ -36,6 +36,7 @@ class Report extends Model
         'session_id',
         'teacher_id',
         "date",
+        "order_by",
     ];
 
     public function user(): BelongsTo

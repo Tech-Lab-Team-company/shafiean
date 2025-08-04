@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Resources\Organization\Report;
+namespace App\Http\Resources\Organization\AttendenceReport;
 
 use App\Enum\ReportTypeEnum;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ReportResource extends JsonResource
+class AttendenceReportResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,15 +15,13 @@ class ReportResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        // return parent::toArray($request);
+        return parent::toArray($request);
         return [
             "id" => $this->id,
-            "degree" => $this->degree ?? 0,
-            "reportable_type" => $this->type,
-            "reportable_type_title" => ReportTypeEnum::from($this->type)->label(),
             "date" => $this->date ?? '',
             "hijri_date" => $this->hijri_date ?? '',
             "notes" => $this->notes ?? '',
+            "is_absent" => $this->is_absent ?? false,          
             "teacher_id" => $this->teacher_id
         ];
     }

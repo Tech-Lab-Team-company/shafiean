@@ -83,6 +83,7 @@ use App\Http\Controllers\Organization\MainSession\FetchMainSessionStageControlle
 use App\Http\Controllers\Organization\MainSession\SortGroupStageSessionController;
 use App\Http\Controllers\Organization\Competition\AssignCompetitionRewardController;
 use App\Http\Controllers\Organization\MainSession\FetchMainSessionSurahAndAyahController;
+use App\Http\Controllers\Organization\Report\AttendenceReportController;
 use App\Http\Controllers\Organization\Report\ReportController;
 
 //AUTH
@@ -601,6 +602,18 @@ Route::middleware('auth:organization')->group(function () {
         Route::post('fetch_reports',  'index');
         Route::post('fetch_report_details',  'show');
         Route::post('add_report',  'store');
+        // Route::post('edit_report',  'update');
+        Route::post('delete_report',  'destroy');
+    });
+
+    /* START Reports */
+    Route::controller(AttendenceReportController::class)->prefix('attendence')->group(function () {
+        Route::post('fetch_reports',  'index');
+        Route::post('fetch_report_details',  'show');
+        Route::post('add_single_report',  'store');
+        Route::post('add_multiple_reports',  'storeMultiple');
+        // Route::post('edit_report',  'update');
+        Route::post('delete_report',  'destroy');
     });
 }); // end of auth:organization
 

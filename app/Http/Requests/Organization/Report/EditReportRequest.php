@@ -25,29 +25,7 @@ class EditReportRequest extends ApiRequest
      */
     public function rules(): array
     {
-        $session = GroupStageSession::find(request()->id);
-        $data = [
-            "id" => "required|exists:group_stage_sessions,id",
-            "title" => ['required_if:is_new' . ',' .  CanEditSessionEnum::CAN->value],
-            "teacher_id" => "required|exists:teachers,id",
-            "session_type_id" => "nullable|exists:session_types,id",
-            'duration' => 'nullable|numeric',
-            'date' => 'nullable|date|date_format:Y-m-d',
-            'start_time' => 'nullable|date_format:H:i',
-            'end_time' => 'nullable|date_format:H:i|after:start_time',
-            'is_new' => ['required', 'boolean', 'in:' . enumCaseValue(CanEditSessionEnum::class)],
-        ];
-
-        if ($session && $session->with_edit == CanEditSessionEnum::CAN->value) {
-            $data = array_merge($data, [
-                // 'session_id' => ['required', 'exists:main_sessions,id'],
-                "stage_id" => "required|exists:stages,id",
-                "surah_id" => "required|exists:surahs,id",
-                'start_ayah_id' => 'required|exists:ayahs,id',
-                'end_ayah_id' => 'required|exists:ayahs,id',
-            ]);
-        }
-        return $data;
+        return [];  
     }
 
     public function messages(): array
