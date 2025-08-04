@@ -12,9 +12,9 @@ return new class extends Migration {
     {
         Schema::create('curriculum_types', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name')->nullable();
             $table->text('description')->nullable();
-            $table->string('slug');
+            $table->string('slug')->nullable();
             $table->timestamps();
         });
     }

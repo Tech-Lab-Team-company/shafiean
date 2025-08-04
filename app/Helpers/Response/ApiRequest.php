@@ -44,7 +44,8 @@ abstract class ApiRequest extends FormRequest
             response()->json(
                 [
                    'status' => false,
-                   'message' => $validator->errors()->first()
+                   'message' => $validator->errors()->first(),
+                   'errors' => $errors
                     ],
                 JsonResponse::HTTP_BAD_REQUEST
             )

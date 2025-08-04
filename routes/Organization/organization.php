@@ -83,6 +83,7 @@ use App\Http\Controllers\Organization\MainSession\FetchMainSessionStageControlle
 use App\Http\Controllers\Organization\MainSession\SortGroupStageSessionController;
 use App\Http\Controllers\Organization\Competition\AssignCompetitionRewardController;
 use App\Http\Controllers\Organization\MainSession\FetchMainSessionSurahAndAyahController;
+use App\Http\Controllers\Organization\Report\ReportController;
 
 //AUTH
 Route::controller(AuthController::class)->group(function () {
@@ -594,7 +595,14 @@ Route::middleware('auth:organization')->group(function () {
         Route::post('join_room',  'join_room');
     });
     /* END 100MS LIVE */
-});
+
+    /* START Reports */
+    Route::controller(ReportController::class)->group(function () {
+        Route::post('fetch_reports',  'index');
+        Route::post('fetch_report_details',  'show');
+        Route::post('add_report',  'store');
+    });
+}); // end of auth:organization
 
 /* START GLOBAL */
 Route::controller(GlobalController::class)->group(function () {
