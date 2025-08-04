@@ -16,7 +16,7 @@ use App\Http\Resources\Organization\Report\ReportResource;
 use App\Models\Ayah;
 use App\Models\Report\Report;
 use App\Models\Surah\Surah;
-use App\ReportTypeEnum;
+use App\Enum\ReportTypeEnum;
 
 class ReportService
 {
@@ -60,7 +60,7 @@ class ReportService
             $data['user_id'] = $dataRequest->user_id;
             $data['degree'] = $dataRequest->degree;
             $data['is_absent'] = $dataRequest->is_absent ?? false;
-            $data['teacher_id'] = $dataRequest->teacher_id;
+            $data['teacher_id'] = $dataRequest->teacher_id ?? auth('organization')->user()->id;
             $data['session_id'] = $dataRequest->session_id;
             $data['group_id'] = $dataRequest->group_id;
             $data['stage_id'] = $dataRequest->stage_id;

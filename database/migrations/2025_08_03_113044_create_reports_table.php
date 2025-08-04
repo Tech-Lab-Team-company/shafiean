@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('reports', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('order_by')->default(0);
+            $table->timestamp('date')->nullable();
             $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('restrict');
             // $table->foreignId('organization_id')->nullable()->constrained('organizations')->onDelete('restrict');
             $table->unsignedInteger('degree')->default(0);

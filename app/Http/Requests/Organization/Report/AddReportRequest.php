@@ -8,7 +8,7 @@ use App\Enum\UserTypeEnum;
 use App\Helpers\Response\ApiRequest;
 use App\Models\Ayah;
 use App\Models\Surah\Surah;
-use App\ReportTypeEnum;
+use App\Enum\ReportTypeEnum;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 

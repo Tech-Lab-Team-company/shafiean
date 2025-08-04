@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -20,9 +21,9 @@ class YearResource extends JsonResource
             'status' => $this->status,
             'country' => new CountryResource($this->country),
             'start_date' => $this->start_date ?? '',
-            'hijri_start_date' => $this->hijri_start_date ?? '',
-            'end_date' => $this->end_date ?? '',
-            'hijri_end_date' => $this->hijri_end_date ?? ''
+            'hijri_start_date' => $this->start_date ? Carbon::parse($this->start_date)->toHijri()->isoFormat('LLLL') : "",
+            'end_date' => $this->end_date ?? "",
+            'hijri_end_date' => $this->end_date ? Carbon::parse($this->end_date)->toHijri()->isoFormat('LLLL') : "",
         ];
     }
 }

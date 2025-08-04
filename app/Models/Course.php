@@ -74,8 +74,10 @@ class Course extends Model
     {
         $value = $this->start_date;
         return CastsAttribute::make(
-            get: fn ($value) => $value ? Carbon::parse($value)->format('Y-m-d') : null,
-            set: fn ($value) => $value ? Carbon::parse($value)->format('Y-m-d') : null,
+            get: function ($value) {
+                return $value ? Carbon::parse($value)->toHijri()->isoFormat('LLLL') : "";
+            }
+            
         );
     }
 
@@ -83,8 +85,10 @@ class Course extends Model
     {
         $value = $this->end_date;
         return CastsAttribute::make(
-            get: fn ($value) => $value ? Carbon::parse($value)->format('Y-m-d') : null,
-            set: fn ($value) => $value ? Carbon::parse($value)->format('Y-m-d') : null,
+            get: function ($value) {
+                return $value ? Carbon::parse($value)->toHijri()->isoFormat('LLLL') : "";
+            }
+            // set: fn ($value) => $value ? Carbon::parse($value)->format('Y-m-d') : null,
         );
     }
 }
