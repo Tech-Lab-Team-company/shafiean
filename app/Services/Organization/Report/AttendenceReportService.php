@@ -35,7 +35,7 @@ class AttendenceReportService
                 }) */;
             });
             $data =  $reports
-                ->orderBy('order_by', 'asc')
+                ->orderBy('id', 'desc')
                 ->orderBy('updated_at', 'desc')
                 ->paginate(10);
             return new DataSuccess(

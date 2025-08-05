@@ -15,6 +15,9 @@ enum ReportTypeEnum:int
             self::QURAAN => [
                 'label' => 'Quraan',
             ],
+            self::ATTENDENCE => [
+                'label' => 'Attendence Report',
+            ],
             default => [
                 'label' => '',
             ]

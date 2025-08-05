@@ -240,5 +240,6 @@ return [
         'from_ayah_id' => 'بدايه من الايه',
         'to_ayah_id' => 'نهاية إلى الايه',  
         "from_surah_id" => " سورة بدايه",
+        "report_id" => "التقرير",
     ],
 ];

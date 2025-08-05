@@ -45,13 +45,6 @@ class ReportService
             );
         }
     }
-    private function storeGroupStage($groupId, $stageId)
-    {
-        return GroupStage::create([
-            'group_id' => $groupId,
-            'stage_id' => $stageId,
-        ]);
-    }
     public function create($dataRequest): DataStatus
     {
         try {
