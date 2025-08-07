@@ -13,6 +13,7 @@ return Application::configure(basePath: dirname(__DIR__))
             __DIR__ . '/../routes/Shafiean/shafiean.php',
             __DIR__ . '/../routes/User/user.php',
             __DIR__ . '/../routes/Parent/parent.php',
+            // __DIR__ . '/../app/Modules/Notification/Http/Routes/Dashboard.php',
         ],
         commands: __DIR__ . '/../routes/console.php',
         health: '/up',

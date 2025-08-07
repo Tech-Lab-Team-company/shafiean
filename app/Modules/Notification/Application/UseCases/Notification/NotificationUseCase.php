@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use App\Modules\Base\Domain\Holders\AuthHolder;
 use App\Modules\Base\Domain\Enums\AuthGurdTypeEnum;
 use App\Modules\Base\Application\Response\DataStatus;
+use App\Modules\Base\Application\Response\DataSuccess;
 use App\Modules\Notification\Application\DTOS\Notification\NotificationDTO;
 use App\Modules\Notification\Http\Resources\Notification\NotificationResource;
 use App\Modules\Notification\Application\DTOS\Notification\NotificationFilterDTO;
@@ -33,15 +34,16 @@ class NotificationUseCase
     {
         $this->NotificationRepository = $NotificationRepository;
         $this->NotificationUserRepository = new NotificationUserRepository();
-        $this->userRepository = new UserRepository();
+        // $this->userRepository = new UserRepository();
         $this->user = AuthHolder::getInstance()->getAuth(AuthGurdTypeEnum::USER->value);
-        $this->employee = AuthHolder::getInstance()->getAuth(AuthGurdTypeEnum::EMPLOYEE->value);
+        $this->employee = AuthHolder::getInstance()->getAuth(AuthGurdTypeEnum::ORGANIZATION->value);
         $this->topicRepository = new TopicRepository();
     }
 
 
     public function fetchNotifications(NotificationFilterDTO $NotificationFilterDTO): DataStatus
     {
+        // dd($this->user,$this->employee);
         try {
             // dd($NotificationFilterDTO);
             $relations = [];
@@ -60,7 +62,7 @@ class NotificationUseCase
 
             // $resourceData["unread_notifications_count"] = $this->user->notifications()->count();
             $resourceData = $NotificationFilterDTO->paginate ? NotificationResource::collection($Notifications)->response()->getData(true) : NotificationResource::collection($Notifications);
-            return DataSuccess(
+            return new DataSuccess(
                 status: true,
                 message: 'Notification fetched successfully',
                 resourceData: $resourceData,

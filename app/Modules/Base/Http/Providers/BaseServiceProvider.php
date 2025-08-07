@@ -39,11 +39,11 @@ class BaseServiceProvider extends ServiceProvider
         // Register middleware
         $this->app['router']->aliasMiddleware('baseAuthMiddleware', \App\Modules\Base\Http\Middleware\BaseAuthMiddleware::class);
         config([
-            'auth.guards.employee' => [
+            'auth.guards.organization' => [
                 'driver' => 'sanctum',
                 'provider' => 'employees',
             ],
-            'auth.providers.employees' => [
+            'auth.providers.teachers' => [
                 'driver' => 'eloquent',
                 'model' => Teacher::class,
             ],
