@@ -2,7 +2,8 @@
 
 namespace App\Modules\Notification\Application\UseCases\Notification;
 
-use App\Modules\Auth\Application\DTOS\Customer\UserFilterDTO;
+use App\DTOS\UserFilterDTO;
+use App\Models\User;
 use App\Modules\Auth\Infrastructure\Persistence\Repositories\Customer\UserRepository;
 use Illuminate\Support\Facades\DB;
 use App\Modules\Base\Domain\Holders\AuthHolder;
@@ -112,17 +113,8 @@ class NotificationUseCase
 
         try {
             // 1. Determine user IDs
-            if (empty($NotificationDTO->userIds)) {+
-                $userIds = $this->userRepository->filter(
-                    dto: new UserFilterDTO([
-                        'is_approved' => true,
-                        'is_blocked' => false,
-                    ]),
-                    whereHasRelations: [
-                        'userDevices' => [],
-                    ],
-                    pluckField: 'id',
-                );
+            if (empty($NotificationDTO->userIds)) {
+                $userIds = User::select('id')->where('organization_id', $this->employee->organization_id)->pluck('id')->toArray();
                 // $NotificationDTO->userIds = $userIds;
             } else {
                 $userIds = $NotificationDTO->userIds;
@@ -160,7 +152,7 @@ class NotificationUseCase
             return DataSuccess(
                 status: true,
                 message: 'Notification created and sent successfully.',
-                data: (object)[]
+                data: $notification
             );
         } catch (\Exception $e) {
             DB::rollBack();

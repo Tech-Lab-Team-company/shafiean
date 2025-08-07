@@ -43,10 +43,10 @@ function hashUserPassword($password)
 {
     return Hash::make($password);
 }
-function hashApiToken()
+/* function hashApiToken()
 {
     return Hash::make(rand(99, 99999999));
-}
+} */
 function userApiToken(Model $model, string $name)
 {
     return $model->createToken($name)->plainTextToken;
@@ -61,11 +61,11 @@ function ConvertToArray($value): array
     $value = is_array($value) ? $value : [$value];
     return $value;
 }
-function enumCaseValue($enum)
+/* function enumCaseValue($enum)
 {
     $values = array_map(fn($case) => $case->value, $enum::cases());
     return implode(',', $values);
-}
+} */
 
 function reflectionClass(string $namespace): object
 {

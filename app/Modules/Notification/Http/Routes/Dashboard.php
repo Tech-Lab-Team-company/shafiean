@@ -9,9 +9,9 @@ use App\Modules\Notification\Http\Controllers\Notification\Dashboard\Notificatio
 Route::prefix('api')->middleware('baseAuthMiddleware:organization')->group(function () {
     Route::controller(NotificationController::class)->group(function () {
         Route::post('fetch_organization_notifications', 'fetchNotifications');
-        Route::post('create_notification', 'createNotification');
-        Route::post('update_notification', 'updateNotification');
-        Route::post('delete_notification', 'deleteNotification');
+        Route::post('create_organization_notification', 'createNotification');
+        Route::post('update_organization_notification', 'updateNotification');
+        Route::post('delete_organization_notification', 'deleteNotification');
     });
     Route::controller(TopicController::class)->group(function () {
         Route::post('fetch_topics', 'fetchTopics');

@@ -91,7 +91,7 @@ function uploadImages($names, $title)
     return $paths;
 }
 
-function delete_image($path)
+/* function delete_image($path)
 {
     if ($path != "uploads/default.jpg") {
         File::delete(getImageLink($path));
@@ -100,7 +100,7 @@ function delete_image($path)
 function deleteFile($filePath, $disk = 'public')
 {
     Storage::disk($disk)->delete($filePath);
-}
+} */
 function deleteMediaFile(?string $filePath, string $disk = 'public'): void
 {
     if ($filePath && Storage::disk($disk)->exists($filePath)) {
@@ -304,7 +304,7 @@ function fileHandle($request, string $name, ?Model $model = null, string $folder
 
     return optional($model)->$name;
 }
-function uploadFile($name, string $folder)
+/* function uploadFile($name, string $folder)
 {
 
     $pdf = $name;
@@ -313,7 +313,7 @@ function uploadFile($name, string $folder)
 
 
     return 'files/' . $path ?? null;
-}
+} */
 function deleteImage($path)
 {
     if ($path != "uploads/default.jpg") {
