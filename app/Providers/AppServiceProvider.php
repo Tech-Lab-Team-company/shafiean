@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Models\Organization\Relation\Relation;
 use App\Models\Teacher;
 use App\Models\User;
+use App\Modules\Base\Http\Providers\BaseServiceProvider;
 use App\Modules\Notification\Http\Providers\NotificationServiceProvider;
 use Illuminate\Support\ServiceProvider;
 use App\Observers\OrganizationIdObserver;
@@ -32,5 +33,6 @@ class AppServiceProvider extends ServiceProvider
         User::observe(UserObserver::class);
         Teacher::observe(TeacherObserver::class);
         $this->app->register(NotificationServiceProvider::class);
+        $this->app->register(BaseServiceProvider::class);
     }
 }

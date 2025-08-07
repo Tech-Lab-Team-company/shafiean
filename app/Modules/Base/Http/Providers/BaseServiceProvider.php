@@ -29,9 +29,9 @@ class BaseServiceProvider extends ServiceProvider
 
         $this->loadRoutesFrom(app_path('Modules/Base/Http/Routes/Api.php'));
         $this->loadRoutesFrom(app_path('Modules/Base/Http/Routes/console.php'));
-        foreach (glob(app_path('Modules/Base/Application/Helpers') . '/*.php') as $filename) {
-            require_once $filename;
-        }
+        // foreach (glob(app_path('Modules/Base/Application/Helpers') . '/*.php') as $filename) {
+        //     require_once $filename;
+        // }
         $this->commands([
             \App\Modules\Base\Domain\Command\MakeModule::class,
         ]);
@@ -41,7 +41,7 @@ class BaseServiceProvider extends ServiceProvider
         config([
             'auth.guards.organization' => [
                 'driver' => 'sanctum',
-                'provider' => 'employees',
+                'provider' => 'teachers',
             ],
             'auth.providers.teachers' => [
                 'driver' => 'eloquent',
