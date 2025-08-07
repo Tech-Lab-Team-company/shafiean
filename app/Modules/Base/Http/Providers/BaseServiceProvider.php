@@ -2,8 +2,11 @@
 
 namespace App\Modules\Base\Http\Providers;
 
-use App\Modules\Auth\Infrastructure\Persistence\Models\Admin\Employee;
-use App\Modules\Auth\Infrastructure\Persistence\Models\Customer\User;
+// use App\Modules\Auth\Infrastructure\Persistence\Models\Admin\Employee;
+// use App\Modules\Auth\Infrastructure\Persistence\Models\Customer\User;
+
+use App\Models\Teacher;
+use App\Models\User;
 use Illuminate\Support\ServiceProvider;
 
 class BaseServiceProvider extends ServiceProvider
@@ -42,7 +45,7 @@ class BaseServiceProvider extends ServiceProvider
             ],
             'auth.providers.employees' => [
                 'driver' => 'eloquent',
-                'model' => Employee::class,
+                'model' => Teacher::class,
             ],
             'auth.guards.user' => [
                 'driver' => 'sanctum',
