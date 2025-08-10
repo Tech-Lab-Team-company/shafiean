@@ -5,6 +5,7 @@ namespace App\Modules\Notification\Application\UseCases\Notification;
 use App\DTOS\UserFilterDTO;
 use App\Models\User;
 use App\Modules\Auth\Infrastructure\Persistence\Repositories\Customer\UserRepository;
+use App\Modules\Base\Application\Response\DataFailed;
 use Illuminate\Support\Facades\DB;
 use App\Modules\Base\Domain\Holders\AuthHolder;
 use App\Modules\Base\Domain\Enums\AuthGurdTypeEnum;
@@ -236,8 +237,15 @@ class NotificationUseCase
             if (isset($NotificationDTO->notification_id)) {
                 // $Notification = $this->NotificationRepository->update($NotificationDTO->notification_id, $NotificationDTO);
                 $notification = $this->NotificationRepository->getById($NotificationDTO->notification_id);
-                $notification->users()->where('users.id', $this->user->id)->update(['is_read' => true]);
-                $notification->refresh();
+                // dd($notification->users()->where('users.id', $this->user->id)->first());
+                $userNotification = $notification->users()->where('users.id', $this->user->id)->first();
+                
+                if (!$userNotification) {
+                    return new DataFailed(
+                        statusCode: 404,
+                        message: 'Notification not found'
+                    );
+                }
                 $notificationResource = new NotificationResource($notification);
             } else {
                 //update all notifications for this user
@@ -270,7 +278,7 @@ class NotificationUseCase
                             ->updatePivot('users', 1, ['is_read' => false]); */
                     }
                 }
-                $notificationResource = null;
+                $notificationResource = (object)[];
             }
 
             return DataSuccess(

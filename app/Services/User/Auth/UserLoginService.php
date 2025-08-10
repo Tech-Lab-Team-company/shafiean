@@ -31,6 +31,11 @@ class UserLoginService
                 $user = User::where("phone",$dataRequest['credential'] )->first();
             }elseif (User::where("username",$dataRequest['credential'] )->exists()) {
                 $user = User::where("username",$dataRequest['credential'] )->first();
+            }else{
+                return new DataFailed(
+                    status: false,
+                    message: "Invalid Credential"
+                );
             }
 
             // $this->checkVerified($user);

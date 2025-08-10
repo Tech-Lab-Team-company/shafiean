@@ -36,6 +36,7 @@ use App\Http\Controllers\User\Group\FetchUserSubscriptionGroupController;
 use App\Http\Controllers\User\ExamResultAnswer\ExamResultAnswerController;
 use App\Http\Controllers\User\Course\FetchUserSubscriptionCourseController;
 use App\Http\Controllers\User\LibraryCategory\FetchLibraryCategoryController;
+use App\Modules\Notification\Http\Controllers\Notification\Api\NotificationController;
 
 // AUTH
 Route::middleware(CheckWebsiteLinkMiddleware::class)->group(function () {
@@ -125,6 +126,12 @@ Route::middleware('auth:user')->group(function () {
         Route::post('user_fetch_blogs', 'fetchBlogs');
         Route::post('user_fetch_blog_details', 'fetchBlogDetails');
     });
+
+    Route::post('fetch_user_notifications', [NotificationController::class, 'fetchNotifications']);
+    Route::controller(NotificationController::class)->group(function () {
+            Route::post('fetch_unread_notification_count', 'fetchUnreadNotificationCount');
+            Route::post('read_notification', 'updateNotification');
+        });
     /**
      * END POINT END
      */
