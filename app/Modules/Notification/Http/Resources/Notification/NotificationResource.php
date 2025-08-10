@@ -24,7 +24,7 @@ class NotificationResource extends JsonResource
             'image' => $this->image_link,
             'url' => $this->url,
             'created_at' => $this->created_at->format('Y-m-d H:i:s'),
-            'is_read' => $this->isRead($user) == null || $this->isRead($user)->is_read == false ? false : true
+            'is_read' => $this->isRead($user)
         ];
     }
 }

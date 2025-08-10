@@ -5,6 +5,7 @@ namespace App\Modules\Notification\Http\Controllers\Notification\Dashboard;
 use Illuminate\Http\Request;
 use GuzzleHttp\Promise\Create;
 use App\Http\Controllers\Controller;
+use App\Modules\Base\Application\Enums\View\ViewTypeEnum;
 use App\Modules\Notification\Application\UseCases\Notification\NotificationUseCase;
 use App\Modules\Notification\Http\Requests\Notification\Global\NotificationIdRequest;
 use App\Modules\Notification\Http\Requests\Notification\Dashboard\FetchNotificationRequest;
@@ -23,7 +24,7 @@ class NotificationController extends Controller
 
     public function fetchNotifications(FetchNotificationRequest $request)
     {
-        return $this->NotificationUseCase->fetchNotifications($request->toDTO())->response();
+        return $this->NotificationUseCase->fetchNotifications($request->toDTO(),ViewTypeEnum::DASHBOARD->value)->response();
     }
 
     public function createNotification(CreateNotificationRequest $request)

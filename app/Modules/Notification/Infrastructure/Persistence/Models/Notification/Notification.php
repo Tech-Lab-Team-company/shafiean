@@ -2,13 +2,14 @@
 
 namespace App\Modules\Notification\Infrastructure\Persistence\Models\Notification;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 
 use Illuminate\Support\Facades\Storage;
 use Astrotomic\Translatable\Translatable;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use App\Modules\Auth\Infrastructure\Persistence\Models\Customer\User;
+// use App\Modules\Auth\Infrastructure\Persistence\Models\Customer\User;
 use App\Modules\Notification\Infrastructure\Persistence\Models\NotificationUser\NotificationUser;
 use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
 
@@ -60,6 +61,6 @@ class Notification extends Model
     }
     public function isRead($user)
     {
-        return $this->userNotifications()->where('user_id', $user->id)->first();
+        return isset($user) ? $this->userNotifications()->where('user_id', $user->id)->first()?->is_read : false;
     }
 }
