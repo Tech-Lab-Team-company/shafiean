@@ -34,4 +34,5 @@ class NotificationController extends Controller
         return $this->NotificationUseCase->updateNotification($request->toDTO())->response();
     }
 
+    
 }

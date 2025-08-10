@@ -2,9 +2,8 @@
 
 namespace App\Modules\Notification\Application\UseCases\Notification;
 
-use App\DTOS\UserFilterDTO;
 use App\Models\User;
-use App\Modules\Auth\Infrastructure\Persistence\Repositories\Customer\UserRepository;
+use App\Modules\Base\Application\Enums\View\ViewTypeEnum;
 use App\Modules\Base\Application\Response\DataFailed;
 use Illuminate\Support\Facades\DB;
 use App\Modules\Base\Domain\Holders\AuthHolder;
@@ -12,7 +11,8 @@ use App\Modules\Base\Domain\Enums\AuthGurdTypeEnum;
 use App\Modules\Base\Application\Response\DataStatus;
 use App\Modules\Base\Application\Response\DataSuccess;
 use App\Modules\Notification\Application\DTOS\Notification\NotificationDTO;
-use App\Modules\Notification\Http\Resources\Notification\NotificationResource;
+use App\Modules\Notification\Http\Resources\Notification\Dashboard\NotificationResource;
+use App\Modules\Notification\Http\Resources\Notification\Api\NotificationResource as MobileNotificationResource;
 use App\Modules\Notification\Application\DTOS\Notification\NotificationFilterDTO;
 use App\Modules\Notification\Application\DTOS\NotificationUser\NotificationUserDTO;
 use App\Modules\Notification\Application\DTOS\Topic\TopicFilterDTO;
@@ -43,7 +43,7 @@ class NotificationUseCase
     }
 
 
-    public function fetchNotifications(NotificationFilterDTO $NotificationFilterDTO): DataStatus
+    public function fetchNotifications(NotificationFilterDTO $NotificationFilterDTO,$viewType=ViewTypeEnum::DASHBOARD->value): DataStatus
     {
         // dd($this->user,$this->employee);
         try {
@@ -63,7 +63,7 @@ class NotificationUseCase
             );
 
             // $resourceData["unread_notifications_count"] = $this->user->notifications()->count();
-            $resourceData = $NotificationFilterDTO->paginate ? NotificationResource::collection($Notifications)->response()->getData(true) : NotificationResource::collection($Notifications);
+            $resourceData = $NotificationFilterDTO->paginate ? $this->HandelNotificationCollection($Notifications, $viewType)->response()->getData(true) : $this->HandelNotificationCollection($Notifications, $viewType);
             return new DataSuccess(
                 status: true,
                 message: 'Notification fetched successfully',
@@ -307,6 +307,28 @@ class NotificationUseCase
                 status: false,
                 message: $e->getMessage()
             );
+        }
+    }
+
+    private function HandelNotificationCollection($notifications, $viewType)
+    {
+        if ($viewType == ViewTypeEnum::DASHBOARD->value) {
+            return NotificationResource::collection($notifications);
+        } elseif ($viewType == ViewTypeEnum::MOBILE->value) {
+            return MobileNotificationResource::collection($notifications);
+        } else {
+            return NotificationResource::collection($notifications);
+        }
+    }
+
+    private function HandelNotificationResource($notifications, $viewType)
+    {
+        if ($viewType == ViewTypeEnum::DASHBOARD->value) {
+            return NotificationResource::make($notifications);
+        } elseif ($viewType == ViewTypeEnum::MOBILE->value) {
+            return MobileNotificationResource::make($notifications);
+        } else {
+            return NotificationResource::make($notifications);
         }
     }
 }
