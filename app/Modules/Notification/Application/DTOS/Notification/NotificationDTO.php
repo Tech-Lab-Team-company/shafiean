@@ -17,7 +17,6 @@ class NotificationDTO extends BaseDTOAbstract
     public $userIds;
     public $topic_id;
     public $is_read;
-
     public function __construct(array $data = [])
     {
         parent::__construct($data);
