@@ -11,6 +11,8 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Alkoumi\LaravelHijriDate\Hijri;
+
 
 class Report extends Model
 {
@@ -62,9 +64,10 @@ class Report extends Model
     public function hijriDate(): Attribute
     {
         return Attribute::make(
-            get: function () {
-                return $this->date ? Carbon::parse($this->date)->toHijri()->isoFormat('LLLL') : "";
-            }
+            get: fn($value, $attributes) =>
+            !empty($attributes['date'])
+            ? Hijri::Date('l d F o', $attributes['date'])
+            : ""
         );
     }
 
