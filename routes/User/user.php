@@ -1,11 +1,13 @@
 <?php
 
+
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use App\Models\Organization\Blog\Blog;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
+use App\Http\Controllers\Global\ChatController;
 use App\Http\Controllers\User\Rate\RateController;
 use App\Http\Middleware\CheckWebsiteLinkMiddleware;
 use App\Http\Controllers\User\Group\GroupController;
@@ -48,6 +50,7 @@ Route::post('user_check_code', UserCheckCodeController::class);
 Route::post('user_check_email', UserCheckEmailController::class);
 Route::get('user_fetch_disabilities', [DisabilityController::class, 'fetch_disabilities']);
 Route::middleware('auth:user')->group(function () {
+    Route::post('send-message', [ChatController::class, 'sendMessage']);
     // AUTH
     Route::post('user_logout', UserLogoutController::class);
     Route::post('user_change_password', UserChangePasswordController::class);
@@ -129,9 +132,9 @@ Route::middleware('auth:user')->group(function () {
 
     Route::post('fetch_user_notifications', [NotificationController::class, 'fetchNotifications']);
     Route::controller(NotificationController::class)->group(function () {
-            Route::post('fetch_unread_notification_count', 'fetchUnreadNotificationCount');
-            Route::post('read_notification', 'updateNotification');
-        });
+        Route::post('fetch_unread_notification_count', 'fetchUnreadNotificationCount');
+        Route::post('read_notification', 'updateNotification');
+    });
     /**
      * END POINT END
      */
