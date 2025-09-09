@@ -22,7 +22,7 @@ class GroupResource extends JsonResource
             'title' => $this->title,
             'start_date' => $this->start_date,
             'end_date' => $this->end_date,
-            'course' => new CourseResource($this->course),
+            'course' =>$this->course ? new CourseResource($this->course) : (object)[],
             // 'start_time' => $this->start_time,
             // 'end_time' => $this->end_time,
             // 'status' => $this->status,
