@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Message extends Model
 {
-    use HasFactory , SoftDeletes;
+    use HasFactory, SoftDeletes;
 
     protected $fillable = [
         'user_id',
@@ -16,5 +16,13 @@ class Message extends Model
         'message',
         'is_read',
         'status',
+        'userable_id',
+        'userable_type',
     ];
+
+
+    public function userable()
+    {
+        return $this->morphTo();
+    }
 }

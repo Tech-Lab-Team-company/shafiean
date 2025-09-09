@@ -13,6 +13,9 @@ class ChatUser extends Model
     protected $fillable = [
         'user_id',
         'chat_id',
+        'is_admin',
+        'admin_id',
+        'teacher_id',
     ];
 
     protected $table = 'chat_users';

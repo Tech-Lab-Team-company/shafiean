@@ -7,43 +7,54 @@ use App\Models\Chat\Chat;
 use App\Enum\ChatTypeEnum;
 use App\Events\PrivateChatEvent;
 use Illuminate\Support\Facades\DB;
+use App\Helpers\Response\DataStatus;
+use App\Helpers\Response\DataSuccess;
 
 class ChatService
 {
-    public function SendMessage($request)
+    public function SendMessage($request): DataStatus
     {
         try {
             // dd($request->message);
-            broadcast(new PrivateChatEvent($request->message))->toOthers();
-            // if (!isset($request->chat_id) && isset($request->user_id)) {
 
-            //     $chat = Chat::whereHas('users', function ($query) use ($request) {
-            //         $query->whereIn('user_id', [$request->user_id, auth()->guard('user')->user()->id]);
-            //     });
-            //     $user = User::find($request->user_id);
-            //     if (!$chat->exists()) {
-            //         DB::beginTransaction();
-            //         $chat =  Chat::create([
-            //             'name' => auth()->guard('user')->user()->name . $user->name,
-            //             'type' => ChatTypeEnum::PRIVATE->value,
-            //         ]);
-            //         $chat->users()->attach($request->user_id);
-            //         $chat->users()->attach(auth()->guard('user')->user()->id);
-            //     }
-            //     $message = $chat->messages()->create([
-            //         'user_id' => $request->user_id,
-            //         'message' => $request->message,
-            //     ]);
-            //     DB::commit();
-            // } else {
-            //     DB::beginTransaction();
-            //     $message = Chat::find($request->chat_id)->messages()->create([
-            //         'user_id' => $request->user_id,
-            //         'message' => $request->message,
-            //     ]);
-            //     DB::commit();
-            // }
-            // return $message;
+            if (!isset($request->chat_id) && isset($request->user_id)) {
+
+                $oldChat = Chat::whereHas('users', function ($query) use ($request) {
+                    $query->whereIn('user_id', [$request->user_id, auth()->guard('user')->user()->id]);
+                })->where('type', ChatTypeEnum::PRIVATE->value);
+                // dd($chat);
+                $user = User::find($request->user_id);
+                // dd($user);
+                if (!$oldChat->exists()) {
+                    DB::beginTransaction();
+                    $chat =  Chat::create([
+                        'name' => auth()->guard('user')->user()->name . $user->name,
+                        'type' => ChatTypeEnum::PRIVATE->value,
+                    ]);
+                    // dd($chat);
+                    $chat->users()->attach($request->user_id);
+                    $chat->users()->attach(auth()->guard('user')->user()->id);
+                    $message = $chat->messages()->create([
+                        'userable_id' => $request->user_id,
+                        'userable_type' => User::class,
+                        'message' => $request->message,
+                    ]);
+                    DB::commit();
+                }
+            } else {
+                DB::beginTransaction();
+                $message = Chat::find($request->chat_id)->messages()->create([
+                    'userable_id' => $request->user_id,
+                    'userable_type' => User::class,
+                    'message' => $request->message,
+                ]);
+                DB::commit();
+            }
+            broadcast(new PrivateChatEvent($request->message, $request->user_id))->toOthers();
+            return new DataSuccess(
+                status: true,
+                message: __('messages.success_send_message')
+            );
         } catch (\Throwable $th) {
             DB::rollBack();
             throw $th;

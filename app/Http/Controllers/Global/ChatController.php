@@ -17,6 +17,6 @@ class ChatController extends Controller
     }
     public function SendMessage(Request $request)
     {
-        $chat = $this->chatService->SendMessage($request);
+        return  $this->chatService->SendMessage($request)->response();
     }
 }

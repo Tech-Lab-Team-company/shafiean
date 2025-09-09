@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('slug')->unique()->nullable();
             $table->tinyInteger('type')->default(1)->nullable()->comment('1 => Private , 2 => Group');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

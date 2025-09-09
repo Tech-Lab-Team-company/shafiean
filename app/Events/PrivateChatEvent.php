@@ -3,23 +3,26 @@
 namespace App\Events;
 
 use Illuminate\Broadcasting\Channel;
-use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Broadcasting\PresenceChannel;
-use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
-use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Broadcasting\PrivateChannel;
+use Illuminate\Broadcasting\PresenceChannel;
+use Illuminate\Foundation\Events\Dispatchable;
+use Illuminate\Broadcasting\InteractsWithSockets;
+use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
+use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
 
-class PrivateChatEvent implements ShouldBroadcast
+class PrivateChatEvent implements ShouldBroadcastNow
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
     public $message;
+    public $user_id;
     /**
      * Create a new event instance.
      */
-    public function __construct($message)
+    public function __construct($message, $user_id)
     {
         $this->message = $message;
+        $this->user_id = $user_id;
         // dd($this->message);
     }
 
@@ -28,16 +31,10 @@ class PrivateChatEvent implements ShouldBroadcast
      *
      * @return array<int, \Illuminate\Broadcasting\Channel>
      */
-    // public function broadcastOn(): array
-    // {
-    //     return [
-    //         new PrivateChannel('channel-name'),
-    //     ];
-    // }
-    public function broadcastOn()
+    public function broadcastOn(): array
     {
-         return [
-            new Channel('course'),
+        return [
+            new PrivateChannel('private-channel.' . $this->user_id),
         ];
     }
 
@@ -52,6 +49,7 @@ class PrivateChatEvent implements ShouldBroadcast
         // dd($this->message);
         return [
             'message' => $this->message,
+            'user_id' => $this->user_id,
         ];
     }
 }

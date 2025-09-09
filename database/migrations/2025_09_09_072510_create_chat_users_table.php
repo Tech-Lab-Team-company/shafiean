@@ -13,12 +13,15 @@ return new class extends Migration
     {
         Schema::create('chat_users', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('chat_id');
-            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('chat_id')->nullable();
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->unsignedBigInteger('admin_id')->nullable();
+            $table->unsignedBigInteger('teacher_id')->nullable();
             $table->tinyInteger('is_admin')->default(0);
             $table->foreign('chat_id')->references('id')->on('chats')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

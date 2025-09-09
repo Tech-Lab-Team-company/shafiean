@@ -13,14 +13,14 @@ return new class extends Migration
     {
         Schema::create('messages', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('chat_id');
-            $table->unsignedBigInteger('user_id');
-            $table->longText('message');
+            $table->unsignedBigInteger('chat_id')->nullable();
+            $table->nullableMorphs('userable');
+            $table->longText('message')->nullable();
             $table->tinyInteger('is_read')->default(0)->comment('0 => Unread , 1 => Read');
-            $table->tinyInteger('is_read')->default(0);
+            $table->tinyInteger('status')->default(0);
             $table->foreign('chat_id')->references('id')->on('chats')->onDelete('cascade');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
