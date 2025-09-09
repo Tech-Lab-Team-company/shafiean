@@ -6,6 +6,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
+        "alkoumi/laravel-hijri-date": "^1.0",
         "firebase/php-jwt": "^6.10",
         "ichtrojan/laravel-otp": "*",
         "intervention/image": "^3.7",
