@@ -49,6 +49,7 @@ public function rules(): array
             Rule::exists('surahs', 'id')
         ],
         'reports.*.to_ayah_id' => 'required_with:reports.*.to_surah_id|exists:ayahs,id',
+        'reports.*.notes' => 'nullable|string',
     ];
 }
 
