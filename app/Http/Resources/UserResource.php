@@ -44,7 +44,7 @@ class UserResource extends JsonResource
             'country' => new CountryResource($this->country ?? "") ?? "",
             'city' => new CityResource($this->city ?? "") ?? "",
             // 'user_groups' => UserGroupResource::collection($this->groups ?? []) ?? [],
-            "groups" => UserGroupResource::collection($this->groups ?? []) ?? [],
+            // "groups" => UserGroupResource::collection($this->groups ?? []) ?? [],
         ];
     }
 }
