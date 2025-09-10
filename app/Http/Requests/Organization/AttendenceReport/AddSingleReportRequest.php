@@ -24,6 +24,7 @@ class AddSingleReportRequest extends ApiRequest
             ],
             'is_absent' => 'required|boolean',
             'report_id' => 'nullable|exists:reports,id',
+            'notes' => 'nullable|string',
         ];
     }
 }
