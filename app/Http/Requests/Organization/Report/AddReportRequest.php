@@ -53,7 +53,7 @@ class AddReportRequest extends ApiRequest
                 Rule::exists('surahs', 'id')
             ],
             'to_ayah_id' => 'required|exists:ayahs,id',
-
+            'notes' => 'nullable|string',
             //validation for other non quran here
         ];
     }
