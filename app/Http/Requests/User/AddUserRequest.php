@@ -32,11 +32,11 @@ class AddUserRequest extends ApiRequest
             'address' => 'nullable|string|max:255',
             'blood_type_id' => 'nullable|exists:blood_types,id',
             'country_id' => 'nullable|exists:countries,id',
-            'city_id' => ['nullable|exists:cities,id'],
+            'city_id' => ['nullable', 'exists:cities,id'],
             'group_ids' => 'nullable|array',
             'group_ids.*' => ['nullable', Rule::exists('groups', 'id')->whereNull('deleted_at')],
             'relation_id' => 'requiredif:type,0|exists:relations,id',
-            'parent_id' =>  ['requiredif:type,0', 'exists:users,id'],
+            'parent_id' => ['requiredif:type,0', 'exists:users,id'],
         ];
     }
 
