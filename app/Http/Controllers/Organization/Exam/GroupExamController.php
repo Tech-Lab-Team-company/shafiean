@@ -9,7 +9,7 @@ use App\Http\Requests\Organization\Exam\GroupExam\FetchGroupExamRequest;
 use App\Http\Requests\Organization\Exam\GroupExam\StoreGroupExamRequest;
 use App\Http\Requests\Organization\Exam\GroupExam\DeleteGroupExamRequest;
 use App\Http\Requests\Organization\Exam\GroupExam\UpdateGroupExamRequest;
-use App\Http\Requests\Organization\Exam\GroupExam\FetchGroupExamDetailsRequest;
+use App\Http\Requests\Organization\Exam\GroupExamUser\FetchGroupExamDetailsRequest;
 
 class GroupExamController extends Controller
 {

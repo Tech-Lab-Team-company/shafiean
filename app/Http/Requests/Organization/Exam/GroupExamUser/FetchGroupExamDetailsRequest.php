@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Organization\Exam\GroupExam;
+namespace App\Http\Requests\Organization\Exam\GroupExamUser;
 
 use App\Helpers\Response\ApiRequest;
 
