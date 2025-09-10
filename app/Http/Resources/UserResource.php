@@ -43,8 +43,8 @@ class UserResource extends JsonResource
             'blood_type' => new BloodTypeResource($this->bloodType ?? "") ?? "",
             'country' => new CountryResource($this->country ?? "") ?? "",
             'city' => new CityResource($this->city ?? "") ?? "",
-            'user_groups' => UserGroupResource::collection($this->groups ?? []) ?? [],
-            // "groups" => UserGroupResource::collection($this->groups ?? []) ?? [],
+            // 'user_groups' => UserGroupResource::collection($this->groups ?? []) ?? [],
+            "groups" => UserGroupResource::collection($this->groups ?? []) ?? [],
         ];
     }
 }
