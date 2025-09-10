@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\organization\Surah;
+namespace App\Http\Requests\Organization\Surah;
 
 use App\Helpers\Response\ApiRequest;
 use Illuminate\Foundation\Http\FormRequest;
