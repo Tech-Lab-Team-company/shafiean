@@ -75,6 +75,49 @@ class ReportService
             );
         }
     }
+
+public function createMultiple($dataRequest): DataStatus
+{
+    try {
+        $createdReports = collect();
+
+        foreach ($dataRequest->reports as $reportData) {
+            $data = [
+                'user_id'        => $reportData['user_id'],
+                'degree'         => $reportData['degree'],
+                'is_absent'      => $reportData['is_absent'] ?? false,
+                'teacher_id'     => $reportData['teacher_id'] ?? auth('organization')->id(),
+                'session_id'     => $reportData['session_id'] ?? null,
+                'group_id'       => $reportData['group_id'] ?? null,
+                'stage_id'       => $reportData['stage_id'] ?? null,
+                'session_type_id'=> $reportData['session_type_id'],
+                'type'           => $reportData['type'],
+                'date'           => $reportData['date'],
+                'notes'          => $reportData['notes'] ?? null,
+            ];
+
+            $createData = array_merge(
+                $data,
+                $this->handleCreateReportable((object) $reportData, $data)
+            );
+
+            $createdReports->push(Report::create($createData));
+        }
+
+        return new DataSuccess(
+            data: ReportResource::collection($createdReports),
+            status: true,
+            message: __('messages.success_create')
+        );
+
+    } catch (\Throwable $e) {
+        return new DataFailed(
+            status: false,
+            message: $e->getMessage()
+        );
+    }
+}
+
     private function handleCreateReportable($dataRequest, $data=[]):array
     {
         if($dataRequest->type == ReportTypeEnum::QURAAN->value){
