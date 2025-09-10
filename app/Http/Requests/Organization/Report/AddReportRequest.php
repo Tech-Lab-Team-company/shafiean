@@ -20,7 +20,9 @@ class AddReportRequest extends ApiRequest
     }
     public function rules(): array
     {
+        // $rules = $this->rules();
         return [
+            // 'reports' => 'required|array',
             'date' => 'required|date|date_format:Y-m-d',
             "session_type_id" => "required|exists:session_types,id",
             'type' => [
@@ -61,7 +63,7 @@ class AddReportRequest extends ApiRequest
             if ($this->from_surah_id && $this->from_ayah_id) {
                 $from_surah = Surah::find($this->from_surah_id);
                 $from_ayah = Ayah::find($this->from_ayah_id);
-                
+
                 if ($from_surah->id !== $from_ayah->surah_id) {
                     $validator->errors()->add('from_ayah_id', 'بدايه الايه يجب ان يتوافق مع السورة المحددة');
                 }
@@ -94,7 +96,7 @@ class AddReportRequest extends ApiRequest
     {
         return [
             'from_surah_id.required_if' => 'يجب اختيار سورة بدايه عند اختيار التقرير قرأن',
-            
+
         ];
     }
 }

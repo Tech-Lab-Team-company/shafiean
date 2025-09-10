@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Organization\Report;
 
 
+use App\Http\Requests\Organization\Report\AddReportsRequest;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Organization\Report\AddReportRequest;
@@ -33,6 +34,11 @@ class ReportController extends Controller
     public function store(AddReportRequest $request)
     {
         return $this->reportService->create($request)->response();
+    }
+
+    public function storeMultiple(AddReportsRequest $request)
+    {
+        return $this->reportService->createMultiple($request)->response();
     }
 
     public function show(FetchReportDetailsRequest $request)

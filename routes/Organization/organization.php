@@ -602,6 +602,7 @@ Route::middleware('auth:organization')->group(function () {
         Route::post('fetch_reports',  'index');
         Route::post('fetch_report_details',  'show');
         Route::post('add_report',  'store');
+        Route::post('add_multiple_reports',  'storeMultiple');
         // Route::post('edit_report',  'update');
         Route::post('delete_report',  'destroy');
     });
