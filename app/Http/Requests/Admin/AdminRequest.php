@@ -8,6 +8,11 @@ use Illuminate\Validation\Rule;
 
 class AdminRequest extends ApiRequest
 {
+    protected $admin;
+    public function __construct($admin)
+    {
+        $this->admin = $admin;
+    }
     public function authorize()
     {
         return true;
