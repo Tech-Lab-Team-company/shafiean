@@ -23,9 +23,6 @@ class YearResource extends JsonResource
             'status' => $this->status,
             'country' => new CountryResource($this->country),
             'start_date' => $this->start_date ?? '',
-            // 'hijri_start_date' => $this->start_date ? Carbon::parse($this->start_date)->toHijri()->isoFormat('LLLL') : "",
-            // 'end_date' => $this->end_date ?? "",
-            // 'hijri_end_date' => $this->end_date ? Carbon::parse($this->end_date)->toHijri()->isoFormat('LLLL') : "",
             'hijri_start_date' => $this->start_date
                 ? Hijri::Date('l d F o', $this->start_date)
                 : "",
